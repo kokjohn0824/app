@@ -17,4 +17,9 @@ public class hello {
     public String hello2() {
         return "hihi";
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "test";
+    }
 }

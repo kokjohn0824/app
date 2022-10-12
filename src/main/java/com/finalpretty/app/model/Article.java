@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
@@ -55,11 +56,11 @@ public class Article {
 		}
 	}
 	
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(name = "article_like", joinColumns = {
-//            @JoinColumn(name = "fk_article_id", referencedColumnName = "id") }, inverseJoinColumns = {
-//                    @JoinColumn(name = "fk_member_id", referencedColumnName = "id") })
-//    private Set<Member> member = new HashSet<Member>();
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "article_like", joinColumns = {
+            @JoinColumn(name = "fk_article_id", referencedColumnName = "id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "fk_member_id", referencedColumnName = "id") })
+    private Set<Member> member = new HashSet<Member>();
 
 	public Article() {
 	}

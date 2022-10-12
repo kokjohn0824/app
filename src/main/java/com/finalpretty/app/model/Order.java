@@ -1,12 +1,12 @@
 package com.finalpretty.app.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +19,6 @@ public class Order {
 	@Column(name = "id")
 	private Integer id;
 	
-
 	@Column(name = "total")
 	private Integer total;
 	
@@ -35,9 +34,9 @@ public class Order {
 	@Column(name = "address")
 	private String address;
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "member")
-	@Column(name = "fk_member_id")
-	private Integer fk_member_id;
+	@ManyToOne
+	@JoinColumn(name = "fk_member_id")
+	private Member member;
 	
 	
 	

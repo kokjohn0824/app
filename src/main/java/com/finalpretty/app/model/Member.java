@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -54,7 +55,7 @@ public class Member {
 	@Column(name = "becomeVIP")
 	private Integer becomeVIP;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+//	@OneToOne(cascade = CascadeType.ALL)
 //	private Set<Users> users = new HashSet<Users>();
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -70,16 +71,15 @@ public class Member {
 	private Set<Article> article = new HashSet<Article>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	@JsonManagedReference
 	private Set<DailyRecord> daily_record = new HashSet<DailyRecord>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-//	private Set<Order> order = new HashSet<Order>();
+	private Set<Order> order = new HashSet<Order>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 //	private Set<Post> post = new HashSet<Post>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 //	private Set<Response> response = new HashSet<Response>();
 	
 

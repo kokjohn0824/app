@@ -18,6 +18,21 @@ public class Product {
 	private Integer id;
 	
 	
+	public Product() {
+		
+	}
+	
+	public Product(Integer id, String title, String type, String text, byte[] picture, Integer price, Integer onsale) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.type = type;
+		this.text = text;
+		this.picture = picture;
+		this.price = price;
+		this.onsale = onsale;
+	}
+
 	@Column(name = "title")
 	private String title;
 	

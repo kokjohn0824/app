@@ -41,6 +41,34 @@ public class Order {
 	
 	
 	
+	
+	
+	
+	
+	
+	public Order() {
+		
+	}
+	
+	
+	
+	
+	
+
+	public Order(Integer id, Integer total, Integer ship, Integer paid, Integer price, String address,
+			Integer fk_member_id) {
+		super();
+		this.id = id;
+		this.total = total;
+		this.ship = ship;
+		this.paid = paid;
+		this.price = price;
+		this.address = address;
+		this.fk_member_id = fk_member_id;
+	}
+	
+	
+
 	public Integer getId() {
 		return id;
 	}

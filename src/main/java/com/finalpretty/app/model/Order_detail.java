@@ -30,6 +30,24 @@ public class Order_detail {
 	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
 	@Column(name = "fk_order_id")
 	private Integer fk_order_id;
+	
+	
+	
+	public Order_detail() {
+	
+	}
+	
+	
+	
+	
+
+	public Order_detail(Integer id, Integer count, Integer fk_product_id, Integer fk_order_id) {
+		super();
+		this.id = id;
+		this.count = count;
+		this.fk_product_id = fk_product_id;
+		this.fk_order_id = fk_order_id;
+	}
 
 	public Integer getId() {
 		return id;

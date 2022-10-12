@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order")
+@Table(name="order_detail")
 public class Order_detail {
 	
 	

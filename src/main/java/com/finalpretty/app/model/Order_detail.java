@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+//TODO: fix Order detail
 //@Entity
 @Table(name="order_detail")
 public class Order_detail {
@@ -26,6 +27,7 @@ public class Order_detail {
 	@OneToOne
 	@Column(name = "fk_product_id")
 	private Product product;
+	
 	
 //	@ManyToOne
 //	@Column(name = "fk_order_id")

@@ -19,7 +19,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "member")
 public class Member {
 	
@@ -81,121 +88,5 @@ public class Member {
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 //	private Set<Response> response = new HashSet<Response>();
 	
-
-	public Member() {
-	}
-
-	public Member(Integer age, float height, float weight, float bodyFat, float visceralFat, float muscleMass,
-			byte[] changePhoto, Integer becomeVIP, Set<Video> video, Set<Article> article,
-			Set<DailyRecord> daily_record) {
-		this.age = age;
-		this.height = height;
-		this.weight = weight;
-		this.bodyFat = bodyFat;
-		this.visceralFat = visceralFat;
-		this.muscleMass = muscleMass;
-		this.changePhoto = changePhoto;
-		this.becomeVIP = becomeVIP;
-		this.video = video;
-		this.article = article;
-		this.daily_record = daily_record;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public float getHeight() {
-		return height;
-	}
-
-	public void setHeight(float height) {
-		this.height = height;
-	}
-
-	public float getWeight() {
-		return weight;
-	}
-
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
-
-	public float getBodyFat() {
-		return bodyFat;
-	}
-
-	public void setBodyFat(float bodyFat) {
-		this.bodyFat = bodyFat;
-	}
-
-	public float getVisceralFat() {
-		return visceralFat;
-	}
-
-	public void setVisceralFat(float visceralFat) {
-		this.visceralFat = visceralFat;
-	}
-
-	public float getMuscleMass() {
-		return muscleMass;
-	}
-
-	public void setMuscleMass(float muscleMass) {
-		this.muscleMass = muscleMass;
-	}
-
-	public byte[] getChangePhoto() {
-		return changePhoto;
-	}
-
-	public void setChangePhoto(byte[] changePhoto) {
-		this.changePhoto = changePhoto;
-	}
-
-	public Integer getBecomeVIP() {
-		return becomeVIP;
-	}
-
-	public void setBecomeVIP(Integer becomeVIP) {
-		this.becomeVIP = becomeVIP;
-	}
-
-	public Set<Video> getVideo() {
-		return video;
-	}
-
-	public void setVideo(Set<Video> video) {
-		this.video = video;
-	}
-
-	public Set<Article> getArticle() {
-		return article;
-	}
-
-	public void setArticle(Set<Article> article) {
-		this.article = article;
-	}
-
-	public Set<DailyRecord> getDaily_record() {
-		return daily_record;
-	}
-
-	public void setDaily_record(Set<DailyRecord> daily_record) {
-		this.daily_record = daily_record;
-	}
-
 	
 }

@@ -1,7 +1,5 @@
 package com.finalpretty.app.model;
 
-
-
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,7 +17,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "daily_record")
 public class DailyRecord {
 	
@@ -53,7 +58,5 @@ public class DailyRecord {
 	@JoinColumn(name = "fk_member_id")
 	private Member member; 
 
-	public DailyRecord() {
-	}
 
 }

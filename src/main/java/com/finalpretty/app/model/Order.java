@@ -45,8 +45,8 @@ public class Order {
 	private Member member;
 	
 	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-//	private Set<Order_detail> order_detail = new HashSet<Order_detail>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+	private Set<Order_detail> order_detail = new HashSet<Order_detail>();
 	
 	
 	

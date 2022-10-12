@@ -73,13 +73,13 @@ public class Member {
 	@JsonManagedReference
 	private Set<DailyRecord> daily_record = new HashSet<DailyRecord>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 //	private Set<Order> order = new HashSet<Order>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 //	private Set<Post> post = new HashSet<Post>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 //	private Set<Response> response = new HashSet<Response>();
 	
 

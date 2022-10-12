@@ -11,7 +11,7 @@ CREATE TABLE [dbo].[users](
 	[password] [varchar](50) NULL,
 	[register_date] [date] NULL,
 	[change_password_date] [date] NULL,
-	[row] [int] NULL,
+	[role] [int] NULL,
 	[fk_member_id] [int] NULL
 ) ON [PRIMARY]
 GO

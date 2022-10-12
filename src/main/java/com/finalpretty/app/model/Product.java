@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,22 +17,6 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
-	
-	public Product() {
-		
-	}
-	
-	public Product(Integer id, String title, String type, String text, byte[] picture, Integer price, Integer onsale) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.type = type;
-		this.text = text;
-		this.picture = picture;
-		this.price = price;
-		this.onsale = onsale;
-	}
 
 	@Column(name = "title")
 	private String title;
@@ -50,6 +35,13 @@ public class Product {
 	
 	@Column(name = "onsale")
 	private Integer onsale;
+	
+	
+	
+	
+	
+	public Product() {
+	}
 
 	
 	public Integer getId() {

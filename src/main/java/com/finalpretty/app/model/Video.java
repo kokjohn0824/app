@@ -1,11 +1,18 @@
 package com.finalpretty.app.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -32,9 +39,36 @@ public class Video {
 	@Lob
 	@Column(name="picture")
 	private byte[] picture;
+	
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinTable(name = "video_like", joinColumns = {
+//            @JoinColumn(name = "fk_video_id", referencedColumnName = "id") }, inverseJoinColumns = {
+//                    @JoinColumn(name = "fk_member_id", referencedColumnName = "id") })
+//	private Set<Member> member = new HashSet<Member>();
 
 	public Video() {
 	}
+	
+	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.url = url;
+		this.type = type;
+		this.body_parts = body_parts;
+		this.picture = picture;
+	}
+	
+//	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture, Set<Member> member) {
+//		super();
+//		this.id = id;
+//		this.title = title;
+//		this.url = url;
+//		this.type = type;
+//		this.body_parts = body_parts;
+//		this.picture = picture;
+//		this.member = member;
+//	}
 
 	public Integer getId() {
 		return id;

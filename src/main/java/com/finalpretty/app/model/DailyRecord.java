@@ -1,14 +1,16 @@
 package com.finalpretty.app.model;
 
+
+
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,10 +38,10 @@ public class DailyRecord {
 	private Integer drinkingWater;
 	
 	@Column(name = "sport_time")
-	private Integer sport_time;
+	private Integer sportTime;
 	
 	@Column(name = "food_side")
-	private Integer food_side;
+	private Integer foodSide;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
@@ -47,8 +49,9 @@ public class DailyRecord {
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE",timezone = "GMT+8")
 	private Date date_time;
 	
-	@Column(name = "id")
-	private Set<Member> member = new HashSet<Member>(); 
+	@ManyToOne
+	@JoinColumn(name = "fk_member_id")
+	private Member member; 
 
 	public DailyRecord() {
 	}

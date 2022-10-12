@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +17,7 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
-	
+
 	@Column(name = "title")
 	private String title;
 	
@@ -35,6 +35,13 @@ public class Product {
 	
 	@Column(name = "onsale")
 	private Integer onsale;
+	
+	
+	
+	
+	
+	public Product() {
+	}
 
 	
 	public Integer getId() {

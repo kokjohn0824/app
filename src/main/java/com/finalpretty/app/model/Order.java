@@ -1,11 +1,17 @@
 package com.finalpretty.app.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,7 +25,6 @@ public class Order {
 	@Column(name = "id")
 	private Integer id;
 	
-
 	@Column(name = "total")
 	private Integer total;
 	
@@ -34,13 +39,20 @@ public class Order {
 	
 	@Column(name = "address")
 	private String address;
+	
+	@ManyToOne
+	@JoinColumn(name = "fk_member_id")
+	private Member member;
+	
+	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
+//	private Set<Order_detail> order_detail = new HashSet<Order_detail>();
+	
+	
+	
+	public Order() {
+	}
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "member")
-	@Column(name = "fk_member_id")
-	private Integer fk_member_id;
-	
-	
-	
 	public Integer getId() {
 		return id;
 	}

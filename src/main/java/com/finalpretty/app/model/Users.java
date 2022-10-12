@@ -1,14 +1,19 @@
 package com.finalpretty.app.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// @Entity
+@Entity
 @NoArgsConstructor
 @Getter
 @Setter
@@ -20,19 +25,19 @@ public class Users {
 	@Column(name = "id")
 	private Integer id;
 
-    @Column(table = "account")
+    @Column(name = "account")
     private String account;
     
-    @Column(table = "password")
+    @Column(name = "password")
     private String password;
 
-    @Column(table = "register_date")
+    @Column(name = "register_date")
     private String registerDate;
 
-    @Column(table = "change_password_date")
+    @Column(name = "change_password_date")
     private String changePasswordDate;
     
-    @Column(table = "role")
+    @Column(name = "role")
     private int role;
 
     @OneToOne(cascade=CascadeType.ALL)

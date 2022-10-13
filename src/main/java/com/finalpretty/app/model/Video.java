@@ -29,8 +29,8 @@ public class Video {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private Integer id;
+	@Column(name="video_id")
+	private Integer video_id;
 
 	@Column(name="title")
 	private String title;
@@ -50,8 +50,8 @@ public class Video {
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "video_like", joinColumns = {
-            @JoinColumn(name = "fk_video_id", referencedColumnName = "id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_member_id", referencedColumnName = "id") })
+            @JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
 	private Set<Member> member = new HashSet<Member>();
 
 	

@@ -22,7 +22,7 @@ public class Users {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "users_id")
 	private Integer id;
 
     @Column(name = "account")
@@ -41,7 +41,7 @@ public class Users {
     private int role;
 
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="fk_member_id", referencedColumnName="id")
+    @JoinColumn(name="fk_member_id", referencedColumnName="member_id")
     private Member fkMember;
     
 

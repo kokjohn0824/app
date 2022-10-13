@@ -56,6 +56,8 @@ public class Article {
 		}
 	}
 	
+
+	//FIXME: Article 需要有連結到member嗎？
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "article_like", joinColumns = {
             @JoinColumn(name = "fk_article_id", referencedColumnName = "id") }, inverseJoinColumns = {

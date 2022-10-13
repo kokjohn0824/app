@@ -63,12 +63,14 @@ public class Member {
 //	@OneToOne(cascade = CascadeType.ALL)
 //	private Set<Users> users = new HashSet<Users>();
 	
+	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改??
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_like", joinColumns = {
             @JoinColumn(name = "fk_member_id", referencedColumnName = "id") }, inverseJoinColumns = {
                     @JoinColumn(name = "fk_video_id", referencedColumnName = "id") })
 	private Set<Video> video = new HashSet<Video>();
 	
+	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改??
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "article_like", joinColumns = {
             @JoinColumn(name = "fk_member_id", referencedColumnName = "id") }, inverseJoinColumns = {

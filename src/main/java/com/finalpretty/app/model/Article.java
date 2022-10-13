@@ -24,7 +24,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 @Table(name="article")
 public class Article {
 	
@@ -56,8 +61,7 @@ public class Article {
 		}
 	}
 	
-
-	//FIXME: Article 需要有連結到member嗎？
+	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "article_like", joinColumns = {
             @JoinColumn(name = "fk_article_id", referencedColumnName = "id") }, inverseJoinColumns = {
@@ -67,14 +71,14 @@ public class Article {
 	public Article() {
 	}
 	
-	public Article(Integer id, String title, String text, byte[] picture, Date create_date) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.text = text;
-		this.picture = picture;
-		this.create_date = create_date;
-	}
+//	public Article(Integer id, String title, String text, byte[] picture, Date create_date) {
+//		super();
+//		this.id = id;
+//		this.title = title;
+//		this.text = text;
+//		this.picture = picture;
+//		this.create_date = create_date;
+//	}
 	
 //	public Article(Integer id, String title, String text, byte[] picture, Date create_date, Set<Member> member) {
 //		super();
@@ -85,46 +89,4 @@ public class Article {
 //		this.create_date = create_date;
 //		this.member = member;
 //	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public byte[] getPicture() {
-		return picture;
-	}
-
-	public void setPicture(byte[] picture) {
-		this.picture = picture;
-	}
-
-	public Date getCreate_date() {
-		return create_date;
-	}
-
-	public void setCreate_date(Date create_date) {
-		this.create_date = create_date;
-	}
-	
-	
 }

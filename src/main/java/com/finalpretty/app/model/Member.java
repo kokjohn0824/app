@@ -35,25 +35,25 @@ public class Member {
 	private Integer member_id;
 	
 	@Column(name = "gender")
-	private String gender;
+	private Integer gender;
 	
 	@Column(name = "age")
 	private Integer age;
-	//FIXME:我認為float的部分都改成double比較好 (ex. 170.1)比較好 因為你塞入值還要寫(170.1f) 
+	//FIXME:我認為float的部分都改成double比較好 (ex. 170.1)比較好 因為你塞入值還要寫(170.1f) 10/13更改
 	@Column(name = "height")
-	private float height;
+	private double height;
 	
 	@Column(name = "weight")
-	private float weight;
+	private double weight;
 	
 	@Column(name = "bodyFat")
-	private float bodyFat;
+	private double bodyFat;
 	
 	@Column(name = "visceralFat")
-	private float visceralFat;
+	private double visceralFat;
 	
 	@Column(name = "muscleMass")
-	private float muscleMass;
+	private double muscleMass;
 	
 	@Lob
 	@Column(name = "changePhoto")

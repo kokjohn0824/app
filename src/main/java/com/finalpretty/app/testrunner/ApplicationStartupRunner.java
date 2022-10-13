@@ -27,7 +27,7 @@ public class ApplicationStartupRunner implements CommandLineRunner{
         Member m  = new Member();
         m.setAge(18);
         m.setBecomeVIP(0);
-        m.setGender("Male");
+        m.setGender(1123);
         m.setHeight(170.1f);
         memberRespository.save(m);
         logger.info("結束測試程式碼");

@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+//TODO:利用lombok 語法 改寫getter, setter 以及 NoArgsConstructor
 @Entity
 @Table(name="product")
 public class Product {
@@ -15,7 +15,7 @@ public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "id")//TODO:修改Table 名稱
 	private Integer id;
 
 	@Column(name = "title")

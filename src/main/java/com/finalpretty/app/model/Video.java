@@ -16,7 +16,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name="video")
 public class Video {
 
@@ -50,15 +57,15 @@ public class Video {
 	public Video() {
 	}
 	
-	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.url = url;
-		this.type = type;
-		this.body_parts = body_parts;
-		this.picture = picture;
-	}
+//	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture) {
+//		super();
+//		this.id = id;
+//		this.title = title;
+//		this.url = url;
+//		this.type = type;
+//		this.body_parts = body_parts;
+//		this.picture = picture;
+//	}
 	
 //	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture, Set<Member> member) {
 //		super();
@@ -70,54 +77,4 @@ public class Video {
 //		this.picture = picture;
 //		this.member = member;
 //	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getBody_parts() {
-		return body_parts;
-	}
-
-	public void setBody_parts(String body_parts) {
-		this.body_parts = body_parts;
-	}
-
-	public byte[] getPicture() {
-		return picture;
-	}
-
-	public void setPicture(byte[] picture) {
-		this.picture = picture;
-	}
-	
-	
 }

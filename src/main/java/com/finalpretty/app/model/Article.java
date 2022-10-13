@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor //FIXME:有重複的無參建構子 所以會報錯 需要將額外打的建構子給刪除
+@NoArgsConstructor
 @Getter
 @Setter
 @Table(name="article")
@@ -37,8 +37,8 @@ public class Article {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private Integer id;
+	@Column(name="article_id")
+	private Integer article_id;
 
 	@Column(name="title")
 	private String title;
@@ -61,17 +61,13 @@ public class Article {
 		if(create_date == null) {
 			create_date = new Date();
 		}
-	}
-	
+	}	
 	
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "article_like", joinColumns = {
-            @JoinColumn(name = "fk_article_id", referencedColumnName = "id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_member_id", referencedColumnName = "id") })
+            @JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
     private Set<Member> member = new HashSet<Member>();
-
-	public Article() {
-	}
 	
 //	public Article(Integer id, String title, String text, byte[] picture, Date create_date) {
 //		super();

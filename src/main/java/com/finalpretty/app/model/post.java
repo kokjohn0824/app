@@ -15,8 +15,8 @@ public class Post {
     
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+	@Column(name = "post_id")
+	private Integer post_id;
 
     @Column(name="title")
 	private String title;
@@ -39,8 +39,8 @@ public class Post {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "article_like", joinColumns = {
-            @JoinColumn(name = "fk_article_id", referencedColumnName = "id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_member_id", referencedColumnName = "id") })
+            @JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") }, inverseJoinColumns = {
+                    @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
     private Set<Member> member = new HashSet<Member>();
 
 

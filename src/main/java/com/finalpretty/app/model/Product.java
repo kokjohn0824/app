@@ -15,8 +15,8 @@ public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")//TODO:修改Table 名稱
-	private Integer id;
+	@Column(name = "product_id")
+	private Integer product_id;
 
 	@Column(name = "title")
 	private String title;
@@ -44,14 +44,23 @@ public class Product {
 	}
 
 
-	public Integer getId() {
-		return id;
+
+
+
+	public Integer getProduct_id() {
+		return product_id;
 	}
 
 
-	public void setId(Integer id) {
-		this.id = id;
+
+
+
+	public void setProduct_id(Integer product_id) {
+		this.product_id = product_id;
 	}
+
+
+
 
 
 	public String getTitle() {

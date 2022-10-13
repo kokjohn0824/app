@@ -18,8 +18,8 @@ public class Order_detail {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+	@Column(name = "order_detail_id")
+	private Integer order_detail_id;
 	
 
 	@Column(name = "count")

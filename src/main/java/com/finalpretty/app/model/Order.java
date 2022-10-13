@@ -22,8 +22,8 @@ public class Order {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+	@Column(name = "order_id")
+	private Integer order_id;
 	
 	@Column(name = "total")
 	private Integer total;
@@ -53,13 +53,19 @@ public class Order {
 	public Order() {
 	}
 
-	public Integer getId() {
-		return id;
+
+
+	public Integer getOrder_id() {
+		return order_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+
+
+	public void setOrder_id(Integer order_id) {
+		this.order_id = order_id;
 	}
+
+
 
 	public Integer getTotal() {
 		return total;

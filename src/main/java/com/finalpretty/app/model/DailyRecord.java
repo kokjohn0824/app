@@ -30,8 +30,8 @@ public class DailyRecord {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+	@Column(name = "daily_record_id")
+	private Integer daily_record_id;
 	
 	@Column(name = "weight")
 	private Integer weight;

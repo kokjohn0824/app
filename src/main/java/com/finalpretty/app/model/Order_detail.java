@@ -39,11 +39,11 @@ public class Order_detail {
 	}
 
 	public Integer getId() {
-		return id;
+		return order_detail_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer order_detail_id) {
+		this.order_detail_id = order_detail_id;
 	}
 
 	public Integer getCount() {

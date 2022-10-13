@@ -1,0 +1,1 @@
+window.confirm("看到我表示有載入hello.js~")

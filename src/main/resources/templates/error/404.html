@@ -1,14 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    oh no!!  404!!!
-    快檢查你的path路徑有沒有打錯
-    或是你的controller對應的路徑有沒有寫好
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 ERROR</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: antiquewhite;
+      }
+
+      .container {
+        width: 400px;
+        margin: 40px auto;
+      }
+
+      .rainbow {
+        /* Font options */
+        text-shadow: 2px 2px 4px #000000;
+        font-size: 40px;
+
+        /* Chrome, Safari, Opera */
+        -webkit-animation: rainbow 5s infinite;
+
+        /* Internet Explorer */
+        -ms-animation: rainbow 5s infinite;
+
+        /* Standar Syntax */
+        animation: rainbow 5s infinite;
+      }
+
+      /* Chrome, Safari, Opera */
+      @-webkit-keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+
+      /* Internet Explorer */
+      @-ms-keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+
+      /* Standar Syntax */
+      @keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://media.giphy.com/media/jivGITd768psP80B2i/giphy.gif?cid=ecf05e47x8gp3ti5zv61czuqahraye06qop8t8g3xy0mgeug&rid=giphy.gif&ct=g"
+        alt="a cute cat picture"
+      />
+      <h1 class="rainbow">Oh no!! 404!!!</h1>
+      <p>
+        你輸入的網址 伺服器無法提供對應的訊息 快檢查你的path路徑有沒有打錯
+        或是你的controller對應的路徑有沒有寫好
+      </p>
+    </div>
+  </body>
 </html>

@@ -54,8 +54,6 @@ public class Video {
                     @JoinColumn(name = "fk_member_id", referencedColumnName = "id") })
 	private Set<Member> member = new HashSet<Member>();
 
-	public Video() {
-	}
 	
 //	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture) {
 //		super();

@@ -39,7 +39,7 @@ public class Member {
 	
 	@Column(name = "age")
 	private Integer age;
-	
+	//FIXME:我認為float的部分都改成double比較好 (ex. 170.1)比較好 因為你塞入值還要寫(170.1f) 
 	@Column(name = "height")
 	private float height;
 	

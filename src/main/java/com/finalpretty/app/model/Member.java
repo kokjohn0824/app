@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -61,8 +62,8 @@ public class Member {
 	@Column(name = "becomeVIP")
 	private Integer becomeVIP;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	private Set<Users> users = new HashSet<Users>();
+	@OneToOne(cascade = CascadeType.ALL)
+	private Users users;
 	
 	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改?? 改好了請檢查
 	@ManyToMany(mappedBy = "member")

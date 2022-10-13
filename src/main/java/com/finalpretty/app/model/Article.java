@@ -69,22 +69,4 @@ public class Article {
                     @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
     private Set<Member> member = new HashSet<Member>();
 	
-//	public Article(Integer id, String title, String text, byte[] picture, Date create_date) {
-//		super();
-//		this.id = id;
-//		this.title = title;
-//		this.text = text;
-//		this.picture = picture;
-//		this.create_date = create_date;
-//	}
-	
-//	public Article(Integer id, String title, String text, byte[] picture, Date create_date, Set<Member> member) {
-//		super();
-//		this.id = id;
-//		this.title = title;
-//		this.text = text;
-//		this.picture = picture;
-//		this.create_date = create_date;
-//		this.member = member;
-//	}
 }

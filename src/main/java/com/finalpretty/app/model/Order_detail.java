@@ -10,8 +10,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-//TODO:利用lombok 語法 改寫getter, setter 以及 NoArgsConstructor
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name="order_detail")
 public class Order_detail {
 	
@@ -38,36 +44,5 @@ public class Order_detail {
 	public Order_detail() {
 	}
 
-	public Integer getId() {
-		return order_detail_id;
-	}
-
-	public void setId(Integer order_detail_id) {
-		this.order_detail_id = order_detail_id;
-	}
-
-	public Integer getCount() {
-		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
 		
 }

@@ -15,7 +15,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name="order")
 public class Order {
 	
@@ -55,57 +62,6 @@ public class Order {
 
 
 
-	public Integer getOrder_id() {
-		return order_id;
-	}
-
-
-
-	public void setOrder_id(Integer order_id) {
-		this.order_id = order_id;
-	}
-
-
-
-	public Integer getTotal() {
-		return total;
-	}
-
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
-
-	public Integer getShip() {
-		return ship;
-	}
-
-	public void setShip(Integer ship) {
-		this.ship = ship;
-	}
-
-	public Integer getPaid() {
-		return paid;
-	}
-
-	public void setPaid(Integer paid) {
-		this.paid = paid;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	
 	

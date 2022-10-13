@@ -12,11 +12,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -34,6 +33,9 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
 	private Integer member_id;
+	
+	@Column(name = "gender")
+	private String gender;
 	
 	@Column(name = "age")
 	private Integer age;
@@ -60,21 +62,15 @@ public class Member {
 	@Column(name = "becomeVIP")
 	private Integer becomeVIP;
 	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	private Set<Users> users = new HashSet<Users>();
+	@OneToOne(cascade = CascadeType.ALL)
+	private Users users;
 	
-	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改??
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "video_like", joinColumns = {
-            @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") })
+	
+	@ManyToMany(mappedBy = "member")
 	private Set<Video> video = new HashSet<Video>();
 	
-	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改??
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "article_like", joinColumns = {
-            @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") })
+
+	@ManyToMany(mappedBy = "member")
 	private Set<Article> article = new HashSet<Article>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)

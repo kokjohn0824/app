@@ -24,55 +24,34 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name="video")
+@Table(name = "video")
 public class Video {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="video_id")
+	@Column(name = "video_id")
 	private Integer video_id;
 
-	@Column(name="title")
+	@Column(name = "title")
 	private String title;
-	
-	@Column(name="url")
+
+	@Column(name = "url")
 	private String url;
-	
-	@Column(name="type")
+
+	@Column(name = "type")
 	private String type;
-	
-	@Column(name="body_parts")
+
+	@Column(name = "body_parts")
 	private String body_parts;
-	
+
 	@Lob
-	@Column(name="picture")
+	@Column(name = "picture")
 	private byte[] picture;
-	
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "video_like", joinColumns = {
-            @JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
+	@JoinTable(name = "video_like", joinColumns = {
+			@JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
 	private Set<Member> member = new HashSet<Member>();
 
-	
-//	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture) {
-//		super();
-//		this.id = id;
-//		this.title = title;
-//		this.url = url;
-//		this.type = type;
-//		this.body_parts = body_parts;
-//		this.picture = picture;
-//	}
-	
-//	public Video(Integer id, String title, String url, String type, String body_parts, byte[] picture, Set<Member> member) {
-//		super();
-//		this.id = id;
-//		this.title = title;
-//		this.url = url;
-//		this.type = type;
-//		this.body_parts = body_parts;
-//		this.picture = picture;
-//		this.member = member;
-//	}
 }

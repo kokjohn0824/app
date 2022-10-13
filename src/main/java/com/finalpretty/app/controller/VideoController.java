@@ -12,45 +12,46 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finalpretty.app.model.Article;
-import com.finalpretty.app.repositories.ArticleRespository;
+import com.finalpretty.app.model.Video;
+import com.finalpretty.app.repositories.VideoRespository;
 
 @Controller
-public class ArticleController {
+public class VideoController {
 
 	@Autowired
-	private ArticleRespository articleR;
+	private VideoRespository videoR;
 
-	@GetMapping("/article/add")
-	public String addArticle(Model model) {
+	@GetMapping("/video/add")
+	public String addVideo(Model model) {
 
-		Article a1 = new Article();
+		Video v1 = new Video();
 
-		model.addAttribute("article", a1);
+		model.addAttribute("article", v1);
 
 		// Messages lastestMsg = mService.findLastest();
 		// model.addAttribute("lastestMsg", lastestMsg);
 
-		List<Article> allArticle = articleR.findAll();
+		List<Video> allVideo = videoR.findAll();
 
-		model.addAttribute("allArticle", allArticle);
+		model.addAttribute("allVideo", allVideo);
 
-		return "article/addArticlePage";
+		return "video/addVideoPage";
 	}
 
-	@PostMapping("/article/post")
-	public String postMsg(@ModelAttribute(name = "article") Article article, Model model) {
+	@PostMapping("/video/post")
+	public String postVideo(@ModelAttribute(name = "video") Video video, Model model) {
 
-		articleR.save(article);
+		videoR.save(video);
 
-		Article a1 = new Article();
+		Video v1 = new Video();
 
-		model.addAttribute("article", a1);
+		model.addAttribute("video", v1);
 
-		List<Article> allArticle = articleR.findAll();
+		List<Video> allVideo = videoR.findAll();
 
-		model.addAttribute("allArticle", allArticle);
+		model.addAttribute("allVideo", allVideo);
 
-		return "article/addArticlePage";
+		return "video/addVideoPage";
 	}
 
 //	@GetMapping("/article/page")
@@ -61,26 +62,26 @@ public class ArticleController {
 //		return "messages/showArticle";
 //	}
 
-	@GetMapping("/article/delete")
-	public String deleteArticle(@RequestParam(name = "id") Integer id) {
-		articleR.deleteById(id);
+	@GetMapping("/video/delete")
+	public String deleteVideo(@RequestParam(name = "id") Integer id) {
+		videoR.deleteById(id);
 
-		return "redirect:/article/page";
+		return "redirect:/video/page";
 	}
 
-	@GetMapping("/article/edit")
-	public String editArticle(@RequestParam(name = "id") Integer id, Model model) {
-		Optional<Article> a1 = articleR.findById(id);
-		model.addAttribute("article", a1.orElse(null));
+	@GetMapping("/video/edit")
+	public String editVideo(@RequestParam(name = "id") Integer id, Model model) {
+		Optional<Video> v1 = videoR.findById(id);
+		model.addAttribute("video", v1.orElse(null));
 
-		return "article/editArticle";
+		return "video/editVideo";
 	}
 
-	@PostMapping("/article/edit")
-	public String editMessagePost(@ModelAttribute(name = "article") Article article) {
-		articleR.save(article);
+	@PostMapping("/video/edit")
+	public String editVideoPost(@ModelAttribute(name = "video") Video video) {
+		videoR.save(video);
 
-		return "redirect:/article/page";
+		return "redirect:/video/page";
 	}
 
 //	@ResponseBody
@@ -99,9 +100,9 @@ public class ArticleController {
 //		return page.getContent();
 //	}
 
-	@GetMapping("/article/ajax")
+	@GetMapping("/video/ajax")
 	public String getAjaxPage() {
-		return "article/ajax-article";
+		return "video/ajax-video";
 	}
 
 }

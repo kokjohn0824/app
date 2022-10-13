@@ -65,11 +65,11 @@ public class Member {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Users users;
 	
-	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改?? 改好了請檢查
+	
 	@ManyToMany(mappedBy = "member")
 	private Set<Video> video = new HashSet<Video>();
 	
-	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改?? 改好了請檢查
+
 	@ManyToMany(mappedBy = "member")
 	private Set<Article> article = new HashSet<Article>();
 	

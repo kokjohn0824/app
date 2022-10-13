@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor //FIXME:有重複的無參建構子 所以會報錯 需要將額外打的建構子給刪除
 @Getter
 @Setter
 @Table(name="article")

@@ -64,27 +64,13 @@ public class Member {
 //	@OneToOne(cascade = CascadeType.ALL)
 //	private Set<Users> users = new HashSet<Users>();
 	
-<<<<<<< HEAD
-	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改??
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "video_like", joinColumns = {
-            @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") })
-	private Set<Video> video = new HashSet<Video>();
-	
-	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改??
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "article_like", joinColumns = {
-            @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") })
-=======
 	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改?? 改好了請檢查
 	@ManyToMany(mappedBy = "member")
 	private Set<Video> video = new HashSet<Video>();
 	
 	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改?? 改好了請檢查
 	@ManyToMany(mappedBy = "member")
->>>>>>> Albert
+
 	private Set<Article> article = new HashSet<Article>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)

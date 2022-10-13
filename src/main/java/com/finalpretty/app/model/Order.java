@@ -15,14 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
-//TODO:利用lombok 語法 改寫getter, setter 以及 NoArgsConstructor
-=======
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
->>>>>>> sharon
+
 @Entity
 @NoArgsConstructor
 @Getter

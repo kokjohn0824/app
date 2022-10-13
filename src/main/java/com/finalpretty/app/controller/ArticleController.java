@@ -34,7 +34,7 @@ public class ArticleController {
 
 		model.addAttribute("allArticle", allArticle);
 
-		return "messages/addArticlePage";
+		return "article/addArticlePage";
 	}
 
 	@PostMapping("/article/post")
@@ -69,11 +69,11 @@ public class ArticleController {
 	}
 
 	@GetMapping("/article/edit")
-	public String editMessage(@RequestParam(name = "id") Integer id, Model model) {
+	public String editArticle(@RequestParam(name = "id") Integer id, Model model) {
 		Optional<Article> a1 = articleR.findById(id);
 		model.addAttribute("messages", a1.orElse(null));
 
-		return "article/editMessage";
+		return "article/editArticle";
 	}
 
 	@PostMapping("/article/edit")

@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.repositories.MemberRespository;
 
-import ch.qos.logback.classic.Logger;
-
 @Component
 public class ApplicationStartupRunner implements CommandLineRunner{
 
@@ -32,8 +30,6 @@ public class ApplicationStartupRunner implements CommandLineRunner{
         m.setGender("Male");
         m.setHeight(170.1f);
         memberRespository.save(m);
-        
-        
         logger.info("結束測試程式碼");
     
 

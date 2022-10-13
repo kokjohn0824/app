@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-//TODO: fix Order detail 應該是改好了
+
 @Entity
 @Table(name="order_detail")
 public class Order_detail {

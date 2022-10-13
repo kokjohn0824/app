@@ -43,7 +43,5 @@ public class Order_detail {
 	private Order order;
 
 	
-	
-	
 		
 }

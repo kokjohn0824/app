@@ -58,9 +58,6 @@ public class Order {
 	private Set<Order_detail> order_detail = new HashSet<Order_detail>();
 	
 	
-	
-	public Order() {
-	}
 
 
 

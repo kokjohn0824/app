@@ -71,7 +71,6 @@ public class Member {
 	
 	//FIXME: 這邊跟老師的不太一樣，不知道要不要修改?? 改好了請檢查
 	@ManyToMany(mappedBy = "member")
-
 	private Set<Article> article = new HashSet<Article>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)

@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
+//TODO:利用lombok 語法 改寫getter, setter 以及 NoArgsConstructor
 @Entity
 @Table(name="order_detail")
 public class Order_detail {

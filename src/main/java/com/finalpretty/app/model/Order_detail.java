@@ -14,10 +14,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+<<<<<<< HEAD
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
+=======
+@Entity
+@NoArgsConstructor
+@Getter
+@Setter
+>>>>>>> sharon
 @Table(name="order_detail")
 public class Order_detail {
 	
@@ -39,5 +46,13 @@ public class Order_detail {
 	@ManyToOne
 	@JoinColumn(name = "fk_order_id")
 	private Order order;
+<<<<<<< HEAD
+=======
+	
+	
+	public Order_detail() {
+	}
+
+>>>>>>> sharon
 		
 }

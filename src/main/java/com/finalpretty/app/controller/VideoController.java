@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.VideoRespository;
 

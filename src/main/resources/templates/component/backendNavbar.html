@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="../jsmodules"></div>
+    <title>後台管理</title>
+</head>
+<body>
+    <div th:fragment="backendNavbar">
+        <nav class="navbar  navbar-dark bg-red" style="height: 70px;">
+            <form class="container-fluid justify-content-end">
+              <a class="btn btn-dark" href="/">文章管理</a>
+              <a class="btn btn-dark" href="/login">影片管理</a>
+              <a class="btn btn-dark" href="/register">會員管理</a>
+              <a class="btn btn-dark" href="/game">貼文管理</a>
+              <a class="btn btn-dark" href="http://google.com">商城管理</a>
+            </form>
+            </nav>
+    </div>
+</body>
+</html>

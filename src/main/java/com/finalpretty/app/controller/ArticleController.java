@@ -34,7 +34,7 @@ public class ArticleController {
 
 		model.addAttribute("allArticle", allArticle);
 
-		return "article/addArticlePage";
+		return "addArticlePage";
 	}
 
 	@PostMapping("/article/post")
@@ -50,7 +50,7 @@ public class ArticleController {
 
 		model.addAttribute("allArticle", allArticle);
 
-		return "article/addArticlePage";
+		return "addArticlePage";
 	}
 
 //	@GetMapping("/article/page")

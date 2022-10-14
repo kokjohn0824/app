@@ -1,6 +1,5 @@
 package com.finalpretty.app.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name="order")
+@Table(name="[order]")
 public class Order {
 	
 	
@@ -55,7 +53,7 @@ public class Order {
 	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-	private Set<Order_detail> order_detail = new HashSet<Order_detail>();
+	private Set<Order_detail> order_detail;
 	
 	
 

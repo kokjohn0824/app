@@ -15,6 +15,11 @@ public class hello {
         return "hello";
     }
     
+    @GetMapping("/Manager")
+    public String Manager1() {
+        return "helloManager";
+    }
+    
     @PostMapping("/hello")
     public String hellosubmit(
         @RequestParam(required = false) String firstName,

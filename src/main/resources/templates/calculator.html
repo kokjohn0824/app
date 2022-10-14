@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代謝率計算</title>
+<!-- 利用th:insert 或是 th:replace 來載入模板 -->
+<div th:replace="jsmodules"></div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+	<div th:replace="component/navbar :: navbar"></div>
+	<div class="container" id="1">
+		<div class="row justify-content-center bmr-content">
+			<div class="col-lg-5" id="bmr-input">
+				<div class="bmr-img"></div>
+				<div class="bmr-card">
+					<h1>基礎代謝率 (BMR) 計算機</h1>
+					<p style="font-size: 15px;">BMR
+						指人體在休息狀態下，維持新陳代謝所需的熱量，例如：呼吸、器官運作、體溫維持等，即使整天躺著不動也會消耗的最低熱量。BMR
+						會隨著年紀增加或體重減輕而降低，會隨著肌肉量增加而上升。</p>
+					<div class="mt-20">
+						<p>
+							生理性別： <label> <input type="radio" name="g" value="1"
+								checked="checked">男性
+							</label> <label class="pl-1"> <input type="radio" name="g"
+								value="0"> 女性
+							</label>
+						</p>
+						<p>
+							年齡：<input type="number" id="age" placeholder="請輸入年齡">
+						</p>
+						<p>
+							身高：<input type="number" id="height" placeholder="請輸入身高 (公分)">
+						</p>
+						<div id="2"></div>
+						<p>
+							體重：<input type="number" id="width" placeholder="請輸入體重 (公斤)">
+						</p>
+					</div>
+					<h4 id="rmr"></h4>
+					<h3 id="result"></h3>
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="container mt-20 mobile-top">
+					<h4>每日總熱量消耗 (TDEE)</h4>
+					<p class="fs-6">TDEE
+						是身體一整天下來，包括基礎代謝、活動量、吃東西所消耗的熱量。不同的生活型態需要的熱量也不一樣，當每天攝取的熱量和 TDEE
+						相等，便達到「熱量平衡」。</p>
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item"><a class="nav-link active"
+							href="#generally" role="tab" data-toggle="tab">一般</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="generally">
+							<div class="row bmr-grade mt-2">
+								<div class="col-6 col-lg-4">
+									<li>
+										<div class="row">
+											<div class="col-12 mb-2">
+<!-- 												<img src="#" width="100%"> -->
+											</div>
+											<div class="col-12">
+												<span class="font-weight-bold">身體活動趨於靜態 <span
+													class="infoicon" tabindex="0" data-toggle="tooltip"
+													title="" data-placement="top"
+													data-original-title="坐式生活型態，如：靜臥、久坐、看電視">說明</span></span><br>
+												<span class="bmr-point"> (幾乎不運動)</span><br> <span
+													class="tdee-formula">BMR x 1.2 =</span> <strong
+													class="lv-result" id="lv1"></strong>
+											</div>
+										</div>
+									</li>
+								</div>
+								<div class="col-6 col-lg-4">
+									<li>
+										<div class="row">
+											<div class="col-12 mb-2">	
+<!-- 												<img src="#" width="100%"> -->
+											</div>
+											<div class="col-12">
+												<span class="font-weight-bold">身體活動程度較低 <span
+													class="infoicon" tabindex="0" data-toggle="tooltip"
+													title="" data-placement="top"
+													data-original-title="不太費力的基本活動，如：開車、烹飪、散步">說明</span></span><br>
+												<span class="bmr-point"> (每週運動 1-3 天)</span><br> <span
+													class="tdee-formula">BMR x 1.375 = </span><strong
+													class="lv-result" id="lv2"></strong>
+											</div>
+										</div>
+									</li>
+								</div>
+								<div class="col-6 col-lg-4">
+									<li>
+										<div class="row">
+											<div class="col-12 mb-2">
+<!-- 												<img src="#" width="100%"> -->
+											</div>
+											<div class="col-12">
+												<span class="font-weight-bold">身體活動程度正常 <span
+													class="infoicon" tabindex="0" data-toggle="tooltip"
+													title="" data-placement="top"
+													data-original-title="呼吸及心跳些微加快，如：掃地、拖地、逛街、健走">說明</span></span><br>
+												<span class="bmr-point"> (每週運動 3-5 天)</span><br> <span
+													class="tdee-formula">BMR x 1.55 = </span><strong
+													class="lv-result" id="lv3"></strong>
+											</div>
+										</div>
+									</li>
+								</div>
+								<div class="col-6 col-lg-4">
+									<li>
+										<div class="row">
+											<div class="col-12 mb-2">
+<!-- 												<img src="#" width="100%"> -->
+											</div>
+											<div class="col-12">
+												<span class="font-weight-bold">身體活動程度較高 <span
+													class="infoicon" tabindex="0" data-toggle="tooltip"
+													title="" data-placement="top"
+													data-original-title="呼吸及心跳快速且大量流汗，如：打球、騎腳踏車、有氧運動、游泳、登山">說明</span></span><br>
+												<span class="bmr-point"> (每週運動 6-7 天)</span><br> <span
+													class="tdee-formula">BMR x 1.72 = </span><strong
+													class="lv-result" id="lv4"></strong>
+											</div>
+										</div>
+									</li>
+								</div>
+								<div class="col-6 col-lg-4">
+									<li>
+										<div class="row">
+											<div class="col-12 mb-2">
+<!-- 												<img src="#" width="100%"> -->
+											</div>
+											<div class="col-12">
+												<span class="font-weight-bold">身體活動程度激烈 <span
+													class="infoicon" tabindex="0" data-toggle="tooltip"
+													title="" data-placement="top"
+													data-original-title="長時間耗費體力，如：長跑、運動訓練、競賽型運動">說明</span></span><br>
+												<span class="bmr-point"> (長時間運動或體力勞動工作)</span><br> <span
+													class="tdee-formula">BMR x 1.9 = </span><strong
+													class="lv-result" id="lv5"></strong>
+											</div>
+										</div>
+									</li>
+								</div>
+
+							</div>
+						</div>
+<script>
+
+</script>
+</body>
+</html>

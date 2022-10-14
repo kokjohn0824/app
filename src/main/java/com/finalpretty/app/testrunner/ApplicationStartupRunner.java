@@ -25,7 +25,7 @@ public class ApplicationStartupRunner implements CommandLineRunner{
         logger.info("請注意，run()內的程式碼報錯時將結束springboot");
         //塞入測試資料
         Member m  = new Member();
-        m.setAge(18);
+        m.setAge(19);
         m.setBecomeVIP(0);
         m.setGender(1);
         m.setHeight(170.1f);

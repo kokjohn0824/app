@@ -26,6 +26,13 @@ public class hello {
     }
 
 
+    @GetMapping("/reactdemo")
+    public String react() {
+        return "reactdemo";
+    }
+
+
+
     @GetMapping("/hihi")
     @ResponseBody
     public String hello2() {

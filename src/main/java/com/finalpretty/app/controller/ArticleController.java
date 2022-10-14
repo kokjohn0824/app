@@ -20,6 +20,11 @@ public class ArticleController {
 	@Autowired
 	private ArticleRespository articleR;
 
+	@GetMapping("/article/manage")
+	public String newPhotoPage() {
+		return "manageArticle";
+	}
+
 	@GetMapping("/article/add")
 	public String addArticle(Model model) {
 

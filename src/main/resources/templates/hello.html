@@ -14,7 +14,10 @@
     <script defer th:src="@{/js/hello.js}"></script>
 </head>
 <body>
-    <div class="container-lg">
+  <!-- 引入的片段 以 :: 來標示 -->
+  <div th:replace="common/common :: navbar"></div>  
+  
+  <div class="container-lg">
         <!-- img標籤同樣使用th:src -->
         <img th:src="@{/img/dog.png}" style="width: 300px;" alt="">
         <!-- 在標籤內加上 th:fragment 來標明模板片段 -->

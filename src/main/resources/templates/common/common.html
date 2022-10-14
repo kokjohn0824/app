@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="../jsmodules"></div>
+    <title>模板網頁</title>
+</head>
+<body>
+    <div th:fragment="navbar">
+        <nav class="navbar  navbar-dark bg-black" style="height: 70px;">
+            <form class="container-fluid justify-content-end">
+              <a class="btn btn-dark" href="/">首頁</a>
+              <a class="btn btn-dark" href="/login">關於我們</a>
+              <a class="btn btn-dark" href="/register">最新資訊</a>
+              <a class="btn btn-dark" href="/game">線上商城</a>
+              <a class="btn btn-dark" href="http://google.com">聯絡我們</a>
+            </form>
+            </nav>
+    </div>
+</body>
+</html>

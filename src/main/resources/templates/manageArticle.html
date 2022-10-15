@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,10 +14,12 @@
     <!-- script 原本的src屬性改爲使用 th:src-->
     <script defer th:src="@{/js/hello.js}"></script>
 </head>
+
 <body>
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
     <div>
-    <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/add">新增文章</a>
+        <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/add">新增文章</a>
     </div>
 </body>
+
 </html>

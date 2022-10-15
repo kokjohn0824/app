@@ -19,6 +19,11 @@ public class VideoController {
 
 	@Autowired
 	private VideoRespository videoR;
+	
+	@GetMapping("/video/categories")
+    public String manageArticlePage() {
+        return "videoCategories";
+    }
 
 	@GetMapping("/video/add")
 	public String addVideo(Model model) {

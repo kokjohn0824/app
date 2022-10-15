@@ -4,31 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
-    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
+    <title>Add Article</title>
     <div th:replace="jsmodules"></div>
-    <!-- 利用th:href來引入css , 地址使用 @{} 為static資料夾下 -->
     <link rel="stylesheet" th:href="@{/css/hello.css}" />
-    <!-- defer 屬性可以將js檔案 放在head標籤內而正常運行-->
-    <!-- script 原本的src屬性改爲使用 th:src-->
     <script defer th:src="@{/js/hello.js}"></script>
 </head>
 <body>
-  <!-- 引入的片段 以 :: 來標示 -->
   <div th:replace="component/backendNavbar :: backendNavbar"></div>  
   <div>
     <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/manage">取消新增</a>
     </div>
   
   <div class="container-lg">
-        <!-- img標籤同樣使用th:src -->
-        <!-- <img th:src="@{/img/dog.png}" style="width: 300px;" alt=""> -->
-        <!-- 在標籤內加上 th:fragment 來標明模板片段 -->
         <div th:fragment="form">
-            <!-- form 表單 action屬性改為使用 th:action -->
             <form class="" method="post" id="registerForm" action="#" th:action="@{/hello}">
                 <div class="" style="width: 50%; margin: 20px auto">
-                    <!-- th:if 搭配 th:text 來顯示內容 -->
                     <div th:if="${username} != null">
                         <h1>您好，管理者<span th:text="${username}"></span></h1>
                     </div>

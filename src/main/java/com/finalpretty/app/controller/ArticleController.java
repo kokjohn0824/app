@@ -21,7 +21,7 @@ public class ArticleController {
 	private ArticleRespository articleR;
 
 	@GetMapping("/article/manage")
-	public String newPhotoPage() {
+	public String manageArticlePage() {
 		return "manageArticle";
 	}
 

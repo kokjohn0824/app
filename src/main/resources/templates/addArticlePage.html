@@ -17,7 +17,7 @@
   
   <div class="container-lg">
         <div th:fragment="form">
-            <form class="" method="post" id="registerForm" action="#" th:action="@{/hello}">
+            <form class="" method="post" id="registerForm" action="#" th:action="@{/article/add}">
                 <div class="" style="width: 50%; margin: 20px auto">
                     <div th:if="${username} != null">
                         <h1>您好，管理者<span th:text="${username}"></span></h1>
@@ -67,7 +67,7 @@
           </form>
         </div>
       </div>
-
-
+    </div>
+  </div>
 </body>
 </html>

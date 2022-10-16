@@ -4,20 +4,19 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Photo;
 import com.finalpretty.app.model.UploadResponse;
 import com.finalpretty.app.repositories.PhotoRepository;
 
-@Controller
+@RestController
 @RequestMapping("/api/image")
 public class PhotoController {
 
@@ -44,7 +43,6 @@ public class PhotoController {
      * 
      */
     @PostMapping("/upload")
-    @ResponseBody
     public UploadResponse upload(@RequestPart MultipartFile upload) {
 
         Photo p = new Photo();
@@ -61,7 +59,6 @@ public class PhotoController {
     }
 
     @GetMapping("/{photoId}")
-    @ResponseBody
     public byte[] showImage(@PathVariable("photoId") String photoId) {
         Optional<Photo> p = photoRepository.findById(Integer.parseInt(photoId));
         return p.orElseGet(null).getFilebyte();

@@ -12,7 +12,8 @@
     <!-- defer 屬性可以將js檔案 放在head標籤內而正常運行-->
     <!-- script 原本的src屬性改爲使用 th:src-->
   </head>
-  <body>
+  <!-- 使用th:inline 使${}語法可以使用在inline -->
+  <body th:inline="text">
     <!-- 引入的片段 以 :: 來標示 -->
     <div th:replace="component/navbar :: navbar"></div>
     <div class="container-lg">
@@ -21,7 +22,8 @@
       </div>
       <h2>以下為html原碼</h2>
       <code id="content">
-        <div th:text="${content}"></div>
+        <!-- 下方語法等同 <div th:text="${content}"></div> -->
+          [[${content}]]
       </code>
     </div>
     <script>

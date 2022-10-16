@@ -1,7 +1,5 @@
 package com.finalpretty.app.controller;
 
-import javax.swing.text.AbstractDocument.Content;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

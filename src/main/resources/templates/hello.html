@@ -111,9 +111,13 @@
         </div>
       </div>
       <!-- 引入CKEditor -->
-      <div class="container-lg">
-        <div id="editor"></div>
+      <div class="container-lg" style="width: 800px;">
+        <form action="#" th:action="@{/editorResult}">
 
+          <textarea name="content" id="editor"></textarea>
+          <button type="reset">重置</button>
+          <button type="submit">送出</button>
+        </form>
       </div>
 
 </body>

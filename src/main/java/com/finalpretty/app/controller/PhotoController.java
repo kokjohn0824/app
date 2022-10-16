@@ -1,15 +1,14 @@
 package com.finalpretty.app.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
-import org.apache.tomcat.util.http.fileupload.UploadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.finalpretty.app.model.Photo;
 import com.finalpretty.app.model.UploadResponse;
 import com.finalpretty.app.repositories.PhotoRepository;
-
-import lombok.AllArgsConstructor;
 
 @Controller
 @RequestMapping("/api/image")
@@ -53,12 +50,9 @@ public class PhotoController {
         Photo p = new Photo();
 
         try {
-            // TODO:製作上傳後產生圖片網址的metod
-            p.setPath("aaa");
             p.setFilebyte(upload.getBytes());
             photoRepository.save(p);
-            //FIXME:目前會有後續圖片上傳 只會顯示第一張圖片的bug 這是由於路徑目前是寫死的
-            return new UploadResponse("http://localhost:8082/api/image/aaa", null);
+            return new UploadResponse("http://localhost:8082/api/image/"+p.getPhoto_id(), null);
 
         } catch (IOException e) {
             e.getMessage();
@@ -66,12 +60,11 @@ public class PhotoController {
         }
     }
 
-    @GetMapping("/{path}")
+    @GetMapping("/{photoId}")
     @ResponseBody
-    public byte[] showImage(@PathVariable("path") String path) {
-        System.out.println(path);
-        Photo p = photoRepository.findByPath(path);
-        return p.getFilebyte();
+    public byte[] showImage(@PathVariable("photoId") String photoId) {
+        Optional<Photo> p = photoRepository.findById(Integer.parseInt(photoId));
+        return p.orElseGet(null).getFilebyte();
     }
 
 }

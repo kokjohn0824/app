@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello</title>
     <!-- 利用th:insert 或是 th:replace 來載入模板 -->
     <div th:replace="jsmodules"></div>
@@ -11,16 +11,23 @@
     <link rel="stylesheet" th:href="@{/css/hello.css}" />
     <!-- defer 屬性可以將js檔案 放在head標籤內而正常運行-->
     <!-- script 原本的src屬性改爲使用 th:src-->
-</head>
-<body>
-  <!-- 引入的片段 以 :: 來標示 -->
-  <div th:replace="component/navbar :: navbar"></div>  
-  <div class="container-lg">
-    
-    <div th:text="${content}"></div>
-  
-  </div>
+  </head>
+  <body>
+    <!-- 引入的片段 以 :: 來標示 -->
+    <div th:replace="component/navbar :: navbar"></div>
+    <div class="container-lg">
+      <div id="resulthtml">
 
-
-</body>
+      </div>
+      <h2>以下為html原碼</h2>
+      <code id="content">
+        <div th:text="${content}"></div>
+      </code>
+    </div>
+    <script>
+      const resulthtml = document.querySelector('#resulthtml');
+      const content = document.querySelector('#content');
+      resulthtml.innerHTML = content.innerText;
+    </script>
+  </body>
 </html>

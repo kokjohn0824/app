@@ -22,7 +22,7 @@ public class Food {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "id")//TODO:修改此id的名稱為food id 並檢查其相關關聯性衝突
 	private Integer id;
 	
 	@Column(name = "foodname")

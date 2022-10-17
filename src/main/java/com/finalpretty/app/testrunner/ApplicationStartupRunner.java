@@ -52,8 +52,8 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
         Article a1 = new Article();
         byte[] b1 = new byte[11111111];
-        a1.setTitle("標題");
-        a1.setText("內文");
+        a1.setTitle("測試文標題");
+        a1.setText("測試內文");
         a1.setPicture(b1);
         articleRespository.save(a1);
 

@@ -13,7 +13,7 @@
     <!-- script 原本的src屬性改爲使用 th:src-->
     <script defer th:src="@{/js/hello.js}"></script>
 </head>
-<body>
+<body th:inline="text">
   <!-- 引入的片段 以 :: 來標示 -->
   <div th:replace="component/navbar :: navbar"></div>  
   
@@ -27,9 +27,9 @@
                 <div class="" style="width: 50%; margin: 20px auto">
                     <!-- th:if 搭配 th:text 來顯示內容 -->
                     <div th:if="${username} != null">
-                        <h1>您好，<span th:text="${username}"></span></h1>
+                        <!-- 以下等同： <h1>您好，<span th:text="${username}"></span></h1> -->
+                        <h1>您好，[[${username}]] </h1>
                     </div>
-                    
                     <h1>註冊頁面</h1>
                     <p>請輸入資料來註冊帳號</p>
                     <hr />

@@ -19,9 +19,14 @@ public class VideoController {
 
 	@Autowired
 	private VideoRespository videoR;
+
+	@GetMapping("/video/manage")
+	public String manageVideoPage() {
+		return "manageVideo";
+	}
 	
 	@GetMapping("/video/categories")
-    public String manageArticlePage() {
+    public String videoCategories() {
         return "videoCategories";
     }
 
@@ -39,7 +44,7 @@ public class VideoController {
 
 		model.addAttribute("allVideo", allVideo);
 
-		return "video/addVideoPage";
+		return "addVideoPage";
 	}
 
 	@PostMapping("/video/post")

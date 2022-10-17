@@ -25,6 +25,11 @@ public class ArticleController {
 		return "manageArticle";
 	}
 
+	@GetMapping("/article/categories")
+    public String videoCategories() {
+        return "articleCategories";
+    }
+
 	@GetMapping("/article/add")
 	public String addArticle(Model model) {
 

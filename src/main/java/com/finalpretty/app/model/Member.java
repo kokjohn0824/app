@@ -28,63 +28,61 @@ import lombok.Setter;
 @Setter
 @Table(name = "member")
 public class Member {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
 	private Integer member_id;
-	
+
 	@Column(name = "gender")
 	private Integer gender;
-	
+
 	@Column(name = "age")
 	private Integer age;
-	//FIXME:我認為float的部分都改成double比較好 (ex. 170.1)比較好 因為你塞入值還要寫(170.1f) 10/13更改
+	
 	@Column(name = "height")
 	private double height;
-	
+
 	@Column(name = "weight")
 	private double weight;
-	
+
 	@Column(name = "bodyFat")
 	private double bodyFat;
-	
+
 	@Column(name = "visceralFat")
 	private double visceralFat;
-	
+
 	@Column(name = "muscleMass")
 	private double muscleMass;
-	
+
 	@Lob
 	@Column(name = "changePhoto")
 	private byte[] changePhoto;
-	
+
 	@Column(name = "becomeVIP")
 	private Integer becomeVIP;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Users users;
-	
-	
+
 	@ManyToMany(mappedBy = "member")
 	private Set<Video> video = new HashSet<Video>();
-	
 
 	@ManyToMany(mappedBy = "member")
 	private Set<Article> article = new HashSet<Article>();
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	private Set<DailyRecord> daily_record = new HashSet<DailyRecord>();
-	
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	private List<Order> order = new ArrayList<>();
-	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-//	private Set<Post> post = new HashSet<Post>();
-	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-//	private Set<Response> response = new HashSet<Response>();
-	
-	
+
+	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade =
+	// CascadeType.ALL)
+	// private Set<Post> post = new HashSet<Post>();
+
+	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade =
+	// CascadeType.ALL)
+	// private Set<Response> response = new HashSet<Response>();
+
 }

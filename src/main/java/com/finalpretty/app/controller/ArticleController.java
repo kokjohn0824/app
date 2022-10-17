@@ -74,10 +74,10 @@ public class ArticleController {
 //	}
 
 	@GetMapping("/article/delete")
-	public String deleteArticle(@RequestParam(name = "id") Integer id) {
-		articleR.deleteById(id);
+	public String deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
+		articleR.deleteById(article_id);
 
-		return "redirect:/article/page";
+		return "redirect:/article/manage";
 	}
 
 	@GetMapping("/article/edit")

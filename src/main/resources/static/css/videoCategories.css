@@ -1,0 +1,25 @@
+.but1{
+	display: inline-block;
+	cursor: pointer;
+	background-size: 300px 225px;
+	width: 300px; 
+	height: 225px; 
+	text-align: center; 
+	line-height: 225px; 
+	color: #fff; 
+	font-weight: bold; 
+	font-size: 50px
+}
+
+.but2{
+	display: inline-block;
+	cursor: pointer;
+	background-size: 300px 225px;
+	width: 300px; 
+	height: 225px; 
+	text-align: center; 
+	line-height: 225px; 
+	color: #fff; 
+	font-weight: bold; 
+	font-size: 50px
+}

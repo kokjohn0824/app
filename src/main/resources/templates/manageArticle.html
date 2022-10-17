@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
+    <div th:replace="jsmodules"></div>
+    <!-- 利用th:href來引入css , 地址使用 @{} 為static資料夾下 -->
+    <link rel="stylesheet" th:href="@{/css/hello.css}" />
+    <!-- defer 屬性可以將js檔案 放在head標籤內而正常運行-->
+    <!-- script 原本的src屬性改爲使用 th:src-->
+    <script defer th:src="@{/js/hello.js}"></script>
+</head>
+
+<body>
+    <div th:replace="component/backendNavbar :: backendNavbar"></div>
+    <div>
+        <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/add">新增文章</a>
+    </div>
+</body>
+
+</html>

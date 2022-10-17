@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Article</title>
+  <div th:replace="jsmodules"></div>
+  <link rel="stylesheet" th:href="@{/css/hello.css}" />
+  <script defer th:src="@{/js/hello.js}"></script>
+</head>
+
+<body>
+  <div th:replace="component/backendNavbar :: backendNavbar"></div>
+  <div>
+    <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/manage">取消新增</a>
+  </div>
+
+  <div class="container-lg">
+    <div th:fragment="form">
+      <form class="" method="post" id="registerForm" action="#" th:action="@{/article/add}">
+        <div class="" style="width: 50%; margin: 20px auto">
+          <div th:if="${username} != null">
+            <h1>您好，管理者<span th:text="${username}"></span></h1>
+          </div>
+
+          <h1>新增文章</h1>
+          <div class="form-floating mb-3">
+
+            <input class="form-control" type="file" placeholder="請加入圖片" name="picture" />
+            <!-- <label for="title" class="form-label"><b>標題圖片</b></label> -->
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="請輸入標題" name="title" required />
+            <label for="title" class="form-label"><b>標題</b></label>
+          </div>
+          <div class="container-lg">
+            <div id="editor"></div>
+
+          </div>
+
+          <p>
+            <br /><span id="formResponse" style="color: red"></span>
+          </p>
+
+          <!-- data-bs-dismiss="modal" 
+              clearfix
+              -->
+          <div class="">
+            <button type="reset" class="btn btn-secondary">重置</button>
+            <button type="submit" class="signupbtn btn btn-primary">
+              送出
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  </div>
+</body>
+
+</html>

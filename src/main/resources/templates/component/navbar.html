@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div th:replace="../jsmodules"></div>
+    <title>模板網頁</title>
+</head>
+<body>
+    <div th:fragment="navbar">
+        <nav class="navbar  navbar-dark bg-black" style="height: 70px;background-color:#8B0000;">
+            <form class="container-fluid justify-content-end">
+              <a class="btn btn-dark" href="/">首頁</a>
+              <a class="btn btn-dark" href="/video/categories">運動教學</a>
+              <a class="btn btn-dark" href="/">主題文章</a>
+              <a class="btn btn-dark" href="/">健康檢測</a>
+              <a class="btn btn-dark" href="/">購物商城</a>
+              <a class="btn btn-dark" href="/">會員中心</a>
+              <a class="btn btn-dark" href="/">留言板</a>
+              <a class="btn btn-dark" href="/">關於我們</a>
+            <!--    以下為暫放，方便跳頁而已   -->
+              <a class="btn btn-dark" href="/Manager">後台</a>
+            </form>
+            </nav>
+    </div>
+</body>
+</html>

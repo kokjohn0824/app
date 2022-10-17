@@ -6,24 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.repositories.MemberRespository;
+import com.finalpretty.app.repositories.ArticleRespository;
 
 @Component
-public class ApplicationStartupRunner implements CommandLineRunner{
+public class ApplicationStartupRunner implements CommandLineRunner {
 
     @Autowired
     private MemberRespository memberRespository;
-    
-    protected final Log logger = LogFactory.getLog(getClass());
 
+    @Autowired
+    private ArticleRespository articleRespository;
+
+    protected final Log logger = LogFactory.getLog(getClass());
 
     @Override
     public void run(String... args) throws Exception {
-        
+
         logger.info("測試程式碼開始...");
         logger.info("請注意，run()內的程式碼報錯時將結束springboot");
-        //塞入測試資料
+        // 塞入測試資料
         Member m1 = new Member();
         m1.setGender(1);
         m1.setAge(18);
@@ -34,7 +38,7 @@ public class ApplicationStartupRunner implements CommandLineRunner{
         m1.setMuscleMass(20.4);
         m1.setBecomeVIP(1);
         memberRespository.save(m1);
-        
+
         Member m2 = new Member();
         m2.setGender(0);
         m2.setAge(16);
@@ -45,8 +49,15 @@ public class ApplicationStartupRunner implements CommandLineRunner{
         m2.setMuscleMass(10.4);
         m2.setBecomeVIP(0);
         memberRespository.save(m2);
-        
+
+        Article a1 = new Article();
+        byte[] b1 = new byte[11111111];
+        a1.setTitle("標題");
+        a1.setText("內文");
+        a1.setPicture(b1);
+        articleRespository.save(a1);
+
         logger.info("結束測試程式碼");
     }
-    
+
 }

@@ -19,11 +19,33 @@
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
     <div>
         <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/add">新增文章</a>
-    </div>
-    <img
-        src="https://puishing.edu.hk/schoolweb/images/c.gif"
-        alt=""
-      />
+    
+        <h1>所有文章</h1>
+        <table border="2" width="70%" cellpadding="2">
+        	<tr>
+				<th>編號</th>
+                <th>標題</th>
+				<th>時間</th>
+				<th>圖片</th>
+				<th>內文</th>
+				<th>編輯</th>
+                <th>刪除</th>
+			</tr>
+			
+			<tr th:each="article : ${list}">
+                <td th:text="${article.article_id}"></td>
+                <td th:text="${article.title}"></td>
+				<td th:text="${article.create_date}"></td>
+				<td th:text="${article.picture}"></td>
+				<td th:text="${article.text}"></td>
+				
+				<td>
+					<a th:onclick="return confirm('確定刪除嗎?')" href="#"><button type="submit" value="delete">修改</button></a>
+				</td>
+                <td>	<a href="#"><button type="submit" value="edite">刪除</button></a>
+				</td>
+			</tr>
+        </table>
 </body>
 
 </html>

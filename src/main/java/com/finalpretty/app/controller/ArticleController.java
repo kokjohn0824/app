@@ -21,7 +21,9 @@ public class ArticleController {
 	private ArticleRespository articleR;
 
 	@GetMapping("/article/manage")
-	public String manageArticlePage() {
+	public String manageArticlePage(Model m) {
+		List<Article> list = articleR.findAll();
+		m.addAttribute("list", list);
 		return "manageArticle";
 	}
 

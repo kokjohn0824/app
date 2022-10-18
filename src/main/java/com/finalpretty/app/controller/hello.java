@@ -16,6 +16,12 @@ public class hello {
         return "/hellofolder/hello";
     }
 
+    //前往後臺
+    @GetMapping("/backEnd")
+	public String backEnd(){
+		return "backEnd";
+	}
+
     @GetMapping("/Manager")
     public String Manager1() {
         return "helloManager";

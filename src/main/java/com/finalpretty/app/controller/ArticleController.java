@@ -26,7 +26,7 @@ public class ArticleController {
 	public String manageArticlePage(Model m) {
 		List<Article> list = articleR.findAll();
 		m.addAttribute("list", list);
-		return "/article/frontEndShowArticle";
+		return "/article/backEndManageArticle";
 	}
 
 	//刪除文章(by id)
@@ -34,6 +34,23 @@ public class ArticleController {
 	public String deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
 		articleR.deleteById(article_id);
 		return "redirect:/article/manage";
+	}
+
+	@GetMapping("/article/add")
+	public String addArticle(Model model) {
+
+		Article a1 = new Article();
+
+		model.addAttribute("article", a1);
+
+		// Messages lastestMsg = mService.findLastest();
+		// model.addAttribute("lastestMsg", lastestMsg);
+
+		List<Article> allArticle = articleR.findAll();
+
+		model.addAttribute("allArticle", allArticle);
+
+		return "/article/backEndAddArticlePage";
 	}
 
 	//前台 
@@ -56,22 +73,7 @@ public class ArticleController {
 
 	// =============================================================================================
 
-	@GetMapping("/article/add")
-	public String addArticle(Model model) {
 
-		Article a1 = new Article();
-
-		model.addAttribute("article", a1);
-
-		// Messages lastestMsg = mService.findLastest();
-		// model.addAttribute("lastestMsg", lastestMsg);
-
-		List<Article> allArticle = articleR.findAll();
-
-		model.addAttribute("allArticle", allArticle);
-
-		return "addArticlePage";
-	}
 
 	@PostMapping("/article/post")
 	public String postMsg(@ModelAttribute(name = "article") Article article, Model model) {

@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
     <title>500 ERROR</title>
     <style>
       body {
@@ -145,22 +150,28 @@
       }
     </style>
   </head>
-  <body>
+  <body th:inline="text">
     <div class="container">
       <img
-      src="https://media4.giphy.com/media/d2lcHJTG5Tscg/giphy.gif?cid=ecf05e47buumcn87fuh8hghwikkhsfl9k5dw5m2sjkhneiae&rid=giphy.gif&ct=g"  
-      alt="a cute cat picture"
+        src="https://media4.giphy.com/media/d2lcHJTG5Tscg/giphy.gif?cid=ecf05e47buumcn87fuh8hghwikkhsfl9k5dw5m2sjkhneiae&rid=giphy.gif&ct=g"
+        alt="a cute cat picture"
       />
       <h1 class="rainbow">Oh no!! 是500!!!</h1>
       <p>
-        你的controller 處理事情時候爆掉拉～
-        
-        或著你的thymleaf template 有東西爆掉
-
+        你的controller 處理事情時候爆掉拉～ 或著你的thymleaf template 有東西爆掉
         趕快去檢查你的console吧
       </p>
+      <p>錯誤訊息: [[${message}]]</p>
+      <button class="togglebtn">trace</button>
       <a class="btn btn-primary" th:href="@{/}">回首頁</a>
-
+      <p class="tracemessage" style="display: none">trace: [[${trace}]]</p>
     </div>
+    <script>
+      $(document).ready(function () {
+        $(".togglebtn").click(function () {
+          $(".tracemessage").toggle();
+        });
+      });
+    </script>
   </body>
 </html>

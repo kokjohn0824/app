@@ -7,12 +7,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>articleCategories</title>
 	<div th:replace="jsmodules"></div>
+<<<<<<< HEAD
+<<<<<<< HEAD:src/main/resources/templates/articleCategories.html
 	<link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
 	<!-- FIXME:不需要此js檔 -->
 	<script defer th:src="@{/js/hello.js}"></script>
+=======
+>>>>>>> Qilin:src/main/resources/templates/article/frontEndArticleCategories.html
+=======
+>>>>>>> Qilin
 </head>
 
-<body>
+<body th:inline="text">
+	<div th:replace="jsmodules"></div>
 	<div th:replace="component/navbar :: navbar"></div>
 	<div>
 
@@ -34,7 +41,7 @@
 					</div>
 					<header class="entry-header" aria-label="內容">
 						<h2 class="entry-title" itemprop="headline"><a
-								href="/" rel="bookmark" th:text="${article.title}"></a></h2>
+							th:href="@{'/article/show?article_id='+${article.article_id}}" rel="bookmark" th:text="${article.title}"></a></h2>
 						<div class="entry-meta">
 							<span class="posted-on"><time class="entry-date published"
 								th:text="${article.create_date}"
@@ -43,8 +50,8 @@
 					</header>
 					<div class="entry-summary" itemprop="text">
 						<p th:text="${article.text}"></p>
-						<p class="read-more-container"><a title="${article.title}" class="read-more button"
-								href="/"
+						<p class="read-more-container"><a title="" class="read-more button"
+							th:href="@{'/article/show?article_id='+${article.article_id}}"
 								aria-label="/">Read more</a></p>
 					</div>
 				</div>

@@ -30,14 +30,14 @@
 							</label>
 						</p>
 						<p>
-							年齡：<input type="number" id="age" placeholder="請輸入年齡">
+							年齡：<input type="number" id="age" placeholder="請輸入年齡" min="0">
 						</p>
 						<p>
-							身高：<input type="number" id="height" placeholder="請輸入身高 (公分)">
+							身高：<input type="number" id="height" placeholder="請輸入身高 (公分)" min="0">
 						</p>
 						<div id="2"></div>
 						<p>
-							體重：<input type="number" id="width" placeholder="請輸入體重 (公斤)">
+							體重：<input type="number" id="width" placeholder="請輸入體重 (公斤)" min="0">
 						</p>
 					</div>
 					<button type="button" id="push" class="signupbtn btn btn-primary">
@@ -155,8 +155,8 @@
 							<div class="food-title">💡一天的飲食攝取該如何分配！</div>
 							<p class="food-input-label">請輸入你的 TDEE ：</p>
 							<input type="number" id="tdee-num" placeholder="根據上方運動頻率填入對應數值"
-								onfocusout="tdeeNutrition()">
-							<div class="btn btn-success btn-sm" style="display: inline-block;">計算</div>
+								 min="0">
+							<div id="pushon" class="btn btn-success btn-sm" style="display: inline-block;">計算</div>
 							<p id="tdee" class="tdee-guide"></p>
 							<p id="food"></p>
 						</div>
@@ -302,7 +302,7 @@
 			}
 		})
 		
-	function tdeeNutrition() {
+	$("#pushon").click(function tdeeNutrition() {
         
         let x = $("#tdee-num").val();
         if (x > 2850) {
@@ -319,7 +319,7 @@
             $("#nutrition6-1").text("");
             $("#nutrition6-2").text("");
         } else if (x < 1050) {
-        	$("#tdee").text('⚠️ 提醒：此數值小於每日所需熱量參考攝取(DRIs)，建議您尋求營養師或專業醫事人員，進行更適切的飲食規劃。');
+        	$("#tdee").text('⚠️ ：此數值小於每日所需熱量參考攝取(DRIs)，建議您尋求營養師或專業醫事人員，進行更適切的飲食規劃。');
         	$("#food").text('');
             $("#nutrition1").text("");
             $("#nutrition1-1").text("");
@@ -427,7 +427,7 @@
                 $("#nutrition6-2").text("1");
             }
         }
-    }
+    })
 	</script>
 
 </body>

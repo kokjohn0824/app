@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 ERROR</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: antiquewhite;
+      }
+
+      .container {
+        width: 400px;
+        margin: 40px auto;
+      }
+
+      .rainbow {
+        /* Font options */
+        text-shadow: 2px 2px 4px #000000;
+        font-size: 40px;
+
+        /* Chrome, Safari, Opera */
+        -webkit-animation: rainbow 5s infinite;
+
+        /* Internet Explorer */
+        -ms-animation: rainbow 5s infinite;
+
+        /* Standar Syntax */
+        animation: rainbow 5s infinite;
+      }
+
+      /* Chrome, Safari, Opera */
+      @-webkit-keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+
+      /* Internet Explorer */
+      @-ms-keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+
+      /* Standar Syntax */
+      @keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+      src="https://media4.giphy.com/media/d2lcHJTG5Tscg/giphy.gif?cid=ecf05e47buumcn87fuh8hghwikkhsfl9k5dw5m2sjkhneiae&rid=giphy.gif&ct=g"  
+      alt="a cute cat picture"
+      />
+      <h1 class="rainbow">Oh no!! 是500!!!</h1>
+      <p>
+        你的controller 處理事情時候爆掉拉～
+        
+        或著你的thymleaf template 有東西爆掉
+
+        趕快去檢查你的console吧
+      </p>
+    </div>
+  </body>
+</html>

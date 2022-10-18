@@ -22,13 +22,13 @@ public class VideoController {
 
 	@GetMapping("/video/manage")
 	public String manageVideoPage() {
-		return "manageVideo";
+		return "/video/manageVideo";
 	}
 	
-	// FIXME:/video/categories 爆掉了
+	
 	@GetMapping("/video/categories")
     public String videoCategories() {
-        return "videoCategories";
+        return "/video/videoCategories";
     }
 
 	@GetMapping("/video/add")
@@ -45,7 +45,7 @@ public class VideoController {
 
 		model.addAttribute("allVideo", allVideo);
 
-		return "addVideoPage";
+		return "/video/addVideoPage";
 	}
 
 	@PostMapping("/video/post")

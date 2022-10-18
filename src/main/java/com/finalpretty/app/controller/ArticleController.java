@@ -20,6 +20,7 @@ public class ArticleController {
 	@Autowired
 	private ArticleRespository articleR;
 
+	//後台
 	@GetMapping("/article/manage")
 	public String manageArticlePage(Model m) {
 		List<Article> list = articleR.findAll();
@@ -27,8 +28,13 @@ public class ArticleController {
 		return "manageArticle";
 	}
 
+	//前台 
+
+	//顯示全部文章
 	@GetMapping("/article/categories")
-    public String videoCategories() {
+    public String articleCategories(Model m) {
+		List<Article> list = articleR.findAll();
+		m.addAttribute("list", list);
         return "articleCategories";
     }
 

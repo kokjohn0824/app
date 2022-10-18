@@ -24,7 +24,6 @@ public class MemberManageController {
 	
 	
 	//搜尋全部
-	// FIXME: /memberManage 爆掉了
 	@GetMapping("/member/manage")
 	public String memberGetAll(Model m){
 		List<Member> list = memberR.findAll();

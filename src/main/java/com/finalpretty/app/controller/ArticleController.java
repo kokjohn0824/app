@@ -26,7 +26,7 @@ public class ArticleController {
 	public String manageArticlePage(Model m) {
 		List<Article> list = articleR.findAll();
 		m.addAttribute("list", list);
-		return "/article/frontEndShowArticle";
+		return "/article/backEndManageArticle";
 	}
 
 	//刪除文章(by id)
@@ -35,24 +35,6 @@ public class ArticleController {
 		articleR.deleteById(article_id);
 		return "redirect:/article/manage";
 	}
-
-	//前台 
-
-	//顯示全部文章
-	@GetMapping("/article/categories")
-    public String articleCategories(Model m) {
-		List<Article> list = articleR.findAll();
-		m.addAttribute("list", list);
-        return "/article/frontEndArticleCategories";
-    }
-
-	@GetMapping("/article/show")
-	public String showArticle(@RequestParam(name = "article_id") Integer article_id) {
-		articleR.findById(article_id);
-		return "/article/frontEndShowArticle";
-	}
-
-	// =============================================================================================
 
 	@GetMapping("/article/add")
 	public String addArticle(Model model) {
@@ -68,8 +50,30 @@ public class ArticleController {
 
 		model.addAttribute("allArticle", allArticle);
 
-		return "addArticlePage";
+		return "/article/backEndAddArticlePage";
 	}
+
+	//前台 
+
+	//顯示全部文章
+	@GetMapping("/article/categories")
+    public String articleCategories(Model m) {
+		List<Article> list = articleR.findAll();
+		m.addAttribute("list", list);
+        return "/article/frontEndArticleCategories";
+    }
+
+	@GetMapping("/article/show")
+	public String showArticle(@RequestParam(name = "article_id") Integer article_id,Model m) {
+		Optional<Article> optional = articleR.findById(article_id);
+		Article article = optional.get();
+		m.addAttribute("article", article);
+		return "/article/frontEndShowArticle";
+	}
+
+	// =============================================================================================
+
+
 
 	@PostMapping("/article/post")
 	public String postMsg(@ModelAttribute(name = "article") Article article, Model model) {

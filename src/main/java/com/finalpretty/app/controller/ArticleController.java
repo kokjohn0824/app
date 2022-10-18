@@ -21,9 +21,16 @@ public class ArticleController {
 	private ArticleRespository articleR;
 
 	@GetMapping("/article/manage")
-	public String manageArticlePage() {
+	public String manageArticlePage(Model m) {
+		List<Article> list = articleR.findAll();
+		m.addAttribute("list", list);
 		return "manageArticle";
 	}
+
+	@GetMapping("/article/categories")
+    public String videoCategories() {
+        return "articleCategories";
+    }
 
 	@GetMapping("/article/add")
 	public String addArticle(Model model) {
@@ -67,10 +74,10 @@ public class ArticleController {
 //	}
 
 	@GetMapping("/article/delete")
-	public String deleteArticle(@RequestParam(name = "id") Integer id) {
-		articleR.deleteById(id);
+	public String deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
+		articleR.deleteById(article_id);
 
-		return "redirect:/article/page";
+		return "redirect:/article/manage";
 	}
 
 	@GetMapping("/article/edit")

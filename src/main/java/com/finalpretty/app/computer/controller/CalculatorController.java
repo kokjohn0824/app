@@ -1,4 +1,4 @@
-package com.finalpretty.app.controller;
+package com.finalpretty.app.computer.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +8,6 @@ public class CalculatorController {
 
 	@GetMapping("/metabolic")
 	public String metabolic() {
-		return "calculator";
+		return "computer/calculator";
 	}
 }

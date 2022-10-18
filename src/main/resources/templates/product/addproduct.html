@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>商品新增</title>
+	<!-- 利用th:insert 或是 th:replace 來載入模板 -->
+</head>
+<body>
+<div th:replace="jsmodules"></div>
+<div th:replace="component/navbar :: navbar"></div>
+<div th:fragment="form" class="container">
+<form th:action="@{/addProduct}" method="post" enctype="multipart/form-data">
+商品名稱:<input type="text" name="title" />
+商品種類:<input type="text" name="type" />
+商品價格:<input type="number" name="price" min="0" />
+商品庫存:<input type="number" name="stock" min="0" />
+商品簡介:<input type="text" name="text"/>
+商品上下架:<input type="radio" name="onsale" id="1" value="1"/><label for="1">上架</label>
+<input type="radio" name="onsale" id="0" value="0"/><label for="0">下架</label>
+商品照片:<input type="file" name="file" value="照片" />
+<button type="submit">新增</button>
+</form>
+</div>
+</body>
+</html>

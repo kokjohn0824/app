@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShowArticle</title>
+    <div th:replace="jsmodules"></div>
+</head>
+<body>
+    <div th:replace="component/navbar :: navbar"></div>
+    <jsp:useBean id="article" scope="request" class="com.finalpretty.app.model.Article" />
+    <h2 class="entry-title" itemprop="headline"><a rel="bookmark" th:text="${article.title}"></a></h2>
+    <span class="posted-on"><time class="entry-date published"
+        th:text="${article.create_date}"
+            itemprop="datePublished">2022-03-16</time></span>
+            <a href="/">
+                <img width="400" src="${article.picture}"
+                    class="attachment-full size-full wp-post-image" alt="" loading="lazy"
+                    itemprop="image">
+            </a>
+            <p th:text="${article.text}"></p>
+    
+</body> 
+</html>

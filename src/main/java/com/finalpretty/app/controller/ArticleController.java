@@ -47,8 +47,10 @@ public class ArticleController {
     }
 
 	@GetMapping("/article/show")
-	public String showArticle(@RequestParam(name = "article_id") Integer article_id) {
-		articleR.findById(article_id);
+	public String showArticle(@RequestParam(name = "article_id") Integer article_id,Model m) {
+		Optional<Article> optional = articleR.findById(article_id);
+		Article article = optional.get();
+		m.addAttribute("article", article);
 		return "/article/frontEndShowArticle";
 	}
 

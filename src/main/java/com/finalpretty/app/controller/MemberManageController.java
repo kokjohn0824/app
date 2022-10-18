@@ -1,6 +1,5 @@
 package com.finalpretty.app.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,6 @@ public class MemberManageController {
 	@GetMapping("/member/manage")
 	public String memberGetAll(Model m){
 		List<Member> list = memberR.findAll();
-//		List<Member> list = new ArrayList<>();
 		m.addAttribute("list", list);
 		return "memberManage";
 	}
@@ -38,8 +36,12 @@ public class MemberManageController {
 	@GetMapping("/member/delete")
 	public String memberDelete(@RequestParam(name = "id") Integer id) {
 		memberR.deleteById(id);	
-		return "redirect:/member/getAll";
+		return "redirect:/member/manage";
 	}
+	
+	
+	//編輯
+	
 	
 	
 }

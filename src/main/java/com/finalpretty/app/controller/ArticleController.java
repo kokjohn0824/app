@@ -21,11 +21,19 @@ public class ArticleController {
 	private ArticleRespository articleR;
 
 	//後台
+	//顯示全部文章
 	@GetMapping("/article/manage")
 	public String manageArticlePage(Model m) {
 		List<Article> list = articleR.findAll();
 		m.addAttribute("list", list);
-		return "manageArticle";
+		return "/article/frontEndShowArticle";
+	}
+
+	//刪除文章(by id)
+	@GetMapping("/article/delete")
+	public String deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
+		articleR.deleteById(article_id);
+		return "redirect:/article/manage";
 	}
 
 	//前台 
@@ -35,8 +43,16 @@ public class ArticleController {
     public String articleCategories(Model m) {
 		List<Article> list = articleR.findAll();
 		m.addAttribute("list", list);
-        return "articleCategories";
+        return "/article/frontEndArticleCategories";
     }
+
+	@GetMapping("/article/show")
+	public String showArticle(@RequestParam(name = "article_id") Integer article_id) {
+		articleR.findById(article_id);
+		return "/article/frontEndShowArticle";
+	}
+
+	// =============================================================================================
 
 	@GetMapping("/article/add")
 	public String addArticle(Model model) {
@@ -79,12 +95,7 @@ public class ArticleController {
 //		return "messages/showArticle";
 //	}
 
-	@GetMapping("/article/delete")
-	public String deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
-		articleR.deleteById(article_id);
-
-		return "redirect:/article/manage";
-	}
+	
 
 	@GetMapping("/article/edit")
 	public String editArticle(@RequestParam(name = "id") Integer id, Model model) {

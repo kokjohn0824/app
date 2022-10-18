@@ -6,14 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello</title>
-    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
     <div th:replace="jsmodules"></div>
+<<<<<<< HEAD:src/main/resources/templates/manageArticle.html
     <!-- 利用th:href來引入css , 地址使用 @{} 為static資料夾下 -->
     <link rel="stylesheet" th:href="@{/css/hello.css}" />
     <!-- defer 屬性可以將js檔案 放在head標籤內而正常運行-->
     <!-- script 原本的src屬性改爲使用 th:src-->
     <!-- FIXME:似乎不需要hello.js -->
     <script defer th:src="@{/js/hello.js}"></script>
+=======
+>>>>>>> Qilin:src/main/resources/templates/article/backEndManageArticle.html
 </head>
 
 <body>
@@ -50,9 +52,6 @@
                         
                 </td>
             </tr>
-            <script>
-                var d1 ="@{'/article/delete?article_id='+${article.article_id}}";
-            </script>
         </table>
 </body>
 

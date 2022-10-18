@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,6 +35,7 @@ public class Product {
 	@Column(name = "text")	//產品介紹
 	private String text;
 	
+	@Lob
 	@Column(name = "picture")
 	private byte[] picture;
 	

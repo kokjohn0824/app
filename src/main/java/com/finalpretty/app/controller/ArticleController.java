@@ -128,9 +128,9 @@ public class ArticleController {
 //		return page.getContent();
 //	}
 
-	@GetMapping("/article/ajax")
-	public String getAjaxPage() {
-		return "article/ajax-article";
-	}
+	// @GetMapping("/article/ajax")
+	// public String getAjaxPage() {
+	// 	return "article/ajax-article";
+	// }
 
 }

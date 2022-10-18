@@ -17,10 +17,17 @@ public class MemberManageController {
 	@Autowired
 	private MemberRespository memberR;
 	
-//	@GetMapping("/member/manage")
-//	public String memberManagePage() {
-//		return "memberManage";
-//	}
+	@GetMapping("/member/page")
+	public String memberManagePage() {
+		return "/member/memberPage";
+	}
+	
+	
+	//新增會員
+	@GetMapping("/member/add")
+	public String addMember() {
+		return "/member/addMember";
+	}
 	
 	
 	//搜尋全部
@@ -28,7 +35,7 @@ public class MemberManageController {
 	public String memberGetAll(Model m){
 		List<Member> list = memberR.findAll();
 		m.addAttribute("list", list);
-		return "memberManage";
+		return "/member/memberManage";
 	}
 	
 	

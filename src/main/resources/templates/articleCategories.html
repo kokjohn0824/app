@@ -5,17 +5,51 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>videoCategories</title>
+	<title>articleCategories</title>
 	<div th:replace="jsmodules"></div>
 	<link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
 	<script defer th:src="@{/js/hello.js}"></script>
 </head>
+
 <body>
-    <div th:replace="component/navbar :: navbar"></div>
-    <img
-        src="https://puishing.edu.hk/schoolweb/images/c.gif"
-        alt=""
-      />
-    
+	<div th:replace="component/navbar :: navbar"></div>
+	<div>
+
+
+		<h1>所有文章</h1>
+
+		
+			<tr th:each="article : ${list}">
+			<article id=""
+				class="post-4233 post type-post status-publish format-standard has-post-thumbnail hentry category-all category-experience category-weight-loss category-nutrition generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33"
+				itemtype="https://schema.org/CreativeWork" itemscope="">
+				<div class="inside-article">
+					<div class="post-image">
+						<a href="/">
+							<img width="400" src="${article.picture}"
+								class="attachment-full size-full wp-post-image" alt="" loading="lazy"
+								itemprop="image">
+						</a>
+					</div>
+					<header class="entry-header" aria-label="內容">
+						<h2 class="entry-title" itemprop="headline"><a
+								href="/" rel="bookmark" th:text="${article.title}"></a></h2>
+						<div class="entry-meta">
+							<span class="posted-on"><time class="entry-date published"
+								th:text="${article.create_date}"
+									itemprop="datePublished">2022-03-16</time></span> <span class="byline"></a></span></span>
+						</div>
+					</header>
+					<div class="entry-summary" itemprop="text">
+						<p th:text="${article.text}"></p>
+						<p class="read-more-container"><a title="${article.title}" class="read-more button"
+								href="/"
+								aria-label="/">Read more</a></p>
+					</div>
+				</div>
+			</article>
+			</tr>
+
 </body>
+
 </html>

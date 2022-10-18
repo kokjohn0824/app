@@ -25,6 +25,7 @@ public class VideoController {
 		return "manageVideo";
 	}
 	
+	// FIXME:/video/categories 爆掉了
 	@GetMapping("/video/categories")
     public String videoCategories() {
         return "videoCategories";

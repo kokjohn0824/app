@@ -13,7 +13,7 @@ public class hello {
     // 範例網站的視圖解析Controller
     @GetMapping("/hello")
     public String hello1() {
-        return "hello";
+        return "/hellofolder/hello";
     }
 
     @GetMapping("/Manager")

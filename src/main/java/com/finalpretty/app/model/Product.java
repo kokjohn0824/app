@@ -25,22 +25,25 @@ public class Product {
 	@Column(name = "product_id")
 	private Integer product_id;
 
-	@Column(name = "title")
+	@Column(name = "title") //產品名稱
 	private String title;
 	
-	@Column(name = "type")
+	@Column(name = "type")	//產品種類
 	private String type;
 	
-	@Column(name = "text")
+	@Column(name = "text")	//產品介紹
 	private String text;
 	
 	@Column(name = "picture")
 	private byte[] picture;
 	
-	@Column(name = "price")
+	@Column(name = "stock")	//產品庫存
+	private Integer stock;
+	
+	@Column(name = "price") //產品價格
 	private Integer price;
 	
-	@Column(name = "onsale")
+	@Column(name = "onsale") //產品上下架
 	private Integer onsale;
 	
 	@OneToOne(mappedBy = "product")

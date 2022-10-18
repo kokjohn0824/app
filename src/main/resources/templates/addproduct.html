@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>商品新增</title>
+	<!-- 利用th:insert 或是 th:replace 來載入模板 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="jsmodules"></div>
+<div th:replace="component/navbar :: navbar"></div>
+<div>
+商品名稱:<input type="text" />
+商品價格:<input type="number" />
+
+</div>
+</body>
+</html>

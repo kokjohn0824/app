@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import lombok.AllArgsConstructor;
 
 @Controller
-@RequestMapping(path = "api/public/registration")
+@RequestMapping(path = "public/api/registration")
 @AllArgsConstructor
 public class RegistrationController {
 

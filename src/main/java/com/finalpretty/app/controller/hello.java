@@ -55,7 +55,7 @@ public class hello {
         return "editorResult";
     }
 
-    @GetMapping("/hihi")
+    @GetMapping("/admin/hihi")
     @ResponseBody
     public String hello2() {
         return "hihi";

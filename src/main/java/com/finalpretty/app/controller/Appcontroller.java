@@ -12,5 +12,11 @@ public class Appcontroller {
     public String index(){
         return "index";
     }
+
+    //前往後臺
+    @GetMapping("/backEnd")
+	public String backEnd(){
+		return "backEnd";
+	}
     
 }

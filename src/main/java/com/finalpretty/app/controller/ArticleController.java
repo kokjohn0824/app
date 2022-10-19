@@ -39,7 +39,7 @@ public class ArticleController {
 	}
 	
 	// 顯示全部文章的圖片
-	@GetMapping("showImage/{id}")
+	@GetMapping("/showImage/{id}")
 	public ResponseEntity<byte[]> showImage1(@PathVariable Integer id) {
 		System.out.println();
 		Article article = articleR.findById(id).get();
@@ -68,9 +68,7 @@ public class ArticleController {
 			@RequestParam(name = "title") String title,
 			@RequestParam(name = "text") String text,
 			@RequestParam(name = "file") MultipartFile file) {
-
 		Article article = new Article();
-
 		try {
 			article.setTitle(title);
 			article.setText(text);
@@ -79,11 +77,24 @@ public class ArticleController {
 			e.printStackTrace();
 		}
 		articleR.save(article);
-
 		return "/article/backEndAddArticlePage";
-
 	}
 
+	// 修改文章
+	@GetMapping("/article/edit")
+	public String editArticle(@RequestParam(name = "article_id") Integer id, Model model) {
+		Optional<Article> a1 = articleR.findById(id);
+		model.addAttribute("article", a1.orElse(null));
+		return "article/backEndEditArticle";
+	}
+
+	@PostMapping("/article/edit")
+	public String editMessagePost(@ModelAttribute(name = "article") Article article) {
+		articleR.save(article);
+		return "redirect:/article/page";
+	}
+
+	// =============================================================================================
 	// 前台
 	// 顯示全部文章
 	@GetMapping("/article/categories")
@@ -131,20 +142,7 @@ public class ArticleController {
 	// return "messages/showArticle";
 	// }
 
-	@GetMapping("/article/edit")
-	public String editArticle(@RequestParam(name = "id") Integer id, Model model) {
-		Optional<Article> a1 = articleR.findById(id);
-		model.addAttribute("article", a1.orElse(null));
-
-		return "article/editArticle";
-	}
-
-	@PostMapping("/article/edit")
-	public String editMessagePost(@ModelAttribute(name = "article") Article article) {
-		articleR.save(article);
-
-		return "redirect:/article/page";
-	}
+	
 
 	// @ResponseBody
 	// @PostMapping("/article/api/post")

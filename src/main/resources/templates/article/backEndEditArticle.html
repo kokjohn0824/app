@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Article</title>
+  <div th:replace="jsmodules"></div>
+  <script defer th:src="@{/js/hello.js}"></script>
+</head>
+
+<body>
+  <div th:replace="component/backendNavbar :: backendNavbar"></div>
+  <jsp:useBean id="article" scope="request" class="com.finalpretty.app.model.Article" />
+  <div>
+    <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/manage">取消修改</a>
+  </div>
+
+  <div class="container-lg">
+    
+
+      <div class="" style="width: 50%; margin: 20px auto">
+        <div th:if="${username} != null">
+          <h1>您好，管理者<span th:text="${username}"></span></h1>
+        </div>
+
+        <h1>修改文章</h1>
+
+        <div class="container-lg" style="width: 800px;" th:fragment="form" >
+          <form th:action="@{/article/add}" method="post" enctype="multipart/form-data">
+            文章封面:<input class="form-control" type="file" placeholder="請加入圖片" name="file" /><br>
+            文章標題:<input type="text" name="title" /><br>
+            內文:<br>
+            <textarea  id="editor" name="text"></textarea>
+            <button type="reset" class="btn btn-secondary">重置</button>
+            <button type="submit" class="signupbtn btn btn-primary">送出</button>
+          </form>
+          
+          <form:form th:action="@{/article/add}" method="post">
+            <form:input path="id" type="hidden"/>
+            <form:input path="added" type="hidden" />
+
+            文章封面:<form:input class="form-control" type="file" placeholder="請加入圖片" name="file" /><br>
+            文章標題:<form:input type="text" name="title" /><br>
+            內文:<br>
+            <textarea  id="editor" name="text"></textarea>
+
+            
+             
+            <div class="input-group">
+               <form:textarea class="form-control" path="text"/>
+            </div>
+            <br />
+             <button type="submit" class="btn btn-primary mb-2">送出</button>
+         <!--      <input type="submit" name="submit" value="送出" /> -->
+            </form:form>
+        </div>
+      </div>
+
+      </form>
+    </div>
+</body>
+
+</html>

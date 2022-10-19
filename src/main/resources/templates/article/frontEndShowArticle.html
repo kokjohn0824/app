@@ -15,11 +15,14 @@
         th:text="${article.create_date}"
             itemprop="datePublished">2022-03-16</time></span>
             <a href="/">
-                <img width="400" src="${article.picture}"
-                    class="attachment-full size-full wp-post-image" alt="" loading="lazy"
-                    itemprop="image">
+                <img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
+								class="attachment-full size-full wp-post-image" alt="" loading="lazy"
+								itemprop="image">
             </a>
-            <p th:text="${article.text}"></p>
-    
+            <p id="resulthtml" th:text="${article.text}"></p>
+            <script>
+                const resulthtml = document.querySelector('#resulthtml');
+                resulthtml.innerHTML = resulthtml.innerText;
+              </script>
 </body> 
 </html>

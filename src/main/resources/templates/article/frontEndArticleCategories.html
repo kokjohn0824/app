@@ -23,8 +23,8 @@
 				itemtype="https://schema.org/CreativeWork" itemscope="">
 				<div class="inside-article">
 					<div class="post-image">
-						<a href="/">
-							<img width="400" src="${article.picture}"
+						<a th:href="@{'/article/show?article_id='+${article.article_id}}">
+							<img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
 								class="attachment-full size-full wp-post-image" alt="" loading="lazy"
 								itemprop="image">
 						</a>

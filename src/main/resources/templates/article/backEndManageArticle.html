@@ -30,7 +30,7 @@
                 <td th:text="${article.article_id}"></td>
                 <td th:text="${article.title}"></td>
                 <td th:text="${article.create_date}"></td>
-                <td th:text="${article.picture}"></td>
+                <td><img th:src="@{'/showImage/'+${article.article_id}}" height="40px"/></td> 
                 <td th:text="${article.text}"></td>
 
                 <td>

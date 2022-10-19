@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Product;
@@ -96,6 +98,7 @@ public class ProductController {
 		return "redirect:/listProduct";
 	}
 	
+	
 	@GetMapping("downloadImage/{id}")
 	public ResponseEntity<byte[]> downloadImage(@PathVariable Integer id) {
 		System.out.println(id);
@@ -107,4 +110,25 @@ public class ProductController {
 		headers.setContentType(MediaType.IMAGE_JPEG);
 		return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
 	}
+	
+	@ResponseBody
+	@PostMapping("/api/changeOnsale/{product_id}")
+	public Product updateOnsale(@PathVariable Integer product_id) {
+		Product product = pService.findById(product_id);
+		System.out.println(product);
+		if(product == null) {
+			return null;
+		}
+		if(product.getOnsale() == 1) {			
+			pService.updateOnsale(0, product_id);
+		}else if(product.getOnsale() == 0) {
+			pService.updateOnsale(1, product_id);
+		}
+		product = pService.findById(product_id);
+		if(product != null) {
+			return product;			
+		}
+		return null;
+	}
+	
 }

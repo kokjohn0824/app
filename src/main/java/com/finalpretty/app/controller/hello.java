@@ -1,5 +1,7 @@
 package com.finalpretty.app.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,15 +14,24 @@ public class hello {
 
     // 範例網站的視圖解析Controller
     @GetMapping("/hello")
-    public String hello1() {
+    public String hello1(Model m) {
+        // 取得username
+        Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (o instanceof UserDetails) {
+            username = ((UserDetails) o).getUsername();
+        } else {
+            username = o.toString();
+        }
+        m.addAttribute("loginusername", username);
         return "/hellofolder/hello";
     }
 
-    //前往後臺
+    // 前往後臺
     @GetMapping("/backEnd")
-	public String backEnd(){
-		return "backEnd";
-	}
+    public String backEnd() {
+        return "backEnd";
+    }
 
     @GetMapping("/Manager")
     public String Manager1() {
@@ -40,7 +51,7 @@ public class hello {
     // CKeditor編輯器的結果回傳視圖編輯器
     @PostMapping("/editorResult")
     public String ckeditorResult(@RequestParam String content, Model m) {
-        m.addAttribute("content",content);
+        m.addAttribute("content", content);
         return "editorResult";
     }
 

@@ -57,7 +57,7 @@ public class UsersServices implements UserDetailsService {
 
     public String resendToken(String email) {
         String token = initToken(usersRepository.findByEmail(email).orElseThrow());
-        emailSender.send(email, String.format("<a>%s</a>", LINK + token));
+        emailSender.verificationEmailsend(email, token);
         return "EMAIL_SEND_SUCCESS";
     }
 

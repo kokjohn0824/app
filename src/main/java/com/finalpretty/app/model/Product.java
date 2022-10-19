@@ -36,7 +36,7 @@ public class Product {
 	private String text;
 	
 	@Lob
-	@Column(name = "picture")
+	@Column(name = "picture") //產品照片
 	private byte[] picture;
 	
 	@Column(name = "stock")	//產品庫存

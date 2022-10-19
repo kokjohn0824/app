@@ -5,11 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.repositories.ProductRespository;
 
 @Service
+@Transactional
 public class ProductService {
 	
 	@Autowired
@@ -29,6 +31,10 @@ public class ProductService {
 			return op.get();
 		}
 		return null;
+	}
+	
+	public void updateOnsale(Integer onsale, Integer id) {
+		pDao.updateOnsale(onsale, id);
 	}
 	
 }

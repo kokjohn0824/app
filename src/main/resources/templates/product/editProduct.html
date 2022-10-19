@@ -12,24 +12,28 @@
 	<div th:replace="component/navbar :: navbar"></div>
 	<div class="container">
 	<form th:action="@{/updateProduct}" method="post" th:object="${product}">
-	<input type="hidden" th:value="${product.product_id}">
-	<input type="hidden" th:value="${product.text}">
+	<input type="hidden" th:field="${product.product_id}">
+	<input type="hidden" th:field="${product.picture}">
 		<table>
 			<tr>
 				<td>商品名稱:</td>
-				<td><input type="text" th:value="${product.title}"/></td>
+				<td><input type="text" th:field="${product.title}"/></td>
 			</tr>
 			<tr>
 				<td>商品價格:</td>
-				<td><input type="text" th:value="${product.price}"/></td>
+				<td><input type="text" th:field="${product.price}"/></td>
 			</tr>
 			<tr>
 				<td>商品庫存:</td>
-				<td><input type="text" th:value="${product.stock}"/></td>
+				<td><input type="text" th:field="${product.stock}"/></td>
 			</tr>
 			<tr>
 				<td>商品種類:</td>
-				<td><input type="text" th:value="${product.type}"/></td>
+				<td><input type="text" th:field="${product.type}"/></td>
+			</tr>
+			<tr>
+				<td>商品簡介:</td>
+				<td><input type="text" th:field="${product.text}"/></td>
 			</tr>
 <!-- 			<tr> -->
 <!-- 				<td>商品簡介:</td> -->

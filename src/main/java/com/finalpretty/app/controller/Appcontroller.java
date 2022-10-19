@@ -7,10 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class Appcontroller {
-    
+
     @GetMapping
-    public String index(){
+    public String index() {
         return "index";
     }
-    
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.finalpretty.app.email;
 
-
 public interface EmailSender {
-    void send(String to, String email);
+    void send(EmailBean emailBean);
+
+    void verificationEmailsend(String to, String token);
 }

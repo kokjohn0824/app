@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping(path = "api/v1/registration")
+@RequestMapping(path = "api/public/registration")
 @AllArgsConstructor
 public class RegistrationController {
 
@@ -27,7 +26,7 @@ public class RegistrationController {
     public ModelAndView confirm(@RequestParam("token") String token) {
         try {
             registrationService.confirmToken(token);
-            return new ModelAndView("confirmemailsuccess"); 
+            return new ModelAndView("confirmemailsuccess");
         } catch (Exception e) {
             return new ModelAndView("confirmemailfail");
         }

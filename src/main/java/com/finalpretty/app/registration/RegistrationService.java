@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.finalpretty.app.email.EmailSender;
+import com.finalpretty.app.email.EmailService;
 import com.finalpretty.app.model.Users;
 import com.finalpretty.app.registration.token.ConfirmationToken;
 import com.finalpretty.app.registration.token.ConfirmationTokenServices;
@@ -29,8 +30,7 @@ public class RegistrationService {
     private final String LINK = "https://localhost:8443/api/v1/registration/confirm?token=";
     private final String CONFIRMED = "Confirmed";
     private final ConfirmationTokenServices confirmationTokenServices;
-    
-    
+
     private final UsersServices usersService;
     private final EmailSender emailSender;
 
@@ -44,7 +44,7 @@ public class RegistrationService {
         try {
             token = usersService.signUpUser(
                     new Users(
-                        request.getAccount(),
+                            request.getAccount(),
                             request.getEmail(),
                             request.getPassword(),
                             UserRole.USER));
@@ -52,9 +52,10 @@ public class RegistrationService {
         } catch (IllegalStateException e) {
             return e.getMessage();
         }
-        // TODO: Create a proper email 
-        emailSender.send(request.getEmail(), String.format("<a>%s</a>", LINK + token));
+        // TODO: Create a proper email
+        emailSender.verificationEmailsend(request.getEmail(), token);
         return EMAIL_SEND_SUCCESS;
+
     }
 
     @Transactional
@@ -72,7 +73,5 @@ public class RegistrationService {
         usersService.enableUser(confirmationToken.getUsers().getEmail());
 
     }
-
-   
 
 }

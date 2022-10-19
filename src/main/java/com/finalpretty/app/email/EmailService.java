@@ -24,6 +24,7 @@ public class EmailService implements EmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
     private final JavaMailSender mailSender;
+    private final String LINK = "http://localhost:8082/api/public/registration/confirm?token=";
 
     @Autowired
     private SpringTemplateEngine thymeleafTemplateEngine;
@@ -51,18 +52,27 @@ public class EmailService implements EmailSender {
 
     @Override
     public void verificationEmailsend(String to, String token) {
+        // 生成 Email Bean
         EmailBean emailBean = new EmailBean();
+        // 設定 收信者
         emailBean.setTo(to);
+        // 設定信件標題
         emailBean.setSubject("驗證您的帳號電子郵件");
 
-        // 帶入 thymleaf 引擎
+        // 載入 thymleaf 引擎
         Context thymeleafContext = new Context();
+        // 生成Map 來塞入變數
         Map<String, Object> templateModel = new HashMap<>();
-        templateModel.put("token", token);
+        // 將token接上網址
+        String verificationLink = LINK + token;
+        // 將連結塞入Map中
+        templateModel.put("verificationLink", verificationLink);
+        // 設定變數至引擎中
         thymeleafContext.setVariables(templateModel);
-        String htmlBody = thymeleafTemplateEngine.process("/email/hihi.html", thymeleafContext);
-
+        // 將指定模板轉換成html字串
+        String htmlBody = thymeleafTemplateEngine.process("/email/verificationEmail.html", thymeleafContext);
         emailBean.setContent(htmlBody);
+        // 呼叫傳送信件method
         send(emailBean);
     }
 }

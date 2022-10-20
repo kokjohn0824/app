@@ -37,21 +37,24 @@ public class VideoController {
 		return "/video/backEndAddVideoPage";
 	}
 
-	@PostMapping("/video/add")
-	@ResponseBody
-	public String processAction(@RequestParam("myFiles") MultipartFile mf) throws IllegalStateException, IOException {
+	// @PostMapping("/video/add")
+	// @ResponseBody
+	// public String processAction(@RequestParam("myFiles") MultipartFile mf) throws
+	// IllegalStateException, IOException {
 
-		String fileName = mf.getOriginalFilename();
-		System.out.println("fileName:" + fileName);
-		String saveFileDir = "C:/fin2/fff2/src/main/resources/static/video";
-		File saveFilePath = new File(saveFileDir, fileName);
-		byte[] b = mf.getBytes();
-		mf.transferTo(saveFilePath);
-		if (fileName != null && fileName.length() != 0) {
-			videoR.setUrl(fileName);
-		}
-		return "SaveFilePath:" + saveFilePath;
-	}
+	// String fileName = mf.getOriginalFilename();
+	// System.out.println("fileName:" + fileName);
+	// String saveFileDir = "C:/fin2/fff2/src/main/resources/static/video";
+	// File saveFilePath = new File(saveFileDir, fileName);
+	// byte[] b = mf.getBytes();
+	// mf.transferTo(saveFilePath);
+	// // FIXME:記得以後不要有會有compile error 錯誤merge 到 develop
+	// if (fileName != null && fileName.length() != 0) {
+	// videoR.setUrl(fileName);
+	// }
+	// return "SaveFilePath:" + saveFilePath;
+	// return null;
+	// }
 
 	// =============================================================================================
 	// 前台

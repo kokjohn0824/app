@@ -60,9 +60,14 @@
 								},
 								"data" : JSON.stringify({}),
 							};
-
+							
 							$.ajax(settings).done(function(response) {
-
+								if(response.onsale == 1){
+	
+								$("#onsale").html('<button type="button" id="check">上架</button><input id="sp" th:name="${productinfo.onsale}" type="hidden" />')
+								}else if(response.onsale == 0){
+								$("#onsale").html('<button type="button" id="check">上架</button><input id="sp" th:name="${productinfo.onsale}" type="hidden" />')								
+								}
 							})
 						})
 	</script>

@@ -127,9 +127,9 @@ public class ProductController {
 		return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
 	}
 	
-//	@ResponseBody
+	@ResponseBody
 	@PostMapping("/api/changeOnsale/{product_id}/{onsale}")
-	public String updateOnsale(@PathVariable Integer onsale, @PathVariable Integer product_id) {
+	public Product updateOnsale(@PathVariable Integer onsale, @PathVariable Integer product_id) {
 //		Product product = pService.findById(product_id);
 //		System.out.println(product);
 //		if(product == null) {
@@ -141,14 +141,14 @@ public class ProductController {
 		}else if(onsale == 0) {
 			pService.updateOnsale(1, product_id);
 		}
-//		Product product = pService.findById(product_id);
-//		System.out.println("two" + product.getOnsale());			
+		Product product = pService.findById(product_id);
+		System.out.println("two" + product.getOnsale());			
 		
-//		if(product != null) {
-//			return product;
-//		}
-		
-		return "redirect:/listProduct";
+		if(product != null) {
+			return product;
+		}
+		return null;
+//		return "redirect:/public/listProduct";
 	}
 	
 }

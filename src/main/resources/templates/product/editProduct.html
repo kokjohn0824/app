@@ -30,16 +30,16 @@
 	<div class="container">
 	<form th:action="@{/public/updateProduct}" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="product_id" th:value="${product.product_id}">
-	<input type="hidden" name="product.onsale" th:value="${product.onsale}">
+	<input type="hidden" name="onsale" th:value="${product.onsale}">
 		<table>
 			<tr>
 				<td>商品名稱:</td>
 				<td><input type="text" name="title" th:value="${product.title}"/></td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<td>商品價格:</td> -->
-<!-- 				<td><input type="text" name="price" th:value="${product.price}"/></td> -->
-<!-- 			</tr> -->
+			<tr>
+				<td>商品價格:</td>
+				<td><input type="text" name="price" th:value="${product.price}"/></td>
+			</tr>
 			<tr>
 				<td>商品庫存:</td>
 				<td><input type="text" name="stock" th:value="${product.stock}"/></td>

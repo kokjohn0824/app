@@ -33,8 +33,8 @@ public class ProductController {
 	@Autowired
 	private ProductService pService;
 
-//	@Autowired
-//	private ProductRespository pDao;
+	// @Autowired
+	// private ProductRespository pDao;
 
 	@GetMapping("/findAllProduct")
 	public String findAllproduct() {
@@ -61,7 +61,12 @@ public class ProductController {
 			product.setStock(stock);
 			product.setText(text);
 			product.setOnsale(onsale);
-			product.setPicture(file.getBytes());
+			if (file.getBytes().length == 0) {
+				product.setPicture(null);
+			} else {
+				product.setPicture(file.getBytes());
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -70,12 +75,15 @@ public class ProductController {
 		return "redirect:/public/listProduct";
 
 	}
-	
+
 	@GetMapping("/listProduct")
 	public String getAllProduct(Model model) {
 		List<Product> list = pService.findAll();
+		for (Product li : list) {
+			System.out.println(li.getPicture());
+		}
 		model.addAttribute("productList", list);
-		
+
 		return "/product/productAll";
 	}
 
@@ -85,16 +93,16 @@ public class ProductController {
 		m.addAttribute("product", product);
 		return "product/editProduct";
 	}
-	
+
 	@PostMapping("/updateProduct")
 	public String updateProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file) {
-		
+
 		System.out.println("名稱" + product.getTitle());
 		System.out.println("種類" + product.getType());
 		System.out.println("id" + product.getProduct_id());
 		System.out.println("價錢" + product.getPrice());
 		System.out.println("簡介" + product.getText());
-		
+
 		String title = product.getTitle();
 		Integer price = product.getPrice();
 		Integer Stock = product.getStock();
@@ -103,18 +111,21 @@ public class ProductController {
 		String text = product.getText();
 		byte[] picture = null;
 		try {
-			picture = file.getBytes();
+			if (file.getBytes().length == 0) {
+				picture = pService.findById(product.getProduct_id()).getPicture();
+			} else {
+				picture = file.getBytes();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Integer product_id = product.getProduct_id();
 		System.out.println(picture);
 		pService.updateProduct(title, price, Stock, type, onsale, text, picture, product_id);
-		
+
 		return "redirect:/public/listProduct";
 	}
-	
-	
+
 	@GetMapping("/downloadImage/{id}")
 	public ResponseEntity<byte[]> downloadImage(@PathVariable Integer id) {
 		System.out.println(id);
@@ -126,29 +137,30 @@ public class ProductController {
 		headers.setContentType(MediaType.IMAGE_JPEG);
 		return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/api/changeOnsale/{product_id}/{onsale}")
-	public Product updateOnsale(@PathVariable Integer onsale, @PathVariable Integer product_id) {
-//		Product product = pService.findById(product_id);
-//		System.out.println(product);
-//		if(product == null) {
-//			return null;
-//		}
-//		System.out.println("one" + product.getOnsale());
-		if(onsale == 1) {			
+	public Product updateOnsale(@PathVariable Integer onsale, @PathVariable Integer product_id, Model m) {
+		// Product product = pService.findById(product_id);
+		// System.out.println(product);
+		// if(product == null) {
+		// return null;
+		// }
+		// System.out.println("one" + product.getOnsale());
+		if (onsale == 1) {
 			pService.updateOnsale(0, product_id);
-		}else if(onsale == 0) {
+		} else if (onsale == 0) {
 			pService.updateOnsale(1, product_id);
 		}
 		Product product = pService.findById(product_id);
-		System.out.println("two" + product.getOnsale());			
-		
-		if(product != null) {
+		System.out.println("two" + product.getOnsale());
+
+		m.addAttribute("product", product);
+		if (product != null) {
 			return product;
 		}
 		return null;
-//		return "redirect:/public/listProduct";
+		// return "redirect:/public/listProduct";
 	}
-	
+
 }

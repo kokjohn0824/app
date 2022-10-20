@@ -26,39 +26,22 @@
         </div>
 
         <h1>修改文章</h1>
-
+        <jsp:useBean id="article" scope="request" class="com.finalpretty.app.model.Article" />
         <div class="container-lg" style="width: 800px;" th:fragment="form" >
-          <form th:action="@{/article/add}" method="post" enctype="multipart/form-data">
-            文章封面:<input class="form-control" type="file" placeholder="請加入圖片" name="file" /><br>
-            文章標題:<input type="text" name="title" /><br>
+          <form th:action="@{/article/add}" method="post">
+            文章封面:<input class="form-control" type="file" placeholder="請加入圖片" name="file" />
+            <br>
+            文章標題:<input type="text" name="companyId" th:value="${article.title}"><br>
             內文:<br>
-            <textarea  id="editor" name="text"></textarea>
+            <textarea  id="editor" name="text" th:value="${article.text}"></textarea>
+            <input path="id" type="hidden"/>
+            <input path="added" type="hidden" />
             <button type="reset" class="btn btn-secondary">重置</button>
             <button type="submit" class="signupbtn btn btn-primary">送出</button>
           </form>
-          
-          <form:form th:action="@{/article/add}" method="post">
-            <form:input path="id" type="hidden"/>
-            <form:input path="added" type="hidden" />
 
-            文章封面:<form:input class="form-control" type="file" placeholder="請加入圖片" name="file" /><br>
-            文章標題:<form:input type="text" name="title" /><br>
-            內文:<br>
-            <textarea  id="editor" name="text"></textarea>
-
-            
-             
-            <div class="input-group">
-               <form:textarea class="form-control" path="text"/>
-            </div>
-            <br />
-             <button type="submit" class="btn btn-primary mb-2">送出</button>
-         <!--      <input type="submit" name="submit" value="送出" /> -->
-            </form:form>
         </div>
       </div>
-
-      </form>
     </div>
 </body>
 

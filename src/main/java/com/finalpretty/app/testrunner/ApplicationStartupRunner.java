@@ -55,44 +55,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
         m2.setBecomeVIP(0);
         memberRespository.save(m2);
 
-        // static byte[] bytes;
 
-        // public static void main(String[] args) throws Exception {
-        //     File img = new File("W:\\img\\04.jpg");
-        //     fileToByte(img);
-        //     ByteToFile(bytes);
-        // }
-    
-        // public static void fileToByte(File img) throws Exception {
-        //     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //     try {
-        //         BufferedImage bi;
-        //         bi = ImageIO.read(img);
-        //         ImageIO.write(bi, "jpg", baos);
-        //         bytes = baos.toByteArray();
-        //         System.err.println(bytes.length);
-        //     } catch (Exception e) {
-        //         e.printStackTrace();
-        //     } finally {
-        //         baos.close();
-        //     }
-        // }
-
-        Article a1 = new Article();
-        byte[] b1 = new byte[11111111];
-        a1.setTitle("測試文標題");
-        a1.setText("測試內文");
-        a1.setPicture(b1);
-        articleRespository.save(a1);
-
-        Article a2 = new Article();
-        byte[] b2 = new byte[11111111];
-        a2.setTitle("測試文標題2");
-        a2.setText("測試內文2");
-        a2.setPicture(b2);
-        articleRespository.save(a2);
-
-        logger.info("結束測試程式碼");
     }
 
 }

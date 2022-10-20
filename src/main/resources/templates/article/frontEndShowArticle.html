@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShowArticle</title>
     <div th:replace="jsmodules"></div>
-</head>
-<body>
+  </head>
+  <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <h2 class="entry-title" itemprop="headline"><a rel="bookmark" th:text="${article.title}"></a></h2>
-    <span class="posted-on"><time class="entry-date published"
+    <h2 class="entry-title" itemprop="headline">
+      <a rel="bookmark" th:text="${article.title}"></a>
+    </h2>
+    <span class="posted-on">
+      <time
+        class="entry-date published"
         th:text="${article.create_date}"
-            itemprop="datePublished">2022-03-16</time></span>
-            <a href="/">
-                <img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
-								class="attachment-full size-full wp-post-image" alt="" loading="lazy"
-								itemprop="image">
-            </a>
-            <p id="resulthtml" th:text="${article.text}"></p>
-            <script>
-                const resulthtml = document.querySelector('#resulthtml');
-                resulthtml.innerHTML = resulthtml.innerText;
-              </script>
-</body> 
+        itemprop="datePublished"
+      ></time
+    ></span>
+    <a href="/">
+      <img
+        th:src="@{'/showImage/'+${article.article_id}}"
+        height="40px"
+        class="attachment-full size-full wp-post-image"
+        alt=""
+        loading="lazy"
+        itemprop="image"
+      />
+    </a>
+    <p id="resulthtml" th:text="${article.text}"></p>
+    <script>
+      const resulthtml = document.querySelector("#resulthtml");
+      resulthtml.innerHTML = resulthtml.innerText;
+    </script>
+  </body>
 </html>

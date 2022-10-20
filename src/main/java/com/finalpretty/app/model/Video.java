@@ -32,20 +32,20 @@ public class Video {
 	@Column(name = "video_id")
 	private Integer video_id;
 
-	@Column(name = "title")
+	@Column(name = "title") //影片標題
 	private String title;
 
-	@Column(name = "url")
+	@Column(name = "url") //影片路徑
 	private String url;
 
-	@Column(name = "type")
+	@Column(name = "type") //影片分類
 	private String type;
 
-	@Column(name = "body_parts")
+	@Column(name = "body_parts") //訓練部位
 	private String body_parts;
 
 	@Lob
-	@Column(name = "picture")
+	@Column(name = "picture") //影片預覽圖
 	private byte[] picture;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

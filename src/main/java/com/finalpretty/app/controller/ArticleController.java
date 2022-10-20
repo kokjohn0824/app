@@ -13,12 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Article;
@@ -136,21 +133,21 @@ public class ArticleController {
 
 	// =============================================================================================
 
-	@PostMapping("/article/post")
-	public String postMsg(@ModelAttribute(name = "article") Article article, Model model) {
+	// @PostMapping("/article/post")
+	// public String postMsg(@ModelAttribute(name = "article") Article article, Model model) {
 
-		articleR.save(article);
+	// 	articleR.save(article);
 
-		Article a1 = new Article();
+	// 	Article a1 = new Article();
 
-		model.addAttribute("article", a1);
+	// 	model.addAttribute("article", a1);
 
-		List<Article> allArticle = articleR.findAll();
+	// 	List<Article> allArticle = articleR.findAll();
 
-		model.addAttribute("allArticle", allArticle);
+	// 	model.addAttribute("allArticle", allArticle);
 
-		return "addArticlePage";
-	}
+	// 	return "addArticlePage";
+	// }
 
 	// @GetMapping("/article/page")
 	// public String showMessages(@RequestParam(name = "p", defaultValue = "1")

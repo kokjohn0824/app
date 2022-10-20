@@ -40,21 +40,21 @@ public class Article {
 	@Column(name="article_id")
 	private Integer article_id;
 
-	@Column(name="title")
+	@Column(name="title") //文章標題
 	private String title;
 	
-	@Column(name="text")
+	@Column(name="text") //文章內文
 	private String text;
 	
 	@Lob
-	@Column(name="picture")
+	@Column(name="picture") //標題圖片
 	private byte[] picture;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "create_date", columnDefinition = "datetime")
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE",timezone = "GMT+8")
-	private Date create_date;
+	private Date create_date; //文章時間
 	
 	@PrePersist
 	public void onCreate() {

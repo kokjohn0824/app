@@ -1,103 +1,183 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>商品總覽</title>
-<!-- 利用th:insert 或是 th:replace 來載入模板 -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-	rel="stylesheet">
-<div th:replace="jsmodules"></div>
-</head>
-<body>
-	<div th:replace="component/navbar :: navbar"></div>
-	<table border="1">
-		<tr border="1">
-			<th>商品名稱</th>
-			<th>商品價格</th>
-			<th>商品庫存</th>
-			<th>商品上下架</th>
-			<th>商品種類</th>
-			<th>商品簡介</th>
-			<th>商品照片</th>
-		</tr>
-		<tr th:each="productinfo : ${productList}">
-			<td th:text="${productinfo.title}"></td>
-			<td th:text="${productinfo.price}"></td>
-			<td th:text="${productinfo.stock}"></td>
-			<td id="onsale" th:if="${productinfo.onsale} eq 1"
-				th:name="${productinfo.product_id}"><button type="button"
-					id="check">上架</button></td>
-			<td id="onsale" th:if="${productinfo.onsale} eq 0"
-				th:name="${productinfo.product_id}"><button type="button"
-					id="check">下架</button></td>
-			<td th:text="${productinfo.type}"></td>
-			<td th:text="${productinfo.text}"></td>
-			<td><img th:src="@{'downloadImage/'+${productinfo.product_id}}"
-				width="30px" height="40px" /></td>
-			<td><a th:onclick="return confirm('確定修改嗎?')"
-				th:href="@{'/updateProduct?product_id='+${productinfo.product_id}}">修改</a></td>
-			<td><a th:onclick="return confirm('確定刪除嗎?')" th:href="@{#}">刪除</a></td>
-		</tr>
-	</table>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>商品總覽</title>
+    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
 
+    <div th:replace="jsmodules"></div>
+  </head>
+  <body>
+    <div th:replace="component/backendNavbar :: backendNavbar"></div>
+    <table border="1">
+      <tr border="1">
+        <th>商品名稱</th>
+        <th>商品價格</th>
+        <th>商品庫存</th>
+        <th>商品狀態</th>
+        <th>商品上下架</th>
+        <th>商品種類</th>
+        <th>商品簡介</th>
+        <th>商品照片</th>
+      </tr>
+      <tr th:each="productinfo : ${productList}">
+        <td th:text="${productinfo.title}"></td>
+        <td th:text="${productinfo.price}"></td>
+        <td th:text="${productinfo.stock}"></td>
+        <td
+          id="onsalecheck"
+          th:if="${productinfo.onsale} eq 1"
+          th:name="${productinfo.product_id}"
+        >
+          <span th:name="${productinfo.product_id}" style="color: green"
+            >上架中</span
+          >
+        </td>
+        <td
+          id="onsalecheck"
+          th:if="${productinfo.onsale} eq 0"
+          th:name="${productinfo.product_id}"
+        >
+          <span th:name="${productinfo.product_id}" style="color: red"
+            >下架中</span
+          >
+        </td>
+        <td
+          th:id="${productinfo.onsale}"
+          th:if="${productinfo.onsale} eq 1"
+          th:name="${productinfo.product_id}"
+        >
+          <!-- <a
+            th:href="@{'/public/api/changeOnsale?product_id='
+				+${productinfo.product_id}+'&onsale='+${productinfo.onsale}}"
+            class="btn btn-secondary"
+            >下架</a
+          > -->
+          <button
+            th:id="${productinfo.product_id}"
+            type="button"
+            class="btn btn-secondary"
+            style="display: none"
+            name="check"
+          >
+            上架
+          </button>
+          <button
+            th:id="${productinfo.product_id}"
+            type="button"
+            class="btn btn-secondary"
+            name="check"
+          >
+            下架
+          </button>
+          <input name="sp1" th:id="${productinfo.onsale}" type="hidden" />
+        </td>
+        <td
+          th:id="${productinfo.onsale}"
+          th:if="${productinfo.onsale} eq 0"
+          th:name="${productinfo.product_id}"
+        >
+          <!-- <a
+            th:href="@{'/public/api/changeOnsale?product_id='
+				+${productinfo.product_id}+'&onsale='+${productinfo.onsale}}"
+            class="btn btn-primary"
+            >上架</a
+          > -->
+          <button
+            th:id="${productinfo.product_id}"
+            type="button"
+            class="btn btn-primary"
+            name="check"
+          >
+            上架
+          </button>
+          <button
+            th:id="${productinfo.product_id}"
+            type="button"
+            class="btn btn-secondary"
+            style="display: none"
+            name="check"
+          >
+            下架
+          </button>
+          <input name="sp1" th:id="${productinfo.onsale}" type="hidden" />
+        </td>
+        <td th:text="${productinfo.type}"></td>
+        <td th:text="${productinfo.text}"></td>
+        <td th:if="${productinfo.picture} eq null">
+          <img th:src="@{/img/logo.svg}" width="30px" height="40px" />
+        </td>
+        <td th:if="${productinfo.picture} != null">
+          <img
+            th:src="@{'/public/downloadImage/'+${productinfo.product_id}}"
+            width="30px"
+            height="40px"
+          />
+        </td>
+        <td>
+          <a
+            th:onclick="return confirm('確定修改嗎?')"
+            th:href="@{'/public/updateProduct?product_id='+${productinfo.product_id}}"
+            >修改</a
+          >
+        </td>
+        <td>
+          <a th:onclick="return confirm('確定刪除嗎?')" th:href="@{#}">刪除</a>
+        </td>
+      </tr>
+    </table>
 
-	<script>
-		// 		$("#check").click(function() {
-		// 			var id = $("#onsale").attr("name");
-		// // 			var url = "<th:url=''/>" + id;
-		// // 			var object = {
-		// // 				'product' : product_id
-		// // 			};
-		// // 			var json = JSON.stringify(object);
-		// // 			console.log(json)
-		// 			$.ajax({
-		// 				url:'http://localhost:8082/api/changeOnsale/' + id,
-		// 				method:'post',
-		// // 				data : json,
-		// 				contentType:'application/json;charset=UTF-8',
-		// 				dataType:'json',
-		// 				error : function() {
-		// 					alert("ajax error")
-		// 				},
+    <script>
+      $("button[name='check']").click(function (e) {
+        var id = $(e.target).attr("id");
+        var onsale = $(e.target).parent().attr("id");
+        console.log(id);
+        console.log(onsale);
+        var settings = {
+          url:
+            "http://localhost:8082/public/api/changeOnsale/" +
+            id +
+            "/" +
+            onsale,
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({}),
+        };
 
-		// 				success : function(data) {
-		// 					console.log(data);
-		// 					console.log("22222222");
-
-		// 					if (date.onsale == 1) {
-		// 						$("onsale").html('<button type="button" id="check">上架</button>')
-		// 					}else{
-		// 						$("onsale").html('<button type="button" id="check">下架</button>')
-		// 					}
-		// 				}
-		// 			})
-		// 		})
-		$("#check").click(function() {
-			var id = $("#onsale").attr("name");
-			var settings = {
-				"url" : "http://localhost:8082/api/changeOnsale/" + id,
-				"method" : "POST",
-				"timeout" : 0,
-				"headers" : {
-					"Content-Type" : "application/json"
-				},
-				"data" : JSON.stringify({}),
-			};
-
-			$.ajax(settings).done(function(response) {
-				console.log(response);
-				if (response.onsale == 1){
-					$("#onsale").html('<button type="button" id="check">上架</button>')
-				}else if(response.onsale == 0){
-					$("#onsale").html('<button type="button" id="check">下架</button>')
-				}
-			});
-		})
-	</script>
-</body>
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.onsale == 1) {
+            // console.log($(e.target).prev()[0]);
+            // console.log($(e.target).next()[0]);
+            $(e.target).parent().attr("id", response.onsale);
+            $(e.target).hide().attr("class", "btn btn-primary");
+            $(e.target).next().show().attr("class", "btn btn-secondary");
+            $(e.target)
+              .parent()
+              .prev()
+              .find("span")
+              .attr("style", "color:green")
+              .text("上架中");
+          } else if (response.onsale == 0) {
+            $(e.target)
+              .parent()
+              .prev()
+              .find("span")
+              .attr("style", "color:red")
+              .text("下架中");
+            $(e.target).parent().attr("id", response.onsale);
+            console.log($(e.target).prev()[0]);
+            console.log($(e.target).next()[0]);
+            $(e.target).hide().attr("class", "btn btn-secondary");
+            $(e.target).prev().show().attr("class", "btn btn-primary");
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

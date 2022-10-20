@@ -17,4 +17,14 @@ public interface ProductRespository  extends JpaRepository<Product, Integer>{
 		nativeQuery = true)
 	void updateOnsale(@Param("onsale")Integer onsale, @Param("product_id")Integer product_id);
 	
+	@Transactional
+	@Modifying
+	@Query(value="update product set title = :title, price = :price,"
+			+ "stock = :stock, type = :type, onsale= :onsale, text = :text, picture = :picture"
+			+ " where product_id = :product_id",
+		nativeQuery = true)
+	void updatedProduct(@Param("title")String title, @Param("price")Integer price, @Param("stock")Integer stock,
+						@Param("type")String type, @Param("onsale")Integer onsale, @Param("text")String text,
+						@Param("picture")byte[] picture, @Param("product_id")Integer product_id);
+	
 }

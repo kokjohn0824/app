@@ -8,41 +8,81 @@
 <!-- 利用th:insert 或是 th:replace 來載入模板 -->
 </head>
 <body>
+	<script>
+	 function loadImageFileAsURL() {
+		   let filesSelected = document.getElementById("inputFileToLoad").files;
+		   if (filesSelected.length > 0) {
+		    let fileToLoad = filesSelected[0];
+
+		    let fileReader = new FileReader();
+
+		    fileReader.onload = function(fileLoadedEvent) {
+		     fileDataURL = fileLoadedEvent.target.result;
+
+		    };
+
+		    fileReader.readAsDataURL(fileToLoad);
+		   }
+		  }
+	</script>
 	<div th:replace="jsmodules"></div>
-	<div th:replace="component/navbar :: navbar"></div>
+	<div th:replace="component/backendNavbar :: backendNavbar"></div>
 	<div class="container">
-	<form th:action="@{/updateProduct}" method="post" th:object="${product}">
-	<input type="hidden" th:field="${product.product_id}">
-	<input type="hidden" th:field="${product.picture}">
+	<form th:action="@{/public/updateProduct}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="product_id" th:value="${product.product_id}">
+	<input type="hidden" name="onsale" th:value="${product.onsale}">
 		<table>
 			<tr>
 				<td>商品名稱:</td>
-				<td><input type="text" th:field="${product.title}"/></td>
+				<td><input type="text" name="title" th:value="${product.title}"/></td>
 			</tr>
 			<tr>
 				<td>商品價格:</td>
-				<td><input type="text" th:field="${product.price}"/></td>
+				<td><input type="text" name="price" th:value="${product.price}"/></td>
 			</tr>
 			<tr>
 				<td>商品庫存:</td>
-				<td><input type="text" th:field="${product.stock}"/></td>
+				<td><input type="text" name="stock" th:value="${product.stock}"/></td>
 			</tr>
 			<tr>
 				<td>商品種類:</td>
-				<td><input type="text" th:field="${product.type}"/></td>
+				<td><input type="text" name="type" th:value="${product.type}"/></td>
 			</tr>
 			<tr>
 				<td>商品簡介:</td>
-				<td><input type="text" th:field="${product.text}"/></td>
+				<td><input type="text" name="text" th:value="${product.text}"/></td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<td>商品簡介:</td> -->
-<!-- 				<td><input type="text" th:value="${product.text}"/></td> -->
-<!-- 			</tr> -->
-		</table>
+			<tr>
+				<td>商品圖片:</td>
+				<td><input id="inputFileToLoad" type="file" name="file" onchange="loadImageFileAsURL()" 
+        	class="file-upload-default" >
+     			</td>
+     			<td>
+					<img id="preview_img" th:src="@{'/public/downloadImage/'+${product.product_id}}"
+     			style="height: 300px; width: 300px;border-radius:60px 60px 60px 60px ;margin-left:50px">
+     			</td>
+			</tr>
+	</table>
 		<button type="submit">修改</button>
 	</form>
-	</div>
+</div>
+	
+<script>
+$("#inputFileToLoad").change(function() {
+	readURL(this);
+})
 
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("#preview_img").attr("src", e.target.result);
+
+		}
+		reader.readAsDataURL(input.files[0]);
+
+	}
+}
+</script>
 </body>
 </html>

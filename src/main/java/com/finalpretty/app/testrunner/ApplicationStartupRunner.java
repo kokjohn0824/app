@@ -1,5 +1,7 @@
 package com.finalpretty.app.testrunner;
 
+import java.io.File;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
     protected final Log logger = LogFactory.getLog(getClass());
 
+    /* (non-Javadoc)
+     * @see org.springframework.boot.CommandLineRunner#run(java.lang.String[])
+     */
     @Override
     public void run(String... args) throws Exception {
 
@@ -49,6 +54,29 @@ public class ApplicationStartupRunner implements CommandLineRunner {
         m2.setMuscleMass(10.4);
         m2.setBecomeVIP(0);
         memberRespository.save(m2);
+
+        // static byte[] bytes;
+
+        // public static void main(String[] args) throws Exception {
+        //     File img = new File("W:\\img\\04.jpg");
+        //     fileToByte(img);
+        //     ByteToFile(bytes);
+        // }
+    
+        // public static void fileToByte(File img) throws Exception {
+        //     ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //     try {
+        //         BufferedImage bi;
+        //         bi = ImageIO.read(img);
+        //         ImageIO.write(bi, "jpg", baos);
+        //         bytes = baos.toByteArray();
+        //         System.err.println(bytes.length);
+        //     } catch (Exception e) {
+        //         e.printStackTrace();
+        //     } finally {
+        //         baos.close();
+        //     }
+        // }
 
         Article a1 = new Article();
         byte[] b1 = new byte[11111111];

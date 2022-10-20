@@ -81,28 +81,37 @@ public class ArticleController {
 		return "/article/backEndAddArticlePage";
 	}
 
-	// // 修改文章sdadsad3r3r3
-	// @GetMapping("/article/edit")
-	// public String editArticle(@RequestParam(name = "article_id") Integer id, Model model) {
-	// 	Optional<Article> a1 = articleR.findById(id);
-	// 	model.addAttribute("article", a1.orElse(null));
-	// 	return "/article/backEndEditArticle";
-	// }
+	// 修改文章sdadsad3r3r3
+	@GetMapping("/article/edit")
+	public String editArticle(@RequestParam(name = "article_id") Integer id, Model model) {
+		Optional<Article> a1 = articleR.findById(id);
+		model.addAttribute("article", a1.orElse(null));
+		return "/article/backEndEditArticle";
+	}
 
-	// @PostMapping("/article/edit")
-	// public String editArticlePost(@RequestParam(name= "article_id") Integer article_id,
-	// 							  @RequestParam(name = "title") String title,
-	// 							  @RequestParam(name = "text") String text,
-	// 							  @RequestParam(name = "picture") MultipartFile picture
-	// 							  ) {
-	// Article article = new Article();								
-	// article.setTitle(title);
-	// article.setText(text);
-	// article.getPicture(picture);
-	// Article a1 = articleR.updateById(article,article_id);
-									
-	// return "redirect:/getAllData";
-	// }
+	@PostMapping("/article/edit")
+	public String editArticlePost(@RequestParam(name= "article_id") Integer article_id,
+								  @RequestParam(name = "title") String title,
+								  @RequestParam(name = "text") String text,
+								  @RequestParam(name = "picture") MultipartFile picture,
+								  Model model
+								  ) {
+	Article article = new Article();	
+	byte[] picture2;
+	
+	try {
+		picture2 = picture.getBytes();
+		article.setPicture(picture2);
+		article.setTitle(title);
+		article.setText(text);
+		articleR.updateById(article_id,title,text,picture2);							
+	} catch (IOException e) {
+		e.printStackTrace();
+	}							
+	
+	
+	return "/article/backEndManageArticle";
+	}
 
 	// =============================================================================================
 	// 前台

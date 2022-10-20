@@ -20,13 +20,28 @@
     
 
       <div class="" style="width: 50%; margin: 20px auto">
-        <div th:if="${username} != null">
+        <!-- <div th:if="${username} != null">
           <h1>您好，管理者<span th:text="${username}"></span></h1>
-        </div>
+        </div> -->
 
         <h1>修改文章</h1>
-        <div> [[${article.article_id}}]] </div>
+        <div> [[${article.article_id}]] </div>
         <div class="container-lg" style="width: 800px;" th:fragment="form" >
+
+        <form th:object="${article}" th:action="@{/article/edit}" method="post" enctype="multipart/form-data">
+        <div>
+          文章封面:<img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
+            class="" alt="" loading="lazy" itemprop="image">
+            <input class="form-control" type="file" placeholder="請加入圖片" name="picture"/>
+            <br>
+            文章標題:<input type="text" name="title" th:field="*{title}"><br>
+            內文:<br>
+            <textarea  id="editor" name="text" th:text="*{text}"></textarea>
+            <input th:field="*{article_id}" type="hidden" />
+            <input th:field="*{create_date}" type="hidden" />
+            <button type="reset" class="btn btn-secondary">重置</button>
+            <button type="submit" class="signupbtn btn btn-primary">送出</button>
+      </form>
           <!-- <form th:action="@{/article/edit}" method="post" th:object="${article}">
             文章封面:<img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
             class="" alt="" loading="lazy" itemprop="image">
@@ -42,19 +57,6 @@
           </form> -->
 
                 <!-- 利用th:object 將model attribute 與form表單資料綁定 -->
-        <form th:object="${article}" th:action="@{/article/edit}" method="post">
-        <div>
-          文章封面:<img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
-            class="" alt="" loading="lazy" itemprop="image">
-            <input class="form-control" type="file" placeholder="請加入圖片" name="picture"/>
-            <br>
-            文章標題:<input type="text" name="title" th:field="*{title}"><br>
-            內文:<br>
-            <textarea  id="editor" name="text" th:text="*{text}"></textarea>
-            <input th:field="*{article_id}" type="hidden" />
-            <input th:field="*{create_date}" type="hidden" />
-      </form>
-
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -80,19 +81,28 @@ public class ArticleController {
 		return "/article/backEndAddArticlePage";
 	}
 
-	// 修改文章
-	@GetMapping("/article/edit")
-	public String editArticle(@RequestParam(name = "article_id") Integer id, Model model) {
-		Optional<Article> a1 = articleR.findById(id);
-		model.addAttribute("article", a1.orElse(null));
-		return "article/backEndEditArticle";
-	}
+	// // 修改文章
+	// @GetMapping("/article/edit")
+	// public String editArticle(@RequestParam(name = "article_id") Integer id, Model model) {
+	// 	Optional<Article> a1 = articleR.findById(id);
+	// 	model.addAttribute("article", a1.orElse(null));
+	// 	return "/article/backEndEditArticle";
+	// }
 
-	@PostMapping("/article/edit")
-	public String editMessagePost(@ModelAttribute(name = "article") Article article) {
-		articleR.save(article);
-		return "redirect:/article/page";
-	}
+	// @PostMapping("/article/edit")
+	// public String editArticlePost(@RequestParam(name= "article_id") Integer article_id,
+	// 							  @RequestParam(name = "title") String title,
+	// 							  @RequestParam(name = "text") String text,
+	// 							  @RequestParam(name = "picture") MultipartFile picture
+	// 							  ) {
+	// Article article = new Article();								
+	// article.setTitle(title);
+	// article.setText(text);
+	// article.getPicture(picture);
+	// Article a1 = articleR.updateById(article,article_id);
+									
+	// return "redirect:/getAllData";
+	// }
 
 	// =============================================================================================
 	// 前台

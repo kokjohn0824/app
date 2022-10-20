@@ -9,7 +9,6 @@
 </head>
 <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <jsp:useBean id="article" scope="request" class="com.finalpretty.app.model.Article" />
     <h2 class="entry-title" itemprop="headline"><a rel="bookmark" th:text="${article.title}"></a></h2>
     <span class="posted-on"><time class="entry-date published"
         th:text="${article.create_date}"

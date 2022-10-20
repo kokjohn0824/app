@@ -6,15 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>商品總覽</title>
 <!-- 利用th:insert 或是 th:replace 來載入模板 -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-	rel="stylesheet">
+
 <div th:replace="jsmodules"></div>
 </head>
 <body>
-	<div th:replace="component/navbar :: navbar"></div>
+
+	<div th:replace="component/backendNavbar :: backendNavbar"></div>
 	<table border="1">
 		<tr border="1">
 			<th>商品名稱</th>
@@ -31,73 +28,43 @@
 			<td th:text="${productinfo.stock}"></td>
 			<td id="onsale" th:if="${productinfo.onsale} eq 1"
 				th:name="${productinfo.product_id}"><button type="button"
-					id="check">上架</button></td>
+					id="check">上架</button>
+				<input id="sp" th:name="${productinfo.onsale}" type="hidden" /></td>
 			<td id="onsale" th:if="${productinfo.onsale} eq 0"
 				th:name="${productinfo.product_id}"><button type="button"
-					id="check">下架</button></td>
+					id="check">下架</button>
+				<input id="sp" th:name="${productinfo.onsale}" type="hidden" /></td>
 			<td th:text="${productinfo.type}"></td>
 			<td th:text="${productinfo.text}"></td>
-			<td><img th:src="@{'downloadImage/'+${productinfo.product_id}}"
+			<td><img
+				th:src="@{'/public/downloadImage/'+${productinfo.product_id}}"
 				width="30px" height="40px" /></td>
 			<td><a th:onclick="return confirm('確定修改嗎?')"
-				th:href="@{'/updateProduct?product_id='+${productinfo.product_id}}">修改</a></td>
+				th:href="@{'/public/updateProduct?product_id='+${productinfo.product_id}}">修改</a></td>
 			<td><a th:onclick="return confirm('確定刪除嗎?')" th:href="@{#}">刪除</a></td>
 		</tr>
 	</table>
 
 
 	<script>
-		// 		$("#check").click(function() {
-		// 			var id = $("#onsale").attr("name");
-		// // 			var url = "<th:url=''/>" + id;
-		// // 			var object = {
-		// // 				'product' : product_id
-		// // 			};
-		// // 			var json = JSON.stringify(object);
-		// // 			console.log(json)
-		// 			$.ajax({
-		// 				url:'http://localhost:8082/api/changeOnsale/' + id,
-		// 				method:'post',
-		// // 				data : json,
-		// 				contentType:'application/json;charset=UTF-8',
-		// 				dataType:'json',
-		// 				error : function() {
-		// 					alert("ajax error")
-		// 				},
-
-		// 				success : function(data) {
-		// 					console.log(data);
-		// 					console.log("22222222");
-
-		// 					if (date.onsale == 1) {
-		// 						$("onsale").html('<button type="button" id="check">上架</button>')
-		// 					}else{
-		// 						$("onsale").html('<button type="button" id="check">下架</button>')
-		// 					}
-		// 				}
-		// 			})
-		// 		})
 		$("#check").click(function() {
-			var id = $("#onsale").attr("name");
-			var settings = {
-				"url" : "http://localhost:8082/api/changeOnsale/" + id,
-				"method" : "POST",
-				"timeout" : 0,
-				"headers" : {
-					"Content-Type" : "application/json"
-				},
-				"data" : JSON.stringify({}),
-			};
+							var id = $("#onsale").attr("name");
+							var onsale = $("#sp").attr("name");
+							var settings = {
+								"url" : "http://localhost:8082/public/api/changeOnsale/"
+										+ id + "/" + onsale,
+								"method" : "POST",
+								"timeout" : 0,
+								"headers" : {
+									"Content-Type" : "application/json"
+								},
+								"data" : JSON.stringify({}),
+							};
 
-			$.ajax(settings).done(function(response) {
-				console.log(response);
-				if (response.onsale == 1){
-					$("#onsale").html('<button type="button" id="check">上架</button>')
-				}else if(response.onsale == 0){
-					$("#onsale").html('<button type="button" id="check">下架</button>')
-				}
-			});
-		})
+							$.ajax(settings).done(function(response) {
+
+							})
+						})
 	</script>
 </body>
 </html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+    <title>400 ERROR</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        color: antiquewhite;
+      }
+
+      .container {
+        width: 400px;
+        margin: 40px auto;
+      }
+
+      .rainbow {
+        /* Font options */
+        text-shadow: 2px 2px 4px #000000;
+        font-size: 40px;
+
+        /* Chrome, Safari, Opera */
+        -webkit-animation: rainbow 5s infinite;
+
+        /* Internet Explorer */
+        -ms-animation: rainbow 5s infinite;
+
+        /* Standar Syntax */
+        animation: rainbow 5s infinite;
+      }
+
+      /* Chrome, Safari, Opera */
+      @-webkit-keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+
+      /* Internet Explorer */
+      @-ms-keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+
+      /* Standar Syntax */
+      @keyframes rainbow {
+        0% {
+          color: orange;
+        }
+        10% {
+          color: purple;
+        }
+        20% {
+          color: red;
+        }
+        30% {
+          color: CadetBlue;
+        }
+        40% {
+          color: yellow;
+        }
+        50% {
+          color: coral;
+        }
+        60% {
+          color: green;
+        }
+        70% {
+          color: cyan;
+        }
+        80% {
+          color: DeepPink;
+        }
+        90% {
+          color: DodgerBlue;
+        }
+        100% {
+          color: orange;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="https://media4.giphy.com/media/1jkV16ysq9vAFN2hYN/giphy.gif?cid=ecf05e47ep0z6o3s940cluit7k3iykdhmanphnftxxdr5h2u&rid=giphy.gif&ct=g"
+        alt="man punching"
+      />
+      <h1 class="rainbow">Oh no!! 400!!!</h1>
+      <p>Bad Request : 你的請求沒有對應到controller所需要的東西</p>
+      <p>記得檢查你的請求欄位格式有沒有正確</p>
+      <a class="btn btn-primary" th:href="@{/}">回首頁</a>
+    </div>
+  </body>
+</html>

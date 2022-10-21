@@ -78,7 +78,7 @@ public class ArticleController {
 		return "/article/backEndAddArticlePage";
 	}
 
-	// 修改文章sdadsad3r3r3
+	// 修改文章
 	@GetMapping("/article/edit")
 	public String editArticle(@RequestParam(name = "article_id") Integer id, Model model) {
 		Optional<Article> a1 = articleR.findById(id);

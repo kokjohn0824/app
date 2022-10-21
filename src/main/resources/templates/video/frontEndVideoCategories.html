@@ -7,83 +7,91 @@
     <title>videoCategories</title>
     <div th:replace="jsmodules"></div>
     <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
+    <style>
+      .top {
+        width: 100%;
+        margin-top: 76px;
+      }
+    </style>
   </head>
 
   <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <p></p>
-    <div class="container-lg">
-      <div data-hicms-tmpl="index3_course_action">
-        <div
-          id="header"
-          class="but1"
-          onclick="location.href='/video/type/胸肌';"
-          style="background-image: url('/img/body_parts/chest.png')"
-        >
-          胸肌
-        </div>
+    <div class="top">
+      <br />
+      <div class="container-lg">
+        <div data-hicms-tmpl="index3_course_action">
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/video/type/胸肌';"
+            style="background-image: url('/img/body_parts/chest.png')"
+          >
+            胸肌
+          </div>
 
-        <div
-          id="header"
-          class="but1"
-          onclick="location.href='/video/type/背肌';"
-          style="background-image: url('/img/body_parts/back.png')"
-        >
-          背肌
-        </div>
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/video/type/背肌';"
+            style="background-image: url('/img/body_parts/back.png')"
+          >
+            背肌
+          </div>
 
-        <div
-          id="header"
-          class="but1"
-          onclick="location.href='/video/type/腿肌';"
-          style="background-image: url('/img/body_parts/leg.png')"
-        >
-          腿肌
-        </div>
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/video/type/腿肌';"
+            style="background-image: url('/img/body_parts/leg.png')"
+          >
+            腿肌
+          </div>
 
-        <div
-          id="header"
-          class="but1"
-          onclick="location.href='/video/type/肩膀';"
-          style="background-image: url('/img/body_parts/shoulder.png')"
-        >
-          肩膀
-        </div>
-        <p></p>
-        <div
-          id="header"
-          class="but2"
-          onclick="location.href='/video/type/腹部';"
-          style="background-image: url('/img/body_parts/abs.png')"
-        >
-          腹部
-        </div>
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/video/type/肩膀';"
+            style="background-image: url('/img/body_parts/shoulder.png')"
+          >
+            肩膀
+          </div>
+          <p></p>
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/video/type/腹部';"
+            style="background-image: url('/img/body_parts/abs.png')"
+          >
+            腹部
+          </div>
 
-        <div
-          id="header"
-          class="but2"
-          onclick="location.href='/video/type/手臂';"
-          style="background-image: url('/img/body_parts/arm.png')"
-        >
-          手臂
-        </div>
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/video/type/手臂';"
+            style="background-image: url('/img/body_parts/arm.png')"
+          >
+            手臂
+          </div>
 
-        <div
-          id="header"
-          class="but2"
-          onclick="location.href='/video/type/有氧';"
-          style="background-image: url('/img/body_parts/aerobics.png')"
-        >
-          有氧
-        </div>
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/video/type/有氧';"
+            style="background-image: url('/img/body_parts/aerobics.png')"
+          >
+            有氧
+          </div>
 
-        <div
-          id="header"
-          class="but2"
-          onclick="location.href='/video/type/伸展';"
-          style="background-image: url('/img/body_parts/stretch.png')"
-        >
-          伸展
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/video/type/伸展';"
+            style="background-image: url('/img/body_parts/stretch.png')"
+          >
+            伸展
+          </div>
         </div>
       </div>
     </div>

@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello</title>
     <div th:replace="jsmodules"></div>
+    <style>
+      .table_tit {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
   </head>
 
   <body>
@@ -23,7 +30,8 @@
       </div>
       <h1>所有文章</h1>
       <div class="container-lg" style="width: 800px" th:fragment="form">
-        <table border="2" width="70%" cellpadding="2">
+        <table border="2" cellpadding="2">
+          <!-- width="70%" -->
           <tr>
             <th>編號</th>
             <th>標題</th>
@@ -44,7 +52,12 @@
                 height="40px"
               />
             </td>
-            <td th:text="${article.text}"></td>
+            <td
+              class="table_tit"
+              id="resulthtml"
+              th:text="${article.text}"
+              style="max-width: 150px"
+            ></td>
 
             <td>
               <a th:href="@{'/article/edit?article_id='+${article.article_id}}"
@@ -62,5 +75,12 @@
         </table>
       </div>
     </div>
+    <script>
+      const resulthtml = document.querySelectorAll("#resulthtml");
+      resulthtml.innerHTML = resulthtml.innerText;
+      for (a of resulthtml) {
+        a.innerHTML = a.innerText;
+      }
+    </script>
   </body>
 </html>

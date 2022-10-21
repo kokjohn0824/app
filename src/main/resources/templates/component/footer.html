@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bellota+Text"
+    />
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <!-- <header id="js-header">
+        <div class="container clearfix">
+          <h1 id="logo">Apples</h1>
+          <nav>
+            <a href="#bacon">Bacon</a>
+            <a href="#sausage">Sausage</a>
+            <a href="#biltong">Biltong</a>
+          </nav>
+        </div>
+      </header> -->
+
+      <div id="main">
+        <div id="content"></div>
+      </div>
+
+      <footer>
+        <div th:fragment="footer" class="container clearfix">
+          <div class="col" id="col-1">
+            <ul>
+              <li style="font-weight: bold">文章分類</li>
+              <li><a href="#0">有氧健身</a></li>
+              <li><a href="#0">飲食新知</a></li>
+              <li><a href="#0">衛教相關</a></li>
+            </ul>
+          </div>
+          <div class="col" id="col-2">
+            <ul>
+              <li style="font-weight: bold">線上商城</li>
+              <li><a href="#0">高纖維</a></li>
+              <li><a href="#0">高蛋白</a></li>
+              <li><a href="#0">高代謝</a></li>
+            </ul>
+          </div>
+          <div class="col" id="col-3">
+            <ul>
+              <li style="font-weight: bold">關於我們</li>
+              <li><a href="#0">發展歷史</a></li>
+              <li><a href="#0">聯絡信箱</a></li>
+              <li><a href="#0">線上客服</a></li>
+            </ul>
+          </div>
+          <div id="copy">
+            Peeta Fitness 健身網 版權所有 © 2020 All rights reserved
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

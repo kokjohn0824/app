@@ -1,37 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<title>會員管理</title>
-	
-	<!-- 利用th:insert 或是 th:replace 來載入模板 -->
+
     <div th:replace="jsmodules"></div>
-    
+
+    <title>個人資料</title>
 </head>
 
 <body>
+    <div th:replace="component/navbar :: navbar"></div>
 
-	<div th:replace="component/backendNavbar :: backendNavbar"></div>
-    <!-- FIXME:style標籤記得要加“”  -->
-    <div th:style="'width:100%; margin:0 auto; font-size:13px;'">
-    	
-    	<div th:style="'background-color:yellow; width:300px; height:400px; text-align:center; float:left;'">
-			<br>
-			<h3><a th:href="@{/member/add}">新增會員</a></h3>
-			<p></p>
-			<h3><a th:href="@{/member/manage}">所有會員</a></h3>
-			<br>
-		</div>
-    	
-    	<div th:style="'background-color:#F2FFF2; margin-left:300px; height:400px; text-align:center;'">
-	        
-        </div>
+    <div style="margin-top: 76px;">
+        <table>
+            <!-- <tr>
+                <td>密碼</td>
+                <td th:text="${}"></td>
+            </tr> -->
+            <!-- <tr>
+                <td>email</td>
+                <td th:text="${}"></td>
+            </tr> -->
+            <tr>
+                <td>性別</td>
+                <td th:text="${}"></td>
+            </tr>
+            <tr>
+                <td>年齡</td>
+                <td th:text="${}"></td>
+            </tr>
+            <tr>
+                <td>身高</td>
+                <td th:text="${}"></td>
+            </tr>
+            <tr>
+                <td>體重</td>
+                <td th:text="${}"></td>
+            </tr>
+            <tr>
+                <td>體脂肪</td>
+                <td th:text="${}"></td>
+            </tr>
+            <tr>
+                <td>內臟脂肪</td>
+                <td th:text="${}"></td>
+            </tr>
+            <tr>
+                <td>肌肉量</td>
+                <td th:text="${}"></td>
+            </tr>
+            <tr>
+                <td>VIP</td>
+                <td th:text="${}"></td>
+            </tr>
+
+        </table>
+
+
+
+
+
+
 
     </div>
 
 
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 package com.finalpretty.app.controller;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.repositories.MemberRespository;
 
@@ -18,24 +19,23 @@ public class MemberManageController {
 
 	@Autowired
 	private MemberRespository memberR;
-	
-//----------後台-----------------------------------------------------------------------	
-	
-	//後台主頁
-	@GetMapping("/member/page")
-	public String memberManagePage() {
-		return "/member/memberPage";
+
+	// ----------後台-----------------------------------------------------------------------
+
+	// 後台主頁
+	@GetMapping("/backendMember/page")
+	public String backendMemberPage() {
+		return "/member/backendMemberPage";
 	}
-	
-	
-	//前往新增會員頁面
-	@GetMapping("/member/add")
-	public String addMemberPage() {
-		return "/member/addMember";
+
+	// 前往新增會員頁面
+	@GetMapping("/backendMember/add")
+	public String backendMemberAdd() {
+		return "/member/backendMemberAdd";
 	}
-	
-	//新增會員
-	@PostMapping("/member/add")
+
+	// 新增會員
+	@PostMapping("/backendMember/add")
 	public String addMember(
 			@RequestParam(name = "gender") Integer gender,
 			@RequestParam(name = "age") Integer age,
@@ -59,31 +59,41 @@ public class MemberManageController {
 			e.printStackTrace();
 		}
 		memberR.save(member);
-		return "/member/addMember";
+		return "/member/backendMemberAdd";
 	}
-	
-	
-	
-	
-	//顯示全部會員
-	@GetMapping("/member/manage")
-	public String memberGetAll(Model m){
+
+	// 顯示全部會員
+	@GetMapping("/backendMember/showAll")
+	public String memberGetAll(Model m) {
 		List<Member> list = memberR.findAll();
 		m.addAttribute("list", list);
-		return "/member/memberManage";
+		return "/member/backendMemberShowAll";
 	}
-	
-	
-	//刪除會員
-	@GetMapping("/member/delete")
-	public String memberDelete(@RequestParam(name = "id") Integer id) {
-		memberR.deleteById(id);	
-		return "redirect:/member/manage";
+
+	// 刪除會員
+	@GetMapping("/backendMember/delete")
+	public String memberDelete(@RequestParam(name = "member_id") Integer member_id) {
+		memberR.deleteById(member_id);
+		return "redirect:/backendMember/showAll";
 	}
-	
-	
-//----------前台-----------------------------------------------------------------------	
-	
-	
-	
+
+	// 編輯
+
+	// ----------前台-----------------------------------------------------------------------
+
+	// 個人資料主頁
+	@GetMapping("/member/page")
+	public String memberPage() {
+		return "/member/memberPage";
+	}
+
+	// 顯示個人資料find by ID
+	@GetMapping("/member/show")
+	public String findByIdMember(@RequestParam(name = "member_id") Integer member_id, Model m) {
+		Optional<Member> optional = memberR.findById(member_id);
+		Member member = optional.get();
+		m.addAttribute("member", member);
+		return "/member/memberPage";
+	}
+
 }

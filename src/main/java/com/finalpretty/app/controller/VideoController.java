@@ -55,7 +55,7 @@ public class VideoController {
 
 		String fileName = mf.getOriginalFilename();
 		// System.out.println("fileName:" + fileName);
-		String saveFileDir = "C:/fin2/fff2/src/main/resources/static/video";
+		String saveFileDir = System.getProperty("user.dir") + "/src/main/resources/static/video";
 		File saveFilePath = new File(saveFileDir, fileName);
 		// byte[] b = mf.getBytes();
 		mf.transferTo(saveFilePath);
@@ -71,6 +71,8 @@ public class VideoController {
 		// }
 		// return "SaveFilePath:" + saveFilePath;
 		// return null;
+
+		System.out.println();
 		return "/video/backEndAddVideoPage";
 	}
 

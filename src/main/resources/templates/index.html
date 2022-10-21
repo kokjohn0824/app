@@ -14,12 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:replace="jsmodules"></div>
     <title>home</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
   </head>
 
   <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <div th:replace="component/carousel :: carousel"></div>
+    <div style="width: 100%; top: 76px">
+      <div th:replace="component/carousel :: carousel"></div>
+    </div>
     <div th:replace="component/store :: store"></div>
 
     <div class="container-lg">
@@ -28,7 +29,5 @@
         alt=""
       />
     </div>
-
-    <div th:replace="component/footer :: footer"></div>
   </body>
 </html>

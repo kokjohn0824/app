@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <div th:replace="../jsmodules"></div>
-    <title>Document</title>
-  </head>
-  <body>
-    <div
-      th:fragment="store"
-      class="wrapper"
-      style=" grid-template-columns: 400px 400px 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
 
-      "
-    >
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <div th:replace="../jsmodules"></div>
+  <title>Document</title>
+</head>
 
-
-    <div th:replace="component/productcard">    </div>
-    <div th:replace="component/productcard">    </div>
-    <div th:replace="component/productcard">    </div>
-    <div th:replace="component/productcard">    </div>
-
-
-
-
-      </div>
+<body>
+  <div th:fragment="store" class="" >
+    <div class="justify-content-around d-flex flex-row flex-wrap" style="margin: 20px auto; border: 2px black solid;">
+      <div th:replace="component/productcard"></div>
+      <div th:replace="component/productcard"></div>
+      <div th:replace="component/productcard"></div>
+      <div th:replace="component/productcard"></div>
     </div>
-  </body>
+  </div>
+  </div>
+</body>
+
 </html>

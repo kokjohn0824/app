@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <style>
-    .container-lg {
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      /* background-color: brown; */
-    }
-  </style>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:replace="jsmodules"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
     <title>home</title>
+    <style>
+      .aaa {
+        color: rgb(41, 183, 143);
+        margin: 20px;
+        font-size: 30px;
+      }
+    </style>
   </head>
 
   <body>
-    <div th:replace="component/store :: store"></div>
+    <div th:replace="component/navbar :: navbar"></div>
 
-    <div class="container-lg">
-      <img
-        src="https://64.media.tumblr.com/c11e1b082809d21f9fcf6eafd82be054/tumblr_nzp4ogIogL1usbwooo1_640.gifv"
-        alt=""
-      />
+    <div style="margin-top: 8%; margin-bottom: 5%">
+      <div style="margin-left: 42%">
+        <a class="aaa" href="#">食品區</a>
+        <a class="aaa" href="#">用品區</a>
+      </div>
+
+      <div style="margin-left: 15%" class="d-flex flex-wrap">
+        <div th:replace="component/productcard"></div>
+        <div th:replace="component/productcard"></div>
+        <div th:replace="component/productcard"></div>
+        <div th:replace="component/productcard"></div>
+        <div th:replace="component/productcard"></div>
+        <div th:replace="component/productcard"></div>
+      </div>
     </div>
+
+    <div th:replace="component/footer :: footer"></div>
   </body>
 </html>

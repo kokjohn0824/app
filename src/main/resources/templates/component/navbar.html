@@ -59,7 +59,10 @@
                 </li>
                 <li class="nav-item">
                   <!-- TODO:購物商城連結 -->
-                  <a class="nav-link" aria-current="page" th:href="@{/}"
+                  <a
+                    class="nav-link"
+                    aria-current="page"
+                    th:href="@{/storefrontend}"
                     >購物商城</a
                   >
                 </li>
@@ -121,13 +124,19 @@
                 </li>
               </ul>
               <!-- TODO:縮小視窗時位置顯示改善 -->
-              <a class="navbar-brand" href="#">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/3293/3293466.png"
-                  alt=""
-                  style="height: 40px"
-                />
+
+              <div >
+              <a class="navbar-brand" href="#" style="font-size: 18px">
+                <i class="bi bi-door-open-fill"></i></i> login
               </a>
+              
+              <a class="navbar-brand" href="#" style="font-size: 18px">
+                <i class="bi bi-people-fill"></i> register
+              </a>
+
+              </div>
+
+
               <form class="d-flex" role="search">
                 <input
                   class="form-control me-2"
@@ -137,7 +146,7 @@
                 />
                 <button class="btn" type="submit">
                   <!-- 搜尋icon -->
-                  <img th:src="@{/img/search.svg}" alt="" style="width: 30px" />
+                  <i style="color: white;" class="bi bi-search"></i>
                 </button>
               </form>
             </div>

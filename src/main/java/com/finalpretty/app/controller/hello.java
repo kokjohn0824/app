@@ -49,10 +49,9 @@ public class hello {
         return "editorResult";
     }
 
-    @GetMapping("/admin/hihi")
-    @ResponseBody
-    public String hello2() {
-        return "hihi";
+    @GetMapping("/admin/panel")
+    public String panel() {
+        return "adminpanel";
     }
 
 }

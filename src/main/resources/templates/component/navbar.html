@@ -9,123 +9,141 @@
   </head>
   <body>
     <div th:fragment="navbar">
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img th:src="@{/img/logo.svg}" alt="" style="height: 50px" />
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" th:href="@{/}"
-                  >首頁</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  aria-current="page"
-                  th:href="@{/video/categories}"
-                  >運動教學</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  aria-current="page"
-                  th:href="@{/article/categories}"
-                  >主題文章</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" th:href="@{/metabolic}"
-                  >健康檢測</a
-                >
-              </li>
-              <li class="nav-item">
-                <!-- TODO:購物商城連結 -->
-                <a class="nav-link" aria-current="page" th:href="@{/}"
-                  >購物商城</a
-                >
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  th:href="@{/}"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  會員中心
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" th:href="@{/}">個人資料</a></li>
-                  <li><a class="dropdown-item" th:href="@{/}">日記管理</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" th:href="@{/}">密碼修改</a></li>
-                </ul>
-              </li>
-              <!-- 將開發用連結放在這裡 -->
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  開發用
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" th:href="@{/hello}">hello</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" th:href="@{/websocketdemo}"
-                      >websocketdemo</a
-                    >
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a class="dropdown-item" th:href="@{/backEnd}">管理後台</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <!-- TODO:縮小視窗時位置顯示改善 -->
+      <div class="fixed-top">
+        <nav class="shadow-lg navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container-fluid">
             <a class="navbar-brand" href="#">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3293/3293466.png"
-                alt=""
-                style="height: 40px"
-              />
+              <img th:src="@{/img/logo.svg}" alt="" style="height: 50px" />
             </a>
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn" type="submit">
-                <!-- 搜尋icon -->
-                <img th:src="@{/img/search.svg}" alt="" style="width: 30px" />
-              </button>
-            </form>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" th:href="@{/}"
+                    >首頁</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    aria-current="page"
+                    th:href="@{/video/categories}"
+                    >運動教學</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    aria-current="page"
+                    th:href="@{/article/categories}"
+                    >主題文章</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    aria-current="page"
+                    th:href="@{/metabolic}"
+                    >健康檢測</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <!-- TODO:購物商城連結 -->
+                  <a class="nav-link" aria-current="page" th:href="@{/}"
+                    >購物商城</a
+                  >
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    th:href="@{/}"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    會員中心
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" th:href="@{/}">個人資料</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" th:href="@{/}">日記管理</a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" th:href="@{/}">密碼修改</a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- 將開發用連結放在這裡 -->
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    開發用
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" th:href="@{/hello}">hello</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" th:href="@{/websocketdemo}"
+                        >websocketdemo</a
+                      >
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <a class="dropdown-item" th:href="@{/backEnd}"
+                        >管理後台</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" th:href="@{/admin/panel}"
+                        >panel</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <!-- TODO:縮小視窗時位置顯示改善 -->
+              <a class="navbar-brand" href="#">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/3293/3293466.png"
+                  alt=""
+                  style="height: 40px"
+                />
+              </a>
+              <form class="d-flex" role="search">
+                <input
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button class="btn" type="submit">
+                  <!-- 搜尋icon -->
+                  <img th:src="@{/img/search.svg}" alt="" style="width: 30px" />
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
     </div>
   </body>
 </html>

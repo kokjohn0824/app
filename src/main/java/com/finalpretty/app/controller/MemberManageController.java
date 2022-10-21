@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finalpretty.app.model.Member;
@@ -25,7 +27,11 @@ public class MemberManageController {
 	
 	//新增會員
 	@GetMapping("/member/add")
-	public String addMember() {
+	public String addMember(Model m) {
+		Member m1 = new Member();
+		m.addAttribute("member", m1);
+		List<Member> list = memberR.findAll();
+		m.addAttribute("list", list);
 		return "/member/addMember";
 	}
 	

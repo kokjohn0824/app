@@ -33,4 +33,3 @@ build/
 .vscode/
 
 src/main/java/com/finalpretty/app/testrunner/ApplicationStartupRunnerIgnore.java
-src/main/resources/application.properties

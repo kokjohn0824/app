@@ -1,5 +1,5 @@
      <!-- ----產品1----- -->
-     <div th:fragment="prouctcard" class="card" style="width: 18rem; margin: 5px;" >
+     <div th:fragment="prouctcard" class="card  p-1 shadow m-3" style="width: 20rem;" >
         <img
           th:src="@{/img/product/product1.jpg}"
           class="card-img-top"
@@ -8,16 +8,16 @@
         <div class="card-body">
           <h5 class="card-title">深海魚油【fish-oil】</h5>
           <p class="card-text">STEPV 84% Omega-3</p>
+          <ul >
+            <li >每份EPA+DHA劑量高達1000毫克</li>
+            <li >84% Omega-3 濃度</li>
+            <li >通過多項SGS檢驗</li>
+          </ul>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">每份EPA+DHA劑量高達1000毫克</li>
-          <li class="list-group-item">84% Omega-3 濃度</li>
-          <li class="list-group-item">通過多項SGS檢驗</li>
-        </ul>
         <div class="card-body">
-          <a href="#" class="card-link"><button style="border-radius: 10px;" type="button" class="btn btn-outline-warning"> <i class="bi bi-cart-fill"></i></a>立即結帳</button></a>
+          <a href="#" class="card-link"><button style="border-radius: 10px;" type="button" class="btn btn-outline-primary"> <i class="bi bi-cart-fill text-dark"></i></a> 立即結帳</button></a>
           <a href="#" class="card-link">
-            <button style="border-radius: 10px;" type="button" class="btn btn-outline-warning"><i class="bi bi-credit-card"></i></a>加購物車</button></a>
+            <button style="border-radius: 10px;" type="button" class="btn btn-outline-primary"><i class="bi bi-credit-card"></i></a> 加購物車</button></a>
         </div>
       
       </div>

@@ -11,6 +11,12 @@
   </head>
   <body>
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
+    <a
+      class="btn btn-dark"
+      style="background-color: #f45b69"
+      th:href="@{/admin/gotoProduct}"
+      >新增商品</a
+    >
     <table border="1">
       <tr border="1">
         <th>商品名稱</th>
@@ -32,7 +38,7 @@
           th:name="${productinfo.product_id}"
         >
           <span th:name="${productinfo.product_id}" style="color: green"
-            >上架中</span
+            >販售中</span
           >
         </td>
         <td
@@ -106,12 +112,9 @@
         </td>
         <td th:text="${productinfo.type}"></td>
         <td th:text="${productinfo.text}"></td>
-        <td th:if="${productinfo.picture} eq null">
-          <img th:src="@{/img/logo.svg}" width="30px" height="40px" />
-        </td>
         <td th:if="${productinfo.picture} != null">
           <img
-            th:src="@{'/public/downloadImage/'+${productinfo.product_id}}"
+            th:src="@{'/admin/downloadImage/'+${productinfo.product_id}}"
             width="30px"
             height="40px"
           />
@@ -119,12 +122,16 @@
         <td>
           <a
             th:onclick="return confirm('確定修改嗎?')"
-            th:href="@{'/public/updateProduct?product_id='+${productinfo.product_id}}"
+            th:href="@{'/admin/updateProduct?product_id='+${productinfo.product_id}}"
             >修改</a
           >
         </td>
         <td>
-          <a th:onclick="return confirm('確定刪除嗎?')" th:href="@{#}">刪除</a>
+          <a
+            th:onclick="return confirm('確定刪除嗎?')"
+            th:href="@{'/admin/deleteProduct?product_id='+${productinfo.product_id}}"
+            >刪除</a
+          >
         </td>
       </tr>
     </table>
@@ -137,10 +144,7 @@
         console.log(onsale);
         var settings = {
           url:
-            "http://localhost:8082/public/api/changeOnsale/" +
-            id +
-            "/" +
-            onsale,
+            "http://localhost:8082/admin/api/changeOnsale/" + id + "/" + onsale,
           method: "POST",
           timeout: 0,
           headers: {
@@ -162,7 +166,7 @@
               .prev()
               .find("span")
               .attr("style", "color:green")
-              .text("上架中");
+              .text("販售中");
           } else if (response.onsale == 0) {
             $(e.target)
               .parent()

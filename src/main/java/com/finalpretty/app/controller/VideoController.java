@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,6 +85,26 @@ public class VideoController {
 		List<Video> list = videoR.findByType(type);
 		m.addAttribute("list", list);
 		return "/video/frontEndVideoCategoriesByType";
+	}
+
+	// 顯示分類影片的預覽圖
+	@GetMapping("/showVideoImage/{id}")
+	public ResponseEntity<byte[]> showVideoImage(@PathVariable Integer id) {
+		System.out.println();
+		Video video = videoR.findById(id).get();
+		byte[] photoFile = video.getPicture();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
+	}
+
+	// 顯示選取影片
+	@GetMapping("/video/show")
+	public String showVideo(@RequestParam(name = "video_id") Integer video_id, Model m) {
+		Optional<Video> optional = videoR.findById(video_id);
+		Video video = optional.get();
+		m.addAttribute("video", video);
+		return "/video/frontEndShowVideo";
 	}
 
 	// @GetMapping("/video/add")

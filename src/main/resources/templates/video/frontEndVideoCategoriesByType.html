@@ -19,17 +19,17 @@
 			<tr th:each="video : ${list}">
 			<article id=""
 				class=""
-				itemtype="https://schema.org/CreativeWork" itemscope="">
+				itemtype="" itemscope="">
 				<div class="">
 					<div class="">
 						<a th:href="@{'/video/show?video_id='+${video.video_id}}">
-							<img th:src="@{'/showImage/'+${video.video_id}}" height="40px"
+							<img th:src="@{'/showVideoImage/'+${video.video_id}}" height="40px"
 								class="" alt="" loading="lazy"
 								itemprop="image">
 						</a>
 					</div>
 					<header class="entry-header" aria-label="內容">
-						<h2 class="entry-title" itemprop="headline" th:text="${video.title}"></h2>
+						<h2 class="entry-title" itemprop="headline" th:text="${video.title}"><a th:href="@{'/video/show?video_id='+${video.video_id}}"></a></h2>
 						<div class="entry-meta">
 							<span class="posted-on"><time class="entry-date published"
 								th:text="${video.type}"

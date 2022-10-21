@@ -18,8 +18,6 @@
     <div th:replace="component/navbar :: navbar"></div>
 
     <div class="container-lg">
-      <!-- img標籤同樣使用th:src -->
-      <img th:src="@{/img/dog.png}" style="width: 300px" alt="" />
       <!-- 在標籤內加上 th:fragment 來標明模板片段 -->
       <div th:fragment="form">
         <!-- form 表單 action屬性改為使用 th:action -->
@@ -40,7 +38,7 @@
               <!-- 以下等同： <h1>您好，<span th:text="${username}"></span></h1> -->
               <h1>您好，[[${loginusername}]]</h1>
             </div>
-            <h1>註冊頁面</h1>
+            <h1 th:text="${map['message']}">註冊頁面123</h1>
             <p>請輸入資料來註冊帳號</p>
             <hr />
             <div class="input-group mb-3">

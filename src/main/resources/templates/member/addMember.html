@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,19 +15,91 @@
 <body>
 
 	<div th:replace="component/backendNavbar :: backendNavbar"></div>
-    <!-- FIXME:style標籤記得要加“”  -->
-    <div style=width:100%;margin:0 auto;font-size:13px;>
+    <!-- FIXME:style標籤記得要加“” 修改完成 -->
+    <div th:style="'width:100%; margin:0 auto; font-size:13px;'">
     	
-    	<div style=background-color:yellow;width:500px;height:400px;text-align:center;float:left;>
+    	<div th:style="'background-color:yellow; width:300px; height:1000px; text-align:center; float:left;'">
 			<br>
-			<a th:href="@{/member/add}">新增會員</a>
+			<h3><a th:href="@{/member/add}">新增會員</a></h3>
 			<p></p>
-			<a th:href="@{/member/manage}">所有會員</a>
+			<h3><a th:href="@{/member/manage}">所有會員</a></h3>
 			<br>
 		</div>
     	
-    	<div style=background-color:#F2FFF2;margin-left:500px;height:400px;text-align:center;>
-	        建置中
+    	<div th:style="'background-color:#F2FFF2; margin-left:300px; height:1000px; text-align:center;'">
+	    	<div class="container-lg">
+    			<div th:fragment="form">
+      				<form class="" method="post" id="registerForm" action="#" th:action="@{/member/add}">
+        			<div class="" style="width: 50%; margin: 20px auto">
+          				<div th:if="${username} != null">
+            				<h1>您好，管理者<span th:text="${username}"></span></h1>
+          				</div>
+
+          				<h1>新增會員</h1>
+          					<!-- <div class="form-floating mb-3">
+            					<input class="form-control" type="file" placeholder="請加入圖片" name="picture" />
+          					</div> -->
+          					<!-- <div class="form-floating mb-3">
+            					<input class="form-control" type="text" placeholder="帳號" name="title" required />
+            					<label for="title" class="form-label"><b>帳號</b></label>
+          					</div> -->
+          					<!-- <div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="密碼" name="title" required />
+            					<label for="title" class="form-label"><b>密碼</b></label>
+          					</div> -->
+          					<!-- <div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="編號" name="title" required />
+            					<label for="title" class="form-label"><b>編號</b></label>
+          					</div> -->
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="性別" name="title" required />
+            					<label for="title" class="form-label"><b>性別</b></label>
+          					</div>
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="年齡" name="title" required />
+            					<label for="title" class="form-label"><b>年齡</b></label>
+          					</div>
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="身高" name="title" required />
+            					<label for="title" class="form-label"><b>身高</b></label>
+          					</div>
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="體重" name="title" required />
+            					<label for="title" class="form-label"><b>體重</b></label>
+          					</div>
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="體脂肪" name="title" required />
+            					<label for="title" class="form-label"><b>體脂肪</b></label>
+          					</div>
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="內臟脂肪" name="title" required />
+            					<label for="title" class="form-label"><b>內臟脂肪</b></label>
+          					</div>
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="肌肉量" name="title" required />
+            					<label for="title" class="form-label"><b>肌肉量</b></label>
+          					</div>
+          					<div class="form-floating mb-3">
+          						<input class="form-control" type="text" placeholder="VIP" name="title" required />
+            					<label for="title" class="form-label"><b>VIP</b></label>
+          					</div>
+          					
+          					
+          					<div class="container-lg">
+            					<div id="editor"></div>
+							</div>
+					        <p>
+					        	<br /><span id="formResponse" style="color: red"></span>
+					        </p>
+          					<div class="">
+            					<button type="reset" class="btn btn-secondary">重置</button>
+            					<button type="submit" class="signupbtn btn btn-primary">送出</button>
+          					</div>
+        			</div>
+      				</form>
+    			</div>
+  			</div>
+	        
         </div>
 
     </div>

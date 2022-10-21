@@ -35,10 +35,10 @@ public class ArticleController {
 		m.addAttribute("list", list);
 		return "/article/backEndManageArticle";
 	}
-	
+
 	// 顯示全部文章的圖片
 	@GetMapping("/showImage/{id}")
-	public ResponseEntity<byte[]> showImage1(@PathVariable Integer id) {
+	public ResponseEntity<byte[]> showArticleImage(@PathVariable Integer id) {
 		System.out.println();
 		Article article = articleR.findById(id).get();
 		byte[] photoFile = article.getPicture();
@@ -47,9 +47,9 @@ public class ArticleController {
 		return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
 	}
 
-	//前往新增文章
+	// 前往新增文章
 	@GetMapping("/article/add")
-	public String addArticle() {
+	public String goAddArticle() {
 		return "/article/backEndAddArticlePage";
 	}
 
@@ -62,7 +62,7 @@ public class ArticleController {
 
 	// 新增文章
 	@PostMapping("/article/add")
-	public String addProduct(
+	public String addArticle(
 			@RequestParam(name = "title") String title,
 			@RequestParam(name = "text") String text,
 			@RequestParam(name = "file") MultipartFile file) {
@@ -87,27 +87,25 @@ public class ArticleController {
 	}
 
 	@PostMapping("/article/edit")
-	public String editArticlePost(@RequestParam(name= "article_id") Integer article_id,
-								  @RequestParam(name = "title") String title,
-								  @RequestParam(name = "text") String text,
-								  @RequestParam(name = "picture") MultipartFile picture,
-								  Model model
-								  ) {
-	Article article = new Article();	
-	byte[] picture2;
-	
-	try {
-		picture2 = picture.getBytes();
-		article.setPicture(picture2);
-		article.setTitle(title);
-		article.setText(text);
-		articleR.updateById(article_id,title,text,picture2);							
-	} catch (IOException e) {
-		e.printStackTrace();
-	}							
-	
-	
-	return "/article/backEndManageArticle";
+	public String editArticlePost(@RequestParam(name = "article_id") Integer article_id,
+			@RequestParam(name = "title") String title,
+			@RequestParam(name = "text") String text,
+			@RequestParam(name = "picture") MultipartFile picture,
+			Model model) {
+		Article article = new Article();
+		byte[] picture2;
+
+		try {
+			picture2 = picture.getBytes();
+			article.setPicture(picture2);
+			article.setTitle(title);
+			article.setText(text);
+			articleR.updateById(article_id, title, text, picture2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "/article/backEndManageArticle";
 	}
 
 	// =============================================================================================
@@ -129,24 +127,23 @@ public class ArticleController {
 		return "/article/frontEndShowArticle";
 	}
 
-
-
 	// =============================================================================================
 
 	// @PostMapping("/article/post")
-	// public String postMsg(@ModelAttribute(name = "article") Article article, Model model) {
+	// public String postMsg(@ModelAttribute(name = "article") Article article,
+	// Model model) {
 
-	// 	articleR.save(article);
+	// articleR.save(article);
 
-	// 	Article a1 = new Article();
+	// Article a1 = new Article();
 
-	// 	model.addAttribute("article", a1);
+	// model.addAttribute("article", a1);
 
-	// 	List<Article> allArticle = articleR.findAll();
+	// List<Article> allArticle = articleR.findAll();
 
-	// 	model.addAttribute("allArticle", allArticle);
+	// model.addAttribute("allArticle", allArticle);
 
-	// 	return "addArticlePage";
+	// return "addArticlePage";
 	// }
 
 	// @GetMapping("/article/page")
@@ -157,8 +154,6 @@ public class ArticleController {
 	//
 	// return "messages/showArticle";
 	// }
-
-	
 
 	// @ResponseBody
 	// @PostMapping("/article/api/post")

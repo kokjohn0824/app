@@ -6,30 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ShowArticle</title>
     <div th:replace="jsmodules"></div>
+    <style>
+      .top {
+        width: 100%;
+        margin-top: 76px;
+      }
+    </style>
   </head>
   <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <h2 class="entry-title" itemprop="headline">
-      <a rel="bookmark" th:text="${article.title}"></a>
-    </h2>
-    <span class="posted-on">
-      <time
-        class="entry-date published"
-        th:text="${article.create_date}"
-        itemprop="datePublished"
-      ></time
-    ></span>
-    <a href="/">
-      <img
-        th:src="@{'/showImage/'+${article.article_id}}"
-        height="40px"
-        class="attachment-full size-full wp-post-image"
-        alt=""
-        loading="lazy"
-        itemprop="image"
-      />
-    </a>
-    <p id="resulthtml" th:text="${article.text}"></p>
+    <div class="top">
+      .
+      <div class="container-lg">
+        <img
+          th:src="@{'/showImage/'+${article.article_id}}"
+          height="400px"
+          class="attachment-full size-full wp-post-image"
+          alt=""
+          loading="lazy"
+          itemprop="image"
+        />
+        <h2 class="entry-title" itemprop="headline">
+          <a rel="bookmark" th:text="${article.title}"></a>
+        </h2>
+        <span class="posted-on">
+          <time
+            class="entry-date published"
+            th:text="${article.create_date}"
+            itemprop="datePublished"
+          ></time
+        ></span>
+
+        <p id="resulthtml" th:text="${article.text}"></p>
+      </div>
+    </div>
     <script>
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;

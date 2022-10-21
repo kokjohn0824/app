@@ -1,37 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-    <style>
-        .container-lg{
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            /* background-color: brown; */
-        }
-    </style>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello</title>
-    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
     <div th:replace="jsmodules"></div>
-    <!-- 利用th:href來引入css , 地址使用 @{} 為static資料夾下 -->
-    <link rel="stylesheet" th:href="@{/css/hello.css}" />
-    <!-- defer 屬性可以將js檔案 放在head標籤內而正常運行-->
-    <!-- script 原本的src屬性改爲使用 th:src-->
-    <script defer th:src="@{/js/hello.js}"></script>
-</head>
+    <style>
+      .container-lg {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        /* background-color: brown; */
+      }
+    </style>
+  </head>
 
-<body>
+  <body>
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
     <div>
-        <a class="btn btn-dark" style="background-color:#F45B69;" href="/video/add">新增影片</a>
+      <a
+        class="btn btn-dark"
+        style="background-color: #f45b69"
+        href="/video/add"
+        >新增影片</a
+      >
     </div>
-    <div class="container-lg" >
-        <img src="https://64.media.tumblr.com/c89d515f99cb91356e3e27092342cf59/3b9790ce2e5bb480-34/s500x750/cf14a0149f8024eedb4816c732917cc2a8373de3.gifv"
-            alt="" />
-    </div>
-</body>
+    <div class="" style="width: 50%; margin: 20px auto">
+      <div th:if="${username} != null">
+        <h1>您好，管理者<span th:text="${username}"></span></h1>
+      </div>
+      <h1>所有文章</h1>
+      <div class="container-lg" style="width: 800px" th:fragment="form">
+        <table border="2" cellpadding="2">
+          <!-- width="70%" -->
+          <tr>
+            <th>編號</th>
+            <th>標題</th>
+            <th>分類</th>
+            <th>部位</th>
+            <th>預覽圖</th>
+            <th>影片</th>
+            <th>修改</th>
+            <th>刪除</th>
+          </tr>
 
+          <tr th:each="video : ${list}">
+            <td th:text="${video.video_id}"></td>
+            <td th:text="${video.title}"></td>
+            <td th:text="${video.type}"></td>
+            <td th:text="${video.body_parts}"></td>
+            <td>
+              <img
+                th:src="@{'/showVideoImage/'+${video.video_id}}"
+                height="100px"
+              />
+            </td>
+            <td>
+              <video style="height: 100px" controls>
+                <source th:src="@{'/video/'+${video.url}}" type="video/mp4" />
+                您的瀏覽器不支援此 HTML5 影片標籤
+              </video>
+            </td>
+            <td>
+              <a th:href="@{'/video/edit?video_id='+${video.video_id}}"
+                ><button type="submit" value="edite">修改</button></a
+              >
+            </td>
+            <td>
+              <a
+                th:onclick="return confirm('確定刪除嗎?')"
+                th:href="@{'/video/delete?video_id='+${video.video_id}}"
+                ><button type="submit" value="delete">刪除</button></a
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>

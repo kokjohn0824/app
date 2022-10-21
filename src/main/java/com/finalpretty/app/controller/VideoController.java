@@ -32,7 +32,9 @@ public class VideoController {
 	// 後台
 	// 顯示全部影片
 	@GetMapping("/video/manage")
-	public String manageVideoPage() {
+	public String manageVideoPage(Model m) {
+		List<Video> list = videoR.findAll();
+		m.addAttribute("list", list);
 		return "/video/backEndManageVideo";
 	}
 
@@ -42,6 +44,7 @@ public class VideoController {
 		return "/video/backEndAddVideoPage";
 	}
 
+	// 新增影片
 	@PostMapping("/video/add")
 	@ResponseBody
 	public String processAction(@RequestParam("myFiles") MultipartFile mf,
@@ -68,7 +71,14 @@ public class VideoController {
 		// }
 		// return "SaveFilePath:" + saveFilePath;
 		// return null;
-		return "/video/backEndManageVideo";
+		return "/video/backEndAddVideoPage";
+	}
+
+	// 刪除影片(by id)
+	@GetMapping("/video/delete")
+	public String deleteVideo(@RequestParam(name = "video_id") Integer video_id) {
+		videoR.deleteById(video_id);
+		return "redirect:/video/manage";
 	}
 
 	// =============================================================================================
@@ -148,13 +158,6 @@ public class VideoController {
 	//
 	// return "messages/showArticle";
 	// }
-
-	@GetMapping("/video/delete")
-	public String deleteVideo(@RequestParam(name = "id") Integer id) {
-		videoR.deleteById(id);
-
-		return "redirect:/video/page";
-	}
 
 	@GetMapping("/video/edit")
 	public String editVideo(@RequestParam(name = "id") Integer id, Model model) {

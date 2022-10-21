@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-    <style>
-        .container-lg{
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            /* background-color: brown; */
-        }
-    </style>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .container-lg {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      /* background-color: brown; */
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:replace="jsmodules"></div>
     <title>home</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <div th:replace="component/carousel :: carousel"></div>
-    <div th:replace="component/store :: store"></div>
-
-    <div class="container-lg" >
-        <img src="https://64.media.tumblr.com/c11e1b082809d21f9fcf6eafd82be054/tumblr_nzp4ogIogL1usbwooo1_640.gifv"
-        alt="" />
+    <div style="width: 100%; top: 76px">
+      <div th:replace="component/carousel :: carousel"></div>
     </div>
-</body>
-
+    <div th:replace="component/store :: store"></div>
+  </body>
 </html>

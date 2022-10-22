@@ -26,176 +26,176 @@ import com.finalpretty.app.repositories.VideoRespository;
 @Controller
 public class VideoController {
 
-	@Autowired
-	private VideoRespository videoR;
+    @Autowired
+    private VideoRespository videoR;
 
-	// 後台
-	// 顯示全部影片
-	@GetMapping("/video/manage")
-	public String manageVideoPage(Model m) {
-		List<Video> list = videoR.findAll();
-		m.addAttribute("list", list);
-		return "/video/backEndManageVideo";
-	}
+    // 後台
+    // 顯示全部影片
+    @GetMapping("/video/manage")
+    public String manageVideoPage(Model m) {
+        List<Video> list = videoR.findAll();
+        m.addAttribute("list", list);
+        return "/video/backEndManageVideo";
+    }
 
-	// 前往新增影片
-	@GetMapping("/video/add")
-	public String addArticle() {
-		return "/video/backEndAddVideoPage";
-	}
+    // 前往新增影片
+    @GetMapping("/video/add")
+    public String addArticle() {
+        return "/video/backEndAddVideoPage";
+    }
 
-	// 新增影片
-	@PostMapping("/video/add")
-	@ResponseBody
-	public String processAction(@RequestParam("myFiles") MultipartFile mf,
-			@RequestParam(name = "picture") MultipartFile picture,
-			@RequestParam(name = "title") String title,
-			@RequestParam(name = "type") String type,
-			@RequestParam(name = "body_parts") String body_parts) throws IllegalStateException, IOException {
+    // 新增影片
+    @PostMapping("/video/add")
+    @ResponseBody
+    public String processAction(@RequestParam("myFiles") MultipartFile mf,
+            @RequestParam(name = "picture") MultipartFile picture,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "type") String type,
+            @RequestParam(name = "body_parts") String body_parts) throws IllegalStateException, IOException {
 
-		String fileName = mf.getOriginalFilename();
-		// System.out.println("fileName:" + fileName);
-		String saveFileDir = System.getProperty("user.dir") + "/src/main/resources/static/video";
-		File saveFilePath = new File(saveFileDir, fileName);
-		// byte[] b = mf.getBytes();
-		mf.transferTo(saveFilePath);
-		Video video = new Video();
-		video.setPicture(picture.getBytes());
-		video.setTitle(title);
-		video.setType(type);
-		video.setBody_parts(body_parts);
-		video.setUrl(fileName);
-		videoR.save(video);
-		// if (fileName != null && fileName.length() != 0) {
-		// videoR.setUrl(fileName);
-		// }
-		// return "SaveFilePath:" + saveFilePath;
-		// return null;
+        String fileName = mf.getOriginalFilename();
+        // System.out.println("fileName:" + fileName);
+        String saveFileDir = System.getProperty("user.dir") + "/src/main/resources/static/video";
+        File saveFilePath = new File(saveFileDir, fileName);
+        // byte[] b = mf.getBytes();
+        mf.transferTo(saveFilePath);
+        Video video = new Video();
+        video.setPicture(picture.getBytes());
+        video.setTitle(title);
+        video.setType(type);
+        video.setBody_parts(body_parts);
+        video.setUrl(fileName);
+        videoR.save(video);
+        // if (fileName != null && fileName.length() != 0) {
+        // videoR.setUrl(fileName);
+        // }
+        // return "SaveFilePath:" + saveFilePath;
+        // return null;
 
-		System.out.println();
-		return "/video/backEndAddVideoPage";
-	}
+        System.out.println();
+        return "/video/backEndAddVideoPage";
+    }
 
-	// 刪除影片(by id)
-	@GetMapping("/video/delete")
-	public String deleteVideo(@RequestParam(name = "video_id") Integer video_id) {
-		videoR.deleteById(video_id);
-		return "redirect:/video/manage";
-	}
+    // 刪除影片(by id)
+    @GetMapping("/video/delete")
+    public String deleteVideo(@RequestParam(name = "video_id") Integer video_id) {
+        videoR.deleteById(video_id);
+        return "redirect:/video/manage";
+    }
 
-	// =============================================================================================
-	// 前台
-	// 顯示影片分類
-	@GetMapping("/video/categories")
-	public String videoCategories() {
-		return "/video/frontEndVideoCategories";
-	}
+    @GetMapping("/video/edit")
+    public String editVideo(@RequestParam(name = "id") Integer id, Model model) {
+        Optional<Video> v1 = videoR.findById(id);
+        model.addAttribute("video", v1.orElse(null));
 
-	// 選擇分類
-	@GetMapping("/video/type/{type}")
-	public String videoCategoriesByType(@PathVariable String type, Model m) {
-		List<Video> list = videoR.findByType(type);
-		m.addAttribute("list", list);
-		return "/video/frontEndVideoCategoriesByType";
-	}
+        return "video/editVideo";
+    }
 
-	// 顯示分類影片的預覽圖
-	@GetMapping("/showVideoImage/{id}")
-	public ResponseEntity<byte[]> showVideoImage(@PathVariable Integer id) {
-		System.out.println();
-		Video video = videoR.findById(id).get();
-		byte[] photoFile = video.getPicture();
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.IMAGE_JPEG);
-		return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
-	}
+    @PostMapping("/video/edit")
+    public String editVideoPost(@ModelAttribute(name = "video") Video video) {
+        videoR.save(video);
 
-	// 顯示選取影片
-	@GetMapping("/video/show")
-	public String showVideo(@RequestParam(name = "video_id") Integer video_id, Model m) {
-		Optional<Video> optional = videoR.findById(video_id);
-		Video video = optional.get();
-		m.addAttribute("video", video);
-		return "/video/frontEndShowVideo";
-	}
+        return "redirect:/video/page";
+    }
 
-	// @GetMapping("/video/add")
-	// public String addVideo(Model model) {
+    // =============================================================================================
+    // 前台
+    // 顯示影片分類
+    @GetMapping("/video/categories")
+    public String videoCategories() {
+        return "/video/frontEndVideoCategories";
+    }
 
-	// Video v1 = new Video();
+    // 選擇分類
+    @GetMapping("/video/type/{type}")
+    public String videoCategoriesByType(@PathVariable String type, Model m) {
+        List<Video> list = videoR.findByType(type);
+        m.addAttribute("list", list);
+        return "/video/frontEndVideoCategoriesByType";
+    }
 
-	// model.addAttribute("article", v1);
+    // 顯示影片的預覽圖
+    @GetMapping("/showVideoImage/{id}")
+    public ResponseEntity<byte[]> showVideoImage(@PathVariable Integer id) {
+        System.out.println();
+        Video video = videoR.findById(id).get();
+        byte[] photoFile = video.getPicture();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+        return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
+    }
 
-	// // Messages lastestMsg = mService.findLastest();
-	// // model.addAttribute("lastestMsg", lastestMsg);
+    // 顯示選取影片
+    @GetMapping("/video/show")
+    public String showVideo(@RequestParam(name = "video_id") Integer video_id, Model m) {
+        Optional<Video> optional = videoR.findById(video_id);
+        Video video = optional.get();
+        m.addAttribute("video", video);
+        return "/video/frontEndShowVideo";
+    }
 
-	// List<Video> allVideo = videoR.findAll();
+    // @GetMapping("/video/add")
+    // public String addVideo(Model model) {
 
-	// model.addAttribute("allVideo", allVideo);
+    // Video v1 = new Video();
 
-	// return "/video/backEndAddVideoPage";
-	// }
+    // model.addAttribute("article", v1);
 
-	@PostMapping("/video/post")
-	public String postVideo(@ModelAttribute(name = "video") Video video, Model model) {
+    // // Messages lastestMsg = mService.findLastest();
+    // // model.addAttribute("lastestMsg", lastestMsg);
 
-		videoR.save(video);
+    // List<Video> allVideo = videoR.findAll();
 
-		Video v1 = new Video();
+    // model.addAttribute("allVideo", allVideo);
 
-		model.addAttribute("video", v1);
+    // return "/video/backEndAddVideoPage";
+    // }
 
-		List<Video> allVideo = videoR.findAll();
+    @PostMapping("/video/post")
+    public String postVideo(@ModelAttribute(name = "video") Video video, Model model) {
 
-		model.addAttribute("allVideo", allVideo);
+        videoR.save(video);
 
-		return "video/addVideoPage";
-	}
+        Video v1 = new Video();
 
-	// @GetMapping("/article/page")
-	// public String showMessages(@RequestParam(name = "p", defaultValue = "1")
-	// Integer pageNumber, Model model) {
-	// Page<Article> page = articleR.findByPage(pageNumber);
-	// model.addAttribute("page", page);
-	//
-	// return "messages/showArticle";
-	// }
+        model.addAttribute("video", v1);
 
-	@GetMapping("/video/edit")
-	public String editVideo(@RequestParam(name = "id") Integer id, Model model) {
-		Optional<Video> v1 = videoR.findById(id);
-		model.addAttribute("video", v1.orElse(null));
+        List<Video> allVideo = videoR.findAll();
 
-		return "video/editVideo";
-	}
+        model.addAttribute("allVideo", allVideo);
 
-	@PostMapping("/video/edit")
-	public String editVideoPost(@ModelAttribute(name = "video") Video video) {
-		videoR.save(video);
+        return "video/addVideoPage";
+    }
 
-		return "redirect:/video/page";
-	}
+    // @GetMapping("/article/page")
+    // public String showMessages(@RequestParam(name = "p", defaultValue = "1")
+    // Integer pageNumber, Model model) {
+    // Page<Article> page = articleR.findByPage(pageNumber);
+    // model.addAttribute("page", page);
+    //
+    // return "messages/showArticle";
+    // }
 
-	// @ResponseBody
-	// @PostMapping("/article/api/post")
-	// public List<Article> postMessagsApi(@RequestBody ArticleRespository articleR)
-	// {
-	// String userInput = articleR.getInputText();
-	//
-	// // ...
-	//
-	// Messages newMsg = new Messages();
-	// newMsg.setText(userInput);
-	//
-	// articleR.insert(newMsg);
-	//
-	// Page<Article> page = articleR.findByPage(1);
-	// return page.getContent();
-	// }
+    // @ResponseBody
+    // @PostMapping("/article/api/post")
+    // public List<Article> postMessagsApi(@RequestBody ArticleRespository articleR)
+    // {
+    // String userInput = articleR.getInputText();
+    //
+    // // ...
+    //
+    // Messages newMsg = new Messages();
+    // newMsg.setText(userInput);
+    //
+    // articleR.insert(newMsg);
+    //
+    // Page<Article> page = articleR.findByPage(1);
+    // return page.getContent();
+    // }
 
-	@GetMapping("/video/ajax")
-	public String getAjaxPage() {
-		return "video/ajax-video";
-	}
+    @GetMapping("/video/ajax")
+    public String getAjaxPage() {
+        return "video/ajax-video";
+    }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.util.List;
+import java.util.Set;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Article;
+import com.finalpretty.app.model.Member;
 import com.finalpretty.app.repositories.ArticleRespository;
+import com.finalpretty.app.repositories.MemberRespository;
 
 @Controller
 public class ArticleController {
 
 	@Autowired
 	private ArticleRespository articleR;
+
+	@Autowired
+	private MemberRespository memberR;
 
 	// 後台
 	// 顯示全部文章
@@ -122,6 +128,22 @@ public class ArticleController {
 		Article article = optional.get();
 		m.addAttribute("article", article);
 		return "/article/frontEndShowArticle";
+	}
+
+	// 按讚文章
+	@PostMapping("/article/like")
+	public String likeArticle(
+			@RequestParam(name = "article_id") Integer article_id,
+			@RequestParam(name = "member_id") Integer member_id) {
+		try {
+			Member member = memberR.findById(member_id).get();
+			Set<Article> like = member.getArticle();
+			Article article = articleR.findById(article_id).get();
+			like.add(article);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/article/show";
 	}
 
 	// =============================================================================================

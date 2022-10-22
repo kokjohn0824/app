@@ -32,22 +32,28 @@ public class Video {
 	@Column(name = "video_id")
 	private Integer video_id;
 
-	@Column(name = "title") //影片標題
+	// 影片標題
+	@Column(name = "title")
 	private String title;
 
-	@Column(name = "url") //影片路徑
+	// 影片路徑(檔名)
+	@Column(name = "url")
 	private String url;
 
-	@Column(name = "type") //影片分類
+	// 影片分類
+	@Column(name = "type")
 	private String type;
 
-	@Column(name = "body_parts") //訓練部位
+	// 訓練部位
+	@Column(name = "body_parts")
 	private String body_parts;
 
+	// 影片預覽圖
 	@Lob
-	@Column(name = "picture") //影片預覽圖
+	@Column(name = "picture")
 	private byte[] picture;
 
+	// 跟會員多對多的連動
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_like", joinColumns = {
 			@JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") }, inverseJoinColumns = {

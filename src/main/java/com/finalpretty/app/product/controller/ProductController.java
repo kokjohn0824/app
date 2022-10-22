@@ -1,13 +1,18 @@
 package com.finalpretty.app.product.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +56,7 @@ public class ProductController {
 
 		Product product = new Product();
 
-		System.out.println(pService.findDefault(1).getPhoto());
+		// System.out.println(pService.findDefault(1).getPhoto());
 		try {
 			product.setTitle(title);
 			product.setType(type);
@@ -69,7 +74,10 @@ public class ProductController {
 			}
 			if (file.getBytes().length == 0) {
 				// product.setPicture(pService.findDefault(1).getPhoto());
-				product.setPicture(null);
+				String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/lv1.png";
+				File saveFilePath = new File(saveFiledir);
+
+				product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
 			} else {
 				product.setPicture(file.getBytes());
 			}

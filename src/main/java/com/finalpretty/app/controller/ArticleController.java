@@ -93,8 +93,6 @@ public class ArticleController {
 			@RequestParam(name = "picture") MultipartFile picture,
 			Model model) {
 		Article article = new Article();
-		// byte[] picture2;
-
 		try {
 			byte[] picture2 = picture.getBytes();
 			article.setPicture(picture2);
@@ -104,7 +102,6 @@ public class ArticleController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return "/article/backEndManageArticle";
 	}
 
@@ -113,7 +110,7 @@ public class ArticleController {
 	// 顯示全部文章
 	@GetMapping("/article/categories")
 	public String articleCategories(Model m) {
-		List<Article> list = articleR.findAll();
+		List<Article> list = articleR.findAlloOrderById();
 		m.addAttribute("list", list);
 		return "/article/frontEndArticleCategories";
 	}

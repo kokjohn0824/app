@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.finalpretty.app.model.DefaultPhoto;
 import com.finalpretty.app.model.Product;
 
 public interface ProductRespository extends JpaRepository<Product, Integer> {
@@ -34,13 +33,5 @@ public interface ProductRespository extends JpaRepository<Product, Integer> {
 
 	@Query(value = "select * from product order by product_id desc", nativeQuery = true)
 	List<Product> findAll();
-
-	@Transactional
-	@Modifying
-	@Query(value = "insert into defaultPhoto(photo) values(:photo)", nativeQuery = true)
-	void defaultPhoto(@Param("photo") byte[] photo);
-
-	@Query(value = "select * from defaultPhoto where default_id = :default_id", nativeQuery = true)
-	DefaultPhoto findDefault(@Param("default_id") Integer id);
 
 }

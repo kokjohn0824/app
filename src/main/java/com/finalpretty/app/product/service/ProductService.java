@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.finalpretty.app.model.DefaultPhoto;
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.repositories.ProductRespository;
 
@@ -17,10 +16,6 @@ public class ProductService {
 
 	@Autowired
 	private ProductRespository pDao;
-
-	public DefaultPhoto findDefault(Integer id) {
-		return pDao.findDefault(id);
-	}
 
 	public List<Product> findAll() {
 		return pDao.findAll();

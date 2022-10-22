@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:replace="../jsmodules"></div>
     <title>後台管理</title>
-</head>
-<body>
+  </head>
+  <body>
     <div th:fragment="backendNavbar">
-        <nav class="navbar  navbar-dark bg-red" style="height: 70px;background-color:#8B0000;">
-            <form class="container-fluid justify-content-end">
-              <a class="btn btn-dark" style="background-color:#F45B69;" href="/article/manage">文章管理</a>
-              <a class="btn btn-dark" style="background-color:#F45B69;" href="/video/manage">影片管理</a>
-              <a class="btn btn-dark" style="background-color:#F45B69;" href="/member/page">會員管理</a>
-              <a class="btn btn-dark" style="background-color:#F45B69;" href="/game">貼文管理</a>
-              <a class="btn btn-dark" style="background-color:#F45B69;" href="/public/listProduct">商城管理</a>
-              <!--    以下為暫放，方便跳頁而已   -->
-              <a class="btn btn-dark" href="/">前台</a>
-            </form>
-            </nav>
+      <nav
+        class="navbar navbar-dark bg-red"
+        style="height: 70px; background-color: #8b0000"
+      >
+        <form class="container-fluid justify-content-end">
+          <a
+            class="btn btn-dark"
+            style="background-color: #f45b69"
+            href="/article/manage"
+            >文章管理</a
+          >
+          <a
+            class="btn btn-dark"
+            style="background-color: #f45b69"
+            href="/video/manage"
+            >影片管理</a
+          >
+          <a
+            class="btn btn-dark"
+            style="background-color: #f45b69"
+            href="/member/page"
+            >會員管理</a
+          >
+          <a class="btn btn-dark" style="background-color: #f45b69" href="/game"
+            >貼文管理</a
+          >
+          <a
+            class="btn btn-dark"
+            style="background-color: #f45b69"
+            href="/admin/listProduct"
+            >商城管理</a
+          >
+          <!--    以下為暫放，方便跳頁而已   -->
+          <a class="btn btn-dark" href="/">前台</a>
+        </form>
+      </nav>
     </div>
-</body>
+  </body>
 </html>

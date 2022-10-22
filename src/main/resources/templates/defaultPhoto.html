@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>預設照片新增</title>
+    
+    <div th:replace="jsmodules"></div>
+  </head>
+  <body th:inline="text"></body>
+
+    <div th:replace="component/backendNavbar :: backendNavbar"></div>
+      <form
+        th:action="@{/defaultPhoto}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+          <label>Please select a photo</label><br /><input
+            id="inputFileToLoad"
+            type="file"
+            name="file"
+            class="file-upload-default"
+          />
+        </div>
+        <button id="insert" type="submit">新增</button>
+      </form>
+    </div>
+
+    
+
+  </body>
+</html>

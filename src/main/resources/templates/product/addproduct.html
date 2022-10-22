@@ -1,72 +1,142 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>商品新增</title>
-	<!-- 利用th:insert 或是 th:replace 來載入模板 -->
-	<script src="https://code.jquery.com/jquery-3.6.1.js"
-	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-	crossorigin="anonymous"></script>
-<!-- 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
-<!-- 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
-</head>
-<body>
-	<script>
-	 function loadImageFileAsURL() {
-		   let filesSelected = document.getElementById("inputFileToLoad").files;
-		   if (filesSelected.length > 0) {
-		    let fileToLoad = filesSelected[0];
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>商品新增</title>
+    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+    <!-- 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" -->
+    <!-- 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+    <div th:replace="jsmodules"></div>
+  </head>
+  <body th:inline="text">
+    <script>
+      function loadImageFileAsURL() {
+        let filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+          let fileToLoad = filesSelected[0];
 
-		    let fileReader = new FileReader();
+          let fileReader = new FileReader();
 
-		    fileReader.onload = function(fileLoadedEvent) {
-		     fileDataURL = fileLoadedEvent.target.result;
+          fileReader.onload = function (fileLoadedEvent) {
+            fileDataURL = fileLoadedEvent.target.result;
+          };
 
-		    };
+          fileReader.readAsDataURL(fileToLoad);
+        }
+      }
+    </script>
 
-		    fileReader.readAsDataURL(fileToLoad);
-		   }
-		  }
-	</script>
+    <div th:replace="component/backendNavbar :: backendNavbar"></div>
+    <a
+      class="btn btn-dark"
+      style="background-color: #f45b69"
+      th:href="@{/admin/listProduct}"
+      >取消新增</a
+    >
+    <div th:fragment="form" class="container">
+      <form
+        th:action="@{/admin/addProduct}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        商品名稱:<input type="text" name="title" required /><span
+          style="color: red"
+          id="title"
+        ></span>
+        商品種類:<select name="type">
+          <option>運動食品</option>
+          <option>運動用品</option></select
+        >商品價格:<input
+          type="number"
+          name="price"
+          min="0"
+          value="0"
+          required
+        /><span id="price" style="color: red"></span> 商品庫存:<input
+          type="number"
+          name="stock"
+          min="0"
+          value="0"
+          required
+        /><span id="stock"></span> 商品簡介:<input
+          type="text"
+          name="text"
+        />商品上下架:<input
+          type="radio"
+          name="onsale"
+          id="1"
+          value="1"
+          required
+        /><label for="1">上架</label>
+        <input
+          type="radio"
+          name="onsale"
+          id="0"
+          value="0"
+          checked="checked"
+          required
+        /><label for="0">下架</label>
+        <span id="onsale" style="color: red"></span>
+        <div class="form-group">
+          <label>Please select a photo</label><br /><input
+            id="inputFileToLoad"
+            type="file"
+            name="file"
+            onchange="loadImageFileAsURL()"
+            class="file-upload-default"
+          />
+          <img
+            id="preview_img"
+            th:src="@{/img/logo.svg}"
+            style="
+              height: 300px;
+              width: 300px;
+              border-radius: 60px 60px 60px 60px;
+              margin-left: 50px;
+            "
+          />
+        </div>
+        <button id="insert" type="submit">新增</button>
+      </form>
+    </div>
 
-<div th:replace="jsmodules"></div>
-<div th:replace="component/backendNavbar :: backendNavbar"></div>
-<div th:fragment="form" class="container">
-<form th:action="@{/public/addProduct}" method="post" enctype="multipart/form-data">
-商品名稱:<input type="text" name="title" /><span id="sp1"></span>
-商品種類:<input type="text" name="type" /><span id="sp1"></span>
-商品價格:<input type="number" name="price" min="0" /><span id="sp1"></span>
-商品庫存:<input type="number" name="stock" min="0" /><span id="sp1"></span>
-商品簡介:<input type="text" name="text"/><span id="sp1"></span>
-商品上下架:<input type="radio" name="onsale" id="1" value="1"/><label for="1">上架</label>
-<input type="radio" name="onsale" id="0" value="0"/><label for="0">下架</label><span id="sp1"></span>
-<div class="form-group">
-       <label>Please select a photo</label><br><input id="inputFileToLoad" type="file" name="file" onchange="loadImageFileAsURL()" 
-        class="file-upload-default">
-<img id="preview_img" th:src="@{/img/logo.svg}"
-     style="height: 300px; width: 300px;border-radius:60px 60px 60px 60px ;margin-left:50px">
-<button type="submit">新增</button>
-</form>
-</div>
+    <script>
+      $("#inputFileToLoad").change(function () {
+        readURL(this);
+      });
 
-<script>
-$("#inputFileToLoad").change(function() {
-	readURL(this);
-})
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#preview_img").attr("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
 
-function readURL(input) {
-	if (input.files && input.files[0]) {
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			$("#preview_img").attr("src", e.target.result);
-
-		}
-		reader.readAsDataURL(input.files[0]);
-
-	}
-}
-</script>
-</body>
+      // $("input[name='title']").blur(function () {
+      //   if ($("input[name='title']").val() == "") {
+      //     $("#title").text("請輸入名稱");
+      //   }
+      // });
+      // $("input[name='price']").blur(function () {
+      //   if ($("input[name='price']").val() == 0) {
+      //     $("#price").text("商品需要定價");
+      //   }
+      // });
+      // $("input[name='text']").blur(function () {
+      //   if ($("input[name='text']").val() == "") {
+      //     $("#text").text("請輸入商品簡介");
+      //   }
+      // });
+    </script>
+  </body>
 </html>

@@ -16,19 +16,17 @@
   </head>
   <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <div class="top">
-      <div class="container-lg">
-        <br />
-        <video
-          style="width: 100%; height: 100%"
-          controls
-          preload="auto"
-          autoplay="true"
-        >
-          <source th:src="@{'/video/'+${video.url}}" type="video/mp4" />
-          您的瀏覽器不支援此 HTML5 影片標籤
-        </video>
-      </div>
+    <div class="container-lg">
+      <br />
+      <video
+        style="width: 100%; height: 100%"
+        controls
+        preload="auto"
+        autoplay="true"
+      >
+        <source th:src="@{'/video/'+${video.url}}" type="video/mp4" />
+        您的瀏覽器不支援此 HTML5 影片標籤
+      </video>
     </div>
     <!-- <h2 class="entry-title" itemprop="headline">
       <a rel="bookmark" th:text="${video.title}"></a>

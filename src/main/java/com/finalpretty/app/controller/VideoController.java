@@ -46,7 +46,6 @@ public class VideoController {
 
     // 新增影片
     @PostMapping("/video/add")
-    @ResponseBody
     public String processAction(@RequestParam("myFiles") MultipartFile mf,
             @RequestParam(name = "picture") MultipartFile picture,
             @RequestParam(name = "title") String title,
@@ -73,7 +72,7 @@ public class VideoController {
         // return null;
 
         System.out.println();
-        return "/video/backEndAddVideoPage";
+        return "redirect:/video/manage";
     }
 
     // 刪除影片(by id)
@@ -83,19 +82,37 @@ public class VideoController {
         return "redirect:/video/manage";
     }
 
+    // 修改影片
     @GetMapping("/video/edit")
-    public String editVideo(@RequestParam(name = "id") Integer id, Model model) {
+    public String editVideo(@RequestParam(name = "video_id") Integer id, Model model) {
         Optional<Video> v1 = videoR.findById(id);
         model.addAttribute("video", v1.orElse(null));
 
-        return "video/editVideo";
+        return "video/backEndEditVideo";
     }
 
     @PostMapping("/video/edit")
-    public String editVideoPost(@ModelAttribute(name = "video") Video video) {
-        videoR.save(video);
+    public String editVideoPost(@RequestParam(name = "video_id") Integer video_id,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "type") String type,
+            @RequestParam(name = "body_parts") String body_parts,
+            @RequestParam(name = "picture") MultipartFile picture,
+            Model model) {
+        Video video = new Video();
+        // byte[] picture2;
 
-        return "redirect:/video/page";
+        try {
+            byte[] picture2 = picture.getBytes();
+            video.setPicture(picture2);
+            video.setTitle(title);
+            video.setType(type);
+            video.setBody_parts(body_parts);
+            videoR.updateById(video_id, title, type, body_parts, picture2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/video/manage";
     }
 
     // =============================================================================================

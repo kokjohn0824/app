@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -32,41 +33,42 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name="article")
+@Table(name = "article")
 public class Article {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="article_id")
+	@Column(name = "article_id")
 	private Integer article_id;
 
-	@Column(name="title") //文章標題
+	@Column(name = "title") // 文章標題
 	private String title;
-	
-	@Column(name="text") //文章內文
+
+	@Column(name = "text", columnDefinition = "ntext") // 文章內文
+	// @Type(type = "org.hibernate.type.StringNVarcharType")
 	private String text;
-	
+
 	@Lob
-	@Column(name="picture") //標題圖片
+	@Column(name = "picture") // 標題圖片
 	private byte[] picture;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "create_date", columnDefinition = "datetime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE",timezone = "GMT+8")
-	private Date create_date; //文章時間
-	
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE", timezone = "GMT+8")
+	private Date create_date; // 文章時間
+
 	@PrePersist
 	public void onCreate() {
-		if(create_date == null) {
+		if (create_date == null) {
 			create_date = new Date();
 		}
-	}	
-	
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "article_like", joinColumns = {
-            @JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
-    private Set<Member> member = new HashSet<Member>();
-	
+	@JoinTable(name = "article_like", joinColumns = {
+			@JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
+	private Set<Member> member = new HashSet<Member>();
+
 }

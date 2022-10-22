@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class Messagebody {
-    
+
      private String content;
+     private String sender;
      private String destination;
 }

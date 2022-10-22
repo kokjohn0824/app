@@ -1,0 +1,101 @@
+<div th:fragment="chatbubble">
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Button used to open the chat form - fixed at the bottom of the page */
+    .open-button {
+      background-color: #0891b2;
+      border-radius: 80px;
+      color: white;
+      padding: 16px 20px;
+      border: none;
+      cursor: pointer;
+      opacity: 0.8;
+      position: fixed;
+      bottom: 23px;
+      right: 28px;
+      width: 80px;
+    }
+
+    /* The popup chat - hidden by default */
+    .chat-popup {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      right: 15px;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+      transition: 1s;
+    }
+
+    /* Add styles to the form container */
+    .form-container {
+      width: 500px;
+      padding: 10px;
+      background-color: white;
+    }
+
+    .bg-white {
+      background-color: white;
+    }
+  </style>
+  <button class="open-button" onclick="openForm()">客服</button>
+
+  <div class="chat-popup" id="myForm">
+    <div class="bg-white d-flex justify-content-between">
+      <h3 class="m-3">聊天室</h3>
+      <button class="btn" onclick="closeForm()">
+        <img th:src="@{img/icon/close.svg}" alt="" />
+      </button>
+    </div>
+    <div class="bg-white p-3" id="information" style="height: 400px; overflow: scroll"></div>
+    <div class="form-container">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="content"
+          placeholder="想說點什麼..."
+          name="msg"
+        ></input>
+        <button
+          id="sharedbtn"
+          class="btn btn-info"
+          onclick="handleClick();"
+          type="button"
+        >
+          送出
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script defer th:src="@{/js/websocket.js}"></script>
+  <script>
+    const myForm = document.querySelector("#myForm");
+    const input = document.querySelector("#content");
+
+    function openForm() {
+      myForm.style.display = "block";
+    }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+
+    input.addEventListener("keypress", function(event) {
+  // If the user presses the "Enter" key on the keyboard
+  if (event.key === "Enter") {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("sharedbtn").click();
+  }
+});
+  </script>
+</div>

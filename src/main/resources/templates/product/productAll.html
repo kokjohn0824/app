@@ -32,9 +32,12 @@
         <td th:text="${productinfo.title}"></td>
         <td th:text="${productinfo.price}"></td>
         <td th:text="${productinfo.stock}"></td>
+        <td th:if="${productinfo.stock} eq 0">
+          <span style="color: gray">關閉中</span>
+        </td>
         <td
           id="onsalecheck"
-          th:if="${productinfo.onsale} eq 1"
+          th:if="${productinfo.onsale} eq 1 and ${productinfo.stock} != 0"
           th:name="${productinfo.product_id}"
         >
           <span th:name="${productinfo.product_id}" style="color: green"
@@ -43,28 +46,27 @@
         </td>
         <td
           id="onsalecheck"
-          th:if="${productinfo.onsale} eq 0"
+          th:if="${productinfo.onsale} eq 0 and ${productinfo.stock} != 0"
           th:name="${productinfo.product_id}"
         >
           <span th:name="${productinfo.product_id}" style="color: red"
             >下架中</span
           >
         </td>
+        <td th:if="${productinfo.stock} eq 0">
+          <button type="button" class="btn btn-secondary" disabled>
+            已關閉
+          </button>
+        </td>
         <td
           th:id="${productinfo.onsale}"
-          th:if="${productinfo.onsale} eq 1"
+          th:if="${productinfo.onsale} eq 1 and ${productinfo.stock} != 0"
           th:name="${productinfo.product_id}"
         >
-          <!-- <a
-            th:href="@{'/public/api/changeOnsale?product_id='
-				+${productinfo.product_id}+'&onsale='+${productinfo.onsale}}"
-            class="btn btn-secondary"
-            >下架</a
-          > -->
           <button
             th:id="${productinfo.product_id}"
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-success"
             style="display: none"
             name="check"
           >
@@ -73,7 +75,7 @@
           <button
             th:id="${productinfo.product_id}"
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-danger"
             name="check"
           >
             下架
@@ -82,19 +84,13 @@
         </td>
         <td
           th:id="${productinfo.onsale}"
-          th:if="${productinfo.onsale} eq 0"
+          th:if="${productinfo.onsale} eq 0 and ${productinfo.stock} != 0"
           th:name="${productinfo.product_id}"
         >
-          <!-- <a
-            th:href="@{'/public/api/changeOnsale?product_id='
-				+${productinfo.product_id}+'&onsale='+${productinfo.onsale}}"
-            class="btn btn-primary"
-            >上架</a
-          > -->
           <button
             th:id="${productinfo.product_id}"
             type="button"
-            class="btn btn-primary"
+            class="btn btn-success"
             name="check"
           >
             上架
@@ -102,7 +98,7 @@
           <button
             th:id="${productinfo.product_id}"
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-danger"
             style="display: none"
             name="check"
           >
@@ -112,7 +108,7 @@
         </td>
         <td th:text="${productinfo.type}"></td>
         <td th:text="${productinfo.text}"></td>
-        <td th:if="${productinfo.picture} != null">
+        <td>
           <img
             th:src="@{'/admin/downloadImage/'+${productinfo.product_id}}"
             width="30px"
@@ -159,8 +155,8 @@
             // console.log($(e.target).prev()[0]);
             // console.log($(e.target).next()[0]);
             $(e.target).parent().attr("id", response.onsale);
-            $(e.target).hide().attr("class", "btn btn-primary");
-            $(e.target).next().show().attr("class", "btn btn-secondary");
+            $(e.target).hide().attr("class", "btn btn-success");
+            $(e.target).next().show().attr("class", "btn btn-danger");
             $(e.target)
               .parent()
               .prev()
@@ -177,8 +173,8 @@
             $(e.target).parent().attr("id", response.onsale);
             console.log($(e.target).prev()[0]);
             console.log($(e.target).next()[0]);
-            $(e.target).hide().attr("class", "btn btn-secondary");
-            $(e.target).prev().show().attr("class", "btn btn-primary");
+            $(e.target).hide().attr("class", "btn btn-danger");
+            $(e.target).prev().show().attr("class", "btn btn-success");
           }
         });
       });

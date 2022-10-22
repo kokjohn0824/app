@@ -13,11 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Video;
@@ -51,12 +49,9 @@ public class VideoController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "type") String type,
             @RequestParam(name = "body_parts") String body_parts) throws IllegalStateException, IOException {
-
         String fileName = mf.getOriginalFilename();
-        // System.out.println("fileName:" + fileName);
         String saveFileDir = System.getProperty("user.dir") + "/src/main/resources/static/video";
         File saveFilePath = new File(saveFileDir, fileName);
-        // byte[] b = mf.getBytes();
         mf.transferTo(saveFilePath);
         Video video = new Video();
         video.setPicture(picture.getBytes());
@@ -87,7 +82,6 @@ public class VideoController {
     public String editVideo(@RequestParam(name = "video_id") Integer id, Model model) {
         Optional<Video> v1 = videoR.findById(id);
         model.addAttribute("video", v1.orElse(null));
-
         return "video/backEndEditVideo";
     }
 
@@ -99,8 +93,6 @@ public class VideoController {
             @RequestParam(name = "picture") MultipartFile picture,
             Model model) {
         Video video = new Video();
-        // byte[] picture2;
-
         try {
             byte[] picture2 = picture.getBytes();
             video.setPicture(picture2);
@@ -111,7 +103,6 @@ public class VideoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "redirect:/video/manage";
     }
 
@@ -168,21 +159,22 @@ public class VideoController {
     // return "/video/backEndAddVideoPage";
     // }
 
-    @PostMapping("/video/post")
-    public String postVideo(@ModelAttribute(name = "video") Video video, Model model) {
+    // @PostMapping("/video/post")
+    // public String postVideo(@ModelAttribute(name = "video") Video video, Model
+    // model) {
 
-        videoR.save(video);
+    // videoR.save(video);
 
-        Video v1 = new Video();
+    // Video v1 = new Video();
 
-        model.addAttribute("video", v1);
+    // model.addAttribute("video", v1);
 
-        List<Video> allVideo = videoR.findAll();
+    // List<Video> allVideo = videoR.findAll();
 
-        model.addAttribute("allVideo", allVideo);
+    // model.addAttribute("allVideo", allVideo);
 
-        return "video/addVideoPage";
-    }
+    // return "video/addVideoPage";
+    // }
 
     // @GetMapping("/article/page")
     // public String showMessages(@RequestParam(name = "p", defaultValue = "1")
@@ -210,9 +202,9 @@ public class VideoController {
     // return page.getContent();
     // }
 
-    @GetMapping("/video/ajax")
-    public String getAjaxPage() {
-        return "video/ajax-video";
-    }
+    // @GetMapping("/video/ajax")
+    // public String getAjaxPage() {
+    // return "video/ajax-video";
+    // }
 
 }

@@ -93,8 +93,6 @@ public class ArticleController {
 			@RequestParam(name = "picture") MultipartFile picture,
 			Model model) {
 		Article article = new Article();
-		// byte[] picture2;
-
 		try {
 			byte[] picture2 = picture.getBytes();
 			article.setPicture(picture2);
@@ -104,7 +102,6 @@ public class ArticleController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return "/article/backEndManageArticle";
 	}
 

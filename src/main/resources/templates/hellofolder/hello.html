@@ -14,8 +14,7 @@
     <script defer th:src="@{/js/hello.js}"></script>
   </head>
   <body th:inline="text">
-    <!-- 引入的片段 以 :: 來標示 -->
-    <div th:replace="component/navbar :: navbar"></div>
+    <div th:replace="component/navbar"></div>
 
     <div class="container-lg">
       <!-- 在標籤內加上 th:fragment 來標明模板片段 -->
@@ -38,7 +37,7 @@
               <!-- 以下等同： <h1>您好，<span th:text="${username}"></span></h1> -->
               <h1>您好，[[${loginusername}]]</h1>
             </div>
-            <h1 th:text="${map['message']}">註冊頁面123</h1>
+            <h1>註冊頁面</h1>
             <p>請輸入資料來註冊帳號</p>
             <hr />
             <div class="input-group mb-3">

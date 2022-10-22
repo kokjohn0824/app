@@ -40,6 +40,9 @@ public class Users implements UserDetails {
     @Column(name = "account")
     private String account;
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @Column(name = "email")
     private String email;
 

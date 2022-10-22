@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.finalpretty.app.model.Users;
+
 @Controller
 public class hello {
 
@@ -18,10 +20,10 @@ public class hello {
         // 取得username
         Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
-        if (o instanceof UserDetails) {
-            username = ((UserDetails) o).getUsername();
+        if (o instanceof Users) {
+            username = ((Users) o).getNickname();
         } else {
-            username = o.toString();
+            username = "訪客";
         }
         m.addAttribute("loginusername", username);
         return "/hellofolder/hello";

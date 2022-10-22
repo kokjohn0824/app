@@ -1,435 +1,623 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>代謝率計算</title>
+    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
+    <div th:replace="jsmodules"></div>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>代謝率計算</title>
-	<!-- 利用th:insert 或是 th:replace 來載入模板 -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-</head>
+  <body>
+    <div th:replace="component/navbar :: navbar"></div>
+    <div class="container" style="margin-top: 76px" id="1">
+      <div class="row justify-content-center bmr-content">
+        <div>
+          <img src="/img/bmi.png" style="float: left" />
+          <div class="col-lg-5" id="bmr-input">
+            <div class="text-bg-light p-3">
+              <h1 style="font-family: 新細明體">基礎代謝率 (BMR) 計算機</h1>
+              <p style="font-size: 15px; font-family: 新細明體">
+                BMR
+                指人體在休息狀態下，維持新陳代謝所需的熱量，例如：呼吸、器官運作、體溫維持等，即使整天躺著不動也會消耗的最低熱量。BMR
+                會隨著年紀增加或體重減輕而降低，會隨著肌肉量增加而上升。
+              </p>
+              <div class="bmr-card">
+                <p>
+                  生理性別：
+                  <label>
+                    <input
+                      id="gender"
+                      type="radio"
+                      name="g"
+                      value="1"
+                      checked="checked"
+                    />男性
+                  </label>
+                  <label class="pl-1">
+                    <input id="gender" type="radio" name="g" value="0" /> 女性
+                  </label>
+                </p>
+                <p>
+                  年齡：
+                  <input
+                    type="number"
+                    id="age"
+                    placeholder="請輸入年齡"
+                    min="0"
+                  />
+                </p>
+                <p>
+                  身高：
+                  <input
+                    type="number"
+                    id="height"
+                    placeholder="請輸入身高 (公分)"
+                    min="0"
+                  />
+                </p>
+                <p>
+                  體重：
+                  <input
+                    type="number"
+                    id="width"
+                    placeholder="請輸入體重 (公斤)"
+                    min="0"
+                  />
+                </p>
+              </div>
+              <button type="button" id="push" class="signupbtn btn btn-primary">
+                計算
+              </button>
+              <h4 id="rmr"></h4>
+              <h3 id="result"></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-10">
+          <div class="container mt-20 mobile-top">
+            <h4>每日總熱量消耗 (TDEE)</h4>
+            <p class="fs-6">
+              TDEE
+              是身體一整天下來，包括基礎代謝、活動量、吃東西所消耗的熱量。不同的生活型態需要的熱量也不一樣，當每天攝取的熱量和
+              TDEE 相等，便達到「熱量平衡」。
+            </p>
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="#generally"
+                  role="tab"
+                  data-toggle="tab"
+                  >一般</a
+                >
+              </li>
+            </ul>
 
-<body>
-	<div th:replace="jsmodules"></div>
-	<div th:replace="component/navbar :: navbar"></div>
-	<div class="container" id="1">
-		<div class="row justify-content-center bmr-content">
-			<div class="col-lg-5" id="bmr-input">
-				<div class="bmr-img"></div>
-				<div class="bmr-card">
-					<h1>基礎代謝率 (BMR) 計算機</h1>
-					<p style="font-size: 15px;">BMR
-						指人體在休息狀態下，維持新陳代謝所需的熱量，例如：呼吸、器官運作、體溫維持等，即使整天躺著不動也會消耗的最低熱量。BMR
-						會隨著年紀增加或體重減輕而降低，會隨著肌肉量增加而上升。</p>
-					<div class="mt-20">
-						<p>
-							生理性別： <label> <input id="gender" type="radio" name="g" value="1" checked="checked">男性
-							</label> <label class="pl-1"> <input id="gender" type="radio" name="g" value="0"> 女性
-							</label>
-						</p>
-						<p>
-							年齡：<input type="number" id="age" placeholder="請輸入年齡" min="0">
-						</p>
-						<p>
-							身高：<input type="number" id="height" placeholder="請輸入身高 (公分)" min="0">
-						</p>
-						<div id="2"></div>
-						<p>
-							體重：<input type="number" id="width" placeholder="請輸入體重 (公斤)" min="0">
-						</p>
-					</div>
-					<button type="button" id="push" class="signupbtn btn btn-primary">
-						計算</button>
-					<h4 id="rmr"></h4>
-					<h3 id="result"></h3>
-				</div>
-			</div>
-			<div class="col-lg-7">
-				<div class="container mt-20 mobile-top">
-					<h4>每日總熱量消耗 (TDEE)</h4>
-					<p class="fs-6">TDEE
-						是身體一整天下來，包括基礎代謝、活動量、吃東西所消耗的熱量。不同的生活型態需要的熱量也不一樣，當每天攝取的熱量和 TDEE
-						相等，便達到「熱量平衡」。</p>
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item"><a class="nav-link active" href="#generally" role="tab"
-								data-toggle="tab">一般</a></li>
-					</ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="generally">
+                <div class="row bmr-grade mt-2">
+                  <div class="col-6 col-lg-4">
+                    <li>
+                      <div class="#">
+                        <div class="col-12 mb-2">
+                          <img src="/img/lv1.png" width="100%" />
+                        </div>
+                        <div class="#">
+                          <span class="#"
+                            >身體活動趨於靜態
+                            <span
+                              class="d-inline-block"
+                              tabindex="0"
+                              data-bs-toggle="popover"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="坐式生活型態，如：靜臥、久坐、看電視"
+                            >
+                              <button
+                                class="btn btn-secondary"
+                                type="button"
+                                disabled
+                              >
+                                說明
+                              </button>
+                            </span>
+                          </span>
+                          <br />
+                          <span class="bmr-point"> (幾乎不運動)</span>
+                          <br />
+                          <span class="tdee-formula">BMR x 1.2 =</span>
+                          <div
+                            id="lv"
+                            class="btn btn-success btn-sm"
+                            style="display: inline-block"
+                            name="lv1"
+                          ></div>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                  <div class="col-6 col-lg-4">
+                    <li>
+                      <div class="#">
+                        <div class="col-12 mb-2">
+                          <img src="/img/lv2.png" width="100%" />
+                        </div>
+                        <div class="#">
+                          <span class="font-weight-bold"
+                            >身體活動程度較低
+                            <span
+                              class="d-inline-block"
+                              tabindex="0"
+                              data-bs-toggle="popover"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="不太費力的基本活動，如：開車、烹飪、散步"
+                            >
+                              <button
+                                class="btn btn-secondary"
+                                type="button"
+                                disabled
+                              >
+                                說明
+                              </button>
+                            </span>
+                            <br />
+                          </span>
+                          <span class="bmr-point"> (每週運動 1-3 天)</span
+                          ><br />
+                          <span class="tdee-formula">BMR x 1.375 = </span>
+                          <div
+                            id="lv"
+                            class="btn btn-success btn-sm"
+                            style="display: inline-block"
+                            name="lv2"
+                          ></div>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                  <div class="col-6 col-lg-4">
+                    <li>
+                      <div class="row">
+                        <div class="col-12 mb-2">
+                          <img src="/img/lv3.png" width="100%" />
+                        </div>
+                        <div class="col-12">
+                          <span class="font-weight-bold"
+                            >身體活動程度正常
+                            <span
+                              class="d-inline-block"
+                              tabindex="0"
+                              data-bs-toggle="popover"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="呼吸及心跳些微加快，如：掃地、拖地、逛街、健走"
+                            >
+                              <button
+                                class="btn btn-secondary"
+                                type="button"
+                                disabled
+                              >
+                                說明
+                              </button>
+                            </span>
+                            <br />
+                          </span>
+                          <span class="bmr-point"> (每週運動 3-5 天)</span
+                          ><br />
+                          <span class="tdee-formula">BMR x 1.55 = </span>
+                          <div
+                            id="lv"
+                            class="btn btn-success btn-sm"
+                            style="display: inline-block"
+                            name="lv3"
+                          ></div>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                  <div class="col-6 col-lg-4">
+                    <li>
+                      <div class="row">
+                        <div class="col-12 mb-2">
+                          <img src="/img/lv4.png" width="100%" />
+                        </div>
+                        <div class="col-12">
+                          <span class="font-weight-bold"
+                            >身體活動程度較高
+                            <span
+                              class="d-inline-block"
+                              tabindex="0"
+                              data-bs-toggle="popover"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="呼吸及心跳快速且大量流汗，如：打球、騎腳踏車、有氧運動、游泳、登山"
+                            >
+                              <button
+                                class="btn btn-secondary"
+                                type="button"
+                                disabled
+                              >
+                                說明
+                              </button>
+                            </span> </span
+                          ><br />
+                          <span class="bmr-point"> (每週運動 6-7 天)</span
+                          ><br />
+                          <span class="tdee-formula">BMR x 1.72 = </span>
+                          <div
+                            id="lv"
+                            class="btn btn-success btn-sm"
+                            style="display: inline-block"
+                            name="lv4"
+                          ></div>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                  <div class="col-6 col-lg-4">
+                    <li>
+                      <div class="row">
+                        <div class="col-12 mb-2;border border-4">
+                          <img src="/img/lv5.png" width="100%" />
+                        </div>
+                        <div class="col-12">
+                          <span class="font-weight-bold"
+                            >身體活動程度激烈
+                            <span
+                              class="d-inline-block"
+                              tabindex="0"
+                              data-bs-toggle="popover"
+                              data-bs-trigger="hover focus"
+                              data-bs-content="長時間耗費體力，如：長跑、運動訓練、競賽型運動"
+                            >
+                              <button
+                                class="btn btn-secondary"
+                                type="button"
+                                disabled
+                              >
+                                說明
+                              </button>
+                            </span></span
+                          ><br />
+                          <span class="bmr-point">
+                            (長時間運動或體力勞動工作)</span
+                          ><br />
+                          <span class="tdee-formula">BMR x 1.9 = </span>
+                          <div
+                            id="lv"
+                            class="btn btn-success btn-sm"
+                            style="display: inline-block"
+                            name="lv5"
+                          ></div>
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 food-box mobile-top">
+            <div class="food-content">
+              <div class="p-0">
+                <div class="food-title">💡一天的飲食攝取計算分配</div>
+                <p id="tdee" class="tdee-guide"></p>
+                <p id="food"></p>
+              </div>
+              <div class="food-result-box">
+                <div class="row food-result-content">
+                  <div
+                    class="col-12 col-lg-3 text-left food-item pl-3 mobile-bottom"
+                  >
+                    <div class="font-weight-bold">
+                      全榖雜糧類
+                      <span class="food-number" id="nutrition1"></span> (碗)
+                    </div>
+                    <div class="food-subtitle">
+                      ➤ 未精緻
+                      <span class="food-number-1" id="nutrition1-1"></span>
+                      (碗)
+                    </div>
+                    <div class="food-subtitle">
+                      ➤ 其他
+                      <span class="food-number-1" id="nutrition1-2"></span> (碗)
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 col-lg-3 text-left food-item food-border-left"
+                  >
+                    <div class="row">
+                      <div
+                        class="col-12 food-border-bottom pb-11 pl-3 food-border-top"
+                      >
+                        <div class="text-left food-item font-weight-bold">
+                          豆魚蛋肉類
+                          <span class="food-number" id="nutrition2"></span> (份)
+                        </div>
+                      </div>
+                      <div class="col-12 pb-11 pl-3">
+                        <div class="text-left food-item font-weight-bold">
+                          乳品類
+                          <span class="food-number" id="nutrition3"></span> (杯)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 col-lg-3 text-left food-item food-border-left"
+                  >
+                    <div class="row">
+                      <div
+                        class="col-12 food-border-bottom pb-11 pl-3 food-border-top"
+                      >
+                        <div class="text-left food-item font-weight-bold">
+                          蔬菜類
+                          <span class="food-number" id="nutrition4"></span> (份)
+                        </div>
+                      </div>
+                      <div class="col-12 pb-11 pl-3">
+                        <div class="text-left food-item font-weight-bold">
+                          水果類
+                          <span class="food-number" id="nutrition5"></span> (份)
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 col-lg-3 text-left food-item food-border-left pl-3 food-border-top mobile-bottom"
+                  >
+                    <div class="font-weight-bold">
+                      油脂與堅果種子類
+                      <span class="food-number" id="nutrition6"></span> (份)
+                    </div>
+                    <div class="food-subtitle">
+                      ➤ 油脂類
+                      <span class="food-number-1" id="nutrition6-1"></span>
+                      (茶匙)
+                    </div>
+                    <div class="food-subtitle">
+                      ➤ 堅果種子
+                      <span class="food-number-1" id="nutrition6-2"></span>
+                      (份)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--                     <div class="text-right mt-3" style="width: 100%;">想知道六大類怎麼吃？ <a href="https://npower.heho.com.tw/learn-healthy-eating" class="btn btn-success " style="background-color:#28a745; ">▸▸ 認識六大類 🍚</a></div> -->
+          <!--                     <p class="mt-4 small">* 計算結果僅適用於一般成人，糖尿病、腎臟病等特殊狀況者請諮詢營養師、專業醫事人員。</p> -->
+        </div>
+      </div>
+    </div>
 
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="generally">
-							<div class="row bmr-grade mt-2">
-								<div class="col-6 col-lg-4">
-									<li>
-										<div class="row">
-											<div class="col-12 mb-2">
-												<!-- 												<img src="#" width="100%"> -->
-											</div>
-											<div class="col-12">
-												<span class="font-weight-bold">身體活動趨於靜態 <span class="infoicon"
-														tabindex="0" data-toggle="tooltip" title="" data-placement="top"
-														data-original-title="坐式生活型態，如：靜臥、久坐、看電視">說明</span></span><br>
-												<span class="bmr-point"> (幾乎不運動)</span><br> <span
-													class="tdee-formula">BMR x 1.2 =</span> <strong class="lv-result"
-													id="lv1"></strong>
-											</div>
-										</div>
-									</li>
-								</div>
-								<div class="col-6 col-lg-4">
-									<li>
-										<div class="row">
-											<div class="col-12 mb-2">
-												<!-- 												<img src="#" width="100%"> -->
-											</div>
-											<div class="col-12">
-												<span class="font-weight-bold">身體活動程度較低 <span class="infoicon"
-														tabindex="0" data-toggle="tooltip" title="" data-placement="top"
-														data-original-title="不太費力的基本活動，如：開車、烹飪、散步">說明</span></span><br>
-												<span class="bmr-point"> (每週運動 1-3 天)</span><br> <span
-													class="tdee-formula">BMR x 1.375 = </span><strong class="lv-result"
-													id="lv2"></strong>
-											</div>
-										</div>
-									</li>
-								</div>
-								<div class="col-6 col-lg-4">
-									<li>
-										<div class="row">
-											<div class="col-12 mb-2">
-												<!-- 												<img src="#" width="100%"> -->
-											</div>
-											<div class="col-12">
-												<span class="font-weight-bold">身體活動程度正常 <span class="infoicon"
-														tabindex="0" data-toggle="tooltip" title="" data-placement="top"
-														data-original-title="呼吸及心跳些微加快，如：掃地、拖地、逛街、健走">說明</span></span><br>
-												<span class="bmr-point"> (每週運動 3-5 天)</span><br> <span
-													class="tdee-formula">BMR x 1.55 = </span><strong class="lv-result"
-													id="lv3"></strong>
-											</div>
-										</div>
-									</li>
-								</div>
-								<div class="col-6 col-lg-4">
-									<li>
-										<div class="row">
-											<div class="col-12 mb-2">
-												<!-- 												<img src="#" width="100%"> -->
-											</div>
-											<div class="col-12">
-												<span class="font-weight-bold">身體活動程度較高 <span class="infoicon"
-														tabindex="0" data-toggle="tooltip" title="" data-placement="top"
-														data-original-title="呼吸及心跳快速且大量流汗，如：打球、騎腳踏車、有氧運動、游泳、登山">說明</span></span><br>
-												<span class="bmr-point"> (每週運動 6-7 天)</span><br> <span
-													class="tdee-formula">BMR x 1.72 = </span><strong class="lv-result"
-													id="lv4"></strong>
-											</div>
-										</div>
-									</li>
-								</div>
-								<div class="col-6 col-lg-4">
-									<li>
-										<div class="row">
-											<div class="col-12 mb-2">
-												<!-- 												<img src="#" width="100%"> -->
-											</div>
-											<div class="col-12">
-												<span class="font-weight-bold">身體活動程度激烈 <span class="infoicon"
-														tabindex="0" data-toggle="tooltip" title="" data-placement="top"
-														data-original-title="長時間耗費體力，如：長跑、運動訓練、競賽型運動">說明</span></span><br>
-												<span class="bmr-point"> (長時間運動或體力勞動工作)</span><br> <span
-													class="tdee-formula">BMR x 1.9 = </span><strong class="lv-result"
-													id="lv5"></strong>
-											</div>
-										</div>
-									</li>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="mt-4 food-box mobile-top">
-					<div class="food-content">
-						<div class="p-0">
-							<div class="food-title">💡一天的飲食攝取該如何分配！</div>
-							<p class="food-input-label">請輸入你的 TDEE ：</p>
-							<input type="number" id="tdee-num" placeholder="根據上方運動頻率填入對應數值"
-								 min="0">
-							<div id="pushon" class="btn btn-success btn-sm" style="display: inline-block;">計算</div>
-							<p id="tdee" class="tdee-guide"></p>
-							<p id="food"></p>
-						</div>
-						<div class="food-result-box">
-							<div class="row food-result-content">
-								<div class="col-12 col-lg-3 text-left food-item pl-3 mobile-bottom">
-									<div class="font-weight-bold">
-										全榖雜糧類 <span class="food-number" id="nutrition1"></span> (碗)
-									</div>
-									<div class="food-subtitle">
-										➤ 未精緻 <span class="food-number-1" id="nutrition1-1"></span>
-										(碗)
-									</div>
-									<div class="food-subtitle">
-										➤ 其他 <span class="food-number-1" id="nutrition1-2"></span> (碗)
-									</div>
-								</div>
-								<div class="col-12 col-lg-3 text-left food-item food-border-left">
-									<div class="row">
-										<div class="col-12 food-border-bottom pb-11 pl-3 food-border-top">
-											<div class="text-left food-item font-weight-bold">
-												豆魚蛋肉類 <span class="food-number" id="nutrition2"></span> (份)
-											</div>
-										</div>
-										<div class="col-12 pb-11 pl-3">
-											<div class="text-left food-item font-weight-bold">
-												乳品類 <span class="food-number" id="nutrition3"></span> (杯)
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12 col-lg-3 text-left food-item food-border-left">
-									<div class="row">
-										<div class="col-12 food-border-bottom pb-11 pl-3 food-border-top">
-											<div class="text-left food-item font-weight-bold">
-												蔬菜類 <span class="food-number" id="nutrition4"></span> (份)
-											</div>
-										</div>
-										<div class="col-12 pb-11 pl-3">
-											<div class="text-left food-item font-weight-bold">
-												水果類 <span class="food-number" id="nutrition5"></span> (份)
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									class="col-12 col-lg-3 text-left food-item food-border-left pl-3 food-border-top mobile-bottom">
-									<div class="font-weight-bold">
-										油脂與堅果種子類 <span class="food-number" id="nutrition6"></span> (份)
-									</div>
-									<div class="food-subtitle">
-										➤ 油脂類 <span class="food-number-1" id="nutrition6-1"></span>
-										(茶匙)
-									</div>
-									<div class="food-subtitle">
-										➤ 堅果種子 <span class="food-number-1" id="nutrition6-2"></span>
-										(份)
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!--                     <div class="text-right mt-3" style="width: 100%;">想知道六大類怎麼吃？ <a href="https://npower.heho.com.tw/learn-healthy-eating" class="btn btn-success " style="background-color:#28a745; ">▸▸ 認識六大類 🍚</a></div> -->
-				<!--                     <p class="mt-4 small">* 計算結果僅適用於一般成人，糖尿病、腎臟病等特殊狀況者請諮詢營養師、專業醫事人員。</p> -->
-			</div>
-		</div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script>
-		$("#push").click(function () {
-			let wc = 9.99;
-			let hc = 6.25;
-			let ac = 4.92;
-			let gc = 166;
-			let g = 161;
+    <script>
+      var popoverTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="popover"]')
+      );
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+      });
+    </script>
+    <script>
+      $("#push").click(function () {
+        let wc = 9.99;
+        let hc = 6.25;
+        let ac = 4.92;
+        let gc = 166;
+        let g = 161;
 
-			let age = $("#age").val();
-			let hei = $("#height").val();
-			let wid = $("#width").val();
-			let gen = $("#gender:checked").val();
+        let age = $("#age").val();
+        let hei = $("#height").val();
+        let wid = $("#width").val();
+        let gen = $("#gender:checked").val();
 
-			if (error_check()) {
-				let result = Math.round(wc * wid + hc * hei - ac * age + (gc * gen - g));
-				let bmi = Math.round(wid / ((hei / 100) * (hei / 100)) * 10)/ 10;
-				let string = '基礎代謝率(BMR)計算值:' + result + '<br/>' + 'BMI值為:' + bmi + " ";
-				if (bmi < 18.5) {
-					string += '體重過輕';
-				} else if (18.5 <= bmi && bmi < 24) {
-					string += '體重正常';
-				} else if (24 <= bmi && bmi < 27) {
-					string += '您過重了需要運動';
-				} else if (27 <= bmi && bmi < 30) {
-					string += '您輕度肥胖需要適度運動';
-				} else if (30 <= bmi && bmi < 35) {
-					string += '您中度肥胖需要強烈運動';
-				} else if (bmi >= 35) {
-					string += '您重度肥胖請現在去運動';
-				}
-				$("#rmr").text("");
-				$("#result").html(string);
-				$("#lv1").text(Math.round(result * 1.2 * 100) / 100);
-				$("#lv2").text(Math.round(result * 1.375 * 100) / 100);
-				$("#lv3").text(Math.round(result * 1.55 * 100) / 100);
-				$("#lv4").text(Math.round(result * 1.72 * 100) / 100);
-				$("#lv5").text(Math.round(result * 1.9 * 100) / 100);
-			}
-			console.log(error_check());
-
-
-			function error_check() {
-				let error = [];
-				if (age == '' || !age == parseInt(age)) {
-					error.push('年齡尚未輸入或數值輸入不正確!');
-				}
-				if (hei == '' || !hei == parseFloat(hei)) {
-					error.push('身高尚未輸入或數值輸入不正確!');
-				}
-				if (wid == '' || !wid == parseFloat(wid)) {
-					error.push('體重尚未輸入或數值輸入不正確!');
-				}
-				if (gen == '') {
-					error.push('性別尚未選擇');
-				}
-				if (Object.keys(error).length) {
-					console.log(Object.keys(error));
-					let str = error.join("<br/>");
-					$("#rmr").html(str).css('color', 'red');
-					$("#result").text("");
-					$("#lv1").text("");
-					$("#lv2").text("");
-					$("#lv3").text("");
-					$("#lv4").text("");
-					$("#lv5").text("");
-					return false;
-				} else {
-					return true;
-				}
-			}
-		})
-		
-	$("#pushon").click(function tdeeNutrition() {
-        
-        let x = $("#tdee-num").val();
-        if (x > 2850) {
-            $("#tdee").text('⚠️：此數值大於每日所需熱量參考攝取，建議您尋求營養師或專業醫事人員，進行適當飲食規劃。');
-            $("#food").text('');
-            $("#nutrition1").text("");
-            $("#nutrition1-1").text("");
-            $("#nutrition1-2").text("");
-            $("#nutrition2").text("");
-            $("#nutrition3").text("");
-            $("#nutrition4").text("");
-            $("#nutrition5").text("");
-            $("#nutrition6").text("");
-            $("#nutrition6-1").text("");
-            $("#nutrition6-2").text("");
-        } else if (x < 1050) {
-        	$("#tdee").text('⚠️ ：此數值小於每日所需熱量參考攝取(DRIs)，建議您尋求營養師或專業醫事人員，進行更適切的飲食規劃。');
-        	$("#food").text('');
-            $("#nutrition1").text("");
-            $("#nutrition1-1").text("");
-            $("#nutrition1-2").text("");
-            $("#nutrition2").text("");
-            $("#nutrition3").text("");
-            $("#nutrition4").text("");
-            $("#nutrition5").text("");
-            $("#nutrition6").text("");
-            $("#nutrition6-1").text("");
-            $("#nutrition6-2").text("");
-        } else {
-            if (x >= 1050 && x <= 1350) {
-            	$("#tdee").text('');
-            	$("#food").html('➤ 熱量基準：1200 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ± 150 為參考）');
-                $("#nutrition1").text("1.5");
-                $("#nutrition1-1").text("1");
-                $("#nutrition1-2").text("0.5");
-                $("#nutrition2").text("3");
-                $("#nutrition3").text("1.5");
-                $("#nutrition4").text("3");
-                $("#nutrition5").text("2");
-                $("#nutrition6").text("4");
-                $("#nutrition6-1").text("3");
-                $("#nutrition6-2").text("1");
-            }else if (x >= 1351 && x <= 1650) {
-            	$("#tdee").text('');
-                $("#food").html('➤ 熱量基準：1500 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±150 為參考 ）');
-                $("#nutrition1").text("2.5");
-                $("#nutrition1-1").text("1");
-                $("#nutrition1-2").text("1.5");
-                $("#nutrition2").text("4");
-                $("#nutrition3").text("1.5");
-                $("#nutrition4").text("3");
-                $("#nutrition5").text("2");
-                $("#nutrition6").text("4");
-                $("#nutrition6-1").text("3");
-                $("#nutrition6-2").text("1");
-            }else if (x >= 1651 && x <= 1900) {
-            	$("#tdee").text('');
-            	$("#food").html('➤ 熱量基準：1800 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考)');
-                $("#nutrition1").text("3");
-                $("#nutrition1-1").text("1");
-                $("#nutrition1-2").text("2");
-                $("#nutrition2").text("5");
-                $("#nutrition3").text("1.5");
-                $("#nutrition4").text("3");
-                $("#nutrition5").text("2");
-                $("#nutrition6").text("5");
-                $("#nutrition6-1").text("4");
-                $("#nutrition6-2").text("1");
-            }else if (x >= 1901 && x <= 2100) {
-            	$("#tdee").text('');
-                $("#food").html('➤ 熱量基準：2000 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100 為參考)');
-                $("#nutrition1").text("3");
-                $("#nutrition1-1").text("1");
-                $("#nutrition1-2").text("2");
-                $("#nutrition2").text("6");
-                $("#nutrition3").text("1.5");
-                $("#nutrition4").text("4");
-                $("#nutrition5").text("3");
-                $("#nutrition6").text("6");
-                $("#nutrition6-1").text("5");
-                $("#nutrition6-2").text("1");
-            }else if (x >= 2101 && x <= 2350) {
-            	$("#tdee").text('');
-            	$("#food").html('➤ 熱量基準：2200 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考)');
-                $("#nutrition1").text("3.5");
-                $("#nutrition1-1").text("1.5");
-                $("#nutrition1-2").text("2");
-                $("#nutrition2").text("6");
-                $("#nutrition3").text("1.5");
-                $("#nutrition4").text("4");
-                $("#nutrition5").text("3.5");
-                $("#nutrition6").text("6");
-                $("#nutrition6-1").text("5");
-                $("#nutrition6-2").text("1");
-
-            }else if (x >= 2351 && x <= 2600) {
-            	$("#tdee").text('');
-            	$("#food").html('➤ 熱量基準：2500 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考)');
-                $("#nutrition1").text("4");
-                $("#nutrition1-1").text("1.5");
-                $("#nutrition1-2").text("2.5");
-                $("#nutrition2").text("7");
-                $("#nutrition3").text("1.5");
-                $("#nutrition4").text("5");
-                $("#nutrition5").text("4");
-                $("#nutrition6").text("7");
-                $("#nutrition6-1").text("6");
-                $("#nutrition6-2").text("1");
-
-            }else if (x >= 2601 && x <= 2850) {
-            	$("#tdee").text('');
-            	$("#food").html('➤ 熱量基準：2700 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考）');
-                $("#nutrition1").text("4");
-                $("#nutrition1-1").text("1.5");
-                $("#nutrition1-2").text("2.5");
-                $("#nutrition2").text("8");
-                $("#nutrition3").text("2");
-                $("#nutrition4").text("5");
-                $("#nutrition5").text("4");
-                $("#nutrition6").text("8");
-                $("#nutrition6-1").text("7");
-                $("#nutrition6-2").text("1");
-            }
+        if (error_check()) {
+          let result = Math.round(
+            wc * wid + hc * hei - ac * age + (gc * gen - g)
+          );
+          let bmi = Math.round((wid / ((hei / 100) * (hei / 100))) * 10) / 10;
+          let string =
+            "基礎代謝率(BMR)計算值:" +
+            result +
+            "<br/>" +
+            "BMI值為:" +
+            bmi +
+            " ";
+          if (bmi < 18.5) {
+            string += "體重過輕";
+          } else if (18.5 <= bmi && bmi < 24) {
+            string += "體重正常";
+          } else if (24 <= bmi && bmi < 27) {
+            string += "您過重了需要運動";
+          } else if (27 <= bmi && bmi < 30) {
+            string += "您輕度肥胖需要適度運動";
+          } else if (30 <= bmi && bmi < 35) {
+            string += "您中度肥胖需要強烈運動";
+          } else if (bmi >= 35) {
+            string += "您重度肥胖請現在去運動";
+          }
+          $("#rmr").text("");
+          $("#result").html(string);
+          $("div[name='lv1']").text(Math.round(result * 1.2 * 100) / 100);
+          $("div[name='lv2']").text(Math.round(result * 1.375 * 100) / 100);
+          $("div[name='lv3']").text(Math.round(result * 1.55 * 100) / 100);
+          $("div[name='lv4']").text(Math.round(result * 1.72 * 100) / 100);
+          $("div[name='lv5']").text(Math.round(result * 1.9 * 100) / 100);
         }
-    })
-	</script>
+        console.log(error_check());
 
-</body>
+        function error_check() {
+          let error = [];
+          if (age == "" || !age == parseInt(age)) {
+            error.push("年齡尚未輸入或數值輸入不正確!");
+          }
+          if (hei == "" || !hei == parseFloat(hei)) {
+            error.push("身高尚未輸入或數值輸入不正確!");
+          }
+          if (wid == "" || !wid == parseFloat(wid)) {
+            error.push("體重尚未輸入或數值輸入不正確!");
+          }
+          if (gen == "") {
+            error.push("性別尚未選擇");
+          }
+          if (Object.keys(error).length) {
+            console.log(Object.keys(error));
+            let str = error.join("<br/>");
+            $("#rmr").html(str).css("color", "red");
+            $("#result").text("");
+            $("div[name='lv1']").text("");
+            $("div[name='lv2']").text("");
+            $("div[name='lv3']").text("");
+            $("div[name='lv4']").text("");
+            $("div[name='lv5']").text("");
+            return false;
+          } else {
+            return true;
+          }
+        }
+      });
 
+      $("div[id='lv']").click(function tdeeNutrition(e) {
+        let x = $(e.target).text();
+        if (x > 2850) {
+          $("#tdee").text(
+            "⚠️：此數值大於每日所需熱量參考攝取，建議您尋求營養師或專業醫事人員，進行適當飲食規劃。"
+          );
+          $("#food").text("");
+          $("#nutrition1").text("");
+          $("#nutrition1-1").text("");
+          $("#nutrition1-2").text("");
+          $("#nutrition2").text("");
+          $("#nutrition3").text("");
+          $("#nutrition4").text("");
+          $("#nutrition5").text("");
+          $("#nutrition6").text("");
+          $("#nutrition6-1").text("");
+          $("#nutrition6-2").text("");
+        } else if (x < 1050) {
+          $("#tdee").text(
+            "⚠️ ：此數值小於每日所需熱量參考攝取(DRIs)，建議您尋求營養師或專業醫事人員，進行更適切的飲食規劃。"
+          );
+          $("#food").text("");
+          $("#nutrition1").text("");
+          $("#nutrition1-1").text("");
+          $("#nutrition1-2").text("");
+          $("#nutrition2").text("");
+          $("#nutrition3").text("");
+          $("#nutrition4").text("");
+          $("#nutrition5").text("");
+          $("#nutrition6").text("");
+          $("#nutrition6-1").text("");
+          $("#nutrition6-2").text("");
+        } else {
+          if (x >= 1050 && x <= 1350) {
+            $("#tdee").text("");
+            $("#food").html(
+              '➤ 熱量基準：1200 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ± 150 為參考）'
+            );
+            $("#nutrition1").text("1.5");
+            $("#nutrition1-1").text("1");
+            $("#nutrition1-2").text("0.5");
+            $("#nutrition2").text("3");
+            $("#nutrition3").text("1.5");
+            $("#nutrition4").text("3");
+            $("#nutrition5").text("2");
+            $("#nutrition6").text("4");
+            $("#nutrition6-1").text("3");
+            $("#nutrition6-2").text("1");
+          } else if (x >= 1351 && x <= 1650) {
+            $("#tdee").text("");
+            $("#food").html(
+              '➤ 熱量基準：1500 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±150 為參考 ）'
+            );
+            $("#nutrition1").text("2.5");
+            $("#nutrition1-1").text("1");
+            $("#nutrition1-2").text("1.5");
+            $("#nutrition2").text("4");
+            $("#nutrition3").text("1.5");
+            $("#nutrition4").text("3");
+            $("#nutrition5").text("2");
+            $("#nutrition6").text("4");
+            $("#nutrition6-1").text("3");
+            $("#nutrition6-2").text("1");
+          } else if (x >= 1651 && x <= 1900) {
+            $("#tdee").text("");
+            $("#food").html(
+              '➤ 熱量基準：1800 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考)'
+            );
+            $("#nutrition1").text("3");
+            $("#nutrition1-1").text("1");
+            $("#nutrition1-2").text("2");
+            $("#nutrition2").text("5");
+            $("#nutrition3").text("1.5");
+            $("#nutrition4").text("3");
+            $("#nutrition5").text("2");
+            $("#nutrition6").text("5");
+            $("#nutrition6-1").text("4");
+            $("#nutrition6-2").text("1");
+          } else if (x >= 1901 && x <= 2100) {
+            $("#tdee").text("");
+            $("#food").html(
+              '➤ 熱量基準：2000 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100 為參考)'
+            );
+            $("#nutrition1").text("3");
+            $("#nutrition1-1").text("1");
+            $("#nutrition1-2").text("2");
+            $("#nutrition2").text("6");
+            $("#nutrition3").text("1.5");
+            $("#nutrition4").text("4");
+            $("#nutrition5").text("3");
+            $("#nutrition6").text("6");
+            $("#nutrition6-1").text("5");
+            $("#nutrition6-2").text("1");
+          } else if (x >= 2101 && x <= 2350) {
+            $("#tdee").text("");
+            $("#food").html(
+              '➤ 熱量基準：2200 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考)'
+            );
+            $("#nutrition1").text("3.5");
+            $("#nutrition1-1").text("1.5");
+            $("#nutrition1-2").text("2");
+            $("#nutrition2").text("6");
+            $("#nutrition3").text("1.5");
+            $("#nutrition4").text("4");
+            $("#nutrition5").text("3.5");
+            $("#nutrition6").text("6");
+            $("#nutrition6-1").text("5");
+            $("#nutrition6-2").text("1");
+          } else if (x >= 2351 && x <= 2600) {
+            $("#tdee").text("");
+            $("#food").html(
+              '➤ 熱量基準：2500 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考)'
+            );
+            $("#nutrition1").text("4");
+            $("#nutrition1-1").text("1.5");
+            $("#nutrition1-2").text("2.5");
+            $("#nutrition2").text("7");
+            $("#nutrition3").text("1.5");
+            $("#nutrition4").text("5");
+            $("#nutrition5").text("4");
+            $("#nutrition6").text("7");
+            $("#nutrition6-1").text("6");
+            $("#nutrition6-2").text("1");
+          } else if (x >= 2601 && x <= 2850) {
+            $("#tdee").text("");
+            $("#food").html(
+              '➤ 熱量基準：2700 大卡，下方六大類建議份數參考 <a href="https://www.hpa.gov.tw/File/Attach/6712/File_6253.pdf" target="blank">國健署《每日飲食指南》</a>，依最為接近的熱量需求計算（熱量區間以 ±100~150 為參考）'
+            );
+            $("#nutrition1").text("4");
+            $("#nutrition1-1").text("1.5");
+            $("#nutrition1-2").text("2.5");
+            $("#nutrition2").text("8");
+            $("#nutrition3").text("2");
+            $("#nutrition4").text("5");
+            $("#nutrition5").text("4");
+            $("#nutrition6").text("8");
+            $("#nutrition6-1").text("7");
+            $("#nutrition6-2").text("1");
+          }
+        }
+      });
+    </script>
+  </body>
 </html>

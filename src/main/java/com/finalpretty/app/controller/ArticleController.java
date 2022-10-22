@@ -93,10 +93,10 @@ public class ArticleController {
 			@RequestParam(name = "picture") MultipartFile picture,
 			Model model) {
 		Article article = new Article();
-		byte[] picture2;
+		// byte[] picture2;
 
 		try {
-			picture2 = picture.getBytes();
+			byte[] picture2 = picture.getBytes();
 			article.setPicture(picture2);
 			article.setTitle(title);
 			article.setText(text);

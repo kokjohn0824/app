@@ -1,5 +1,7 @@
 package com.finalpretty.app.repositories;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.*;
@@ -16,5 +18,10 @@ public interface ArticleRespository extends JpaRepository<Article, Integer> {
             @Param("title") String title,
             @Param("text") String text,
             @Param("picture") byte[] picture);
+
+    @Transactional
+    @Modifying
+    @Query(value = "select * from article order by article_id desc", nativeQuery = true)
+    List<Article> findAlloOrderById();
 
 }

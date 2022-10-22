@@ -9,7 +9,7 @@
     <style>
       .top {
         width: 100%;
-        margin-top: 76px;
+        margin-top: 115px;
       }
       .resulthtml {
         overflow: hidden;
@@ -23,7 +23,6 @@
     <div th:replace="component/navbar :: navbar"></div>
     <!-- <div style="width: 100%; top: 76px"></div> -->
     <div class="top">
-      <h1>所有文章</h1>
       <div class="container-lg" style="margin: 20px auto">
         <div class="row row-cols-1 row-cols-md-2 g-4">
           <tr th:each="article : ${list}">

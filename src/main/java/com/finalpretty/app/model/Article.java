@@ -41,22 +41,26 @@ public class Article {
 	@Column(name = "article_id")
 	private Integer article_id;
 
-	@Column(name = "title") // 文章標題
+	// 文章標題
+	@Column(name = "title")
 	private String title;
 
-	@Column(name = "text", columnDefinition = "ntext") // 文章內文
+	// 文章內文
+	@Column(name = "text", columnDefinition = "ntext")
 	// @Type(type = "org.hibernate.type.StringNVarcharType")
 	private String text;
 
+	// 標題圖片
 	@Lob
-	@Column(name = "picture") // 標題圖片
+	@Column(name = "picture")
 	private byte[] picture;
 
+	// 文章時間
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "create_date", columnDefinition = "datetime")
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE", timezone = "GMT+8")
-	private Date create_date; // 文章時間
+	private Date create_date;
 
 	@PrePersist
 	public void onCreate() {
@@ -65,6 +69,7 @@ public class Article {
 		}
 	}
 
+	// 跟會員多對多的連動
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "article_like", joinColumns = {
 			@JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") }, inverseJoinColumns = {

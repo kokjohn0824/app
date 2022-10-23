@@ -1,12 +1,16 @@
 package com.finalpretty.app.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -50,7 +54,7 @@ public class Product {
 	@Column(name = "onsale") // 產品上下架
 	private Integer onsale;
 
-	@OneToOne(mappedBy = "product")
-	private Order_detail order_detail;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL)
+	private List<Order_detail> order_detail;
 
 }

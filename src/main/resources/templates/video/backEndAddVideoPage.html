@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,27 +19,72 @@
 
   <div class="container-lg">
     <div th:fragment="form">
-        <div class="" style="width: 50%; margin: 20px auto">
-          <div th:if="${username} != null">
-            <h1>您好，管理者<span th:text="${username}"></span></h1>
-          </div>
+      <div class="" style="width: 50%; margin: 20px auto">
+        <div th:if="${nickname} != null">
+          <h1>您好，管理者<span th:text="${nickname}"></span></h1>
+        </div>
 
-          <h1>新增影片</h1>
+        <h1>新增影片</h1>
 
-          <div class="container-lg" style="width: 800px;" th:fragment="form" >
-            <form th:action="@{/video/add}" method="post" enctype="multipart/form-data">
-              影片封面:<input class="form-control" type="file" placeholder="請加入圖片" name="picture" /><br>
-              影片標題:<input type="text" name="title" /><br>
-              影片分類:<input type="text" name="type" /><br>
-              訓練肌群:<input type="text" name="body_parts" /><br>
-              加入影片:<input type="file" name="myFiles"/><br/>
-              <button type="reset" class="btn btn-secondary">重置</button>
-              <button type="submit" class="signupbtn btn btn-primary">送出</button>
-            </form>
-          </div>
+        <div class="container-lg" style="width: 800px;" th:fragment="form">
+          <form th:action="@{/video/add}" method="post" enctype="multipart/form-data">
+            影片封面:<input id="inputFileToLoad" class="" type="file" placeholder="請加入圖片" name="picture" />
+            <img id="video_img" style="
+              width: 300px;
+              border-radius: 60px 60px 60px 60px;
+              margin-left: 50px;
+            " />
+            <br>
+            影片標題:<input type="text" name="title" /><br>
+            影片分類:<select name="type">
+              <option>胸肌</option>
+              <option>背肌</option>
+              <option>腿肌</option>
+              <option>肩膀</option>
+              <option>腹部</option>
+              <option>手臂</option>
+              <option>有氧</option>
+              <option>伸展</option>
+            </select><br>
+            訓練肌群:<input type="text" name="body_parts" /><br>
+            加入影片:<input id="inputFileToLoad2" type="file" name="myFiles" class="file_multi_video upload_cover"
+              accept="video/*" />
+            <video autoplay muted class="video_show displayNone" style="
+            width: 300px;
+            border-radius: 60px 60px 60px 60px;
+            margin-left: 50px;
+          ">
+              <source src="<?=$editBlog['video'];?>" id="video_here">
+            </video><br>
+            <button type="reset" class="btn btn-secondary">重置</button>
+            <button type="submit" class="signupbtn btn btn-primary">送出</button>
+          </form>
         </div>
       </div>
-    
+    </div>
+
+    <script>
+      $("#inputFileToLoad").change(function () {
+        readURL(this);
+      });
+
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#video_img").attr("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      };
+
+      $(document).on("change", ".file_multi_video", function (evt) {
+        var $source = $('#video_here');
+        $('.video_show').show();
+        $source[0].src = URL.createObjectURL(this.files[0]);
+        $source.parent()[0].load();
+      });
+    </script>
 
 </body>
 

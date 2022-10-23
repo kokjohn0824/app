@@ -63,14 +63,12 @@
               />
               <div class="card-body">
                 <h5 class="card-title" th:text="${article.title}"></h5>
-                <!-- class="d-inline-block text-truncate" -->
-                <!-- id="resulthtm2" -->
                 <p
+                  id="cleanText"
                   class="resulthtml"
                   style="max-width: 230px"
                   th:text="${article.text}"
                 ></p>
-                <!-- class="card-text d-inline-block" -->
                 <a
                   th:href="@{'/article/show?article_id='+${article.article_id}}"
                   class="btn btn-primary"
@@ -78,27 +76,16 @@
                 >
               </div>
             </div>
-            <!-- <div class="card">
-				<div class="pic">
-				  <img th:src="@{'/showImage/'+${article.article_id}}"></div>
-				<div class="card-header" th:text="${article.create_date}"></div>
-				<div class="card-body">
-				<h3 class="title" th:text="${article.title}"></h3>
-			  </div>
-			  <div class="card-footer">
-				<p class="text" th:text="${article.text}"></p>
-			  </div>
-			</div> -->
           </tr>
         </div>
       </div>
     </div>
     <script>
-      const resulthtm2 = document.querySelectorAll("#resulthtm2");
-      resulthtm2.innerHTML = resulthtm2.innerText;
-      for (a of resulthtm2) {
-        a.innerHTML = a.innerText;
-      }
+      //移除html tag
+      const cleanTextList = document.querySelectorAll("#cleanText");
+      cleanTextList.forEach(
+        (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
+      );
     </script>
   </body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>訂單明細</title>
+    <div th:replace="jsmodules"></div>
+  </head>
+  <body th:inline="text">
+    <div th:replace="component/chatbubble"></div>
+    <div th:replace="component/backendNavbar :: backendNavbar"></div>
+    <div id="cons"></div>
+    <script>
+      var settings = {
+        url: "http://localhost:8082/public/findByFKOrderId?order_id=1",
+        method: "GET",
+        timeout: 0,
+        headers: {
+          Cookie: "JSESSIONID=84676DFD1108BB4F47619173EB2F8549",
+        },
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
+    </script>
+  </body>
+</html>

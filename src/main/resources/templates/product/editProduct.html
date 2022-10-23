@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>商品修改</title>
     <!-- 利用th:insert 或是 th:replace 來載入模板 -->
+    <div th:replace="jsmodules"></div>
   </head>
   <body>
     <script>
@@ -24,7 +25,7 @@
         }
       }
     </script>
-    <div th:replace="jsmodules"></div>
+    <div th:replace="component/chatbubble"></div>
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
     <div class="container">
       <form

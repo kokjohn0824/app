@@ -118,15 +118,64 @@
             </a>
           </div>
 
-          <a
-            sec:authorize="!isAuthenticated()"
-            class="navbar-brand"
-            th:href="@{/login}"
-            style="font-size: 18px"
-          >
-            <i class="bi bi-people-fill"></i> 登入
-          </a>
+          <!-- dropsown button -->
 
+          <li class="nav-item dropdown" sec:authorize="!isAuthenticated()">
+            <a
+              class="navbar-brand"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-people-fill"></i> 登入
+            </a>
+            <div
+              class="dropdown-menu"
+              style="width: 400px; left: -200px; top: 40px"
+            >
+              <form class="px-4 py-3" method="post" action="/perform_login">
+                <div class="form-group p-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleDropdownFormEmail1"
+                    placeholder="請輸入帳號或email..."
+                    name="username"
+                    required
+                    autofocus
+                  />
+                </div>
+                <div class="form-group p-2">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="exampleDropdownFormPassword1"
+                    name="password"
+                    required
+                    placeholder="密碼..."
+                  />
+                </div>
+                <div class="form-group p-2">
+                  <button type="submit" class="btn btn-primary w-100">
+                    登入
+                  </button>
+                </div>
+              </form>
+              <div class="dropdown-divider"></div>
+              <div class="d-flex justify-content-around">
+                <div class="flex-item">
+                  還沒有帳號？
+                  <a class="text-info" href="#">註冊</a>
+                </div>
+                <div class="flex-item">
+                  還是
+                  <a class="text-info" href="#">忘記密碼？</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- end of dropsown button -->
           <div class="d-flex">
             <input
               class="form-control me-2"

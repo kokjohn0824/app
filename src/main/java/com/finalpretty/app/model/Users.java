@@ -37,13 +37,13 @@ public class Users implements UserDetails {
     @Column(name = "users_id")
     private Integer id;
 
-    @Column(name = "account")
+    @Column(name = "account", unique = true)
     private String account;
 
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")

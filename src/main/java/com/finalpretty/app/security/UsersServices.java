@@ -1,6 +1,7 @@
 package com.finalpretty.app.security;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,6 +72,10 @@ public class UsersServices implements UserDetailsService {
 
         confirmationTokenServices.saveConfirmationToken(confirmationToken);
         return token;
+    }
+
+    public boolean emailExists(String email) {
+        return usersRepository.findByEmail(email).isPresent();
     }
 
 }

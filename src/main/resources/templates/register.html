@@ -30,10 +30,228 @@
 
     <article>
       <!-- 網站內文放這裡 -->
+      <div class="card bg-light" style="width: 40%; margin: 40px auto">
+        <div th:fragment="form">
+          <div class="" style="width: 80%; margin: 20px auto">
+            <form class="" method="post" id="registerForm">
+              <h1>註冊</h1>
+              <p>來開始您的健身之旅</p>
+              <hr />
+              <div class="form-floating mb-3">
+                <input
+                  id="accountInput"
+                  class="form-control"
+                  type="text"
+                  placeholder="請輸入帳號"
+                  name="account"
+                  required
+                />
+                <label for="account" class="form-label"><b>帳號</b></label>
+                <small id="accountHelpBlock" class="form-text text-muted">
+                </small>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  id="emailInput"
+                  class="form-control"
+                  type="email"
+                  placeholder="Enter Email"
+                  name="email"
+                  required
+                />
+                <label for="email" class="form-label"><b>Email 信箱</b></label>
+                <small id="emailHelpBlock" class="form-text"> </small>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  id="passwordInput"
+                  class="form-control"
+                  type="password"
+                  placeholder="Enter Password"
+                  name="password"
+                  required
+                />
+                <label for="psw" class="form-label"><b>密碼</b></label>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                </small>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  id="repeatPwdInput"
+                  class="form-control"
+                  type="password"
+                  placeholder="Repeat Password"
+                  name="psw-repeat"
+                  required
+                />
+                <label for="psw-repeat" class="form-label"
+                  ><b>密碼確認</b></label
+                >
+                <small id="repeatPwdHelpBlock" class="form-text text-muted">
+                </small>
+              </div>
+            </form>
+            <button id="submitBtn" class="btn btn-primary">註冊</button>
+          </div>
+        </div>
+      </div>
     </article>
 
     <footer>
       <div th:replace="component/footer"></div>
     </footer>
+    <script>
+      // 設定常數
+      const emailRegex = /^[a-zA-Z0-9_]+@[a-zA-Z0-9]+\.[a-z]{2,3}$/;
+      const accountRegex = /^\w+$/;
+      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/;
+      const url = "http://localhost:8082/public/api/";
+      //抓取元素
+      let registerForm = document.querySelector("#registerForm");
+      const submitBtn = document.querySelector("#submitBtn");
+      let accountInput = document.querySelector("#accountInput");
+      let emailInput = document.querySelector("#emailInput");
+      let passwordInput = document.querySelector("#passwordInput");
+      let repeatPwdInput = document.querySelector("#repeatPwdInput");
+      let accountHelpBlock = document.querySelector("#accountHelpBlock");
+      let emailHelpBlock = document.querySelector("#emailHelpBlock");
+      let passwordHelpBlock = document.querySelector("#passwordHelpBlock");
+      let repeatPwdHelpBlock = document.querySelector("#repeatPwdHelpBlock");
+      // 設定資料
+      let flags = {
+        accountChecked: false,
+        emailChecked: false,
+        passwordChecked: false,
+        repeatPwdChecked: false,
+      };
+      let myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      accountInput.addEventListener("input", (e) => {
+        let accountInput = e.target.value;
+        if (!accountInput) {
+          accountHelpBlock.innerText = "";
+          flags["accountChecked"] = false;
+          return;
+        }
+        if (!accountRegex.test(accountInput)) {
+          accountHelpBlock.innerText = "帳號中不得有特殊字元";
+          flags["accountChecked"] = false;
+          return;
+        }
+        flags["accountChecked"] = true;
+        accountHelpBlock.innerText = "ok!";
+      });
+
+      emailInput.addEventListener("blur", (e) => {
+        let emailInput = e.target.value;
+        if (!emailInput) {
+          flags["emailChecked"] = false;
+          emailHelpBlock.innerText = "";
+          return;
+        }
+        if (!emailRegex.test(emailInput)) {
+          flags["emailChecked"] = false;
+          emailHelpBlock.innerText = "Email格式不符";
+          return;
+        }
+        let requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: JSON.stringify({ email: emailInput }),
+          redirect: "follow",
+        };
+        fetch(`${url}registration/checkEmail`, requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.emailExists) {
+              console.log(result.emailExists);
+              flags["emailChecked"] = false;
+              emailHelpBlock.innerText = "Email帳號已存在！";
+            } else {
+              flags["emailChecked"] = true;
+              emailHelpBlock.innerText = "Email帳號可使用";
+            }
+          })
+          .catch((error) => console.log("error", error));
+      });
+
+      passwordInput.addEventListener("input", (e) => {
+        let passwordInput = e.target.value;
+
+        //確認空值
+        if (!passwordInput) {
+          flags["passwordChecked"];
+          passwordHelpBlock.innerText = "";
+          flags["repeatPwdChecked"];
+          repeatPwdHelpBlock.innerText = "";
+          return;
+        }
+
+        //確認合法
+        if (!passwordRegex.test(passwordInput)) {
+          flags["passwordChecked"] = false;
+          passwordHelpBlock.innerText = "密碼需符合規定";
+
+          flags["repeatPwdChecked"] = false;
+          repeatPwdHelpBlock.innerText = "";
+          return;
+        } else {
+          flags["passwordChecked"] = true;
+          passwordHelpBlock.innerText = "OK";
+        }
+
+        //同步
+        if (e.target.value !== repeatPwdInput.value) {
+          repeatPwdHelpBlock.innerText = "您沒有對上您的密碼";
+          flags["repeatPwdChecked"] = false;
+          return;
+        } else {
+          repeatPwdHelpBlock.innerText = "OK";
+          flags["repeatPwdChecked"] = true;
+        }
+      });
+
+      repeatPwdInput.addEventListener("input", (e) => {
+        if (e.target.value !== passwordInput.value) {
+          repeatPwdHelpBlock.innerText = "您沒有對上您的密碼";
+          flags["repeatPwdChecked"] = false;
+          return;
+        }
+        flags["repeatPwdChecked"] = true;
+        repeatPwdHelpBlock.innerText = "ok!";
+      });
+
+      // 送出按鈕事件
+      submitBtn.addEventListener("click", (e) => {
+        console.log(flags);
+        console.log(
+          Object.values(flags).includes(false) ? "falseflag exist!" : " no flag"
+        );
+        if (Object.values(flags).includes(false)) {
+          return;
+        }
+        e.preventDefault();
+        let registerdata = JSON.stringify({
+          account: accountInput.value,
+          email: emailInput.value,
+          password: passwordInput.value,
+        });
+        let requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: registerdata,
+          redirect: "follow",
+        };
+        fetch(`${url}registration`, requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            if (result.error) {
+              emailHelpBlock.innerText = result.error;
+            }
+          })
+          .catch((error) => console.log("error", error));
+      });
+    </script>
   </body>
 </html>

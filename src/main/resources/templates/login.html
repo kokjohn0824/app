@@ -8,72 +8,56 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <div th:replace="jsmodules"></div>
-
     <title>Please sign in</title>
-
-    <style>
-      body {
-        background-color: black;
-        color: azure;
-      }
-      .form-container {
-        margin: 50px auto;
-        width: 400px;
-      }
-    </style>
   </head>
   <body>
-    <div th:replace="component/navbar :: navbar"></div>
-
-    <div th:fragment="loginForm" class="form-container">
-      <form class="form-signin" method="post" action="/perform_login">
-        <h2 class="form-signin-heading">
-          Login to <strong style="color: orange">DigiWorld</strong>
-        </h2>
-        <h3 th:unless="${param.error == null}" style="color: white">
-          <span
-            th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
-          ></span>
-        </h3>
-        <h3 th:unless="${param.logout == null}" style="color: white">
-          <span
-            th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
-          >
-          </span>
-        </h3>
-        <p>
-          <label for="username" class="sr-only">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            class="form-control"
-            placeholder="Username"
-            required=""
-            autofocus=""
-          />
-        </p>
-        <p>
-          <label for="password" class="sr-only">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="form-control"
-            placeholder="Password"
-            required=""
-          />
-        </p>
-        <button class="btn btn-lg btn-warning btn-block" type="submit">
-          Sign in
-        </button>
-        <a href="http://google.com">forgot password? </a>
-      </form>
-
-      <!-- <form action="" id="resendForm">
-        insert email<input type="text" name="email"> <button type="submit">send</button>
-      </form><span id="formResponse"></span> -->
+    <div th:replace="component/navbar"></div>
+    <div class="container-lg">
+      <div class="form-container">
+        <form class="form-signin" method="post" action="/perform_login">
+          <h2 class="form-signin-heading">
+            Login to <strong style="color: orange">DigiWorld</strong>
+          </h2>
+          <h3 th:unless="${param.error == null}" style="color: white">
+            <span
+              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+            ></span>
+          </h3>
+          <h3 th:unless="${param.logout == null}" style="color: white">
+            <span
+              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+            >
+            </span>
+          </h3>
+          <p>
+            <label for="username" class="sr-only">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Username"
+              required=""
+              autofocus=""
+            />
+          </p>
+          <p>
+            <label for="password" class="sr-only">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+              required=""
+            />
+          </p>
+          <button class="btn btn-lg btn-warning btn-block" type="submit">
+            Sign in
+          </button>
+          <a href="http://google.com">forgot password? </a>
+        </form>
+      </div>
     </div>
-    <!-- modal -->
   </body>
 </html>

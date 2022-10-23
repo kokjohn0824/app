@@ -24,7 +24,7 @@ public class EmailService implements EmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
     private final JavaMailSender mailSender;
-    private final String LINK = "http://localhost:8082/public/api/registration/confirm?token=";
+    private final String LINK = "http://localhost:8082/public/api/registration/public/confirm?token=";
 
     @Autowired
     private SpringTemplateEngine thymeleafTemplateEngine;

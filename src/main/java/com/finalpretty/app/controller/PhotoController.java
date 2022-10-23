@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.Response.UploadResponse;
 import com.finalpretty.app.model.Photo;
-import com.finalpretty.app.model.UploadResponse;
 import com.finalpretty.app.repositories.PhotoRepository;
 
 @RestController
@@ -50,7 +50,7 @@ public class PhotoController {
         try {
             p.setFilebyte(upload.getBytes());
             photoRepository.save(p);
-            return new UploadResponse("http://localhost:8082/api/image/"+p.getPhoto_id(), null);
+            return new UploadResponse("http://localhost:8082/api/image/" + p.getPhoto_id(), null);
 
         } catch (IOException e) {
             e.getMessage();

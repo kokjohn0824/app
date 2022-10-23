@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>訂單總覽</title>
+    <div th:replace="jsmodules"></div>
+  </head>
+  <body th:inline="text">
+    <div th:replace="component/chatbubble"></div>
+    <div th:replace="component/backendNavbar :: backendNavbar"></div>
+    <div id="cons"></div>
+    <script>
+      var settings = {
+        url: "http://localhost:8082/public/orderAll",
+        method: "GET",
+        timeout: 0,
+        headers: {
+          Cookie: "JSESSIONID=84676DFD1108BB4F47619173EB2F8549",
+        },
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        var str;
+        str =
+          "<table><tr><th>訂單編號</th><th>訂單成立時間</th><th>運送方式</th><th>支付方式</th><th>訂單金額</th>";
+        for (let i of response) {
+          str +=
+            "<tr><td>" + i.order_num + "</td><td>" + i.create_date + "</td>";
+
+          // str +=
+          //   "<td th:if='" +
+          //   i.ship +
+          //   "eq 1'>自取</td><td th:if='" +
+          //   i.ship +
+          //   "eq 2'>宅配</td>";
+          // str +=
+          //   "<td th:if='" +
+          //   i.paid +
+          //   "eq 1'>現金</td><td th:if='" +
+          //   i.ship +
+          //   "eq 2'>信用卡</td>";
+          if (i.ship == 1) {
+            str += "<td>自取</td>";
+          } else if (i.ship == 2) {
+            str += "<td>宅配</td>";
+          }
+          if (i.paid == 1) {
+            str += "<td>現金</td>";
+          } else if (i.paid == 2) {
+            str += "<td>信用卡</td>";
+          }
+          str += "<td>" + i.total + "</td></tr>";
+        }
+        $("#cons").html(str);
+      });
+    </script>
+  </body>
+</html>

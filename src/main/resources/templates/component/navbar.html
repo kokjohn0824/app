@@ -117,9 +117,7 @@
               <i class="bi bi-door-open-fill"></i> 登出
             </a>
           </div>
-
           <!-- dropsown button -->
-
           <li class="nav-item dropdown" sec:authorize="!isAuthenticated()">
             <a
               class="navbar-brand"
@@ -166,7 +164,7 @@
               <div class="d-flex justify-content-around">
                 <div class="flex-item">
                   還沒有帳號？
-                  <a class="text-info" href="#">註冊</a>
+                  <a class="text-info" th:href="@{/public/register}">註冊</a>
                 </div>
                 <div class="flex-item">
                   還是

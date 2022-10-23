@@ -8,55 +8,62 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <div th:replace="jsmodules"></div>
-    <title>Please sign in</title>
+    <title>登入</title>
   </head>
   <body>
     <div th:replace="component/navbar"></div>
-    <div class="container-lg">
-      <div class="form-container">
-        <form class="form-signin" method="post" action="/perform_login">
-          <h2 class="form-signin-heading">
-            Login to <strong style="color: orange">DigiWorld</strong>
-          </h2>
-          <h3 th:unless="${param.error == null}" style="color: white">
-            <span
-              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
-            ></span>
-          </h3>
-          <h3 th:unless="${param.logout == null}" style="color: white">
-            <span
-              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
-            >
-            </span>
-          </h3>
-          <p>
-            <label for="username" class="sr-only">Username</label>
+    <div class="container-lg p-5 mx-auto" style="border: 1px solid black">
+      <div
+        class="mx-auto"
+        style="width: 400px; border: 1px lightgray solid; border-radius: 10px"
+      >
+        <h3 th:unless="${param.error == null}">
+          <span
+            th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+          ></span>
+        </h3>
+        <h3 th:unless="${param.logout == null}">
+          <span
+            th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+          >
+          </span>
+        </h3>
+        <form class="px-4 py-3" method="post" action="/perform_login">
+          <div class="form-group p-2">
             <input
               type="text"
-              id="username"
-              name="username"
               class="form-control"
-              placeholder="Username"
-              required=""
-              autofocus=""
+              id="exampleDropdownFormEmail1"
+              placeholder="請輸入帳號或email..."
+              name="username"
+              required
+              autofocus
             />
-          </p>
-          <p>
-            <label for="password" class="sr-only">Password</label>
+          </div>
+          <div class="form-group p-2">
             <input
               type="password"
-              id="password"
-              name="password"
               class="form-control"
-              placeholder="Password"
-              required=""
+              id="exampleDropdownFormPassword1"
+              name="password"
+              required
+              placeholder="密碼..."
             />
-          </p>
-          <button class="btn btn-lg btn-warning btn-block" type="submit">
-            Sign in
-          </button>
-          <a href="http://google.com">forgot password? </a>
+          </div>
+          <div class="form-group p-2">
+            <button type="submit" class="btn btn-primary w-100">登入</button>
+          </div>
         </form>
+        <div class="d-flex justify-content-around">
+          <div class="flex-item">
+            還沒有帳號？
+            <a class="text-info" href="#">註冊</a>
+          </div>
+          <div class="flex-item">
+            還是
+            <a class="text-info" href="#">忘記密碼？</a>
+          </div>
+        </div>
       </div>
     </div>
   </body>

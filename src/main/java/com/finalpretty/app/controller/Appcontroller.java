@@ -19,6 +19,11 @@ public class Appcontroller {
         return "login";
     }
 
+    @GetMapping("/public/register")
+    public String register() {
+        return "register";
+    }
+
     @GetMapping("/backEnd")
     public String backEnd() {
         return "backEnd";

@@ -134,6 +134,28 @@
         passwordChecked: false,
         repeatPwdChecked: false,
       };
+
+      //設定 handler function
+      const handleSyncPassword = function (e) {
+        if (!passwordInput) {
+          repeatPwdInput.classList.remove("is-invalid");
+          flags["repeatPwdChecked"] = false;
+          repeatPwdHelpBlock.innerText = "";
+          return;
+        }
+
+        if (e.target.value !== passwordInput.value) {
+          repeatPwdHelpBlock.innerText = "您沒有對上您的密碼";
+          repeatPwdInput.classList.add("is-invalid");
+          flags["repeatPwdChecked"] = false;
+          console.log("i am in?");
+          return;
+        }
+        flags["repeatPwdChecked"] = true;
+        repeatPwdInput.classList.remove("is-invalid");
+        repeatPwdHelpBlock.innerText = "ok!";
+      };
+
       let myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
@@ -141,27 +163,32 @@
         let accountInput = e.target.value;
         if (!accountInput) {
           accountHelpBlock.innerText = "";
+          e.target.classList.remove("is-invalid");
           flags["accountChecked"] = false;
           return;
         }
         if (!accountRegex.test(accountInput)) {
           accountHelpBlock.innerText = "帳號中不得有特殊字元";
+          e.target.classList.add("is-invalid");
           flags["accountChecked"] = false;
           return;
         }
         flags["accountChecked"] = true;
+        e.target.classList.remove("is-invalid");
         accountHelpBlock.innerText = "ok!";
       });
 
       emailInput.addEventListener("blur", (e) => {
         let emailInput = e.target.value;
         if (!emailInput) {
+          e.target.classList.remove("is-invalid");
           flags["emailChecked"] = false;
           emailHelpBlock.innerText = "";
           return;
         }
         if (!emailRegex.test(emailInput)) {
           flags["emailChecked"] = false;
+          e.target.classList.add("is-invalid");
           emailHelpBlock.innerText = "Email格式不符";
           return;
         }
@@ -176,10 +203,12 @@
           .then((result) => {
             if (result.emailExists) {
               console.log(result.emailExists);
+              e.target.classList.add("is-invalid");
               flags["emailChecked"] = false;
               emailHelpBlock.innerText = "Email帳號已存在！";
             } else {
               flags["emailChecked"] = true;
+              e.target.classList.remove("is-invalid");
               emailHelpBlock.innerText = "Email帳號可使用";
             }
           })
@@ -188,18 +217,26 @@
 
       passwordInput.addEventListener("input", (e) => {
         let passwordInput = e.target.value;
-
+        repeatPwdInput.addEventListener("input", (e) => {
+          handleSyncPassword(e);
+        });
         //確認空值
         if (!passwordInput) {
-          flags["passwordChecked"];
+          e.target.classList.remove("is-invalid");
+          flags["passwordChecked"] = false;
           passwordHelpBlock.innerText = "";
-          flags["repeatPwdChecked"];
+          repeatPwdInput.classList.remove("is-invalid");
+          flags["repeatPwdChecked"] = false;
           repeatPwdHelpBlock.innerText = "";
+          repeatPwdInput.removeEventListener("input", (e) => {
+            handleSyncPassword(e);
+          });
           return;
         }
 
         //確認合法
         if (!passwordRegex.test(passwordInput)) {
+          e.target.classList.add("is-invalid");
           flags["passwordChecked"] = false;
           passwordHelpBlock.innerText = "密碼需符合規定";
 
@@ -207,6 +244,7 @@
           repeatPwdHelpBlock.innerText = "";
           return;
         } else {
+          e.target.classList.remove("is-invalid");
           flags["passwordChecked"] = true;
           passwordHelpBlock.innerText = "OK";
         }
@@ -214,30 +252,18 @@
         //同步
         if (e.target.value !== repeatPwdInput.value) {
           repeatPwdHelpBlock.innerText = "您沒有對上您的密碼";
+          repeatPwdInput.classList.add("is-invalid");
           flags["repeatPwdChecked"] = false;
           return;
         } else {
           repeatPwdHelpBlock.innerText = "OK";
+          repeatPwdInput.classList.remove("is-invalid");
           flags["repeatPwdChecked"] = true;
         }
       });
 
-      repeatPwdInput.addEventListener("input", (e) => {
-        if (e.target.value !== passwordInput.value) {
-          repeatPwdHelpBlock.innerText = "您沒有對上您的密碼";
-          flags["repeatPwdChecked"] = false;
-          return;
-        }
-        flags["repeatPwdChecked"] = true;
-        repeatPwdHelpBlock.innerText = "ok!";
-      });
-
       // 送出按鈕事件
       submitBtn.addEventListener("click", (e) => {
-        console.log(flags);
-        console.log(
-          Object.values(flags).includes(false) ? "falseflag exist!" : " no flag"
-        );
         if (Object.values(flags).includes(false)) {
           return;
         }

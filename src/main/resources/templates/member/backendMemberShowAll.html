@@ -65,7 +65,8 @@
 					<td>
 						<a th:href="@{'/backendMember/delete?member_id='+${member.member_id}}"
 							th:onclick="return confirm('確定刪除嗎?')"><button type="submit" value="delete">刪除</button></a>
-						<!--  <a th:href="#"><button type="submit" value="edite">修改</button></a>  -->
+						<a th:href="@{'/backendMember/edit?member_id='+${member.member_id}}"><button type="submit"
+								value="edite">修改</button></a>
 					</td>
 				</tr>
 			</table>

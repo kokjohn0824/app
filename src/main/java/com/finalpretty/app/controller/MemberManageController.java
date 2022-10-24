@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.repositories.MemberRespository;
 
@@ -59,7 +58,7 @@ public class MemberManageController {
 			e.printStackTrace();
 		}
 		memberR.save(member);
-		return "/member/backendMemberAdd";
+		return "redirect:/backendMember/showAll";
 	}
 
 	// 顯示全部會員
@@ -77,18 +76,55 @@ public class MemberManageController {
 		return "redirect:/backendMember/showAll";
 	}
 
-	// 編輯
+	// 編輯會員資料
+	@GetMapping("/backendMember/edit")
+	public String memberEdit(@RequestParam(name = "member_id") Integer id, Model m) {
+		Optional<Member> m1 = memberR.findById(id);
+		m.addAttribute("member", m1.orElse(null));
+		return "/member/backendMemberedit";
+	}
+
+	@PostMapping("/backendMember/edit")
+	public String memberEditPost(@RequestParam(name = "member_id") Integer member_id,
+			@RequestParam(name = "gender") Integer gender,
+			@RequestParam(name = "age") Integer age,
+			@RequestParam(name = "height") double height,
+			@RequestParam(name = "weight") double weight,
+			@RequestParam(name = "bodyFat") double bodyFat,
+			@RequestParam(name = "visceralFat") double visceralFat,
+			@RequestParam(name = "muscleMass") double muscleMass,
+			@RequestParam(name = "becomeVIP") Integer becomeVIP,
+			Model m) {
+		Member member = new Member();
+
+		try {
+			member.setGender(gender);
+			member.setAge(age);
+			member.setHeight(height);
+			member.setWeight(weight);
+			member.setBodyFat(bodyFat);
+			member.setVisceralFat(visceralFat);
+			member.setMuscleMass(muscleMass);
+			member.setBecomeVIP(becomeVIP);
+			memberR.updateById(member_id, gender, age, height, weight, bodyFat,
+					visceralFat, muscleMass, becomeVIP);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/backendMember/showAll";
+	}
 
 	// ----------前台-----------------------------------------------------------------------
 
 	// 個人資料主頁
-	@GetMapping("/member/page")
-	public String memberPage() {
-		return "/member/memberPage";
-	}
+	// @GetMapping("/member/page")
+	// public String memberPage() {
+	// return "/member/memberPage";
+	// }
 
 	// 顯示個人資料find by ID
-	@GetMapping("/member/show")
+	@GetMapping("/member/page")
 	public String findByIdMember(@RequestParam(name = "member_id") Integer member_id, Model m) {
 		Optional<Member> optional = memberR.findById(member_id);
 		Member member = optional.get();

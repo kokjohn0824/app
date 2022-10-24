@@ -11,9 +11,7 @@ shared.port.addEventListener("message", (message) => {
   $("#information").append(`<tr><td>${message.data}</tr></td>`);
 
   //if message append, scrolls
-  if (container.scrollTop !== container.scrollHeight) {
-    container.scrollTop = container.scrollHeight;
-  }
+  container.scrollTop = container.scrollHeight;
 });
 
 // 设置 STOMP 客户端

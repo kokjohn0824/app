@@ -74,7 +74,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                                 .readAllBytes(Paths.get(
                                                 "src/main/resources/static/video/939eaf7939f3495ebab182315ff76849.jpg"));
                 Video v1 = new Video();
-                v1.setTitle("四足俯臥撑");
+                v1.setTitle("四足俯臥撐");
                 v1.setType("胸肌");
                 v1.setBody_parts("胸大肌");
                 v1.setPicture(video1);

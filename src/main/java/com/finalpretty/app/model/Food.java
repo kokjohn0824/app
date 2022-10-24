@@ -22,17 +22,17 @@ public class Food {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")//FIXME:修改此id的名稱為food id 並檢查其相關關聯性衝突
-	private Integer id;
-	
+	@Column(name = "food_id")
+	private Integer food_id;
+
 	@Column(name = "foodname")
 	private String foodname;
-	
+
 	@Column(name = "calorie")
 	private Integer calorie;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "fk_dailyrecord_id")
 	private DailyRecord daily_record;
-	
+
 }

@@ -19,21 +19,20 @@ import lombok.Setter;
 @Setter
 @Table(name = "sports")
 public class Sports {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
-	
+	@Column(name = "sports_id")
+	private Integer sports_id;
+
 	@Column(name = "sportsname")
 	private String sportsname;
-	
+
 	@Column(name = "calorie")
 	private Integer calorie;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "fk_dailyrecord_id")
 	private DailyRecord daily_record;
-	
 
 }

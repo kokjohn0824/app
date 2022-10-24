@@ -37,7 +37,7 @@ public class ArticleController {
 	// 顯示全部文章
 	@GetMapping("/article/manage")
 	public String manageArticlePage(Model m) {
-		List<Article> list = articleR.findAll();
+		List<Article> list = articleR.findAlloOrderById();
 		m.addAttribute("list", list);
 		return "/article/backEndManageArticle";
 	}

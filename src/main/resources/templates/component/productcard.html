@@ -1,22 +1,26 @@
+
      <!-- ----產品1----- -->
      <div th:fragment="prouctcard" class="card  p-1 shadow m-3" style="width: 20rem;" >
+      <div th:replace="jsmodules"></div>
         <img
           th:src="@{/img/product/product1.jpg}"
           class="card-img-top"
           alt="..."
         />
+        <div th:each="product : ${productlist}">
         <div class="card-body" >
-          <h5 style="margin: auto;" class="card-title">深海魚油【fish-oil】</h5>
-          <p class="productPrice" style="color:blue ;" >$1200</p>
+          
+          <h5 style="margin: auto;" class="card-title" th:text="${product.title}" ></h5>
+          <p class="productPrice" style="color:blue ;" th:text="'$'+${product.price}"></p>
         </div>
         <ul>
-          <li class="list-group-item">每份EPA+DHA劑量高達1000毫克</li>
-          <li class="list-group-item">84% Omega-3 濃度</li>
-          <li class="list-group-item">通過多項SGS檢驗</li>
+          <li class="list-group-item" th:text="${product.text}"></li>
         </ul>
         <div class="card-body" style="margin: auto;">
           <a href="#" class="card-link"><button style="border-radius: 10px;" type="button" class="btn btn-outline-warning"></a>立即結帳</button></a>
           <a href="#" class="card-link"><button style="border-radius: 10px;" type="button" class="btn btn-outline-warning"></a>加購物車</button></a>
         </div>
       
+        </div>
+
       </div>

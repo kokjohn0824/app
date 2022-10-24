@@ -6,10 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.Optional;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -142,14 +146,35 @@ public class ArticleController {
 		try {
 			Member member = memberR.findById(member_id).get();
 			Article article = articleR.findById(article_id).get();
-			Set<Article> like = member.getArticle();
-			Set<Member> members = new HashSet<>();
-			members.add(member);
-			article.setMember(members);
-			like.add(article);
+			Set<Member> like = article.getMembers();
+			like.add(member);
 			ArticleResponse ar = new ArticleResponse();
 			ar.setArticle_id(article_id);
 			ar.setMember_id(member_id);
+			articleR.save(article);
+			return ar;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@ResponseBody
+	@PostMapping("/public/article/delike/{member_id}/{article_id}")
+	public ArticleResponse delikeArticle(
+			@PathVariable(name = "article_id") Integer article_id,
+			@PathVariable(name = "member_id") Integer member_id) {
+		try {
+			Member member = memberR.findById(member_id).get();
+			Article article = articleR.findById(article_id).get();
+			// article.setMembers(null);
+
+			Set<Member> ss = article.getMembers();
+			ss.remove(member);
+			ArticleResponse ar = new ArticleResponse();
+			ar.setArticle_id(article_id);
+			ar.setMember_id(member_id);
+			articleR.save(article);
 			return ar;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -73,6 +73,6 @@ public class Article {
 	@JoinTable(name = "article_like", joinColumns = {
 			@JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") }, inverseJoinColumns = {
 					@JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
-	private Set<Member> member = new HashSet<Member>();
+	private Set<Member> members = new HashSet<Member>();
 
 }

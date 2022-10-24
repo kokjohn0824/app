@@ -39,7 +39,7 @@ public class Member {
 
 	@Column(name = "age")
 	private Integer age;
-	
+
 	@Column(name = "height")
 	private double height;
 
@@ -68,7 +68,7 @@ public class Member {
 	@ManyToMany(mappedBy = "member")
 	private Set<Video> video = new HashSet<Video>();
 
-	@ManyToMany(mappedBy = "member")
+	@ManyToMany(mappedBy = "members")
 	private Set<Article> article = new HashSet<Article>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)

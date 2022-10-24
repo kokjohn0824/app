@@ -6,10 +6,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>新增會員</title>
-
 	<!-- 利用th:insert 或是 th:replace 來載入模板 -->
 	<div th:replace="jsmodules"></div>
+
+	<title>新增會員</title>
 
 </head>
 
@@ -28,74 +28,65 @@
 		</div>
 
 		<div th:style="'background-color:#F2FFF2; margin-left:300px; height:1000px; text-align:center;'">
-			<div class="container-lg">
-				<div class="" style="width: 50%; margin: 20px auto">
-					<!-- <div th:if="${username} != null">
-						<h1>您好，管理者<span th:text="${username}"></span></h1>
-					</div> -->
+			<div class="container-lg" style="width: 50%; margin: 20px auto">
 
-					<h1>新增會員</h1>
-					<div class="container-lg" style="width: 800px;" th:fragment="form">
-						<form th:action="@{/backendMember/add}" method="post" enctype="multipart/form-data">
-							<!-- <div class="form-floating mb-3">
+				<h1>新增會員</h1>
+				<div class="container-lg" style="text-align:center" th:fragment="form">
+					<form th:action="@{/backendMember/add}" method="post" enctype="multipart/form-data">
+						<!-- <div class="form-floating mb-3">
 	            					<input class="form-control" type="file" placeholder="請加入圖片" name="picture" />
 	          					</div> -->
-							<!-- <div class="form-floating mb-3">
+						<!-- <div class="form-floating mb-3">
 	            					<input class="form-control" type="text" placeholder="帳號" name="title" required />
 	            					<label for="title" class="form-label"><b>帳號</b></label>
 	          					</div> -->
-							<!-- <div class="form-floating mb-3">
+						<!-- <div class="form-floating mb-3">
 	          						<input class="form-control" type="text" placeholder="密碼" name="title" required />
 	            					<label for="title" class="form-label"><b>密碼</b></label>
 	          					</div> -->
-							<!-- <div class="form-floating mb-3">
+						<!-- <div class="form-floating mb-3">
 	          						<input class="form-control" type="text" placeholder="編號" name="title" required />
 	            					<label for="title" class="form-label"><b>編號</b></label>
 	          					</div> -->
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="性別" name="gender" required />
-								<label for="gender" class="form-label"><b>性別</b></label>
-							</div>
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="年齡" name="age" required />
-								<label for="age" class="form-label"><b>年齡</b></label>
-							</div>
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="身高" name="height" required />
-								<label for="height" class="form-label"><b>身高</b></label>
-							</div>
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="體重" name="weight" required />
-								<label for="weight" class="form-label"><b>體重</b></label>
-							</div>
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" required />
-								<label for="bodyFat" class="form-label"><b>體脂肪</b></label>
-							</div>
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat"
-									required />
-								<label for="visceralFat" class="form-label"><b>內臟脂肪</b></label>
-							</div>
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="肌肉量" name="muscleMass" required />
-								<label for="muscleMass" class="form-label"><b>肌肉量</b></label>
-							</div>
-							<div class="form-floating mb-3">
-								<input class="form-control" type="text" placeholder="VIP" name="becomeVIP" required />
-								<label for="becomeVIP" class="form-label"><b>VIP</b></label>
-							</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="性別" name="gender" required />
+							<label for="gender" class="form-label"><b>性別</b></label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="年齡" name="age" required />
+							<label for="age" class="form-label"><b>年齡</b></label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="身高" name="height" required />
+							<label for="height" class="form-label"><b>身高</b></label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="體重" name="weight" required />
+							<label for="weight" class="form-label"><b>體重</b></label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" required />
+							<label for="bodyFat" class="form-label"><b>體脂肪</b></label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat" required />
+							<label for="visceralFat" class="form-label"><b>內臟脂肪</b></label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="肌肉量" name="muscleMass" required />
+							<label for="muscleMass" class="form-label"><b>肌肉量</b></label>
+						</div>
+						<div class="form-floating mb-3">
+							<input class="form-control" type="text" placeholder="VIP" name="becomeVIP" required />
+							<label for="becomeVIP" class="form-label"><b>VIP</b></label>
+						</div>
 
-							<button type="reset" class="btn btn-secondary">重置</button>
-							<button type="submit" class="signupbtn btn btn-primary">送出</button>
-						</form>
-					</div>
+						<button type="reset" class="btn btn-secondary">重置</button>
+						<button type="submit" class="signupbtn btn btn-primary">送出</button>
+					</form>
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 
 

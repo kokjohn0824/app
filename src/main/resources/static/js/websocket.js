@@ -4,7 +4,7 @@ let stompClient = null;
 const SOCKET_ENDPOINT = "/chat";
 // 设置订阅消息的请求前缀
 const SUBSCRIBE_PREFIX = "/topic";
-//取得username(詭譎的抓取dom資料)
+//取得username(詭譎的抓取dom資料) TODO:更動更好的方法
 const username = document.getElementById("authusername").innerText;
 // 设置订阅消息的请求地址
 let SUBSCRIBE = "";
@@ -27,11 +27,9 @@ shared.port.addEventListener("message", (message) => {
   let content = messageObject.content.replace("<script>", "");
 
   if (messageObject.sender === username) {
-    $("#information").append(
-      `<div style="color: red;"><tr><td>${content}</tr></td></div>`
-    );
+    $("#information").append(`<div class="selfmessage">${content}</div>`);
   } else {
-    $("#information").append(`<div><tr><td>${content}</tr></td></div>`);
+    $("#information").append(`<div class="othermessage">${content}</div>`);
   }
 
   //check if window is not on the buttom
@@ -49,6 +47,8 @@ const connect = function () {
   let socket = new SockJS(SOCKET_ENDPOINT);
   // 配置 STOMP 客户端
   stompClient = Stomp.over(socket);
+  console.log("stomp!");
+  console.info(stompClient);
   // STOMP 客户端连接
   stompClient.connect({}, function (frame) {
     //連接後要做的事情
@@ -58,7 +58,6 @@ const connect = function () {
 
 /* 订阅信息 */
 function subscribeSocket() {
-  console.info(stompClient);
   // 设置订阅地址
   SUBSCRIBE = SUBSCRIBE_PREFIX + `/qa/${$("#subscribe").val()}`;
   // 输出订阅地址

@@ -17,6 +17,7 @@
     <div th:replace="component/navbar :: navbar"></div>
     <div class="top">
       <div class="container-lg">
+        <input id="uio" th:field="${article.article_id}" type="hidden" />
         <img
           th:src="@{'/showImage/'+${article.article_id}}"
           height="400px"
@@ -34,52 +35,10 @@
             th:text="${article.create_date}"
             itemprop="datePublished"
           ></time>
-          <!-- <span th:id="${article.onsale}" th:name="${article.article_id}">
-            <button
-              th:id="${article.article_id}"
-              type="button"
-              class="btn btn-success"
-              style="display: none"
-              name="like"
-            >
-              收藏文章
-            </button>
-            <button
-              th:id="${article.article_id}"
-              type="button"
-              class="btn btn-danger"
-              name="like"
-            >
-              取消收藏
-            </button>
-            <input name="sp1" th:id="${member.member_id}" type="hidden" />
-          </td>
-          <td
-            th:id="${member.member_id}"
-            
-            th:name="${article.article_id}"
-          >
-          <!-- th:if="${member.member_id} eq 0 and ${productinfo.stock} != 0" -->
-            <button
-              th:id="${article.article_id}"
-              type="button"
-              class="btn btn-success"
-              name="like"
-            >
-              收藏文章
-            </button>
-            <button
-              th:id="${article.article_id}"
-              type="button"
-              class="btn btn-danger"
-              style="display: none"
-              name="like"
-            >
-              取消收藏
-            </button>
-            <input name="sp1" th:id="${member.member_id}" type="hidden" />
-          </span>
-        </span> -->
+
+
+          <button name='like' >收藏</button>
+ 
 
         <p id="resulthtml" th:text="${article.text}"></p>
       </div>
@@ -89,12 +48,14 @@
       resulthtml.innerHTML = resulthtml.innerText;
 
       $("button[name='like']").click(function (e) {
-        var member = $(e.target).attr("id");
-        var article = $(e.target).parent().attr("id");
-        console.log(id);
-        console.log(onsale);
+        // var member = $(e.target).attr("id");
+        var uio = $("#uio").val()
+        console.log(uio);
+        // var article = $(e.target).parent().attr("id");
+        // console.log(id);
+        // console.log(onsale);
         var settings = {
-          url: "http://localhost:8082/article/like/" + member + "/" + article,
+          url: "http://localhost:8082/article/like/" + member + "/" + uio,
           method: "POST",
           timeout: 0,
           headers: {

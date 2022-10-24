@@ -27,9 +27,13 @@ shared.port.addEventListener("message", (message) => {
   let content = messageObject.content.replace("<script>", "");
 
   if (messageObject.sender === username) {
-    $("#information").append(`<div class="selfmessage">${content}</div>`);
+    $("#information").append(
+      `<div class="chat"><div class="msg selfmessage">${content}</div></div>`
+    );
   } else {
-    $("#information").append(`<div class="othermessage">${content}</div>`);
+    $("#information").append(
+      `<div class="chat"><div class="msg othermessage">${content}</div></div>`
+    );
   }
 
   //check if window is not on the buttom

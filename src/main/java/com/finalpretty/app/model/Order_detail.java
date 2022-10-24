@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +37,7 @@ public class Order_detail {
 	@Column(name = "total") // 單項商品金額
 	private Integer total;
 
+	@JsonIgnoreProperties("order_detail")
 	@ManyToOne
 	@JoinColumn(name = "fk_product_id") // 商品ID
 	private Product product;

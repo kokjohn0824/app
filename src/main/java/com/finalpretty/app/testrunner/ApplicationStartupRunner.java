@@ -17,9 +17,14 @@ import org.springframework.stereotype.Component;
 
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
+import com.finalpretty.app.model.Order;
+import com.finalpretty.app.model.Product;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.ArticleRespository;
 import com.finalpretty.app.repositories.MemberRespository;
+import com.finalpretty.app.repositories.OrderRespository;
+import com.finalpretty.app.repositories.Order_detailRespository;
+import com.finalpretty.app.repositories.ProductRespository;
 import com.finalpretty.app.repositories.VideoRespository;
 
 @Component
@@ -33,6 +38,15 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
         @Autowired
         private VideoRespository videoRespository;
+
+        @Autowired
+        private ProductRespository pDao;
+
+        @Autowired
+        private OrderRespository oDao;
+
+        @Autowired
+        private Order_detailRespository dtaDao;
 
         protected final Log logger = LogFactory.getLog(getClass());
 
@@ -161,6 +175,18 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a8.setText(content8);
                 a8.setPicture(article8);
                 articleRespository.save(a8);
+
+                Product product = new Product();
+                product.setTitle("深海魚油");
+                product.setType("運動食品");
+                product.setPrice(599);
+                product.setStock(1000);
+                product.setText("此產品暫無簡介");
+                product.setOnsale(0);
+                String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/lv1.png";
+                File saveFilePath = new File(saveFiledir);
+                product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
+                pDao.save(product);
 
         }
 

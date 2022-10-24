@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.model.Order;
+import com.finalpretty.app.order.service.OrderDto;
 import com.finalpretty.app.order.service.OrderService;
 
 @Controller
@@ -18,13 +19,17 @@ public class OrderController {
 
     // @GetMapping("/admin/orderAll")
     @GetMapping("/public/orderAll")
-    public @ResponseBody List<Order> orderAll() {
+    public @ResponseBody List<OrderDto> orderAll() {
         return oService.orderAll();
     }
 
     @GetMapping("/public/allOrder")
     public String allOrder() {
         return "/order/orderAll";
+    }
+
+    public void addOrder() {
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.finalpretty.app.order.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,23 @@ public class OrderService {
     @Autowired
     private OrderRespository oDao;
 
-    public List<Order> orderAll() {
-        return oDao.findAll();
+    public List<OrderDto> orderAll() {
+        List<Order> oList = oDao.findAll();
+        List<OrderDto> listDto = new ArrayList<>();
+        OrderDto oDto = null;
+        for (Order i : oList) {
+            oDto = new OrderDto();
+            oDto.setOrder_id(i.getOrder_id());
+            oDto.setOrder_num(i.getOrder_num());
+            oDto.setShip(i.getShip());
+            oDto.setPaid(i.getPaid());
+            oDto.setAddress(i.getAddress());
+            oDto.setCreate_date(i.getCreate_date());
+            oDto.setTotal(i.getTotal());
+            listDto.add(oDto);
+        }
+
+        return listDto;
     }
 
 }

@@ -3,6 +3,7 @@ package com.finalpretty.app.product.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Product;
+import com.finalpretty.app.product.service.ProductDto;
 import com.finalpretty.app.product.service.ProductService;
 
 @Controller
@@ -92,20 +94,37 @@ public class ProductController {
 	@GetMapping("/listProduct")
 	public String getAllProduct(Model model) {
 		List<Product> list = pService.findAll();
-		for (Product li : list) {
-			System.out.println(li.getPicture());
-		}
+		// List<ProductDto> listDto = new ArrayList<>();
+		// ProductDto pDto = null;
+		// for (Product i : list) {
+		// pDto = new ProductDto();
+		// pDto.setProduct_id(i.getProduct_id());
+		// pDto.setTitle(i.getTitle());
+		// pDto.setPrice(i.getPrice());
+		// pDto.setType(i.getType());
+		// pDto.setStock(i.getStock());
+		// pDto.setOnsale(i.getOnsale());
+		// pDto.setText(i.getText());
+		// listDto.add(pDto);
+		// }
 		model.addAttribute("productList", list);
 
 		return "/product/productAll";
 	}
 
 	// 商品修改查詢
+	@ResponseBody
 	@GetMapping("/updateProduct")
-	public String updateQuery(@RequestParam("product_id") Integer id, Model m) {
+	public ProductDto updateQuery(@RequestParam("product_id") Integer id) {
 		Product product = pService.findById(id);
-		m.addAttribute("product", product);
-		return "product/editProduct";
+		ProductDto pDto = new ProductDto();
+		pDto.setProduct_id(product.getProduct_id());
+		pDto.setTitle(product.getTitle());
+		pDto.setPrice(product.getPrice());
+		pDto.setStock(product.getStock());
+		pDto.setText(product.getText());
+		// m.addAttribute("product", product);
+		return pDto;
 	}
 
 	// 商品修改

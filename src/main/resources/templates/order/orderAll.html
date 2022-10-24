@@ -5,57 +5,142 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>訂單總覽</title>
+    <script>
+      // window.onload = function () {
+      //   allorder();
+      // };
+
+      // function allorder() {}
+    </script>
     <div th:replace="jsmodules"></div>
   </head>
   <body th:inline="text">
     <div th:replace="component/chatbubble"></div>
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
-    <div id="cons"></div>
+    <div id="cons">
+      <table>
+        <thead>
+          <tr>
+            <th>訂單編號</th>
+            <th>訂單成立時間</th>
+            <th>運送方式</th>
+            <th>支付方式</th>
+            <th>訂單金額</th>
+            <th>訂單明細</th>
+          </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+      </table>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>商品名稱</th>
+                        <th>商品數量</th>
+                        <th>商品金額</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tb1"></tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script>
-      var settings = {
-        url: "http://localhost:8082/public/orderAll",
+      var requestOptions = {
         method: "GET",
-        timeout: 0,
-        headers: {
-          Cookie: "JSESSIONID=84676DFD1108BB4F47619173EB2F8549",
-        },
+        redirect: "follow",
       };
 
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        var str;
-        str =
-          "<table><tr><th>訂單編號</th><th>訂單成立時間</th><th>運送方式</th><th>支付方式</th><th>訂單金額</th>";
-        for (let i of response) {
-          str +=
-            "<tr><td>" + i.order_num + "</td><td>" + i.create_date + "</td>";
+      fetch("http://localhost:8082/public/orderAll", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          var str;
+          for (let i of result) {
+            str +=
+              "<tr><td>" + i.order_num + "</td><td>" + i.create_date + "</td>";
 
-          // str +=
-          //   "<td th:if='" +
-          //   i.ship +
-          //   "eq 1'>自取</td><td th:if='" +
-          //   i.ship +
-          //   "eq 2'>宅配</td>";
-          // str +=
-          //   "<td th:if='" +
-          //   i.paid +
-          //   "eq 1'>現金</td><td th:if='" +
-          //   i.ship +
-          //   "eq 2'>信用卡</td>";
-          if (i.ship == 1) {
-            str += "<td>自取</td>";
-          } else if (i.ship == 2) {
-            str += "<td>宅配</td>";
+            if (i.ship == 1) {
+              str += "<td>自取</td>";
+            } else if (i.ship == 2) {
+              str += "<td>宅配</td>";
+            }
+            if (i.paid == 1) {
+              str += "<td>現金</td>";
+            } else if (i.paid == 2) {
+              str += "<td>信用卡</td>";
+            }
+            str += "<td>" + i.total + "</td>";
+            str +=
+              "<td><button name='check' type='button' class='btn btn-primary'" +
+              " data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@getbootstrap' id='" +
+              i.order_id +
+              "'>明細</button></td></tr>";
           }
-          if (i.paid == 1) {
-            str += "<td>現金</td>";
-          } else if (i.paid == 2) {
-            str += "<td>信用卡</td>";
+          $("#tb").html(str);
+
+          var btn = document.getElementsByName("check");
+          for (let i of btn) {
+            i.addEventListener("click", (e) => {
+              click(e);
+            });
           }
-          str += "<td>" + i.total + "</td></tr>";
-        }
-        $("#cons").html(str);
-      });
+        })
+        .catch((error) => console.log("error", error));
+
+      function click(e) {
+        console.log("$(e.target).attr(id)");
+
+        var settings = {
+          url:
+            "http://localhost:8082/public/findByFKOrderId/" +
+            $(e.target).attr("id"),
+          method: "GET",
+          timeout: 0,
+        };
+        $.ajax(settings).done(function (response) {
+          var string;
+          console.log(response);
+          for (let i of response) {
+            string += "<tr><td>" + i.product_name + "</td>";
+            string += "<td>" + i.count + "</td>";
+            string += "<td>" + i.total + "</td></tr>";
+          }
+          $("#tb1").html(string);
+        });
+      }
     </script>
   </body>
 </html>

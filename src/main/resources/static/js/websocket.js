@@ -6,7 +6,14 @@ shared.port.start(); // this will trigger the on connect event on the webworker
 
 // recieve message from worker
 shared.port.addEventListener("message", (message) => {
+  let container = $("#information")[0];
+  console.log(`container: ${container.scrollTop}`);
   $("#information").append(`<tr><td>${message.data}</tr></td>`);
+
+  //if message append, scrolls
+  if (container.scrollTop !== container.scrollHeight) {
+    container.scrollTop = container.scrollHeight;
+  }
 });
 
 // 设置 STOMP 客户端

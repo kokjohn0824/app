@@ -51,12 +51,29 @@
   <!-- 彈出視窗 -->
   <div class="chat-popup" id="myForm">
     <div class="bg-white d-flex justify-content-between">
-      <h3 class="m-3">聊天室</h3>
+      <h3 class="m-3" >聊天室 </h3>
+      
+      
+      <span
+      id="authusername"
+        sec:authorize="isAuthenticated()"
+        class="navbar-brand"
+        th:text="${#authentication.getPrincipal().getNickname()}"
+      ></span>
+      <span
+      id="authusername"
+        sec:authorize="isAnonymous()"
+        class="navbar-brand"
+        th:text="訪客"
+      ></span>
+
+
+
       <button class="btn" onclick="closeForm()">
         <img th:src="@{img/icon/close.svg}" alt="" />
       </button>
     </div>
-    <div class="bg-white p-3" id="information" style="height: 400px; overflow: scroll"></div>
+    <div class="bg-white p-3" id="information" style="height: 400px; overflow: scroll ;border: 2px grey solid ;border-radius: 4px;"></div>
     <div class="form-container">
       <div class="input-group">
         <input

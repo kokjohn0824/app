@@ -33,8 +33,53 @@
             class="entry-date published"
             th:text="${article.create_date}"
             itemprop="datePublished"
-          ></time
-        ></span>
+          ></time>
+          <!-- <span th:id="${article.onsale}" th:name="${article.article_id}">
+            <button
+              th:id="${article.article_id}"
+              type="button"
+              class="btn btn-success"
+              style="display: none"
+              name="like"
+            >
+              收藏文章
+            </button>
+            <button
+              th:id="${article.article_id}"
+              type="button"
+              class="btn btn-danger"
+              name="like"
+            >
+              取消收藏
+            </button>
+            <input name="sp1" th:id="${member.member_id}" type="hidden" />
+          </td>
+          <td
+            th:id="${member.member_id}"
+            
+            th:name="${article.article_id}"
+          >
+          <!-- th:if="${member.member_id} eq 0 and ${productinfo.stock} != 0" -->
+            <button
+              th:id="${article.article_id}"
+              type="button"
+              class="btn btn-success"
+              name="like"
+            >
+              收藏文章
+            </button>
+            <button
+              th:id="${article.article_id}"
+              type="button"
+              class="btn btn-danger"
+              style="display: none"
+              name="like"
+            >
+              取消收藏
+            </button>
+            <input name="sp1" th:id="${member.member_id}" type="hidden" />
+          </span>
+        </span> -->
 
         <p id="resulthtml" th:text="${article.text}"></p>
       </div>
@@ -42,6 +87,51 @@
     <script>
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;
+
+      $("button[name='like']").click(function (e) {
+        var member = $(e.target).attr("id");
+        var article = $(e.target).parent().attr("id");
+        console.log(id);
+        console.log(onsale);
+        var settings = {
+          url: "http://localhost:8082/article/like/" + member + "/" + article,
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({}),
+        };
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.onsale == 1) {
+            // console.log($(e.target).prev()[0]);
+            // console.log($(e.target).next()[0]);
+            $(e.target).parent().attr("id", response.onsale);
+            $(e.target).hide().attr("class", "btn btn-success");
+            $(e.target).next().show().attr("class", "btn btn-danger");
+            $(e.target)
+              .parent()
+              .prev()
+              .find("span")
+              .attr("style", "color:green")
+              .text("販售中");
+          } else if (response.onsale == 0) {
+            $(e.target)
+              .parent()
+              .prev()
+              .find("span")
+              .attr("style", "color:red")
+              .text("下架中");
+            $(e.target).parent().attr("id", response.onsale);
+            console.log($(e.target).prev()[0]);
+            console.log($(e.target).next()[0]);
+            $(e.target).hide().attr("class", "btn btn-danger");
+            $(e.target).prev().show().attr("class", "btn btn-success");
+          }
+        });
+      });
     </script>
   </body>
 </html>

@@ -72,8 +72,18 @@
                   required
                 />
                 <label for="psw" class="form-label"><b>密碼</b></label>
-                <small id="passwordHelpBlock" class="form-text text-muted">
-                </small>
+                <a
+                  tabindex="0"
+                  role="button"
+                  id="passwordHelpBlock"
+                  class="form-text text-muted"
+                  data-bs-toggle="popover"
+                  data-bs-trigger="focus"
+                  data-bs-html="true"
+                  data-bs-placement="left"
+                  data-bs-content="1. 至少有一個數字<br>2. 至少有一個小寫英文字母<br>3. 至少有一個大寫英文字母<br>4. 字串長度在 6 ~ 30 個字母之間"
+                >
+                </a>
               </div>
               <div class="form-floating mb-3">
                 <input
@@ -102,7 +112,7 @@
     </footer>
     <script>
       // 設定常數
-      const emailRegex = /^[a-zA-Z0-9_]+@[a-zA-Z0-9]+\.[a-z]{2,3}$/;
+      const emailRegex = /^[a-zA-Z0-9_.]+@[a-zA-Z0-9]+\.[a-z]{2,3}$/;
       const accountRegex = /^\w+$/;
       const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/;
       const url = "http://localhost:8082/public/api/";
@@ -251,6 +261,14 @@
             }
           })
           .catch((error) => console.log("error", error));
+      });
+
+      //設定 popover
+      var popoverTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="popover"]')
+      );
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
       });
     </script>
   </body>

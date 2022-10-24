@@ -54,10 +54,7 @@ public class Video {
 	private byte[] picture;
 
 	// 跟會員多對多的連動
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "video_like", joinColumns = {
-			@JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") }, inverseJoinColumns = {
-					@JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") })
-	private Set<Member> member = new HashSet<Member>();
+	@ManyToMany(mappedBy = "videos")
+	private Set<Member> members = new HashSet<Member>();
 
 }

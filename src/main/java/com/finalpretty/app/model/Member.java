@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -65,11 +67,19 @@ public class Member {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Users users;
 
-	@ManyToMany(mappedBy = "member")
-	private Set<Video> video = new HashSet<Video>();
+	// 跟文章多對多的連動
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "article_like", joinColumns = {
+			@JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "fk_article_id", referencedColumnName = "article_id") })
+	private Set<Article> articles = new HashSet<Article>();
 
-	@ManyToMany(mappedBy = "members")
-	private Set<Article> article = new HashSet<Article>();
+	// 跟影片多對多的連動
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_like", joinColumns = {
+			@JoinColumn(name = "fk_member_id", referencedColumnName = "member_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") })
+	private Set<Video> videos = new HashSet<Video>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	private Set<DailyRecord> daily_record = new HashSet<DailyRecord>();

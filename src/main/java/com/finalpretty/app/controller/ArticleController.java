@@ -146,8 +146,8 @@ public class ArticleController {
 		try {
 			Member member = memberR.findById(member_id).get();
 			Article article = articleR.findById(article_id).get();
-			Set<Member> like = article.getMembers();
-			like.add(member);
+			Set<Article> like = member.getArticles();
+			like.add(article);
 			ArticleResponse ar = new ArticleResponse();
 			ar.setArticle_id(article_id);
 			ar.setMember_id(member_id);
@@ -159,28 +159,29 @@ public class ArticleController {
 		return null;
 	}
 
-	@ResponseBody
-	@PostMapping("/public/article/delike/{member_id}/{article_id}")
-	public ArticleResponse delikeArticle(
-			@PathVariable(name = "article_id") Integer article_id,
-			@PathVariable(name = "member_id") Integer member_id) {
-		try {
-			Member member = memberR.findById(member_id).get();
-			Article article = articleR.findById(article_id).get();
-			// article.setMembers(null);
+	// // 按讚文章
+	// @ResponseBody
+	// @PostMapping("/public/article/delike/{member_id}/{article_id}")
+	// public ArticleResponse delikeArticle(
+	// @PathVariable(name = "article_id") Integer article_id,
+	// @PathVariable(name = "member_id") Integer member_id) {
+	// try {
+	// Member member = memberR.findById(member_id).get();
+	// Article article = articleR.findById(article_id).get();
+	// // article.setMembers(null);
 
-			Set<Member> ss = article.getMembers();
-			ss.remove(member);
-			ArticleResponse ar = new ArticleResponse();
-			ar.setArticle_id(article_id);
-			ar.setMember_id(member_id);
-			articleR.save(article);
-			return ar;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	// Set<Member> ss = article.getMembers();
+	// ss.remove(member);
+	// ArticleResponse ar = new ArticleResponse();
+	// ar.setArticle_id(article_id);
+	// ar.setMember_id(member_id);
+	// articleR.save(article);
+	// return ar;
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// return null;
+	// }
 
 	// =============================================================================================
 

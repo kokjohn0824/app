@@ -17,10 +17,13 @@ import org.springframework.stereotype.Component;
 
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
+import com.finalpretty.app.model.Order;
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.ArticleRespository;
 import com.finalpretty.app.repositories.MemberRespository;
+import com.finalpretty.app.repositories.OrderRespository;
+import com.finalpretty.app.repositories.Order_detailRespository;
 import com.finalpretty.app.repositories.ProductRespository;
 import com.finalpretty.app.repositories.VideoRespository;
 
@@ -38,6 +41,12 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
         @Autowired
         private ProductRespository pDao;
+
+        @Autowired
+        private OrderRespository oDao;
+
+        @Autowired
+        private Order_detailRespository dtaDao;
 
         protected final Log logger = LogFactory.getLog(getClass());
 

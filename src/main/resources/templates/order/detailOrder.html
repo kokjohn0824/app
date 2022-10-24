@@ -13,16 +13,22 @@
     <div id="cons"></div>
     <script>
       var settings = {
-        url: "http://localhost:8082/public/findByFKOrderId?order_id=1",
+        url: "http://localhost:8082/public/findByFKOrderId/1",
         method: "GET",
         timeout: 0,
-        headers: {
-          Cookie: "JSESSIONID=84676DFD1108BB4F47619173EB2F8549",
-        },
       };
 
       $.ajax(settings).done(function (response) {
         console.log(response);
+        var str =
+          "<table><tr><th>商品名稱</th><th>商品數量</th><th>商品金額</th></tr>";
+        for (let i of response) {
+          str += "<tr><td>" + i.product_name + "</td>";
+          str += "<td>" + i.count + "</td>";
+          str += "<td>" + i.total + "</td></tr>";
+        }
+        str += "</table>";
+        $("#cons").html(str);
       });
     </script>
   </body>

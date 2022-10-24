@@ -10,6 +10,22 @@
     <div th:replace="jsmodules"></div>
   </head>
   <body>
+    <script>
+      function loadImageFileAsURL() {
+        let filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+          let fileToLoad = filesSelected[0];
+
+          let fileReader = new FileReader();
+
+          fileReader.onload = function (fileLoadedEvent) {
+            fileDataURL = fileLoadedEvent.target.result;
+          };
+
+          fileReader.readAsDataURL(fileToLoad);
+        }
+      }
+    </script>
     <div th:replace="component/chatbubble"></div>
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
     <a
@@ -117,11 +133,22 @@
           />
         </td>
         <td>
-          <a
-            th:onclick="return confirm('確定修改嗎?')"
-            th:href="@{'/admin/updateProduct?product_id='+${productinfo.product_id}}"
-            >修改</a
+          <!-- <a
+          th:onclick="return confirm('確定修改嗎?')"
+          th:href="@{'/admin/updateProduct?product_id='+${productinfo.product_id}}"
+          >編輯</a
+          > -->
+          <button
+            th:id="${productinfo.product_id}"
+            name="checkboxone"
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-bs-whatever="@getbootstrap"
           >
+            編輯
+          </button>
         </td>
         <td>
           <a
@@ -133,7 +160,172 @@
       </tr>
     </table>
 
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-title" class="col-form-label"
+                  >商品名稱:</label
+                >
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  id="recipient-title"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-price" class="col-form-label"
+                  >商品價格:</label
+                >
+                <input
+                  name="price"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  id="recipient-price"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-stock" class="col-form-label"
+                  >商品庫存:</label
+                >
+                <input
+                  name="stock"
+                  type="number"
+                  class="form-control"
+                  id="recipient-stock"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                  >商品簡介:</label
+                >
+                <input
+                  name="text"
+                  type="text"
+                  class="form-control"
+                  id="recipient-text"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                商品種類:<select name="type">
+                  <option>運動食品</option>
+                  <option>運動用品</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="message-type" class="col-form-label"
+                  >商品圖片:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  th:src="@{#}"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
+      $("#inputFileToLoad").change(function () {
+        readURL(this);
+      });
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#preview_img").attr("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      var btn = document.getElementsByName("checkboxone");
+
+      for (let i of btn) {
+        i.addEventListener("click", (e) => {
+          checkbox(e);
+        });
+      }
+      function checkbox(e) {
+        console.log("好痛苦");
+        var product_id = $(e.target).attr("id");
+        var requestOptions = {
+          method: "GET",
+          redirect: "follow",
+        };
+        fetch(
+          "http://localhost:8082/admin/updateProduct?product_id=" + product_id,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result.product_id);
+            $("#recipient-title").attr("value", result.title);
+            $("#recipient-price").attr("value", result.price);
+            $("#recipient-stock").attr("value", result.stock);
+            $("#recipient-text").attr("value", result.text);
+            $("#preview_img").attr(
+              "src",
+              "/admin/downloadImage/" + result.product_id
+            );
+          })
+          .catch((error) => console.log("error", error));
+      }
+
       $("button[name='check']").click(function (e) {
         var id = $(e.target).attr("id");
         var onsale = $(e.target).parent().attr("id");

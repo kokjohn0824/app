@@ -1,9 +1,27 @@
 package com.finalpretty.app.repositories;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.finalpretty.app.model.Member;
 
 public interface MemberRespository extends JpaRepository<Member, Integer> {
+
+    @Transactional
+    @Modifying
+    @Query(value = "update member set gender=:gender, age=:age, height=:height, weight=:weight, bodyFat=:bodyFat, visceralFat=:visceralFat, muscleMass=:muscleMass, becomeVIP=:becomeVIP where member_id=:member_id", nativeQuery = true)
+    void updateById(@Param("member_id") Integer member_id,
+            @Param("gender") Integer gender,
+            @Param("age") Integer age,
+            @Param("height") double height,
+            @Param("weight") double weight,
+            @Param("bodyFat") double bodyFat,
+            @Param("visceralFat") double visceralFat,
+            @Param("muscleMass") double muscleMass,
+            @Param("becomeVIP") Integer becomeVIP);
 
 }

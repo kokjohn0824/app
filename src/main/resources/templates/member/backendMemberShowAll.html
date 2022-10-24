@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>所有會員</title>
+
+	<!-- 利用th:insert 或是 th:replace 來載入模板 -->
+	<div th:replace="jsmodules"></div>
+
+	<!-- 利用th:href來引入css , 地址使用 @{} 為static資料夾下 -->
+	<!-- <link rel="stylesheet" th:href="@{/css/hello.css}" /> -->
+
+	<!-- defer 屬性可以將js檔案 放在head標籤內而正常運行 -->
+	<!-- script 原本的src屬性改爲使用 th:src -->
+	<!-- <script defer th:src="@{/js/hello.js}"></script> -->
+</head>
+
+<body>
+	<div th:replace="component/backendNavbar :: backendNavbar"></div>
+	<!-- FIXME:style標籤記得要加“”  -->
+	<div th:style="'width:100%; margin:0 auto; font-size:13px;'">
+
+		<div th:style="'background-color:yellow; width:300px; height:400px; text-align:center; float:left;'">
+			<br>
+			<h3><a th:href="@{/backendMember/add}">新增會員</a></h3>
+			<p></p>
+			<h3><a th:href="@{/backendMember/showAll}">所有會員</a></h3>
+			<br>
+		</div>
+
+		<div th:style="'background-color:#F2FFF2; margin-left:300px; height:400px; text-align:center;'">
+			<h1>所有會員</h1>
+			<table border="2" width="70%" cellpadding="2">
+				<tr>
+					<th>編號</th>
+					<!-- <th>照片</th> -->
+					<!-- <th>名稱</th> -->
+					<!-- 連動users_users_id -->
+					<th>性別</th>
+					<th>年齡</th>
+					<th>身高</th>
+					<th>體重</th>
+					<th>體脂肪</th>
+					<th>內臟脂肪</th>
+					<th>肌肉量</th>
+					<th>VIP</th>
+					<th>編輯</th>
+				</tr>
+
+				<tr th:each="member : ${list}">
+					<td th:text="${member.member_id}"></td>
+					<!-- <td th:text="${member.users_users_id}"></td> -->
+					<td th:text="${member.gender}"></td>
+					<td th:text="${member.age}"></td>
+					<td th:text="${member.height}"></td>
+					<td th:text="${member.weight}"></td>
+					<td th:text="${member.bodyFat}"></td>
+					<td th:text="${member.visceralFat}"></td>
+					<td th:text="${member.muscleMass}"></td>
+					<td th:text="${member.becomeVIP}"></td>
+					<td>
+						<a th:href="@{'/backendMember/delete?member_id='+${member.member_id}}"
+							th:onclick="return confirm('確定刪除嗎?')"><button type="submit" value="delete">刪除</button></a>
+						<a th:href="@{'/backendMember/edit?member_id='+${member.member_id}}"><button type="submit"
+								value="edite">修改</button></a>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+
+
+
+
+</body>
+
+</html>

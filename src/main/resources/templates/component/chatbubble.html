@@ -3,6 +3,7 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
     }
+
     * {
       box-sizing: border-box;
     }
@@ -31,6 +32,12 @@
       border: 3px solid #f1f1f1;
       z-index: 9;
       transition: 1s;
+
+      width: 100%;
+      max-width: 450px;
+      background: #282639;
+      border-radius: 10px;
+      box-shadow: #292739 0 10px 20px;
     }
 
     /* Add styles to the form container */
@@ -40,48 +47,71 @@
       background-color: white;
     }
 
+    .chatbox {
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
     .bg-white {
       background-color: white;
     }
+    .container {
+    }
 
-    .selfmessage{
+    .chat {
+      display: flex;
+      gap: 15px;
+    }
+
+    .msg {
+      background: #3a384c;
+      max-width: 80%;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      font-size: 13px;
+    }
+
+    .selfmessage {
       color: #0891b2;
     }
 
-    .othermessage{
-      color:blue;
+    .othermessage {
+      color: blue;
     }
   </style>
   <!-- 聊天按鈕 -->
   <button class="open-button" onclick="openForm()">客服</button>
 
-
   <!-- 彈出視窗 -->
   <div class="chat-popup" id="myForm">
-    <div class="bg-white d-flex justify-content-between">
-      <h3 class="m-3" >聊天室 </h3>
-      
-      
+    <div class="d-flex justify-content-between">
+      <h3 class="m-3">聊天室</h3>
+
       <span
-      id="authusername"
+        id="authusername"
         sec:authorize="isAuthenticated()"
         class="navbar-brand"
         th:text="${#authentication.getPrincipal().getNickname()}"
       ></span>
       <span
-      id="authusername"
+        id="authusername"
         sec:authorize="isAnonymous()"
         class="navbar-brand"
         th:text="訪客"
       ></span>
 
-
-
       <button class="btn" onclick="closeForm()">
         <img th:src="@{img/icon/close.svg}" alt="" />
       </button>
     </div>
-    <div class="bg-white p-3" id="information" style="height: 400px; overflow: scroll ;border: 2px grey solid ;border-radius: 4px;"></div>
+    <div
+      class="chatbox"
+      id="information"
+      style="height: 400px; overflow: scroll"
+    ></div>
     <div class="form-container">
       <div class="input-group">
         <input
@@ -90,7 +120,7 @@
           id="content"
           placeholder="想說點什麼..."
           name="msg"
-        ></input>
+        />
         <button
           id="sharedbtn"
           class="btn btn-info"
@@ -116,14 +146,14 @@
       document.getElementById("myForm").style.display = "none";
     }
 
-    input.addEventListener("keypress", function(event) {
-  // If the user presses the "Enter" key on the keyboard
-  if (event.key === "Enter") {
-    // Cancel the default action, if needed
-    event.preventDefault();
-    // Trigger the button element with a click
-    document.getElementById("sharedbtn").click();
-  }
-});
+    input.addEventListener("keypress", function (event) {
+      // If the user presses the "Enter" key on the keyboard
+      if (event.key === "Enter") {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        document.getElementById("sharedbtn").click();
+      }
+    });
   </script>
 </div>

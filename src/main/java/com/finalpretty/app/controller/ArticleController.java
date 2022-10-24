@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Article;
@@ -131,7 +132,8 @@ public class ArticleController {
 	}
 
 	// 按讚文章
-	@PostMapping("/article/like")
+	@ResponseBody
+	@PostMapping("/public/article/like/1/1")
 	public String likeArticle(
 			@RequestParam(name = "article_id") Integer article_id,
 			@RequestParam(name = "member_id") Integer member_id) {

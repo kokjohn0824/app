@@ -116,6 +116,7 @@
       const accountRegex = /^\w+$/;
       const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/;
       const url = "http://localhost:8082/public/api/";
+      const invalidAccountNameSet = new Set(["root", "admin", "管理員"]);
       //抓取元素
       let registerForm = document.querySelector("#registerForm");
       const submitBtn = document.querySelector("#submitBtn");
@@ -159,7 +160,8 @@
       let myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
-      accountInput.addEventListener("input", (e) => {
+      //TODO:帳號確認ajax請求
+      accountInput.addEventListener("blur", (e) => {
         let accountInput = e.target.value;
         if (!accountInput) {
           accountHelpBlock.innerText = "";
@@ -167,12 +169,22 @@
           flags["accountChecked"] = false;
           return;
         }
+        //account Regex test
         if (!accountRegex.test(accountInput)) {
           accountHelpBlock.innerText = "帳號中不得有特殊字元";
           e.target.classList.add("is-invalid");
           flags["accountChecked"] = false;
           return;
         }
+
+        //invalid accountname check
+        if (invalidAccountNameSet.has(accountInput)) {
+          accountHelpBlock.innerText = "無效的帳號名稱";
+          e.target.classList.add("is-invalid");
+          flags["accountChecked"] = false;
+          return;
+        }
+
         flags["accountChecked"] = true;
         e.target.classList.remove("is-invalid");
         accountHelpBlock.innerText = "ok!";
@@ -285,6 +297,7 @@
             if (result.error) {
               emailHelpBlock.innerText = result.error;
             }
+            console.log(result);
           })
           .catch((error) => console.log("error", error));
       });

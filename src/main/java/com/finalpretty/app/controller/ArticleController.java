@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Optional;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.Response.ArticleResponse;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.repositories.ArticleRespository;
@@ -37,7 +40,7 @@ public class ArticleController {
 	// 顯示全部文章
 	@GetMapping("/article/manage")
 	public String manageArticlePage(Model m) {
-		List<Article> list = articleR.findAll();
+		List<Article> list = articleR.findAlloOrderById();
 		m.addAttribute("list", list);
 		return "/article/backEndManageArticle";
 	}
@@ -131,19 +134,27 @@ public class ArticleController {
 	}
 
 	// 按讚文章
-	@PostMapping("/article/like")
-	public String likeArticle(
-			@RequestParam(name = "article_id") Integer article_id,
-			@RequestParam(name = "member_id") Integer member_id) {
+	@ResponseBody
+	@PostMapping("/public/article/like/{member_id}/{article_id}")
+	public ArticleResponse likeArticle(
+			@PathVariable(name = "article_id") Integer article_id,
+			@PathVariable(name = "member_id") Integer member_id) {
 		try {
 			Member member = memberR.findById(member_id).get();
-			Set<Article> like = member.getArticle();
 			Article article = articleR.findById(article_id).get();
+			Set<Article> like = member.getArticle();
+			Set<Member> members = new HashSet<>();
+			members.add(member);
+			article.setMember(members);
 			like.add(article);
+			ArticleResponse ar = new ArticleResponse();
+			ar.setArticle_id(article_id);
+			ar.setMember_id(member_id);
+			return ar;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/article/show";
+		return null;
 	}
 
 	// =============================================================================================

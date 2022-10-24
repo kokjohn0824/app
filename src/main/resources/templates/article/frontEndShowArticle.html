@@ -17,6 +17,7 @@
     <div th:replace="component/navbar :: navbar"></div>
     <div class="top">
       <div class="container-lg">
+        <input id="uio" th:field="${article.article_id}" type="hidden" />
         <img
           th:src="@{'/showImage/'+${article.article_id}}"
           height="400px"
@@ -33,8 +34,11 @@
             class="entry-date published"
             th:text="${article.create_date}"
             itemprop="datePublished"
-          ></time
-        ></span>
+          ></time>
+
+
+          <button name='like' >收藏</button>
+ 
 
         <p id="resulthtml" th:text="${article.text}"></p>
       </div>
@@ -42,6 +46,53 @@
     <script>
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;
+
+      $("button[name='like']").click(function (e) {
+        // var member = $(e.target).attr("id");
+        var uio = $("#uio").val()
+        console.log(uio);
+        // var article = $(e.target).parent().attr("id");
+        // console.log(id);
+        // console.log(onsale);
+        var settings = {
+          url: "http://localhost:8082/article/like/" + member + "/" + uio,
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify({}),
+        };
+
+        $.ajax(settings).done(function (response) {
+          console.log(response);
+          if (response.onsale == 1) {
+            // console.log($(e.target).prev()[0]);
+            // console.log($(e.target).next()[0]);
+            $(e.target).parent().attr("id", response.onsale);
+            $(e.target).hide().attr("class", "btn btn-success");
+            $(e.target).next().show().attr("class", "btn btn-danger");
+            $(e.target)
+              .parent()
+              .prev()
+              .find("span")
+              .attr("style", "color:green")
+              .text("販售中");
+          } else if (response.onsale == 0) {
+            $(e.target)
+              .parent()
+              .prev()
+              .find("span")
+              .attr("style", "color:red")
+              .text("下架中");
+            $(e.target).parent().attr("id", response.onsale);
+            console.log($(e.target).prev()[0]);
+            console.log($(e.target).next()[0]);
+            $(e.target).hide().attr("class", "btn btn-danger");
+            $(e.target).prev().show().attr("class", "btn btn-success");
+          }
+        });
+      });
     </script>
   </body>
 </html>

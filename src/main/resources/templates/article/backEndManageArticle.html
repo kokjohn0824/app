@@ -12,6 +12,11 @@
         overflow: hidden;
         text-overflow: ellipsis;
       }
+      .resulthtml {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     </style>
   </head>
 
@@ -53,8 +58,8 @@
               />
             </td>
             <td
-              class="table_tit"
-              id="resulthtml"
+              id="cleanText"
+              class="resulthtml"
               th:text="${article.text}"
               style="max-width: 150px"
             ></td>
@@ -76,11 +81,10 @@
       </div>
     </div>
     <script>
-      const resulthtml = document.querySelectorAll("#resulthtml");
-      resulthtml.innerHTML = resulthtml.innerText;
-      for (a of resulthtml) {
-        a.innerHTML = a.innerText;
-      }
+      const cleanTextList = document.querySelectorAll("#cleanText");
+      cleanTextList.forEach(
+        (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
+      );
     </script>
   </body>
 </html>

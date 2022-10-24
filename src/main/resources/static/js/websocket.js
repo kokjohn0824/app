@@ -1,3 +1,16 @@
+// 设置 STOMP 客户端
+let stompClient = null;
+// 设置 WebSocket 进入端点
+const SOCKET_ENDPOINT = "/chat";
+// 设置订阅消息的请求前缀
+const SUBSCRIBE_PREFIX = "/topic";
+//取得username(詭譎的抓取dom資料)
+const username = document.getElementById("authusername").innerText;
+// 设置订阅消息的请求地址
+let SUBSCRIBE = "";
+// 设置服务器端点，访问服务器中哪个接口
+let SEND_ENDPOINT = "/socket/test";
+
 //shared
 
 var shared = new SharedWorker("/js/worker.js", "chat");
@@ -6,20 +19,29 @@ shared.port.start(); // this will trigger the on connect event on the webworker
 
 // recieve message from worker
 shared.port.addEventListener("message", (message) => {
-  $("#information").append(`<tr><td>${message.data}</tr></td>`);
+  let container = $("#information")[0];
+  const [x] = [container.scrollTop];
+  const [y] = [container.scrollHeight];
+  //check if this message is sent by user itself
+  let messageObject = message.data;
+  let content = messageObject.content.replace("<script>", "");
+
+  if (messageObject.sender === username) {
+    $("#information").append(
+      `<div style="color: red;"><tr><td>${content}</tr></td></div>`
+    );
+  } else {
+    $("#information").append(`<div><tr><td>${content}</tr></td></div>`);
+  }
+
+  //check if window is not on the buttom
+  if (x + container.clientHeight !== y) {
+    return;
+  }
+  //if message append, scrolls
+  container.scrollTop = container.scrollHeight;
+  console.log(`containerafter: ${container.scrollTop}`);
 });
-
-// 设置 STOMP 客户端
-let stompClient = null;
-// 设置 WebSocket 进入端点
-const SOCKET_ENDPOINT = "/chat";
-// 设置订阅消息的请求前缀
-const SUBSCRIBE_PREFIX = "/topic";
-
-// 设置订阅消息的请求地址
-let SUBSCRIBE = "";
-// 设置服务器端点，访问服务器中哪个接口
-let SEND_ENDPOINT = "/socket/test";
 
 /* 进行连接 */
 const connect = function () {
@@ -58,7 +80,7 @@ function handleClick() {
   let sendContent = $("#content").val();
 
   // 設定要傳送的內容
-  let message = `{ "destination": "${SUBSCRIBE}", "sender": "testman", "content" : "${sendContent}"}`;
+  let message = `{ "destination": "${SUBSCRIBE}", "sender": "${username}", "content" : "${sendContent}"}`;
   // 发送消息
   stompClient.send(SEND_ENDPOINT, {}, message);
   //清空抓取欄位的內容
@@ -67,12 +89,11 @@ function handleClick() {
 
 const showRecieveMessage = function (responseBody) {
   let receiveMessage = JSON.parse(responseBody.body);
-  console.log(receiveMessage);
-  let content = receiveMessage.content.replace("<script>", "");
   // send a mesasge to the worker
-  shared.port.postMessage([content]);
+  shared.port.postMessage([receiveMessage]);
 };
 
+const getSessionId = function () {};
 //設定自動連線
 window.onload = () => {
   connect();

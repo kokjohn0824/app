@@ -32,42 +32,35 @@ import lombok.Setter;
 @Setter
 @Table(name = "daily_record")
 public class DailyRecord {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "daily_record_id")
 	private Integer daily_record_id;
-	
+
 	@Column(name = "weight")
 	private Integer weight;
-	
+
 	@Column(name = "bodyFat")
 	private Integer bodyFat;
-	
+
 	@Column(name = "drinkingWater")
 	private Integer drinkingWater;
-	
-	@Column(name = "sport_time")
-	private Integer sportTime;
-	
-	@Column(name = "food_side")
-	private Integer foodSide;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "date_time", columnDefinition = "datetime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE",timezone = "GMT+8")
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE", timezone = "GMT+8")
 	private Date date_time;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "fk_member_id")
 	private Member member;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
-	private Set<Food> food = new HashSet<Food>();
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
-	private Set<Sports> sports = new HashSet<Sports>();
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
+	private Set<Food_daily> food_daily;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
+	private Set<Sports_daily> sports_daily = new HashSet<Sports_daily>();
 
 }

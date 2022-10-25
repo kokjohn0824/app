@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:inline="text">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello</title>
-    <div th:replace="jsmodules"></div>
     <link rel="stylesheet" th:href="@{/css/style.build.tailwind.css}" />
-    <script defer th:src="@{/js/hello.js}"></script>
-    <div th:replace="jsmodules"></div>
+    <div th:replace="@{jsmodules}"></div>
     <style>
       body {
         background: url(/img/wallpaper.jpg) no-repeat;
@@ -29,7 +26,7 @@
     </style>
   </head>
   <body>
-    <div th:replace="component/navbar.html"></div>
+    <div th:replace="@{component/navbar}"></div>
 
     <article>
       <!-- 網站內文放這裡 -->

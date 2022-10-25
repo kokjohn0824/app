@@ -3,6 +3,7 @@ package com.finalpretty.app.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,10 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.model.DailyRecord;
 import com.finalpretty.app.model.Food;
+import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Sports;
 import com.finalpretty.app.repositories.DailyRecordRespository;
 import com.finalpretty.app.repositories.FoodRespository;
+import com.finalpretty.app.repositories.MemberRespository;
 import com.finalpretty.app.repositories.SportsRespository;
 
 @Controller
@@ -34,6 +38,9 @@ public class DailyRecordController {
 
     @Autowired
     private SportsRespository sportsR;
+
+    @Autowired
+    private MemberRespository memberR;
 
     // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // 食物
@@ -91,10 +98,11 @@ public class DailyRecordController {
     }
 
     @PostMapping("/food/edit")
-    public String editArticlePost(@RequestParam(name = "food_id") Integer food_id,
+    public String editArticlePost(
+            @RequestParam(name = "food_id") Integer food_id,
             @RequestParam(name = "foodname") String foodname,
             @RequestParam(name = "calorie") Integer calorie,
-            @RequestParam(name = "file") MultipartFile picture,
+            @RequestParam(name = "picture") MultipartFile picture,
             Model model) {
         Food food = new Food();
         try {
@@ -177,7 +185,7 @@ public class DailyRecordController {
     public String editSportsPost(@RequestParam(name = "sports_id") Integer sports_id,
             @RequestParam(name = "sportsname") String sportsname,
             @RequestParam(name = "calorie") Integer calorie,
-            @RequestParam(name = "file") MultipartFile picture,
+            @RequestParam(name = "picture") MultipartFile picture,
             Model model) {
         Sports sports = new Sports();
         try {
@@ -200,4 +208,17 @@ public class DailyRecordController {
     }
 
     // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    // 日記
+    // 前台
+    // 顯示用戶全部日記
+    // @GetMapping("/dailyRecord/all")
+    // public Set<DailyRecord> manageDailyRecordPage(@RequestParam(name =
+    // "member_id") Integer member_id, Model m) {
+    // Member member = memberR.findById(member_id).get();
+    // Set<DailyRecord> daily_record = member.getDaily_records();
+
+    // m.addAttribute("list", list);
+    // return "/food/backEndManageFood";
+    // }
 }

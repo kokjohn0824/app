@@ -81,8 +81,8 @@ public class Member {
 					@JoinColumn(name = "fk_video_id", referencedColumnName = "video_id") })
 	private Set<Video> videos = new HashSet<Video>();
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	private Set<DailyRecord> daily_record = new HashSet<DailyRecord>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "members", cascade = CascadeType.ALL)
+	private Set<DailyRecord> daily_records = new HashSet<DailyRecord>();
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
 	private List<Order> order = new ArrayList<>();

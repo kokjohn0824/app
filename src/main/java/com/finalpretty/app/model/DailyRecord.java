@@ -55,7 +55,7 @@ public class DailyRecord {
 
 	@ManyToOne
 	@JoinColumn(name = "fk_member_id")
-	private Member member;
+	private Member members;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
 	private Set<Food_daily> food_daily;

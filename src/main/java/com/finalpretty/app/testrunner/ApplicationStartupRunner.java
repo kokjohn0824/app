@@ -187,6 +187,15 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 File saveFilePath = new File(saveFiledir);
                 product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
                 pDao.save(product);
+                product = new Product();
+                product.setTitle("奶茶乳清");
+                product.setType("運動食品");
+                product.setPrice(299);
+                product.setStock(1000);
+                product.setText("此產品暫無簡介");
+                product.setOnsale(0);
+                product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
+                pDao.save(product);
 
         }
 

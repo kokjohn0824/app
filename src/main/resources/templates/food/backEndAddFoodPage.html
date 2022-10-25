@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Food</title>
+    <div th:replace="jsmodules"></div>
+    <script defer th:src="@{/js/hello.js}"></script>
+  </head>
+
+  <body>
+    <div th:replace="component/backendNavbar :: backendNavbar"></div>
+    <div>
+      <a
+        class="btn btn-dark"
+        style="background-color: #f45b69"
+        href="/food/manage"
+        >取消新增</a
+      >
+    </div>
+
+    <div class="container-lg">
+      <div class="" style="width: 50%; margin: 20px auto">
+        <div th:if="${username} != null">
+          <h1>您好，管理者<span th:text="${username}"></span></h1>
+        </div>
+
+        <h1>新增食物</h1>
+
+        <div class="container-lg" style="width: 800px" th:fragment="form">
+          <form
+            th:action="@{/food/add}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <!-- class="form-control" -->
+            食品圖片:<input
+              id="inputFileToLoad"
+              class=""
+              type="file"
+              placeholder="請加入圖片"
+              name="file"
+            />
+            <img
+              id="food_img"
+              style="
+                width: 300px;
+                border-radius: 10px 10px 10px 10px;
+                margin-left: 50px;
+              "
+            />
+            <br />
+            食品名稱:<input type="text" name="foodname" /><br />
+            食品熱量:<input type="text" name="calorie" /><br />
+            <button type="reset" class="btn btn-secondary">重置</button>
+            <button type="submit" class="signupbtn btn btn-primary">
+              送出
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $("#inputFileToLoad").change(function () {
+        readURL(this);
+      });
+
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#food_img").attr("src", e.target.result);
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    </script>
+  </body>
+</html>

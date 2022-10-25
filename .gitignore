@@ -34,3 +34,4 @@ build/
 
 src/main/java/com/finalpretty/app/testrunner/ApplicationStartupRunnerIgnore.java
 node_modules
+src/main/resources/static/js/dist/**

@@ -8,7 +8,7 @@
     <div th:replace="jsmodules"></div>
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
     <title>商城</title>
-    
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -48,13 +48,6 @@
         align-self: center;
       }
     </style> -->
-
-
-
-
-
-
-
   </head>
 
   <body>
@@ -62,28 +55,68 @@
     <div th:replace="component/chatbubble"></div>
 
     <div style="margin-top: 8%">
+      <!-- Nav -->
+      <!-- <nav class="navbar navbar-inverse bg-inverse fixed-top bg-faded"> -->
 
- <!-- Nav -->
- <!-- <nav class="navbar navbar-inverse bg-inverse fixed-top bg-faded"> -->
- 
-    <div>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#cart"
-      >
-        購物車 (<span class="total-count"></span>)</button
-      ><button class="clear-cart btn btn-danger">清空購物車</button>
-</div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#cart"
+        >
+          購物車 (<span class="total-count"></span>)</button
+        ><button class="clear-cart btn btn-danger">清空購物車</button>
+      </div>
 
+      <div class="container">
+        <div class="row">
+          <div class="row justify-content-center align-items-center">
+            <div
+              class="card p-1 shadow m-3"
+              style="
+                width: 20rem;
+                display: flex;
+                flex-direction: column;
+                width: 30%;
+                margin: 0 auto;
+                background-color: #ccc;
+              "
+              th:each="product : ${productlist} "
+            >
+              <img
+                th:id="${product.product_id}"
+                th:src="@{'/downloadImage/'+${product.product_id}}"
+                alt=""
+                class="card-img"
+                style="display: block; /* ★★★★★ */ max-width: 100%; /* ★★★★★ */"
+              />
+              <div class="card-body">
+                <h4 class="card-title" th:text="${product.title}"></h4>
+                <p class="card-text" th:text="'$'+${product.price}"></p>
+                <p class="card-text" th:text="${product.text}"></p>
+                <p class="card-text" th:text="${product.product_id}"></p>
+                <a
+                  href="#"
+                  th:data-name="${product.title}"
+                  th:data-price="${product.price}"
+                  th:data-img="@{'/downloadImage/'+${product.product_id}}"
+                  th:data-id="${product.product_id}"
+                  class="add-to-cart btn btn-primary"
+                  >加入購物車</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-
-
-
-  <div>
-    <div>
-      <div class="card" style="width: 20rem;justify-content: center;">
+      <!-- <div>
+    <div class="allcard" style="display: flex;">
+      <div class="card" style="width: 20rem;justify-content: center;  background-color:#ffffff;
+      border-radius:3px;
+      border: 1px solid #a1a1a1;
+      padding:20px;">
 
         <div th:each="product : ${productlist}">
 
@@ -110,61 +143,49 @@
           
         </div>
       </div>
-    </div>
+    </div> -->
 
-
-
-
-    
-
-
-  <!-- Modal -->
-  <div
-  class="modal fade"
-  id="cart"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">購物車</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="cart"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">購物車</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="show-cart table"></table>
+              <div>總金額: $<span class="total-cart"></span></div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                關閉
+              </button>
+              <button type="button" class="btn btn-primary">結帳</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <table class="show-cart table"></table>
-        <div>總金額: $<span class="total-cart"></span></div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >
-          關閉
-        </button>
-        <button type="button" class="btn btn-primary">結帳</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-
-
-
-
-
-      
-<!-- 
+      <!-- 
       <div class="allproduct">
        
         <img
@@ -189,239 +210,257 @@
       
         </div>
  -->
-      </div>
+    </div>
 
+    <script th:inline="javascript">
+      /*<![DATA[*/
+      // ************************************************
+      // Shopping Cart API
+      // ************************************************
 
- <script>
-  // ************************************************
-  // Shopping Cart API
-  // ************************************************
+      var shoppingCart = (function () {
+        // =============================
+        // Private methods and propeties
+        // =============================
+        cart = [];
 
-  var shoppingCart = (function () {
-    // =============================
-    // Private methods and propeties
-    // =============================
-    cart = [];
-
-    // Constructor
-    function Item(name, price, count) {
-      this.name = name;
-      this.price = price;
-      this.count = count;
-    }
-
-    // Save cart
-    function saveCart() {
-      sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
-    }
-
-    // Load cart
-    function loadCart() {
-      cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
-    }
-    if (sessionStorage.getItem("shoppingCart") != null) {
-      loadCart();
-    }
-
-    // =============================
-    // Public methods and propeties
-    // =============================
-    var obj = {};
-
-    // Add to cart
-    obj.addItemToCart = function (name, price, count) {
-
-
-      for (var item in cart) {
-        if (cart[item].name === name) {
-          cart[item].count++;
-          saveCart();
-          return;
+        // Constructor
+        function Item(name, price, count, img, product_id) {
+          this.name = name;
+          this.price = price;
+          this.count = count;
+          this.product_id = product_id;
+          this.img = img;
         }
-      }
-      var item = new Item(name, price, count);
-      cart.push(item);
-      saveCart();
-    };
-    // Set count from item
-    obj.setCountForItem = function (name, count) {
-      for (var i in cart) {
-        if (cart[i].name === name) {
-          cart[i].count = count;
-          break;
+
+        // Save cart
+        function saveCart() {
+          sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
         }
-      }
-    };
-    // Remove item from cart
-    obj.removeItemFromCart = function (name) {
-      for (var item in cart) {
-        if (cart[item].name === name) {
-          cart[item].count--;
-          if (cart[item].count === 0) {
-            cart.splice(item, 1);
+
+        // Load cart
+        function loadCart() {
+          cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
+        }
+        if (sessionStorage.getItem("shoppingCart") != null) {
+          loadCart();
+        }
+
+        // =============================
+        // Public methods and propeties
+        // =============================
+        var obj = {};
+
+        // Add to cart
+        obj.addItemToCart = function (name, price, count, img, product_id) {
+          for (var item in cart) {
+            if (cart[item].name === name) {
+              cart[item].count++;
+              saveCart();
+              return;
+            }
           }
-          break;
+          var item = new Item(name, price, count, img, product_id);
+          cart.push(item);
+          saveCart();
+        };
+        // Set count from item
+        obj.setCountForItem = function (name, count) {
+          for (var i in cart) {
+            if (cart[i].name === name) {
+              cart[i].count = count;
+              break;
+            }
+          }
+        };
+        // Remove item from cart
+        obj.removeItemFromCart = function (name) {
+          for (var item in cart) {
+            if (cart[item].name === name) {
+              cart[item].count--;
+              if (cart[item].count === 0) {
+                cart.splice(item, 1);
+              }
+              break;
+            }
+          }
+          saveCart();
+        };
+
+        // Remove all items from cart
+        obj.removeItemFromCartAll = function (name) {
+          for (var item in cart) {
+            if (cart[item].name === name) {
+              cart.splice(item, 1);
+              break;
+            }
+          }
+          saveCart();
+        };
+
+        // Clear cart
+        obj.clearCart = function () {
+          cart = [];
+          saveCart();
+        };
+
+        // Count cart
+        obj.totalCount = function () {
+          var totalCount = 0;
+          for (var item in cart) {
+            totalCount += cart[item].count;
+          }
+          return totalCount;
+        };
+
+        // Total cart
+        obj.totalCart = function () {
+          var totalCart = 0;
+          for (var item in cart) {
+            totalCart += cart[item].price * cart[item].count;
+          }
+          return Number(totalCart.toFixed(2));
+        };
+
+        // List cart
+        obj.listCart = function () {
+          var cartCopy = [];
+          for (i in cart) {
+            item = cart[i];
+            itemCopy = {};
+            for (p in item) {
+              itemCopy[p] = item[p];
+            }
+            itemCopy.total = Number(item.price * item.count).toFixed(2);
+            cartCopy.push(itemCopy);
+          }
+          return cartCopy;
+        };
+
+        // cart : Array
+        // Item : Object/Class
+        // addItemToCart : Function
+        // removeItemFromCart : Function
+        // removeItemFromCartAll : Function
+        // clearCart : Function
+        // countCart : Function
+        // totalCart : Function
+        // listCart : Function
+        // saveCart : Function
+        // loadCart : Function
+        return obj;
+      })();
+
+      // *****************************************
+      // Triggers / Events
+      // *****************************************
+      // Add item
+      $(".add-to-cart").click(function (event) {
+        event.preventDefault();
+        let imgsrc = event.target.parentElement.parentElement
+          .getElementsByTagName("img")
+          .item(0).src;
+
+        let imgid = event.target.parentElement.parentElement
+          .getElementsByTagName("img")
+          .item(0).id;
+
+        var name = $(this).data("name");
+        var price = Number($(this).data("price"));
+        var img = $(this).data("img");
+        //console.log(img);
+        // var product_id = Number($(this).data("product_id"));
+        // console.log(product_id);
+        shoppingCart.addItemToCart(name, price, 1, img, imgid);
+        displayCart(imgid, imgsrc);
+      });
+
+      // Clear items
+      $(".clear-cart").click(function () {
+        shoppingCart.clearCart();
+        displayCart();
+      });
+
+      function displayCart() {
+        var cartArray = shoppingCart.listCart();
+        var output = "";
+
+        for (i in cartArray) {
+          console.log(cartArray[i].img + "+++++++++++++++++++");
+          output +=
+            "<tr>" +
+            "<td>" +
+            cartArray[i].product_id +
+            "</td>" +
+            "<td>" +
+            cartArray[i].name +
+            "</td>" +
+            "<td>(" +
+            cartArray[i].price +
+            ")</td>" +
+            '<td><img src="' +
+            cartArray[i].img +
+            ' " height="200" width="200"/></td>' +
+            "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" +
+            cartArray[i].name +
+            ">-</button>" +
+            "<input type='number' class='item-count form-control' data-name='" +
+            cartArray[i].name +
+            "' value='" +
+            cartArray[i].count +
+            "'>" +
+            "<button class='plus-item btn btn-primary input-group-addon' data-name=" +
+            cartArray[i].name +
+            ">+</button></div></td>" +
+            "<td><button class='delete-item btn btn-danger' data-name=" +
+            cartArray[i].name +
+            ">X</button></td>" +
+            " = " +
+            "<td>" +
+            cartArray[i].total +
+            "</td>" +
+            "</tr>";
         }
+        $(".show-cart").html(output);
+        $(".total-cart").html(shoppingCart.totalCart());
+        $(".total-count").html(shoppingCart.totalCount());
       }
-      saveCart();
-    };
 
-    // Remove all items from cart
-    obj.removeItemFromCartAll = function (name) {
-      for (var item in cart) {
-        if (cart[item].name === name) {
-          cart.splice(item, 1);
-          break;
-        }
-      }
-      saveCart();
-    };
+      // Delete item button
 
-    // Clear cart
-    obj.clearCart = function () {
-      cart = [];
-      saveCart();
-    };
+      $(".show-cart").on("click", ".delete-item", function (event) {
+        var name = $(this).data("name");
+        shoppingCart.removeItemFromCartAll(name);
+        displayCart();
+      });
 
-    // Count cart
-    obj.totalCount = function () {
-      var totalCount = 0;
-      for (var item in cart) {
-        totalCount += cart[item].count;
-      }
-      return totalCount;
-    };
+      // -1
+      $(".show-cart").on("click", ".minus-item", function (event) {
+        var name = $(this).data("name");
+        shoppingCart.removeItemFromCart(name);
+        displayCart();
+      });
+      // +1
+      $(".show-cart").on("click", ".plus-item", function (event) {
+        var name = $(this).data("name");
+        shoppingCart.addItemToCart(name);
+        displayCart();
+      });
 
-    // Total cart
-    obj.totalCart = function () {
-      var totalCart = 0;
-      for (var item in cart) {
-        totalCart += cart[item].price * cart[item].count;
-      }
-      return Number(totalCart.toFixed(2));
-    };
+      // Item count input
+      $(".show-cart").on("change", ".item-count", function (event) {
+        var name = $(this).data("name");
+        var count = Number($(this).val());
+        shoppingCart.setCountForItem(name, count);
+        displayCart();
+      });
 
-    // List cart
-    obj.listCart = function () {
-      var cartCopy = [];
-      for (i in cart) {
-        item = cart[i];
-        itemCopy = {};
-        for (p in item) {
-          itemCopy[p] = item[p];
-        }
-        itemCopy.total = Number(item.price * item.count).toFixed(2);
-        cartCopy.push(itemCopy);
-      }
-      return cartCopy;
-    };
+      displayCart();
+      /*]]>*/
+    </script>
 
-    // cart : Array
-    // Item : Object/Class
-    // addItemToCart : Function
-    // removeItemFromCart : Function
-    // removeItemFromCartAll : Function
-    // clearCart : Function
-    // countCart : Function
-    // totalCart : Function
-    // listCart : Function
-    // saveCart : Function
-    // loadCart : Function
-    return obj;
-  })();
-
-  // *****************************************
-  // Triggers / Events
-  // *****************************************
-  // Add item
-  $(".add-to-cart").click(function (event) {
-    event.preventDefault();
-    var name = $(this).data("name");
-    var price = Number($(this).data("price"));
-    shoppingCart.addItemToCart(name, price, 1);
-    displayCart();
-  });
-
-  // Clear items
-  $(".clear-cart").click(function () {
-    shoppingCart.clearCart();
-    displayCart();
-  });
-
-  function displayCart() {
-    var cartArray = shoppingCart.listCart();
-    var output = "";
-    for (var i in cartArray) {
-      output +=
-        "<tr>" +
-        "<td>" +
-        cartArray[i].name +
-        "</td>" +
-        "<td>(" +
-        cartArray[i].price +
-        ")</td>" +
-        "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" +
-        cartArray[i].name +
-        ">-</button>" +
-        "<input type='number' class='item-count form-control' data-name='" +
-        cartArray[i].name +
-        "' value='" +
-        cartArray[i].count +
-        "'>" +
-        "<button class='plus-item btn btn-primary input-group-addon' data-name=" +
-        cartArray[i].name +
-        ">+</button></div></td>" +
-        "<td><button class='delete-item btn btn-danger' data-name=" +
-        cartArray[i].name +
-        ">移除</button></td>" +
-        " = " +
-        "<td>" +
-        cartArray[i].total +
-        "</td>" +
-        "</tr>";
-    }
-    $(".show-cart").html(output);
-    $(".total-cart").html(shoppingCart.totalCart());
-    $(".total-count").html(shoppingCart.totalCount());
-  }
-
-  // Delete item button
-
-  $(".show-cart").on("click", ".delete-item", function (event) {
-    var name = $(this).data("name");
-    shoppingCart.removeItemFromCartAll(name);
-    displayCart();
-  });
-
-  // -1
-  $(".show-cart").on("click", ".minus-item", function (event) {
-    var name = $(this).data("name");
-    shoppingCart.removeItemFromCart(name);
-    displayCart();
-  });
-  // +1
-  $(".show-cart").on("click", ".plus-item", function (event) {
-    var name = $(this).data("name");
-    shoppingCart.addItemToCart(name);
-    displayCart();
-  });
-
-  // Item count input
-  $(".show-cart").on("change", ".item-count", function (event) {
-    var name = $(this).data("name");
-    var count = Number($(this).val());
-    shoppingCart.setCountForItem(name, count);
-    displayCart();
-  });
-
-  displayCart();
-</script>
-
-
- <footer>
-    <div th:replace="component/footer"></div>
-  </footer>
-
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
   </body>
-  
 </html>

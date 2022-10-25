@@ -33,13 +33,12 @@
 		</div>
 
 		<div th:style="'background-color:#F2FFF2; margin-left:300px; height:400px; text-align:center;'">
-			<h1>所有會員</h1>
+
+			<!-- 一般顯示 -->
+			<!-- <h1>所有會員</h1>
 			<table border="2" width="70%" cellpadding="2">
 				<tr>
 					<th>編號</th>
-					<!-- <th>照片</th> -->
-					<!-- <th>名稱</th> -->
-					<!-- 連動users_users_id -->
 					<th>性別</th>
 					<th>年齡</th>
 					<th>身高</th>
@@ -53,7 +52,6 @@
 
 				<tr th:each="member : ${list}">
 					<td th:text="${member.member_id}"></td>
-					<!-- <td th:text="${member.users_users_id}"></td> -->
 					<td th:text="${member.gender}"></td>
 					<td th:text="${member.age}"></td>
 					<td th:text="${member.height}"></td>
@@ -69,8 +67,62 @@
 								value="edite">修改</button></a>
 					</td>
 				</tr>
-			</table>
+			</table> -->
+
+
+			<!-- 使用分頁 -->
+			<div class="container">
+				<h1>所有會員</h1>
+				<table border="2" width="70%" cellpadding="2">
+					<tr>
+						<th>編號</th>
+						<th>性別</th>
+						<th>年齡</th>
+						<th>身高</th>
+						<th>體重</th>
+						<th>體脂肪</th>
+						<th>內臟脂肪</th>
+						<th>肌肉量</th>
+						<th>VIP</th>
+						<th>編輯</th>
+					</tr>
+
+					<tr th:each="member : ${members}">
+						<td th:text="${member.member_id}"></td>
+						<td th:text="${member.gender}"></td>
+						<td th:text="${member.age}"></td>
+						<td th:text="${member.height}"></td>
+						<td th:text="${member.weight}"></td>
+						<td th:text="${member.bodyFat}"></td>
+						<td th:text="${member.visceralFat}"></td>
+						<td th:text="${member.muscleMass}"></td>
+						<td th:text="${member.becomeVIP}"></td>
+						<td>
+							<a th:href="@{'/backendMember/delete?member_id='+${member.member_id}}"
+								th:onclick="return confirm('確定刪除嗎?')"><button type="submit"
+									value="delete">刪除</button></a>
+							<a th:href="@{'/backendMember/edit?member_id='+${member.member_id}}"><button type="submit"
+									value="edite">修改</button></a>
+						</td>
+					</tr>
+				</table>
+
+
+				<div th:replace="member/page :: pager" th:remove="tag"></div>
+
+			</div>
+
+
+
+
+
+
+
+
+
 		</div>
+
+	</div>
 	</div>
 
 

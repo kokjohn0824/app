@@ -1,0 +1,21 @@
+<div th:fragment="pager">
+
+
+    <div th:if="${(members.totalPages le 10) and (members.totalPages gt 0)}" th:remove="tag">
+        <div th:each="pg : ${#numbers.sequence(0, members.totalPages -1)}" th:remove="tag">
+            <span th:if="${pg eq members.getNumber()}" th:remove="tag">
+                <li><a href="#" th:href="@{${pageUrl}(page=${pg})}" th:text="${pg+1}"></a></li>
+            </span>
+
+        </div>
+
+    </div>
+
+    <li th:if="${members.hasNext()}"><a href="#" th:href="@{${pageUrl}(page=${members.number+1})}">下一頁</a></li>
+    <li><a href="#"
+            th:href="${members.totalPages le 0 ? pageUrl+'page=0':pageUrl+'&amp;page='+(members.totalPages-1)}">尾頁</a>
+    </li>
+    <li><span th:utext="'共'+${members.totalPages}+'頁 / '+${members.totalElements}+' 條'"></span></li>
+
+
+</div>

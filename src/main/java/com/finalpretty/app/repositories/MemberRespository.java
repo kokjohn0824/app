@@ -2,6 +2,8 @@ package com.finalpretty.app.repositories;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +13,7 @@ import com.finalpretty.app.model.Member;
 
 public interface MemberRespository extends JpaRepository<Member, Integer> {
 
+    // 後台編輯的修改
     @Transactional
     @Modifying
     @Query(value = "update member set gender=:gender, age=:age, height=:height, weight=:weight, bodyFat=:bodyFat, visceralFat=:visceralFat, muscleMass=:muscleMass, becomeVIP=:becomeVIP where member_id=:member_id", nativeQuery = true)
@@ -23,5 +26,9 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
             @Param("visceralFat") double visceralFat,
             @Param("muscleMass") double muscleMass,
             @Param("becomeVIP") Integer becomeVIP);
+
+    // 後台所有會員分頁
+    @Query("select u from Member u")
+    Page<Member> findList(Pageable pageable);
 
 }

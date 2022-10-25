@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <div th:replace="jsmodules"></div>
+
+    <title>個人訂單</title>
+  </head>
+
+  <body>
+    <div th:replace="component/navbar :: navbar"></div>
+    <div style="margin-top: 100px">
+      <button name="checkone" type="button" class="btn btn-primary" id="order">
+        查看訂單
+      </button>
+
+      <div class="mb-3">
+        <table>
+          <thead>
+            <tr>
+              <th>訂單編號</th>
+              <th>配送方式</th>
+              <th>付款方式</th>
+              <th>訂單總金額</th>
+              <th>地址</th>
+              <th>訂單成立時間</th>
+            </tr>
+          </thead>
+          <tbody id="tb1"></tbody>
+        </table>
+        <input
+          id="in"
+          th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
+          hidden
+        />
+      </div>
+
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content" style="width: 650px">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">明細</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>商品名稱</th>
+                        <th>商品數量</th>
+                        <th>商品金額</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tb2"></tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var requestOptions = {
+        method: "GET",
+        redirect: "follow",
+      };
+
+      var id = $("#in").attr("value");
+      fetch(
+        "http://localhost:8082/public/findMemberOrder/" + id,
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          var btn = $("#order");
+          btn.click(function () {
+            var str;
+            for (let i of result) {
+              str += "<tr><td>" + i.order_num + "</td>";
+              if (i.ship == 1) {
+                str += "<td>自取</td>";
+              } else if (i.ship == 2) {
+                str += "<td>宅配</td>";
+              }
+
+              if (i.paid == 1) {
+                str += "<td>現金</td>";
+              } else if (i.paid == 2) {
+                str += "<td>信用卡</td>";
+              }
+
+              str += "<td>" + i.total + "</td>";
+              str += "<td>" + i.address + "</td>";
+              str += "<td>" + i.create_date + "</td>";
+              str +=
+                "<td><button name='check' type='button' class='btn btn-primary'" +
+                " data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@fat' id='" +
+                i.order_id +
+                "'>明細</button></td></tr>";
+              str +=
+                "<td><input type='text' value='" +
+                i.fk_member_id +
+                "' hidden/></td></tr>";
+            }
+            $("#tb1").html(str);
+            var check = document.getElementsByName("check");
+
+            for (let on of check) {
+              on.addEventListener("click", (e) => {
+                click(e);
+              });
+            }
+          });
+        })
+        .catch((error) => console.log("error", error));
+
+      function click(e) {
+        console.log("$(e.target).attr(id)");
+
+        var settings = {
+          url:
+            "http://localhost:8082/public/findByFKOrderId/" +
+            $(e.target).attr("id"),
+          method: "GET",
+          timeout: 0,
+        };
+        $.ajax(settings).done(function (response) {
+          var string;
+          console.log(response);
+          for (let i of response) {
+            string += "<tr><td>" + i.product_name + "</td>";
+            string += "<td>" + i.count + "</td>";
+            string += "<td>" + i.total + "</td></tr>";
+          }
+          $("#tb2").html(string);
+        });
+      }
+    </script>
+  </body>
+</html>

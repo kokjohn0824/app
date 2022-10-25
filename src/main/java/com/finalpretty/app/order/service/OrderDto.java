@@ -18,7 +18,7 @@ public class OrderDto {
     private Integer total; // 訂單總金額
     private Integer ship; // 運送方式 1..自取 2..宅配
     private Integer paid; // 支付方式 1..現金 2..信用卡
-    private String address;
+    private String address; // 地址
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
     private Date create_date; // 訂單成立時間
     private Integer fk_member_id; // 會員外來鍵

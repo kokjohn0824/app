@@ -85,6 +85,7 @@
               th:each="product : ${productlist} "
             >
               <img
+                th:id="${product.product_id}"
                 th:src="@{'/downloadImage/'+${product.product_id}}"
                 alt=""
                 class="card-img"
@@ -211,7 +212,8 @@
  -->
     </div>
 
-    <script>
+    <script th:inline="javascript">
+      /*<![DATA[*/
       // ************************************************
       // Shopping Cart API
       // ************************************************
@@ -355,14 +357,22 @@
       // Add item
       $(".add-to-cart").click(function (event) {
         event.preventDefault();
+        let imgsrc = event.target.parentElement.parentElement
+          .getElementsByTagName("img")
+          .item(0).src;
+
+        let imgid = event.target.parentElement.parentElement
+          .getElementsByTagName("img")
+          .item(0).id;
+
         var name = $(this).data("name");
         var price = Number($(this).data("price"));
         var img = $(this).data("img");
-        console.log(img);
-        var product_id = Number($(this).data("product_id"));
-        console.log(product_id);
-        shoppingCart.addItemToCart(name, price, 1, img, product_id);
-        displayCart();
+        //console.log(img);
+        // var product_id = Number($(this).data("product_id"));
+        // console.log(product_id);
+        shoppingCart.addItemToCart(name, price, 1, img, imgid);
+        displayCart(imgid, imgsrc);
       });
 
       // Clear items
@@ -374,20 +384,23 @@
       function displayCart() {
         var cartArray = shoppingCart.listCart();
         var output = "";
-        for (var i in cartArray) {
+
+        for (i in cartArray) {
           console.log(cartArray[i].img + "+++++++++++++++++++");
           output +=
             "<tr>" +
+            "<td>" +
+            cartArray[i].product_id +
+            "</td>" +
             "<td>" +
             cartArray[i].name +
             "</td>" +
             "<td>(" +
             cartArray[i].price +
             ")</td>" +
-            '<td><img th:src="' +
-            "@{" +
+            '<td><img src="' +
             cartArray[i].img +
-            '}" height="200" width="200"/></td>' +
+            ' " height="200" width="200"/></td>' +
             "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" +
             cartArray[i].name +
             ">-</button>" +
@@ -443,6 +456,7 @@
       });
 
       displayCart();
+      /*]]>*/
     </script>
 
     <footer>

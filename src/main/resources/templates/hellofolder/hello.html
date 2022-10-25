@@ -113,6 +113,8 @@
             </div>
           </div>
         </form>
+        <button id="ecpaybtn" class="">ecpay</button>
+        <div id="ecpayresult"></div>
       </div>
     </div>
     <!-- 引入CKEditor -->
@@ -123,5 +125,34 @@
         <button type="submit">送出</button>
       </form>
     </div>
+    <script>
+      console.log("hihi");
+      document.getElementById("ecpaybtn").addEventListener("click", () => {
+        console.log("click!!");
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        // let registerdata = JSON.stringify({
+        //   account: accountInput.value,
+        //   email: emailInput.value,
+        //   password: passwordInput.value,
+        // });
+        let requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          // body: registerdata,
+          redirect: "follow",
+        };
+        fetch(`http://localhost:8082/public/ecpay/test`, requestOptions)
+          .then((response) => response.text())
+          .then((html) => {
+            let parser = new DOMParser();
+
+            html = html.replaceAll('type="hidden"', " ");
+            document.getElementById("ecpayresult").innerHTML = html;
+            // parser.parseFromString(html, "text/html");
+          })
+          .catch((error) => console.log("error", error));
+      });
+    </script>
   </body>
 </html>

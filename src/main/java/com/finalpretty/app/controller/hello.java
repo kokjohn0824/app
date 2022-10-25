@@ -1,22 +1,38 @@
 package com.finalpretty.app.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.finalpretty.app.ecpay.payment.integration.AllInOne;
+import com.finalpretty.app.ecpay.payment.integration.domain.AioCheckOutALL;
 import com.finalpretty.app.model.Users;
 
 @Controller
 public class hello {
 
+    @Autowired
+    protected HttpServletRequest request;
+
+    public static AllInOne all;
+
     // 範例網站的視圖解析Controller
     @GetMapping("/hello")
-    public String hello1(Model m) {
+    @ResponseBody
+    public String hello1(Model m, HttpServletRequest req) {
+
         // 取得username
         Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
@@ -26,7 +42,36 @@ public class hello {
             username = "訪客";
         }
         m.addAttribute("loginusername", username);
-        return "/hellofolder/hello";
+        // return "/hellofolder/hello";
+        return req.getServerName();
+    }
+
+    @GetMapping("/public/ecpay/test")
+    @ResponseBody
+    public String testEcpay(@RequestParam String mtn) {
+        if (mtn == null) {
+            mtn = "testComp124ssdsds1";
+        }
+        try {
+            all = new AllInOne(" ");
+            AioCheckOutALL obj = new AioCheckOutALL();
+            // FIXME:測試訂單應該要隨機生成字串
+            obj.setMerchantTradeNo(mtn);
+            obj.setMerchantTradeDate("2017/01/01 08:05:23");
+            obj.setTotalAmount("50");
+            obj.setTradeDesc("test Description");
+            obj.setItemName("TestItem");
+            // TODO:新增付款成功頁面
+            obj.setReturnURL("http://localhost:8082/");
+            obj.setNeedExtraPaidInfo("N");
+            obj.setClientBackURL("http://localhost:8082/");
+            String form = all.aioCheckOut(obj, null);
+            return form;
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @GetMapping("/Manager")

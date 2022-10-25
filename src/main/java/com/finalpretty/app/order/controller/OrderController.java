@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,9 +38,20 @@ public class OrderController {
         return "/order/orderAll";
     }
 
-    @PostMapping("public/addOrder")
-    public void addOrder(@ModelAttribute List<OrderDto> orderDto) {
-
+    @ResponseBody
+    @PostMapping("/public/api/addOrder")
+    public String addOrder(@RequestBody List<OrderDto> orderDto) {
+        for (OrderDto i : orderDto) {
+            System.out.println(i.getOrder_id());
+            System.out.println(i.getOrder_num());
+            System.out.println(i.getPaid());
+            System.out.println(i.getShip());
+            System.out.println(i.getTotal());
+            System.out.println(i.getCreate_date());
+            System.out.println(i.getAddress());
+            System.out.println(i.getFk_member_id());
+        }
+        return "hi";
     }
 
     @GetMapping("/memberOrder")

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -35,6 +36,11 @@ public class Sports {
 
 	@Column(name = "calorie")
 	private Integer calorie;
+
+	// 食物圖片
+	@Lob
+	@Column(name = "picture")
+	private byte[] picture;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sports", cascade = CascadeType.ALL)
 	private List<Sports_daily> sports_daily;

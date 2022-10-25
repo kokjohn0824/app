@@ -123,13 +123,14 @@ public class ProductController {
 		pDto.setPrice(product.getPrice());
 		pDto.setStock(product.getStock());
 		pDto.setText(product.getText());
+		pDto.setOnsale(product.getOnsale());
 		// m.addAttribute("product", product);
 		return pDto;
 	}
 
 	// 商品修改
 	@PostMapping("/updateProduct")
-	public String updateProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file) {
+	public String updateProduct(@ModelAttribute ProductDto product, @RequestParam("file") MultipartFile file) {
 
 		System.out.println("名稱" + product.getTitle());
 		System.out.println("種類" + product.getType());

@@ -1,98 +1,118 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:inline="text">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:replace="jsmodules"></div>
+    <style>
+        body {
+            background: url(/img/wallpaper.jpg) no-repeat;
+            background-color: black;
+            background-size: 100vw;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
-    <title>會員資料</title>
+        footer {
+            min-height: 100px;
+            background: PapayaWhip;
+        }
+
+        article {
+            flex: 1;
+        }
+    </style>
 </head>
 
+
 <body>
-    <div th:replace="component/navbar :: navbar"></div>
+    <div th:replace="component/navbar.html"></div>
 
-    <div class="container-lg" style="width: 50%; margin: 20px auto">
+    <article>
 
-        <h1>會員資料</h1>
-        <!-- <div>[[${member.member_id}]]</div> -->
-        <div class="container-lg" style="width: 800px;" th:fragment="form">
-            <form th:object="${member}" th:action="@{/member/page}" method="post" enctype="multipart/form-data">
-                <!-- <div class="form-floating mb-3">
+        <div th:replace="component/navbar :: navbar"></div>
+
+        <div class="container-lg" style="width: 50%; margin: 20px auto">
+
+            <h1>會員資料</h1>
+            <!-- <div>[[${member.member_id}]]</div> -->
+            <div class="container-lg" style="width: 800px;" th:fragment="form">
+                <form th:object="${member}" th:action="@{/member/page}" method="post" enctype="multipart/form-data">
+                    <!-- <div class="form-floating mb-3">
                             <input class="form-control" type="file" placeholder="請加入圖片" name="picture" />
                           </div> -->
-                <!-- <div class="form-floating mb-3">
+                    <!-- <div class="form-floating mb-3">
                             <input class="form-control" type="text" placeholder="帳號" name="title" required />
                             <label for="title" class="form-label"><b>帳號</b></label>
                           </div> -->
-                <!-- <div class="form-floating mb-3">
+                    <!-- <div class="form-floating mb-3">
                               <input class="form-control" type="password" placeholder="密碼" name="title" required />
                             <label for="title" class="form-label"><b>密碼</b></label>
                           </div> -->
-                <!-- <div class="form-floating mb-3">
+                    <!-- <div class="form-floating mb-3">
                               <input class="form-control" type="email" placeholder="電子郵件" name="title" required />
                             <label for="title" class="form-label"><b>電子郵件</b></label>
                           </div> -->
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="性別" name="gender" th:field="*{gender}"
-                        disabled />
-                    <label for="gender" class="form-label"><b>性別</b></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="年齡" name="age" th:field="*{age}" disabled />
-                    <label for="age" class="form-label"><b>年齡</b></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="身高" name="height" th:field="*{height}"
-                        disabled />
-                    <label for="height" class="form-label"><b>身高</b></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="體重" name="weight" th:field="*{weight}"
-                        disabled />
-                    <label for="weight" class="form-label"><b>體重</b></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" th:field="*{bodyFat}"
-                        disabled />
-                    <label for="bodyFat" class="form-label"><b>體脂肪</b></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat"
-                        th:field="*{visceralFat}" disabled />
-                    <label for="visceralFat" class="form-label"><b>內臟脂肪</b></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="肌肉量" name="muscleMass" th:field="*{muscleMass}"
-                        disabled />
-                    <label for="muscleMass" class="form-label"><b>肌肉量</b></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control" type="text" placeholder="VIP" name="becomeVIP" th:field="*{becomeVIP}"
-                        disabled />
-                    <label for="becomeVIP" class="form-label"><b>VIP</b></label>
-                </div>
-                <div>
-                    <input th:field="*{member_id}" type="hidden">
-                </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="性別" name="gender" th:field="*{gender}"
+                            disabled />
+                        <label for="gender" class="form-label"><b>性別</b></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="年齡" name="age" th:field="*{age}"
+                            disabled />
+                        <label for="age" class="form-label"><b>年齡</b></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="身高" name="height" th:field="*{height}"
+                            disabled />
+                        <label for="height" class="form-label"><b>身高</b></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="體重" name="weight" th:field="*{weight}"
+                            disabled />
+                        <label for="weight" class="form-label"><b>體重</b></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" th:field="*{bodyFat}"
+                            disabled />
+                        <label for="bodyFat" class="form-label"><b>體脂肪</b></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat"
+                            th:field="*{visceralFat}" disabled />
+                        <label for="visceralFat" class="form-label"><b>內臟脂肪</b></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="肌肉量" name="muscleMass"
+                            th:field="*{muscleMass}" disabled />
+                        <label for="muscleMass" class="form-label"><b>肌肉量</b></label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" placeholder="VIP" name="becomeVIP"
+                            th:field="*{becomeVIP}" disabled />
+                        <label for="becomeVIP" class="form-label"><b>VIP</b></label>
+                    </div>
+                    <div>
+                        <input th:field="*{member_id}" type="hidden">
+                    </div>
 
-                <!-- <button type="reset" class="btn btn-secondary">重置</button> -->
-                <!-- <button type="submit" class="signupbtn btn btn-primary">送出</button> -->
-            </form>
+                    <!-- <button type="reset" class="btn btn-secondary">重置</button> -->
+                    <!-- <button type="submit" class="signupbtn btn btn-primary">送出</button> -->
+                </form>
+            </div>
         </div>
-    </div>
 
 
+    </article>
 
-
-
-
-
-
-
-
+    <footer>
+        <div th:replace="component/footer"></div>
+    </footer>
 </body>
 
 </html>

@@ -1,0 +1,30 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "此為Springboot 專案",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kokjohn0824/app.git"
+  },
+  "author": "Alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kokjohn0824/app/issues"
+  },
+  "homepage": "https://github.com/kokjohn0824/app#readme",
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "browser-sync": "^2.27.10",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-environments": "^1.0.1",
+    "gulp-terser": "^2.1.0",
+    "gulp-uglifycss": "^1.1.0",
+    "gulp-watch": "^5.0.1"
+  }
+}

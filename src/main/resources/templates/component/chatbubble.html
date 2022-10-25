@@ -10,7 +10,7 @@
 
     /* Button used to open the chat form - fixed at the bottom of the page */
     .open-button {
-      background-color: #0891b2;
+      background-color: black;
       border-radius: 80px;
       color: white;
       padding: 16px 20px;
@@ -35,7 +35,7 @@
 
       width: 100%;
       max-width: 450px;
-      background: #282639;
+      background: white;
       border-radius: 10px;
       box-shadow: #292739 0 10px 20px;
     }
@@ -112,7 +112,7 @@
       id="information"
       style="height: 400px; overflow: scroll"
     ></div>
-    <div class="form-container">
+    <div class="messageinputbox">
       <div class="input-group">
         <input
           type="text"
@@ -120,6 +120,7 @@
           id="content"
           placeholder="想說點什麼..."
           name="msg"
+          autofocus
         />
         <button
           id="sharedbtn"

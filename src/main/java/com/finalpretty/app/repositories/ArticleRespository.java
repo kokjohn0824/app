@@ -1,11 +1,11 @@
 package com.finalpretty.app.repositories;
 
 import java.util.List;
-
-import javax.transaction.Transactional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.finalpretty.app.model.Article;
 

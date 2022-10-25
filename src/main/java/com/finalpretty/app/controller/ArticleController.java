@@ -52,7 +52,6 @@ public class ArticleController {
 	// 顯示全部文章的圖片
 	@GetMapping("/showImage/{id}")
 	public ResponseEntity<byte[]> showArticleImage(@PathVariable Integer id) {
-		System.out.println();
 		Article article = articleR.findById(id).get();
 		byte[] photoFile = article.getPicture();
 		HttpHeaders headers = new HttpHeaders();
@@ -130,10 +129,19 @@ public class ArticleController {
 
 	// 顯示選取文章
 	@GetMapping("/article/show")
-	public String showArticle(@RequestParam(name = "article_id") Integer article_id, Model m) {
+	public String showArticle(@RequestParam(name = "article_id") Integer article_id,
+			@RequestParam(name = "member_id") Integer member_id, Model m) {
+		Member member = memberR.findById(member_id).get();
 		Optional<Article> optional = articleR.findById(article_id);
 		Article article = optional.get();
 		m.addAttribute("article", article);
+
+		Set<Article> ss = member.getArticles();
+		if (ss.contains(article)) {
+			m.addAttribute("bool", "ok");
+		} else {
+			m.addAttribute("bool", "null");
+		}
 		return "/article/frontEndShowArticle";
 	}
 
@@ -148,10 +156,12 @@ public class ArticleController {
 			Article article = articleR.findById(article_id).get();
 			Set<Article> like = member.getArticles();
 			like.add(article);
+
 			ArticleResponse ar = new ArticleResponse();
 			ar.setArticle_id(article_id);
 			ar.setMember_id(member_id);
 			articleR.save(article);
+
 			return ar;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -159,28 +169,46 @@ public class ArticleController {
 		return null;
 	}
 
-	// // 按讚文章
+	// 取消按讚文章
+	@ResponseBody
+	@PostMapping("/public/article/delike/{member_id}/{article_id}")
+	public ArticleResponse delikeArticle(
+			@PathVariable(name = "article_id") Integer article_id,
+			@PathVariable(name = "member_id") Integer member_id) {
+		try {
+			Member member = memberR.findById(member_id).get();
+			Article article = articleR.findById(article_id).get();
+			Set<Article> ss = member.getArticles();
+			ss.remove(article);
+			ArticleResponse ar = new ArticleResponse();
+			ar.setArticle_id(article_id);
+			ar.setMember_id(member_id);
+			articleR.save(article);
+
+			return ar;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	// 取消按讚文章
 	// @ResponseBody
-	// @PostMapping("/public/article/delike/{member_id}/{article_id}")
-	// public ArticleResponse delikeArticle(
+	// @GetMapping("/public/article/findlike/{member_id}/{article_id}")
+	// public boolean findLikeArticle(
 	// @PathVariable(name = "article_id") Integer article_id,
 	// @PathVariable(name = "member_id") Integer member_id) {
-	// try {
+	// System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
+	// System.out.println(article_id);
+	// System.out.println(member_id);
+	// System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
 	// Member member = memberR.findById(member_id).get();
-	// Article article = articleR.findById(article_id).get();
-	// // article.setMembers(null);
-
-	// Set<Member> ss = article.getMembers();
-	// ss.remove(member);
-	// ArticleResponse ar = new ArticleResponse();
-	// ar.setArticle_id(article_id);
-	// ar.setMember_id(member_id);
-	// articleR.save(article);
-	// return ar;
-	// } catch (Exception e) {
-	// e.printStackTrace();
+	// Set<Article> ss = member.getArticles();
+	// if (ss != null) {
+	// return true;
+	// } else {
+	// return false;
 	// }
-	// return null;
 	// }
 
 	// =============================================================================================

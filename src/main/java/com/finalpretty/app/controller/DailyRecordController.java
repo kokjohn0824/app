@@ -91,10 +91,11 @@ public class DailyRecordController {
     }
 
     @PostMapping("/food/edit")
-    public String editArticlePost(@RequestParam(name = "food_id") Integer food_id,
+    public String editArticlePost(
+            @RequestParam(name = "food_id") Integer food_id,
             @RequestParam(name = "foodname") String foodname,
             @RequestParam(name = "calorie") Integer calorie,
-            @RequestParam(name = "file") MultipartFile picture,
+            @RequestParam(name = "picture") MultipartFile picture,
             Model model) {
         Food food = new Food();
         try {
@@ -177,7 +178,7 @@ public class DailyRecordController {
     public String editSportsPost(@RequestParam(name = "sports_id") Integer sports_id,
             @RequestParam(name = "sportsname") String sportsname,
             @RequestParam(name = "calorie") Integer calorie,
-            @RequestParam(name = "file") MultipartFile picture,
+            @RequestParam(name = "picture") MultipartFile picture,
             Model model) {
         Sports sports = new Sports();
         try {

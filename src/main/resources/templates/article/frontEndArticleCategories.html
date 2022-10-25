@@ -22,6 +22,11 @@
   <body th:inline="text">
     <div th:replace="component/navbar :: navbar"></div>
     <!-- <div style="width: 100%; top: 76px"></div> -->
+    <input
+      id="member"
+      type="hidden"
+      th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
+    />
     <div class="top">
       <div class="container-lg" style="margin: 20px auto">
         <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -70,7 +75,7 @@
                   th:text="${article.text}"
                 ></p>
                 <a
-                  th:href="@{'/article/show?article_id='+${article.article_id}}"
+                  th:href="@{'/article/show?article_id='+${article.article_id}+'&member_id='+${#authentication.getPrincipal().getFkMember().getMember_id()}}"
                   class="btn btn-primary"
                   >Read more</a
                 >

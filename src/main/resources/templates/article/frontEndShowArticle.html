@@ -23,6 +23,7 @@
           th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
         />
         <input id="article" th:field="${article.article_id}" type="hidden" />
+
         <img
           th:src="@{'/showImage/'+${article.article_id}}"
           height="400px"
@@ -40,9 +41,30 @@
             th:text="${article.create_date}"
             itemprop="datePublished"
           ></time>
-          <button name="like">收藏</button
-          ><button name="delike">取消</button></span
-        >
+          <!-- <img
+            name="cleanAll"
+            id="idimg1"
+            th:src="@{/img/other/star.gif}"
+            height="30px"
+          /> -->
+
+          <span id="sapn" th:name="${bool}" th:if="${bool} eq 'ok'">
+            <img
+              name="cleanAll"
+              id="idimg1"
+              th:src="@{/img/other/chngstar.gif}"
+              height="30px"
+            />
+          </span>
+          <span th:if="${bool} eq 'null'">
+            <img
+              name="cleanAll"
+              id="idimg1"
+              th:src="@{/img/other/star.gif}"
+              height="30px"
+            />
+          </span>
+        </span>
         <p id="resulthtml" th:text="${article.text}"></p>
       </div>
     </div>
@@ -50,7 +72,7 @@
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;
 
-      $("button[name='like']").click(function (e) {
+      $("img[name='cleanAll']").click(function (e) {
         // var member = $(e.target).attr("id");
         // var myHeaders = new Headers();
         var member = $("#member").val();
@@ -75,7 +97,7 @@
         });
       });
 
-      $("button[name='delike']").click(function (e) {
+      $("img[name='cleanAll']").dblclick(function (e) {
         // var member = $(e.target).attr("id");
         // var myHeaders = new Headers();
         var member = $("#member").val();
@@ -99,6 +121,29 @@
           console.log(response);
         });
       });
+
+      let picture = document.getElementById("idimg1");
+      document.addEventListener("DOMContentLoaded", function () {
+        picture.addEventListener("click", Click);
+        var modals = document.getElementById("idimg1");
+        modals.addEventListener("dblclick", clean);
+      });
+
+      function Click() {
+        picture.removeEventListener("click", Click);
+        picture.src = "/img/other/chngstar.gif";
+      }
+
+      function clean() {
+        picture.src = "/img/other/star.gif";
+        picture.addEventListener("click", Click);
+        var modals = document.getElementById("idimg1");
+        modals.addEventListener("dblclick", clean);
+      }
+
+      let sss =
+        "@{'/public/article/findlike/'+${#authentication.getPrincipal().getFkMember().getMember_id()}+'/'+${article.article_id}}";
+      console.log($("#sapn").attr("name"));
     </script>
   </body>
 </html>

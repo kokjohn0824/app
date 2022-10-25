@@ -5,154 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hello</title>
-    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
     <div th:replace="jsmodules"></div>
-    <!-- 利用th:href來引入css , 地址使用 @{} 為static資料夾下 -->
-    <link rel="stylesheet" th:href="@{/css/hello.css}" />
-    <!-- defer 屬性可以將js檔案 放在head標籤內而正常運行-->
-    <!-- script 原本的src屬性改爲使用 th:src-->
+    <link rel="stylesheet" th:href="@{/css/style.build.tailwind.css}" />
     <script defer th:src="@{/js/hello.js}"></script>
+    <div th:replace="jsmodules"></div>
+    <style>
+      body {
+        background: url(/img/wallpaper.jpg) no-repeat;
+        background-color: black;
+        background-size: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      footer {
+        min-height: 100px;
+        background: PapayaWhip;
+      }
+      article {
+        flex: 1;
+      }
+    </style>
   </head>
-  <body th:inline="text">
-    <div th:replace="component/navbar"></div>
+  <body>
+    <div th:replace="component/navbar.html"></div>
 
-    <div class="container-lg">
-      <!-- 在標籤內加上 th:fragment 來標明模板片段 -->
-      <div th:fragment="form">
-        <!-- form 表單 action屬性改為使用 th:action -->
-        <form
-          class=""
-          method="post"
-          id="registerForm"
-          action="#"
-          th:action="@{/hello}"
-        >
-          <div class="" style="width: 50%; margin: 20px auto">
-            <!-- th:if 搭配 th:text 來顯示內容 -->
-            <div th:if="${username} != null">
-              <!-- 以下等同： <h1>您好，<span th:text="${username}"></span></h1> -->
-              <h1>您好，[[${username}]]</h1>
-            </div>
-            <div th:if="${loginusername} != null">
-              <!-- 以下等同： <h1>您好，<span th:text="${username}"></span></h1> -->
-              <h1>您好，[[${loginusername}]]</h1>
-            </div>
-            <h1>註冊頁面</h1>
-            <p>請輸入資料來註冊帳號</p>
-            <hr />
-            <div class="input-group mb-3">
-              <span class="input-group-text">姓名</span>
-              <input
-                class="form-control"
-                type="text"
-                placeholder="姓"
-                name="firstName"
-                required
-              />
-              <input
-                class="form-control"
-                type="text"
-                placeholder="名"
-                name="lastName"
-                required
-              />
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="請輸入email"
-                name="email"
-                required
-              />
-              <label for="email" class="form-label"><b>Email</b></label>
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                class="form-control"
-                type="password"
-                placeholder="請輸入密碼"
-                name="password"
-                required
-              />
-              <label for="psw" class="form-label"><b>Password</b></label>
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                class="form-control"
-                type="password"
-                placeholder="請重複輸入密碼"
-                name="psw-repeat"
-                required
-              />
-              <label for="psw-repeat" class="form-label"
-                ><b>請輸入密碼</b></label
-              >
-            </div>
+    <article>
+      <!-- 網站內文放這裡 -->
+      <h1 class="text-2xl text-red-400 text-center">hello tailwind!</h1>
+    </article>
 
-            <label>
-              <input
-                type="checkbox"
-                checked="checked"
-                name="remember"
-                style="margin-bottom: 15px"
-              />
-              記住我
-            </label>
-
-            <p><br /><span id="formResponse" style="color: red"></span></p>
-
-            <!-- data-bs-dismiss="modal" 
-              clearfix
-              -->
-            <div class="">
-              <button type="reset" class="btn btn-secondary">重置</button>
-              <button type="submit" class="signupbtn btn btn-primary">
-                送出
-              </button>
-            </div>
-          </div>
-        </form>
-        <button id="ecpaybtn" class="">ecpay</button>
-        <div id="ecpayresult"></div>
-      </div>
-    </div>
-    <!-- 引入CKEditor -->
-    <div class="container-lg" style="width: 800px">
-      <form action="#" th:action="@{/editorResult}" method="post">
-        <textarea name="content" id="editor"></textarea>
-        <button type="reset">重置</button>
-        <button type="submit">送出</button>
-      </form>
-    </div>
-    <script>
-      console.log("hihi");
-      document.getElementById("ecpaybtn").addEventListener("click", () => {
-        console.log("click!!");
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-        // let registerdata = JSON.stringify({
-        //   account: accountInput.value,
-        //   email: emailInput.value,
-        //   password: passwordInput.value,
-        // });
-        let requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          // body: registerdata,
-          redirect: "follow",
-        };
-        fetch(`http://localhost:8082/public/ecpay/test`, requestOptions)
-          .then((response) => response.text())
-          .then((html) => {
-            let parser = new DOMParser();
-
-            html = html.replaceAll('type="hidden"', " ");
-            document.getElementById("ecpayresult").innerHTML = html;
-            // parser.parseFromString(html, "text/html");
-          })
-          .catch((error) => console.log("error", error));
-      });
-    </script>
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
   </body>
 </html>

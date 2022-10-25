@@ -15,6 +15,12 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<frontend-maven-plugin.version>1.8.0</frontend-maven-plugin.version>
+		<frontend-maven-plugin.nodeVersion>v14.15.4</frontend-maven-plugin.nodeVersion>
+		<frontend-maven-plugin.npmVersion>6.10.3</frontend-maven-plugin.npmVersion>
+		<node.url>https://nodejs.org/dist/</node.url>
+		<node.version>v18.0.0</node.version>
+		<npm.registry.url>https://registry.npmjs.org/</npm.registry.url>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -94,6 +100,56 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>**/style.tailwind.css</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.github.eirslett</groupId>
+					<artifactId>frontend-maven-plugin</artifactId>
+					<version>${frontend-maven-plugin.version}</version>
+					<configuration>
+						<nodeVersion>${node.version}</nodeVersion>
+						<downloadRoot>${node.url}</downloadRoot>
+					</configuration>
+					<executions>
+						<execution>
+							<id>install-node-and-npm</id>
+							<goals>
+								<goal>install-node-and-npm</goal>
+							</goals>
+							<phase>generate-resources</phase>
+						</execution>
+						<execution>
+							<id>set-npm-registry</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<phase>generate-resources</phase>
+							<configuration>
+								<arguments>config set registry=${npm.registry.url}</arguments>
+							</configuration>
+						</execution>
+						<execution>
+							<id>npm run build</id>
+							<goals>
+								<goal>npm</goal>
+							</goals>
+							<phase>compile</phase>
+							<configuration>
+								<arguments>run build:postcss</arguments>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -107,7 +163,10 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>

@@ -1,64 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Type</title>
-    <div th:replace="jsmodules"></div>
-    <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
-    <style>
-      .top {
-        width: 100%;
-        margin-top: 76px;
-      }
-    </style>
-  </head>
-  <body th:inline="text">
-    <div th:replace="component/navbar :: navbar"></div>
-    <div class="top">
-      <h1>部位影片</h1>
-      <div class="container-lg">
-        <tr th:each="video : ${list}">
-          <article id="" class="" itemtype="" itemscope="">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Type</title>
+  <div th:replace="jsmodules"></div>
+  <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
+  <style>
+    .top {
+      width: 100%;
+      margin-top: 76px;
+    }
+  </style>
+</head>
+
+<body th:inline="text">
+  <div th:replace="component/navbar :: navbar"></div>
+  <div class="top">
+    <h1>部位影片</h1>
+    <div class="container-lg">
+      <tr th:each="video : ${list}">
+        <article id="" class="" itemtype="" itemscope="">
+          <div class="">
             <div class="">
-              <div class="">
-                <a th:href="@{'/video/show?video_id='+${video.video_id}}">
-                  <img
-                    th:src="@{'/showVideoImage/'+${video.video_id}}"
-                    height="200px"
-                    class=""
-                    alt=""
-                    loading="lazy"
-                    itemprop="image"
-                  />
-                </a>
-              </div>
-              <header class="entry-header" aria-label="內容">
-                <h2
-                  class="entry-title"
-                  itemprop="headline"
-                  th:text="${video.title}"
-                >
-                  <a th:href="@{'/video/show?video_id='+${video.video_id}}"></a>
-                </h2>
-                <div class="entry-meta">
-                  <span class="posted-on"
-                    ><time
-                      class="entry-date published"
-                      th:text="${video.type}"
-                      itemprop="datePublished"
-                    ></time
-                  ></span>
-                </div>
-              </header>
-              <div class="entry-summary" itemprop="text">
-                <p th:text="${video.body_parts}"></p>
-              </div>
+              <a th:href="@{'/public/video/show?video_id='+${video.video_id}}">
+                <img th:src="@{'/public/showVideoImage/'+${video.video_id}}" height="200px" class="" alt=""
+                  loading="lazy" itemprop="image" />
+              </a>
             </div>
-          </article>
-        </tr>
-      </div>
+            <header class="entry-header" aria-label="內容">
+              <h2 class="entry-title" itemprop="headline" th:text="${video.title}">
+                <a th:href="@{'/video/show?video_id='+${video.video_id}}"></a>
+              </h2>
+              <div class="entry-meta">
+                <span class="posted-on"><time class="entry-date published" th:text="${video.type}"
+                    itemprop="datePublished"></time></span>
+              </div>
+            </header>
+            <div class="entry-summary" itemprop="text">
+              <p th:text="${video.body_parts}"></p>
+            </div>
+          </div>
+        </article>
+      </tr>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

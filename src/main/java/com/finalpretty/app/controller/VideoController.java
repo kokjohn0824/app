@@ -109,13 +109,13 @@ public class VideoController {
     // =============================================================================================
     // 前台
     // 顯示影片分類
-    @GetMapping("/video/categories")
+    @GetMapping("/public/video/categories")
     public String videoCategories() {
         return "/video/frontEndVideoCategories";
     }
 
     // 選擇分類
-    @GetMapping("/video/type/{type}")
+    @GetMapping("/public/video/type/{type}")
     public String videoCategoriesByType(@PathVariable String type, Model m) {
         List<Video> list = videoR.findByType(type);
         m.addAttribute("list", list);
@@ -123,7 +123,7 @@ public class VideoController {
     }
 
     // 顯示影片的預覽圖
-    @GetMapping("/showVideoImage/{id}")
+    @GetMapping("/public/showVideoImage/{id}")
     public ResponseEntity<byte[]> showVideoImage(@PathVariable Integer id) {
         System.out.println();
         Video video = videoR.findById(id).get();
@@ -134,7 +134,7 @@ public class VideoController {
     }
 
     // 顯示選取影片
-    @GetMapping("/video/show")
+    @GetMapping("/public/video/show")
     public String showVideo(@RequestParam(name = "video_id") Integer video_id, Model m) {
         Optional<Video> optional = videoR.findById(video_id);
         Video video = optional.get();

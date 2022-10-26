@@ -177,7 +177,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 articleRespository.save(a8);
 
                 Product product = new Product();
-                product.setTitle("深海魚油");
+                product.setTitle("珍珠鮮奶茶");
                 product.setType("運動食品");
                 product.setPrice(599);
                 product.setStock(1000);
@@ -188,6 +188,15 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
                 pDao.save(product);
 
+                Product product2 = new Product();
+                product2.setTitle("香草冰淇淋");
+                product2.setType("運動食品");
+                product2.setPrice(700);
+                product2.setStock(50);
+                product2.setText("好吃好吃真好吃");
+                product2.setOnsale(0);
+                product2.setPicture(Files.readAllBytes(saveFilePath.toPath()));
+                pDao.save(product2);
         }
 
 }

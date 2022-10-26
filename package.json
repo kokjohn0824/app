@@ -4,8 +4,10 @@
   "description": "此為Springboot 專案",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:postcss": "NODE_ENV=production postcss src/main/resources/static/css/style.tailwind.css -o target/classes/static/css/style.build.tailwind.css"
+    "test": "echo \"hello this is test 1\" && exit 1",
+    "build:postcss": "NODE_ENV=production postcss src/main/resources/static/css/style.tailwind.css -o target/classes/static/css/style.build.tailwind.css",
+    "watch:html": "onchange 'src/main/resources/templates/**/*.html' -- npm-run-all --serial build:css build:html",
+    "watch:serve": "browser-sync start --no-inject-changes --proxy localhost:8082 --files 'target/classes/templates' 'target/classes/static'"
   },
   "repository": {
     "type": "git",

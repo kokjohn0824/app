@@ -1,9 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  prefix: "tw-",
   mode: process.env.NODE_ENV ? "jit" : undefined,
-  purge: ["./src/**/*.html", "./src/**/*.js"],
-  darkMode: false,
-  content: [],
+  content: ["./src/**/*.html", "./src/**/*.js"],
   theme: {
     extend: {},
   },

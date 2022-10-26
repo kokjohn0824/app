@@ -176,36 +176,79 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a8.setPicture(article8);
                 articleRespository.save(a8);
 
+                // 產品
                 Product product = new Product();
-                product.setTitle("珍珠鮮奶茶");
-                product.setType("運動食品");
-                product.setPrice(599);
-                product.setStock(1000);
-                product.setText("此產品暫無簡介");
+                product.setTitle("雙速咖啡因雙層錠");
+                product.setType("保健食品");
+                product.setPrice(840);
+                product.setStock(500);
+                product.setText("專為耐力運動設計，每錠200mg咖啡因");
                 product.setOnsale(0);
-                String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/lv1.png";
+                String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p1.jpg";
                 File saveFilePath = new File(saveFiledir);
-                product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
-                pDao.save(product);
-                product = new Product();
-                product.setTitle("奶茶乳清");
-                product.setType("運動食品");
-                product.setPrice(299);
-                product.setStock(1000);
-                product.setText("此產品暫無簡介");
-                product.setOnsale(0);
                 product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
                 pDao.save(product);
 
                 Product product2 = new Product();
-                product2.setTitle("香草冰淇淋");
-                product2.setType("運動食品");
-                product2.setPrice(700);
+                product2.setTitle("義美生醫乳清蛋白飲");
+                product2.setType("保健食品");
+                product2.setPrice(450);
                 product2.setStock(50);
-                product2.setText("好吃好吃真好吃");
+                product2.setText("無添加香料、色素、甜味劑、奶精");
                 product2.setOnsale(0);
-                product2.setPicture(Files.readAllBytes(saveFilePath.toPath()));
+                String saveFiledir2 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p2.jpg";
+                File saveFilePath2 = new File(saveFiledir2);
+                product2.setPicture(Files.readAllBytes(saveFilePath2.toPath()));
                 pDao.save(product2);
+
+                Product product3 = new Product();
+                product3.setTitle("善存成人綜合維他命錠");
+                product3.setType("保健食品");
+                product3.setPrice(789);
+                product3.setStock(50);
+                product3.setText("特別添加番茄紅素、葉黃素、B群");
+                product3.setOnsale(0);
+                String saveFiledir3 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p3.jpg";
+                File saveFilePath3 = new File(saveFiledir3);
+                product3.setPicture(Files.readAllBytes(saveFilePath3.toPath()));
+                pDao.save(product3);
+
+                Product product4 = new Product();
+                product4.setTitle("IVENOR_舒活關節霜");
+                product4.setType("保健用品");
+                product4.setPrice(1080);
+                product4.setStock(50);
+                product4.setText("直達筋骨 靈活好動");
+                product4.setOnsale(0);
+                String saveFiledir4 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p4.jpg";
+                File saveFilePath4 = new File(saveFiledir4);
+                product4.setPicture(Files.readAllBytes(saveFilePath4.toPath()));
+                pDao.save(product4);
+
+                Product product5 = new Product();
+                product5.setTitle("朵麗輕纖錠");
+                product5.setType("保健食品");
+                product5.setPrice(419);
+                product5.setStock(50);
+                product5.setText("口感升級～多酚乳酸味");
+                product5.setOnsale(0);
+                String saveFiledir5 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p5.jpg";
+                File saveFilePath5 = new File(saveFiledir5);
+                product5.setPicture(Files.readAllBytes(saveFilePath5.toPath()));
+                pDao.save(product5);
+
+                Product product6 = new Product();
+                product6.setTitle("DHC濃縮薑黃");
+                product6.setType("保健食品");
+                product6.setPrice(356);
+                product6.setStock(50);
+                product6.setText("台灣DHC直供．品質保證");
+                product6.setOnsale(0);
+                String saveFiledir6 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p6.jpg";
+                File saveFilePath6 = new File(saveFiledir6);
+                product6.setPicture(Files.readAllBytes(saveFilePath6.toPath()));
+                pDao.save(product6);
+
         }
 
 }

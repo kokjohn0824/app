@@ -107,8 +107,44 @@
 					</tr>
 				</table>
 
+				<!-- <div th:replace="member/page :: pager" th:remove="tag"></div> -->
 
-				<div th:replace="member/page :: pager" th:remove="tag"></div>
+				<div class="model-footer no-margin-top">
+					<ul class="pagination pull-right no-margin">
+
+						<li>
+							<a th:href="'/backendMemberShowAll.html?pageNum=0'">首頁</a>
+						</li>
+
+						<li th:if="${members.hasPrevious}">
+							<a th:href="'/backendMemberShowAll.html?pageNum=0'">上一頁</a>
+						</li>
+
+						<!-- 中間頁 -->
+						<li>
+							<a></a>
+						</li>
+
+						<li>
+							<a>下一頁</a>
+						</li>
+
+						<li>
+							<a>尾頁</a>
+						</li>
+
+
+
+
+					</ul>
+				</div>
+
+
+
+
+
+
+
 
 			</div>
 

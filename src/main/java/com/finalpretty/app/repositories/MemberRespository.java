@@ -31,4 +31,6 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
     @Query("select u from Member u")
     Page<Member> findList(Pageable pageable);
 
+    // Page<Member> getMemberList(Integer pageNum, Integer pageSize);
+
 }

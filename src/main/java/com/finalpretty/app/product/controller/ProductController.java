@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.Response.ProductDto;
 import com.finalpretty.app.model.Product;
-import com.finalpretty.app.product.service.ProductDto;
 import com.finalpretty.app.product.service.ProductService;
 
 @Controller

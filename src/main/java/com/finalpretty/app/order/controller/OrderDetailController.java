@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.finalpretty.app.Response.OrderDetailDto;
 import com.finalpretty.app.model.Order_detail;
-import com.finalpretty.app.order.service.OrderDetailDto;
 import com.finalpretty.app.order.service.OrderDetailService;
 
 @Controller

@@ -1,21 +1,22 @@
 package com.finalpretty.app.order.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.finalpretty.app.model.Order;
-import com.finalpretty.app.order.service.OrderDto;
+import com.finalpretty.app.Response.OrderDetailDto;
+import com.finalpretty.app.Response.OrderDto;
+import com.finalpretty.app.order.service.OrderDetailService;
 import com.finalpretty.app.order.service.OrderService;
-import com.finalpretty.app.security.UsersRepository;
+import com.finalpretty.app.request.MemberOrderDto;
 
 @Controller
 public class OrderController {
@@ -24,7 +25,7 @@ public class OrderController {
     private OrderService oService;
 
     @Autowired
-    private UsersRepository uDao;
+    private OrderDetailService detailService;
 
     // @GetMapping("/admin/orderAll")
     @GetMapping("/public/orderAll")
@@ -40,18 +41,20 @@ public class OrderController {
 
     @ResponseBody
     @PostMapping("/public/api/addOrder")
-    public String addOrder(@RequestBody List<OrderDto> orderDto) {
-        for (OrderDto i : orderDto) {
-            System.out.println(i.getOrder_id());
-            System.out.println(i.getOrder_num());
-            System.out.println(i.getPaid());
-            System.out.println(i.getShip());
-            System.out.println(i.getTotal());
-            System.out.println(i.getCreate_date());
-            System.out.println(i.getAddress());
-            System.out.println(i.getFk_member_id());
+    public Boolean addOrder(@RequestBody List<MemberOrderDto> memDto) {
+        // oService.addOrder(memDto);
+        OrderDto orderDto = new OrderDto();
+        List<OrderDetailDto> detailDto = null;
+        for (MemberOrderDto mem : memDto) {
+            if (mem.getOrderDto() != null) {
+                orderDto = mem.getOrderDto();
+            }
+            detailDto = mem.getDetailDto();
         }
-        return "hi";
+        Integer order_id = oService.addOrder(orderDto);
+        // detailService.addDetail(null, order_id);
+        return detailService.addDetail(detailDto, order_id);
+        // return true;
     }
 
     @GetMapping("/memberOrder")

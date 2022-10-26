@@ -69,10 +69,10 @@
             <h1><span class="text-dark">登入</h1>
           </div>
           <form class="px-4 py-3" method="post" action="/perform_login">
-            <div class="form-group p-2">
+            <div class="form-group p-3">
               <input
                 type="text"
-                class="form-control tw-text-yellow-300"
+                class="form-control "
                 id="exampleDropdownFormEmail1"
                 placeholder="請輸入帳號或email..."
                 name="username"
@@ -80,7 +80,7 @@
                 autofocus
               />
             </div>
-            <div class="form-group p-2">
+            <div class="form-group p-3">
               <input
                 type="password"
                 class="form-control"
@@ -97,11 +97,13 @@
           <div class="d-flex justify-content-around">
             <div class="flex-item">
               還沒有帳號？
-              <a class="text-info" href="#">註冊</a>
+              <a class="text-info" th:href="@{/public/register}">註冊</a>
             </div>
             <div class="flex-item">
               還是
-              <a class="text-info" href="#">忘記密碼？</a>
+              <span type="button" class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                忘記密碼？
+              </span>
             </div>
           </div>
           <div
@@ -118,7 +120,38 @@
           </div>
         </div>
       </div>
+      
     </article>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">寄送密碼確認信</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="px-4 py-3" method="post" action="/perform_login">
+              <div class="form-group p-3">
+                <input
+                  type="text"
+                  class="form-control "
+                  id="exampleDropdownFormEmail1"
+                  placeholder="請輸入帳號或email..."
+                  name="username"
+                  required
+                  autofocus
+                />
+              </div>
+              <div class="form-group p-2">
+                <button type="submit" class="btn btn-primary w-100">寄送確認信</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
     <footer>
       <div th:replace="component/footer"></div>
     </footer>

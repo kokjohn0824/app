@@ -1,4 +1,4 @@
-package com.finalpretty.app.order.service;
+package com.finalpretty.app.Response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

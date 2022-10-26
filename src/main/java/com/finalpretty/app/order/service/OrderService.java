@@ -1,12 +1,18 @@
 package com.finalpretty.app.order.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.finalpretty.app.Response.OrderDto;
+import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Order;
+import com.finalpretty.app.repositories.MemberRespository;
 import com.finalpretty.app.repositories.OrderRespository;
 
 @Service
@@ -14,6 +20,10 @@ public class OrderService {
 
     @Autowired
     private OrderRespository oDao;
+    @Autowired
+    private MemberRespository memDao;
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
     public List<OrderDto> orderAll() {
         List<Order> oList = oDao.findAll();
@@ -56,6 +66,22 @@ public class OrderService {
         } else {
             return null;
         }
+    }
+
+    public Integer addOrder(OrderDto orderDto) {
+        Date date = new Date();
+        Order order = new Order();
+        Optional<Member> mem = memDao.findById(orderDto.getFk_member_id());
+        order.setMember(mem.get());
+        order.setOrder_num(Long.parseLong(dateFormat.format(date)));
+        order.setPaid(orderDto.getPaid());
+        order.setShip(orderDto.getShip());
+        order.setTotal(orderDto.getTotal());
+        order.setCreate_date(date);
+        order.setAddress(orderDto.getAddress());
+        oDao.save(order);
+        order = oDao.findOrderByNew(orderDto.getFk_member_id());
+        return order.getOrder_id();
     }
 
 }

@@ -1,13 +1,15 @@
-package com.finalpretty.app.order.service;
+package com.finalpretty.app.Response;
 
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter

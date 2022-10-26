@@ -27,7 +27,7 @@ public class hello {
 
     // 範例網站的視圖解析Controller
     @GetMapping("/hello")
-    @ResponseBody
+    // @ResponseBody
     public String hello1(Model m, HttpServletRequest req) {
 
         // 取得username
@@ -39,8 +39,7 @@ public class hello {
             username = "訪客";
         }
         m.addAttribute("loginusername", username);
-        // return "/hellofolder/hello";
-        return req.getServerName();
+        return "/hellofolder/hello";
     }
 
     @GetMapping("/public/ecpay/test")

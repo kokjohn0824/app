@@ -19,7 +19,7 @@
 		<frontend-maven-plugin.nodeVersion>v14.15.4</frontend-maven-plugin.nodeVersion>
 		<frontend-maven-plugin.npmVersion>6.10.3</frontend-maven-plugin.npmVersion>
 		<node.url>https://nodejs.org/dist/</node.url>
-		<node.version>v18.0.0</node.version>
+		<node.version>v18.12.0</node.version>
 		<npm.registry.url>https://registry.npmjs.org/</npm.registry.url>
 	</properties>
 	<dependencies>

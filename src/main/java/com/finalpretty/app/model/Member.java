@@ -64,7 +64,7 @@ public class Member {
 	@Column(name = "becomeVIP")
 	private Integer becomeVIP;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "fkMember")
 	private Users users;
 
 	// 跟文章多對多的連動

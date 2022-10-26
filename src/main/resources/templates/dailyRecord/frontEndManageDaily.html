@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Article</title>
+    <div th:replace="jsmodules"></div>
+    <style>
+      .table_tit {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .resulthtml {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div th:replace="component/navbar :: navbar"></div>
+    <input
+      id="member"
+      type="hidden"
+      th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
+    />
+    <a class="btn btn-dark" style="background-color: #f45b69" href="/daily/add"
+      >新增日記</a
+    >
+    <div class="" style="width: 50%; margin: 20px auto">
+      <h1>所有日記</h1>
+      <div class="container-lg" style="width: 800px" th:fragment="form">
+        <table border="2" cellpadding="2">
+          <tr>
+            <th>日期</th>
+            <th>編輯</th>
+            <th>刪除</th>
+          </tr>
+
+          <tr th:each="daily : ${list}">
+            <td th:text="${daily.date_time}"></td>
+            <td>
+              <a th:href=""
+                ><button type="submit" value="edite">修改</button></a
+              >
+            </td>
+            <td>
+              <a th:onclick="return confirm('確定刪除嗎?')" th:href=""
+                ><button type="submit" value="delete">刪除</button></a
+              >
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <script>
+      const cleanTextList = document.querySelectorAll("#cleanText");
+      cleanTextList.forEach(
+        (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
+      );
+    </script>
+  </body>
+</html>

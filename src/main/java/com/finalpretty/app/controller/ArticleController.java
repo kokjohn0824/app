@@ -115,7 +115,7 @@ public class ArticleController {
 	// =============================================================================================
 	// 前台
 	// 顯示全部文章
-	@GetMapping("/article/categories")
+	@GetMapping("/public/article/categories")
 	public String articleCategories(Model m) {
 		List<Article> list = articleR.findAlloOrderById();
 		m.addAttribute("list", list);
@@ -123,7 +123,7 @@ public class ArticleController {
 	}
 
 	// 顯示選取文章
-	@GetMapping("/article/show")
+	@GetMapping("/public/article/show")
 	public String showArticle(@RequestParam(name = "article_id") Integer article_id,
 			@RequestParam(name = "member_id") Integer member_id, Model m) {
 		Member member = memberR.findById(member_id).get();

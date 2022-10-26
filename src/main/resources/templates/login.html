@@ -8,63 +8,87 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <div th:replace="jsmodules"></div>
+    <link rel="stylesheet" th:href="@{/css/style.build.tailwind.css}" />
+    <style>
+      body {
+        background-color: black;
+        background-size: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      footer {
+        min-height: 100px;
+        background: PapayaWhip;
+      }
+      article {
+        flex: 1;
+      }
+    </style>
     <title>登入</title>
   </head>
   <body>
     <div th:replace="component/navbar"></div>
-    <div class="container-lg p-5 mx-auto" style="border: 1px solid black">
-      <div
-        class="mx-auto"
-        style="width: 400px; border: 1px lightgray solid; border-radius: 10px"
-      >
-        <h3 th:unless="${param.error == null}">
-          <span
-            th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
-          ></span>
-        </h3>
-        <h3 th:unless="${param.logout == null}">
-          <span
-            th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
-          >
-          </span>
-        </h3>
-        <form class="px-4 py-3" method="post" action="/perform_login">
-          <div class="form-group p-2">
-            <input
-              type="text"
-              class="form-control"
-              id="exampleDropdownFormEmail1"
-              placeholder="請輸入帳號或email..."
-              name="username"
-              required
-              autofocus
-            />
-          </div>
-          <div class="form-group p-2">
-            <input
-              type="password"
-              class="form-control"
-              id="exampleDropdownFormPassword1"
-              name="password"
-              required
-              placeholder="密碼..."
-            />
-          </div>
-          <div class="form-group p-2">
-            <button type="submit" class="btn btn-primary w-100">登入</button>
-          </div>
-        </form>
-        <div class="d-flex justify-content-around">
-          <div class="flex-item">
-            還沒有帳號？
-            <a class="text-info" href="#">註冊</a>
-          </div>
-          <div class="flex-item">
-            還是
-            <a class="text-info" href="#">忘記密碼？</a>
+    <article>
+      <div id="fuck" class="tw-bg-white">
+        <div
+          class="mx-auto"
+          style="width: 400px; border: 1px lightgray solid; border-radius: 10px"
+        >
+          <h3 th:unless="${param.error == null}">
+            <span
+              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+            ></span>
+          </h3>
+          <h3 th:unless="${param.logout == null}">
+            <span
+              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+            >
+            </span>
+          </h3>
+          <form class="px-4 py-3" method="post" action="/perform_login">
+            <div class="form-group p-2">
+              <input
+                type="text"
+                class="form-control tw-text-yellow-300"
+                id="exampleDropdownFormEmail1"
+                placeholder="請輸入帳號或email..."
+                name="username"
+                required
+                autofocus
+              />
+            </div>
+            <div class="form-group p-2">
+              <input
+                type="password"
+                class="form-control"
+                id="exampleDropdownFormPassword1"
+                name="password"
+                required
+                placeholder="密碼...."
+              />
+            </div>
+            <div class="form-group p-2">
+              <button type="submit" class="btn btn-primary w-100">登入</button>
+            </div>
+          </form>
+          <div class="d-flex justify-content-around">
+            <div class="flex-item">
+              還沒有帳號？
+              <a class="text-info" href="#">註冊</a>
+            </div>
+            <div class="flex-item">
+              還是
+              <a class="text-info" href="#">忘記密碼？</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div class="tw-text-orange-500 tw-mx-auto">hi!2!tailwind</div>
+    </article>
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
   </body>
 </html>

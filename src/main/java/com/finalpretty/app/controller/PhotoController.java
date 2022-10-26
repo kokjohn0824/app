@@ -35,7 +35,7 @@ public class PhotoController {
      *         }
      *         ` 2.圖片上傳失敗： 回傳
      *         {
-     *         "error": {
+     *         "error": {no
      *         "message": "自定義訊息"
      *         }
      *         }

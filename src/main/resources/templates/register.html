@@ -30,7 +30,10 @@
 
     <article>
       <!-- 網站內文放這裡 -->
-      <div class="card bg-light" style="width: 40%; margin: 40px auto">
+      <div
+        class="card bg-light py-lg-3"
+        style="width: 40rem; margin: 40px auto"
+      >
         <div th:fragment="form">
           <div class="" style="width: 80%; margin: 20px auto">
             <form class="" method="post" id="registerForm">
@@ -101,7 +104,9 @@
                 </small>
               </div>
             </form>
-            <button id="submitBtn" class="btn btn-primary">註冊</button>
+            <div class="d-flex justify-content-end" style="width: 100%">
+              <button id="submitBtn" class="btn btn-primary">註冊</button>
+            </div>
           </div>
         </div>
       </div>

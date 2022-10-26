@@ -31,22 +31,42 @@
   <body>
     <div th:replace="component/navbar"></div>
     <article>
-      <div id="fuck" class="tw-bg-white">
+      <div
+        class="d-flex"
+        style="height: 100vh; background: url(/img/wallpaper2.webp)"
+      >
+        <!-- 黃金比例格子 -->
         <div
-          class="mx-auto"
-          style="width: 400px; border: 1px lightgray solid; border-radius: 10px"
+          class="d-flex justify-content-center"
+          style="width: 60%; position: relative"
         >
-          <h3 th:unless="${param.error == null}">
+          <div style="position: absolute; top: 280px">
             <span
-              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
-            ></span>
-          </h3>
-          <h3 th:unless="${param.logout == null}">
-            <span
-              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+              style="
+                color: white;
+                font-size: 60px;
+                text-shadow: black 0.1em 0.1em 0.2em;
+              "
             >
+              <strong>
+                愛自己，<br />
+                就從健康瘦身開始
+              </strong>
             </span>
-          </h3>
+          </div>
+        </div>
+        <div
+          class="card mx-auto shadow-lg"
+          style="
+            width: 400px;
+            height: 500px;
+            border-radius: 10px;
+            margin: 100px;
+          "
+        >
+          <div class="d-flex justify-content-center p-5" style="height: 100px">
+            <h1><span class="text-dark">登入</h1>
+          </div>
           <form class="px-4 py-3" method="post" action="/perform_login">
             <div class="form-group p-2">
               <input
@@ -83,9 +103,20 @@
               <a class="text-info" href="#">忘記密碼？</a>
             </div>
           </div>
+          <div
+            id="errorMessageBox"
+            class="mt-3 d-flex justify-content-center text-danger"
+          >
+            <span th:unless="${param.error == null}"
+              >帳密輸入有誤或是帳號尚未啟動</span
+            >
+            <span
+              th:unless="${param.logout == null}"
+              th:text="${#strings.substringAfter(session[SPRING_SECURITY_LAST_EXCEPTION],':')}"
+            ></span>
+          </div>
         </div>
       </div>
-      <div class="tw-text-orange-500 tw-mx-auto">hi!2!tailwind</div>
     </article>
     <footer>
       <div th:replace="component/footer"></div>

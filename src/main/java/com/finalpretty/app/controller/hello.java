@@ -44,15 +44,13 @@ public class hello {
 
     @GetMapping("/public/ecpay/test")
     @ResponseBody
-    public String testEcpay(@RequestParam String mtn) {
-        if (mtn == null) {
-            mtn = "testComp124ssdsds1";
-        }
+    public String testEcpay() {
+
         try {
             all = new AllInOne(" ");
             AioCheckOutALL obj = new AioCheckOutALL();
             // FIXME:測試訂單應該要隨機生成字串
-            obj.setMerchantTradeNo(mtn);
+            obj.setMerchantTradeNo("testComp124sssasss");
             obj.setMerchantTradeDate("2017/01/01 08:05:23");
             obj.setTotalAmount("50");
             obj.setTradeDesc("test Description");

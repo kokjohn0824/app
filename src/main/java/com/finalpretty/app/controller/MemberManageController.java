@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,12 +74,12 @@ public class MemberManageController {
 	}
 
 	// 顯示全部會員
-	// @GetMapping("/backendMember/showAll")
-	// public String memberGetAll(Model m) {
-	// List<Member> list = memberR.findAll();
-	// m.addAttribute("list", list);
-	// return "/member/backendMemberShowAll";
-	// }
+	@GetMapping("/backendMember/showAll")
+	public String memberGetAll(Model m) {
+		List<Member> list = memberR.findAll();
+		m.addAttribute("list", list);
+		return "/member/backendMemberShowAll";
+	}
 
 	// 使用分頁
 	// public Page<Member> findByPage(Integer pageNumber) {
@@ -199,9 +200,10 @@ public class MemberManageController {
 			@RequestParam(name = "bodyFat") double bodyFat,
 			@RequestParam(name = "visceralFat") double visceralFat,
 			@RequestParam(name = "muscleMass") double muscleMass,
-			@RequestParam(name = "becomeVIP") Integer becomeVIP,
-			@RequestParam(name = "user_id") Integer user_id) {
+			@RequestParam(name = "becomeVIP") Integer becomeVIP) {
 		Member member = new Member();
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer user_id = ((Users) o).getId();
 		try {
 			member.setGender(gender);
 			member.setAge(age);
@@ -219,7 +221,6 @@ public class MemberManageController {
 		Member fkMember = memberR.findById(id).get();
 		Users user = userR.findById(user_id).get();
 		user.setFkMember(fkMember);
-		;
 		userR.save(user);
 		String str = "redirect:/member/page?member_id=" + id;
 		return str;

@@ -72,7 +72,7 @@
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" th:href="@{/member/edit}"
+                  <a class="dropdown-item" th:href="@{/dailyRecord/all}"
                     >日記管理</a
                   >
                 </li>
@@ -126,6 +126,7 @@
             <span
               class="navbar-brand"
               th:text="${#authentication.getPrincipal().getNickname()}"
+              th:data-content="${#authentication.getPrincipal().getFkMember().getMember_id()}"
             ></span>
             <a
               class="navbar-brand"

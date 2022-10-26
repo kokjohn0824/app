@@ -16,15 +16,19 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.finalpretty.app.model.Article;
+import com.finalpretty.app.model.Food;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Order;
 import com.finalpretty.app.model.Product;
+import com.finalpretty.app.model.Sports;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.ArticleRespository;
+import com.finalpretty.app.repositories.FoodRespository;
 import com.finalpretty.app.repositories.MemberRespository;
 import com.finalpretty.app.repositories.OrderRespository;
 import com.finalpretty.app.repositories.Order_detailRespository;
 import com.finalpretty.app.repositories.ProductRespository;
+import com.finalpretty.app.repositories.SportsRespository;
 import com.finalpretty.app.repositories.VideoRespository;
 
 @Component
@@ -38,6 +42,12 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
         @Autowired
         private VideoRespository videoRespository;
+
+        @Autowired
+        private FoodRespository foodRespository;
+
+        @Autowired
+        private SportsRespository sportsRespository;
 
         @Autowired
         private ProductRespository pDao;
@@ -206,6 +216,54 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product2.setOnsale(0);
                 product2.setPicture(Files.readAllBytes(saveFilePath.toPath()));
                 pDao.save(product2);
+
+                // 插入食物
+                byte[] foodP1 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/food/4649a0b69a204473bc361a7183009279.jpg"));
+                Food food1 = new Food();
+                food1.setFoodname("米飯");
+                food1.setPicture(foodP1);
+                food1.setCalorie(116);
+                foodRespository.save(food1);
+
+                byte[] foodP2 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/food/78a867a86a6f4892b835d569a40ab052.jpg"));
+                Food food2 = new Food();
+                food2.setFoodname("玉米");
+                food2.setPicture(foodP2);
+                food2.setCalorie(106);
+                foodRespository.save(food2);
+
+                // 插入運動
+                byte[] badminton = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/badminton.jpg"));
+                Sports sports1 = new Sports();
+                sports1.setSportsname("羽球");
+                sports1.setPicture(badminton);
+                sports1.setCalorie(153);
+                sportsRespository.save(sports1);
+
+                byte[] jog = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/jog.jpg"));
+                Sports sports2 = new Sports();
+                sports2.setSportsname("慢跑");
+                sports2.setPicture(jog);
+                sports2.setCalorie(246);
+                sportsRespository.save(sports2);
+
+                byte[] swim = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/swim.jpg"));
+                Sports sports3 = new Sports();
+                sports3.setSportsname("游泳");
+                sports3.setPicture(swim);
+                sports3.setCalorie(189);
+                sportsRespository.save(sports3);
+
         }
 
 }

@@ -37,7 +37,7 @@ public class Sports {
 	@Column(name = "calorie")
 	private Integer calorie;
 
-	// 食物圖片
+	// 運動圖示
 	@Lob
 	@Column(name = "picture")
 	private byte[] picture;

@@ -143,7 +143,7 @@
 							</goals>
 							<phase>compile</phase>
 							<configuration>
-								<arguments>run build:postcss</arguments>
+								<!-- <arguments>run build:postcss</arguments> -->
 							</configuration>
 						</execution>
 					</executions>

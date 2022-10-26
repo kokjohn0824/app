@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hant" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<head>
+<meta charset="utf-8">
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta content="width=1280" name="viewport">
+<meta name="format-detection" content="telephone=no" />
+<title>填寫訂單資料</title>
+<link href="//cdn.beams.co.jp/taiwan/css/style.css?20220316" rel="stylesheet" />
+<script src="//cdn.beams.co.jp/taiwan/lib/jquery.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/lib/jquery-ui.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/lib/jquery.balloon.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/lib/goods/jquery.tile.min.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/js/jquery.nivo.slider.pack.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/js/common.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/js/search_suggest.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/js/user.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/js/estimate_savecard.js?20220316"></script>
+<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goods_cartlist.js?20220316"></script>
+<!--[if IE 8]>
+<script src="//cdn.beams.co.jp/taiwan/javascript/ecb/pie_ie678.js?20220316"></script>
+<script src="//cdn.beams.co.jp/taiwan/js/init_ie8.js?20220316"></script>
+<![endif]-->
+<script>
+    jQuery_system = jQuery;
+</script>
+<link href="//cdn.beams.co.jp/taiwan/beams/css/pc/vendor.css?20220316" rel="stylesheet" media="all" />
+<link href="//cdn.beams.co.jp/taiwan/beams/css/pc/application.css?20220316" rel="stylesheet" media="all" />
+<link href="//cdn.beams.co.jp/taiwan/beams/css/pc/application2.css?20220316" rel="stylesheet" media="all" />
+
+<link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+      integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+      integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+      integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+      crossorigin="anonymous"
+    ></script>
+
+<style>
+    #recommender_pc111 .dv_rc_title:after {
+        content: "RECOMMEND" !important;
+    }
+
+    #recommender_pc211 .dv_rc_title:after {
+        content: "RECOMMEND" !important;
+    }
+
+</style>
+<script src="//cdn.beams.co.jp/taiwan/beams/javascript/pc/vendor.js?20220316"></script>
+<script>
+    if(jQuery_system) jQuery = jQuery_system
+</script>
+<script src="//cdn.beams.co.jp/taiwan/beams/javascript/pc/application.js?20220316"></script>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="apple-touch-icon-precomposed" type="image/x-icon" href="/apple-touch-icon-precomposed.png" />
+
+<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goods_ajax_cart.js?20220316"></script>
+<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goods_ajax_bookmark.js?20220316"></script>
+<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goods_ajax_quickview.js?20220316"></script>
+<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goodslistajax.js?20220316"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.beams.co.jp/taiwan/css/core.css?20220316">
+<link rel="stylesheet" type="text/css" href="//cdn.beams.co.jp/taiwan/css/skin.css?20220316">
+
+
+
+</head>
+<body >
+
+
+<!-- 商品清單 -->
+<P>
+	商品明細確認
+</p>
+
+
+
+<!-- 填寫資料 -->
+
+
+	
+	
+	<div class="all-pc-container wrapper_">
+		
+		<div id="pid_method">
+		
+			
+			<div id="beams-header-wrapper">
+				
+					
+
+
+				
+			</div>
+
+			<div class="beams-pc-wrapper">
+	
+	
+	<div class="order_ order_col1_">
+		<div class="order_flow_">
+    <h1>
+        收件資料
+    </h1>
+   
+</div>
+
+		<form method="post" action="/order/method.aspx" novalidate onsubmit="return (ecUtil.confirmInputCheck() && removePlaceholder() )" name="frmMethod" id="frmMethod">
+			<input type="image" value="submit" src="//cdn.beams.co.jp/taiwan/img/sys/spacer.gif" name="submit" alt="下一頁" class="hiddenEnter_" tabindex="1">
+			
+			
+			
+			<div class="method_host_">
+	<h2 class="common_headline2_">購買者</h2>
+	<div class="host_info_">
+		<p class="host_name_"><strong>消費者姓名</strong></p>
+		<address>
+			
+		
+			
+			
+		</address>
+	</div>
+</div>
+
+			<div class="method_address_">
+				<input type="hidden" name="mode" value="">
+<div class="method_address_" id="address">
+	<span class="pc_method_link_" id="method_link_address"></span>
+	<h2 class="common_headline2_">收件地址</h2>
+	<div class="addresslist_">
+		<div class="address_item_">
+
+	<address>
+		
+		
+		<input type="text">
+		
+	</address>
+	
+</div>
+
+		
+		
+	</div>
+	
+	<input type="hidden" name="rowskucd1" value="330405313544588">
+<input value="1" type="hidden" name="qty1">
+
+<input type="hidden" name="rowskucd2" value="114508583241988">
+<input value="1" type="hidden" name="qty2">
+
+
+<input type="image" src="//cdn.beams.co.jp/taiwan/img/sys/spacer.gif" name="update" alt="" class="hiddenEnter_" tabindex="1">
+<input type="hidden" name="refresh" value="true">
+
+</div>
+
+			</div>
+			<h2 class="common_headline2_">配送方法</h2>
+<div class="method_box_" id="method_date">
+	<span class="pc_method_link_" id="method_link_detail_spec"></span>
+	<div class="method_box_content_">
+		
+			
+		
+		
+		
+		
+	</div>
+</div>
+
+			
+		
+<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/order_method_point.js"></script>
+
+
+
+
+
+			<div class="method_box_" id="method_pay">
+	<span class="pc_method_link_" id="method_link_method_pay"></span>
+	<h3>付款方式</h3>
+	<div class="method_box_content_">
+		<label for="method_rF">
+	<input id="method_rF" name="method" type="radio" value="F"   >
+	信用卡付款
+	<div class="small">
+		※可利用的信用卡：VISA、Master、JCB
+	</div>
+</label>
+
+<label for="method_r2">
+	<input id="method_r2" name="method" type="radio" value="2"   >
+	超取付款
+	<div class="small">
+		※超商取貨時請以「現金」進行付款
+		
+	</div>
+</label>
+
+		
+		
+	</div>
+</div>
+<div class="method_box_" id="method_invoice">
+	<span class="pc_method_link_" id="method_link_method_invoice"></span>
+	<h3>出貨方式</h3>
+	<div class="method_box_content_">
+		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_0" value="0"  checked>
+		<label for="invoice_type_0">宅配	
+		<div class="small">※運費$100</div></label>
+		
+		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_1" value="1" >
+		<label for="invoice_type_1">超商取貨
+		<div class="small">※運費$60</div></label>
+		 
+		<div id="invoice_type1_block">
+			<input class="invoice_type1" name="invoice_type1" type="radio" id="invoice_type1_0" value="0" >
+			<label for="invoice_type1_0">選擇超商</label>
+			<div id="invoice_type1_0_block">
+				<select class="invoice_type1_0_0" name="invoice_type1_0_0" id="invoice_type1_0_0"><option value="" selected>請選擇超商</option><option value="25885">7-11大安店</option></select>
+			</div>
+			
+		</div>
+		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_2" value="2" >
+		
+		<p class="error_"></p>
+	</div>
+</div>
+
+			
+			<div class="submit_">
+				
+					<input type="image" name="submit" src="//cdn.beams.co.jp/taiwan/img/sys/button/ordernext.gif" alt="確認訂單內容" class="button_">
+				
+				<div class="back_ button_"><a href="/">回到上一頁</a></div>
+			</div>
+			
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery( function( $ ){
+
+	var hide_all_block = function(){
+		$('#invoice_type0_block'  ).hide();
+		$('#invoice_type1_block'  ).hide();
+		$('#invoice_type2_block'  ).hide();
+		$('#invoice_type0_1_block').hide();
+		$('#invoice_type0_2_block').hide();
+		$('#invoice_type1_0_block').hide();
+		$('#invoice_type1_1_block').hide();
+	}
+
+	var hide_type0_block = function(){
+		$('#invoice_type0_1_block').hide();
+		$('#invoice_type0_2_block').hide();
+	}
+
+	var hide_type1_block = function(){
+		$('#invoice_type1_0_block').hide();
+		$('#invoice_type1_1_block').hide();
+	}
+
+	$('.invoice_type','.method_box_content_').on('click',function(){
+
+		hide_all_block();
+
+		var $block = $('#invoice_type' + $(this).val() + '_block');
+		var $radio = $block.children(':radio:checked');
+
+		if( 0 == $radio.length ){
+			$radio = $block.children(':radio:first');
+			$radio.prop('checked', true);
+		}
+
+		$radio.trigger('click');
+
+		$('#invoice_type' + $(this).val() + '_block').fadeIn( 300 );
+
+	});
+
+	$('.invoice_type0','.method_box_content_').on('click',function(){
+		hide_type0_block();
+		$('#invoice_type0_' + $(this).val() + '_block').fadeIn( 300 );
+	});
+
+	$('.invoice_type1','.method_box_content_').on('click',function(){
+		hide_type1_block();
+		$('#invoice_type1_' + $(this).val() + '_block').fadeIn( 300 );
+	});
+
+	hide_all_block();
+
+	var $radio1 = $('.method_box_content_').children(':radio:checked');
+
+	if ( 0 == $radio1.length ){
+		$radio1 = $('.method_box_content_').children(':radio:first')
+		$radio1.prop('checked', true);
+	}
+
+	$radio1.trigger('click');
+
+});
+</script>
+
+			
+	
+</body>
+</html>
+

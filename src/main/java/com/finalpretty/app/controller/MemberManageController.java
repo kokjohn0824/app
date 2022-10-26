@@ -11,18 +11,24 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.finalpretty.app.model.Member;
+import com.finalpretty.app.model.Users;
 import com.finalpretty.app.repositories.MemberRespository;
+import com.finalpretty.app.security.UsersRepository;
 
 @Controller
 public class MemberManageController {
 
 	@Autowired
 	private MemberRespository memberR;
+
+	@Autowired
+	private UsersRepository userR;
 
 	// ----------後台-------------------------------------------------------------
 
@@ -93,15 +99,33 @@ public class MemberManageController {
 	// model.addAttribute("page", page);
 	// return "/member/backendMemberShowAll";
 	// }
-	@RequestMapping("/backendMember/showAll")
-	public String memeberShowAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "size", defaultValue = "3") Integer size, Model model) {
-		Sort sort = Sort.by(Sort.Direction.DESC, "member_id");
-		Pageable pageable = PageRequest.of(page, size, sort);
-		Page<Member> members = memberR.findList(pageable);
-		model.addAttribute("members", members);
-		return "/member/backendMemberShowAll";
-	}
+	// 分頁怪怪的
+	// @RequestMapping("/backendMember/showAll")
+	// public String memeberShowAll(@RequestParam(value = "page", defaultValue =
+	// "0") Integer page,
+	// @RequestParam(value = "size", defaultValue = "3") Integer size, Model model)
+	// {
+	// Sort sort = Sort.by(Sort.Direction.DESC, "member_id");
+	// Pageable pageable = PageRequest.of(page, size, sort);
+	// Page<Member> members = memberR.findList(pageable);
+	// model.addAttribute("members", members);
+	// return "/member/backendMemberShowAll";
+	// }
+
+	// 分頁
+	// @GetMapping("/backendMember/showAll")
+	// public String list(@RequestParam(value = "pageNum", defaultValue = "0")
+	// Integer pageNum,
+	// @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize, Model
+	// model) {
+	// // Page<Member> members = memberR.getMemberList(pageNum, pageSize);
+	// Sort sort = Sort.by(Sort.Direction.DESC, "member_id");
+	// Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
+	// Page<Member> members = memberR.findList(pageable);
+	// // Page<Member> members = memberR.findAll(pageable);
+	// model.addAttribute("members", members);
+	// return "/member/backendMemberShowAll";
+	// }
 
 	// 刪除會員
 	@GetMapping("/backendMember/delete")
@@ -158,8 +182,11 @@ public class MemberManageController {
 	// }
 
 	// 註冊完，輸入會員資料
-	@GetMapping("/member/inputpage")
-	public String memberPage() {
+	@GetMapping("/member/inputpage/")
+	public String memberPage(Integer member_id) {
+		// if (memberR.findById(member_id).get() != null) {
+
+		// }
 		return "/member/memberInputPage";
 	}
 
@@ -172,7 +199,8 @@ public class MemberManageController {
 			@RequestParam(name = "bodyFat") double bodyFat,
 			@RequestParam(name = "visceralFat") double visceralFat,
 			@RequestParam(name = "muscleMass") double muscleMass,
-			@RequestParam(name = "becomeVIP") Integer becomeVIP) {
+			@RequestParam(name = "becomeVIP") Integer becomeVIP,
+			@RequestParam(name = "user_id") Integer user_id) {
 		Member member = new Member();
 		try {
 			member.setGender(gender);
@@ -188,6 +216,11 @@ public class MemberManageController {
 		}
 		Member m1 = memberR.save(member);
 		Integer id = m1.getMember_id();
+		Member fkMember = memberR.findById(id).get();
+		Users user = userR.findById(user_id).get();
+		user.setFkMember(fkMember);
+		;
+		userR.save(user);
 		String str = "redirect:/member/page?member_id=" + id;
 		return str;
 	}

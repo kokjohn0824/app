@@ -35,10 +35,11 @@
 		<div th:style="'background-color:#F2FFF2; margin-left:300px; height:400px; text-align:center;'">
 
 			<!-- 一般顯示 -->
-			<!-- <h1>所有會員</h1>
+			<h1>所有會員</h1>
 			<table border="2" width="70%" cellpadding="2">
 				<tr>
 					<th>編號</th>
+					<th>暱稱</th>
 					<th>性別</th>
 					<th>年齡</th>
 					<th>身高</th>
@@ -52,6 +53,7 @@
 
 				<tr th:each="member : ${list}">
 					<td th:text="${member.member_id}"></td>
+					<td th:text="${member.nickname}"></td>
 					<td th:text="${member.gender}"></td>
 					<td th:text="${member.age}"></td>
 					<td th:text="${member.height}"></td>
@@ -67,11 +69,11 @@
 								value="edite">修改</button></a>
 					</td>
 				</tr>
-			</table> -->
+			</table>
 
 
 			<!-- 使用分頁 -->
-			<div class="container">
+			<!-- <div class="container">
 				<h1>所有會員</h1>
 				<table border="2" width="70%" cellpadding="2">
 					<tr>
@@ -105,11 +107,11 @@
 									value="edite">修改</button></a>
 						</td>
 					</tr>
-				</table>
+				</table> -->
 
-				<!-- <div th:replace="member/page :: pager" th:remove="tag"></div> -->
+			<!-- <div th:replace="member/page :: pager" th:remove="tag"></div> -->
 
-				<div class="model-footer no-margin-top">
+			<!-- <div class="model-footer no-margin-top">
 					<ul class="pagination pull-right no-margin">
 
 						<li>
@@ -120,7 +122,7 @@
 							<a th:href="'/backendMemberShowAll.html?pageNum=0'">上一頁</a>
 						</li>
 
-						<!-- 中間頁 -->
+						
 						<li>
 							<a></a>
 						</li>
@@ -137,7 +139,7 @@
 
 
 					</ul>
-				</div>
+				</div> -->
 
 
 
@@ -146,7 +148,7 @@
 
 
 
-			</div>
+			<!-- </div> -->
 
 
 

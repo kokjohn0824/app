@@ -36,6 +36,9 @@ public class Member {
 	@Column(name = "member_id")
 	private Integer member_id;
 
+	@Column(name = "nickname")
+	private String nickname;
+
 	@Column(name = "gender")
 	private Integer gender;
 

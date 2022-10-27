@@ -17,7 +17,7 @@ h6 {
   color: #77c7ac;
 }
 
-a {
+a.container {
   text-decoration: none;
   color: #fcfcfc;
   font-weight: 300;

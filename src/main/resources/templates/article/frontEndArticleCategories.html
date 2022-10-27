@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArticleCategories</title>
+    <div th:replace="jsmodules"></div>
+    <style>
+      .top {
+        width: 100%;
+        margin-top: 115px;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ArticleCategories</title>
-  <div th:replace="jsmodules"></div>
-  <style>
-    .top {
-      width: 100%;
-      margin-top: 115px;
-    }
+      .resulthtml {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
 
-    .resulthtml {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-  </style>
-</head>
+  <body th:inline="text">
+    <div th:replace="component/navbar :: navbar"></div>
+    <!-- <div style="width: 100%; top: 76px"></div> -->
 
-<body th:inline="text">
-  <div th:replace="component/navbar :: navbar"></div>
-  <!-- <div style="width: 100%; top: 76px"></div> -->
-  <input id="member" type="hidden" th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}" />
-  <div class="top">
-    <div class="container-lg" style="margin: 20px auto">
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-        <tr th:each="article : ${list}">
-          <!-- <article id=""
+    <div sec:authorize="isAuthenticated()">
+      <input
+        id="member"
+        type="hidden"
+        th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
+      />
+    </div>
+    <div class="top">
+      <div class="container-lg" style="margin: 20px auto">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <tr th:each="article : ${list}">
+            <!-- <article id=""
 				class="post-4233 post type-post status-publish format-standard has-post-thumbnail hentry category-all category-experience category-weight-loss category-nutrition generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33"
 				itemtype="" itemscope="">
 				<div class="">
@@ -58,26 +64,37 @@
 				</div>
 			</article> -->
 
-          <div class="card" style="width: 18rem; margin: 10px">
-            <img th:src="@{'/showImage/'+${article.article_id}}" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title" th:text="${article.title}"></h5>
-              <p id="cleanText" class="resulthtml" style="max-width: 230px" th:text="${article.text}"></p>
-              <a th:href="@{'/public/article/show?article_id='+${article.article_id}+'&member_id='+${#authentication.getPrincipal().getFkMember().getMember_id()}}"
-                class="btn btn-primary">Read more</a>
+            <div class="card" style="width: 18rem; margin: 10px">
+              <img
+                th:src="@{'/showImage/'+${article.article_id}}"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title" th:text="${article.title}"></h5>
+                <p
+                  id="cleanText"
+                  class="resulthtml"
+                  style="max-width: 230px"
+                  th:text="${article.text}"
+                ></p>
+                <a
+                  th:href="@{'/public/article/show?article_id='+${article.article_id}+'&member_id='+${#authentication.getPrincipal().getFkMember().getMember_id()}}"
+                  class="btn btn-primary"
+                  >Read more</a
+                >
+              </div>
             </div>
-          </div>
-        </tr>
+          </tr>
+        </div>
       </div>
     </div>
-  </div>
-  <script>
-    //移除html tag
-    const cleanTextList = document.querySelectorAll("#cleanText");
-    cleanTextList.forEach(
-      (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
-    );
-  </script>
-</body>
-
+    <script>
+      //移除html tag
+      const cleanTextList = document.querySelectorAll("#cleanText");
+      cleanTextList.forEach(
+        (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
+      );
+    </script>
+  </body>
 </html>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +27,7 @@ import com.finalpretty.app.model.Product;
 import com.finalpretty.app.product.service.ProductService;
 
 @Controller
-@RequestMapping("/admin")
+// @RequestMapping("/admin")
 public class ProductController {
 
 	@Autowired
@@ -35,18 +36,18 @@ public class ProductController {
 	// @Autowired
 	// private ProductRespository pDao;
 
-	@GetMapping("/findAllProduct")
+	@GetMapping("/admin/findAllProduct")
 	public String findAllproduct() {
 		return "product/productAll";
 	}
 
-	@GetMapping("/gotoProduct")
+	@GetMapping("/admin/gotoProduct")
 	public String addProduct() {
 		return "product/addproduct";
 	}
 
 	// 新增商品
-	@PostMapping("/addProduct")
+	@PostMapping("/admin/addProduct")
 	public String addProduct(@RequestParam(name = "title") String title, @RequestParam(name = "type") String type,
 			@RequestParam(name = "price") Integer price, @RequestParam(name = "stock") Integer stock,
 			@RequestParam(name = "text") String text, @RequestParam(name = "onsale") Integer onsale,
@@ -90,7 +91,7 @@ public class ProductController {
 	}
 
 	// 後台商品管理
-	@GetMapping("/listProduct")
+	@GetMapping("/admin/listProduct")
 	public String getAllProduct(Model model) {
 		List<Product> list = pService.findAll();
 		// List<ProductDto> listDto = new ArrayList<>();
@@ -113,7 +114,7 @@ public class ProductController {
 
 	// 商品修改查詢
 	@ResponseBody
-	@GetMapping("/updateProduct")
+	@GetMapping("/admin/updateProduct")
 	public ProductDto updateQuery(@RequestParam("product_id") Integer id) {
 		Product product = pService.findById(id);
 		ProductDto pDto = new ProductDto();
@@ -128,7 +129,7 @@ public class ProductController {
 	}
 
 	// 商品修改
-	@PostMapping("/updateProduct")
+	@PostMapping("/admin/updateProduct")
 	public String updateProduct(@ModelAttribute ProductDto product, @RequestParam("file") MultipartFile file) {
 
 		System.out.println("名稱" + product.getTitle());
@@ -139,9 +140,9 @@ public class ProductController {
 
 		String title = product.getTitle();
 		Integer price = product.getPrice();
-		Integer Stock = product.getStock();
+		Integer stock = product.getStock();
 		String type = product.getType();
-		Integer onsale = product.getOnsale();
+		Integer onsale = 0;
 		String text = product.getText();
 		byte[] picture = null;
 		try {
@@ -155,18 +156,18 @@ public class ProductController {
 		}
 		Integer product_id = product.getProduct_id();
 		System.out.println(picture);
-		pService.updateProduct(title, price, Stock, type, onsale, text, picture, product_id);
+		pService.updateProduct(title, price, stock, type, onsale, text, picture, product_id);
 
 		return "redirect:/admin/listProduct";
 	}
 
-	@GetMapping("/deleteProduct")
+	@GetMapping("/admin/deleteProduct")
 	public String deleteProduct(@RequestParam("product_id") Integer product_id) {
 		pService.deleteProduct(product_id);
 		return "redirect:/admin/listProduct";
 	}
 
-	@GetMapping("/downloadImage/{id}")
+	@GetMapping("/admin/downloadImage/{id}")
 	public ResponseEntity<byte[]> downloadImage(@PathVariable Integer id) {
 		System.out.println(id);
 		Product product = pService.findById(id);
@@ -180,7 +181,7 @@ public class ProductController {
 
 	// 商品上下架
 	@ResponseBody
-	@PostMapping("/api/changeOnsale/{product_id}/{onsale}")
+	@PostMapping("/admin/api/changeOnsale/{product_id}/{onsale}")
 	public Product updateOnsale(@PathVariable Integer onsale, @PathVariable Integer product_id, Model m) {
 		// Product product = pService.findById(product_id);
 		// System.out.println(product);
@@ -199,6 +200,17 @@ public class ProductController {
 		m.addAttribute("product", product);
 		return product;
 		// return "redirect:/public/listProduct";
+	}
+
+	@ResponseBody
+	@PostMapping("/public/api/selectLike")
+	public List<Product> selectLike(@RequestBody String productname) {
+		System.out.println("++++++++++++++++++++++++++++++++++");
+		System.out.println(productname);
+		System.out.println("++++++++++++++++++++++++++++++++++");
+
+		return pService.selectLike(productname);
+
 	}
 
 }

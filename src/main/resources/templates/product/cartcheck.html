@@ -75,7 +75,7 @@
 <script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goodslistajax.js?20220316"></script>
 <link rel="stylesheet" type="text/css" href="//cdn.beams.co.jp/taiwan/css/core.css?20220316">
 <link rel="stylesheet" type="text/css" href="//cdn.beams.co.jp/taiwan/css/skin.css?20220316">
-
+<div th:replace="jsmodules"></div>
 
 
 </head>
@@ -86,6 +86,7 @@
 <P>
 	商品明細確認
 </p>
+
 
 
 
@@ -126,7 +127,7 @@
 			<div class="method_host_">
 	<h2 class="common_headline2_">購買者</h2>
 	<div class="host_info_">
-		<p class="host_name_"><strong>消費者姓名</strong></p>
+		<p class="host_name_"><strong>姓名</strong></p>
 		<address>
 			
 		
@@ -140,14 +141,14 @@
 				<input type="hidden" name="mode" value="">
 <div class="method_address_" id="address">
 	<span class="pc_method_link_" id="method_link_address"></span>
-	<h2 class="common_headline2_">收件地址</h2>
+	<h2 class="common_headline2_">電話</h2>
 	<div class="addresslist_">
 		<div class="address_item_">
 
 	<address>
 		
 		
-		<input type="text">
+		<p class="host_name_"><strong>電話</strong></p>
 		
 	</address>
 	
@@ -223,10 +224,23 @@
 		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_0" value="0"  checked>
 		<label for="invoice_type_0">宅配	
 		<div class="small">※運費$100</div></label>
+
+		<div id="invoice_type0_block">
+			<input type="text" placeholder="請輸入宅配地址">
+		</div>
 		
+
+
+
+
+
+
+
+
 		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_1" value="1" >
 		<label for="invoice_type_1">超商取貨
 		<div class="small">※運費$60</div></label>
+
 		 
 		<div id="invoice_type1_block">
 			<input class="invoice_type1" name="invoice_type1" type="radio" id="invoice_type1_0" value="0" >
@@ -318,9 +332,16 @@ jQuery( function( $ ){
 });
 
 
-//------------------------------------------------
-     // Save cart
-	 function saveCart() {
+
+
+
+
+
+//--------------------------------------------
+
+		// Save cart
+        //TODO:session
+        function saveCart() {
           sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
         }
 
@@ -341,15 +362,15 @@ jQuery( function( $ ){
           console.log(cartArray[i].img + "+++++++++++++++++++");
           output +=
             "<tr>" +
-            "<td>" +
+            "<td style='visibility:hidden'>" +
             cartArray[i].product_id +
             "</td>" +
             "<td>" +
             cartArray[i].name +
             "</td>" +
-            "<td>(" +
+            "<td>$" +
             cartArray[i].price +
-            ")</td>" +
+            "</td>" +
             '<td><img src="' +
             cartArray[i].img +
             ' " height="200" width="200"/></td>' +
@@ -368,7 +389,7 @@ jQuery( function( $ ){
             cartArray[i].name +
             ">X</button></td>" +
             " = " +
-            "<td>" +
+            "<td>$" +
             cartArray[i].total +
             "</td>" +
             "</tr>";
@@ -377,9 +398,6 @@ jQuery( function( $ ){
         $(".total-cart").html(shoppingCart.totalCart());
         $(".total-count").html(shoppingCart.totalCount());
       }
-
-
-
 
 
 </script>

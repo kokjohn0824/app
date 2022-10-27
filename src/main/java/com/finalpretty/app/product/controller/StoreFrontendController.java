@@ -30,6 +30,38 @@ public class StoreFrontendController {
     // 前台
     // 顯示全部
 
+    @GetMapping("/public/cartCheck")
+    public String cartCheck() {
+        return "/product/cartcheck";
+    }
+
+    // 找食品
+    @GetMapping("/storefrontend/eatproduct")
+    public String selectByEatProduct(Model model) {
+        List<Product> list = pService.selectByEatProduct();
+
+        for (Product li : list) {
+            System.out.println(li.getPicture());
+        }
+        model.addAttribute("productlisteat", list);
+
+        return "/product/storefrontend/eatproduct";
+    }
+
+    // 找用品
+    @GetMapping("/storefrontend/useproduct")
+    public String selectByUseProduct(Model model) {
+        List<Product> list = pService.selectByUseProduct();
+
+        for (Product li : list) {
+            System.out.println(li.getPicture());
+        }
+        model.addAttribute("productlistuse", list);
+
+        return "/product/storefrontend/useproduct";
+    }
+
+    // 秀全部商品
     @GetMapping("/storefrontend")
     public String getAllProduct(Model model) {
         List<Product> list = pService.findAllByOnSale();

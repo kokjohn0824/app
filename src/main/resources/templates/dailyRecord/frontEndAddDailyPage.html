@@ -19,7 +19,7 @@
     <div class="container-lg" style="width: 800px" th:fragment="form">
       <form
         th:object="${daily_record}"
-        th:action="@{/daily_record/edit}"
+        th:action="@{/dailyRecord/add}"
         method="post"
         enctype="multipart/form-data"
       >
@@ -32,7 +32,7 @@
             th:field="*{drinkingWater}"
           /><br />
           <input th:field="*{daily_record_id}" type="hidden" />
-          <input th:field="*{date_time}" type="hidden" />
+          <!-- <input th:field="${daily_record.date_time}" type="hidden" /> -->
           <button type="reset" class="btn btn-secondary">重置</button>
           <button type="submit" class="signupbtn btn btn-primary">送出</button>
         </div>

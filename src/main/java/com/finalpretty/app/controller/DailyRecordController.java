@@ -1,7 +1,9 @@
 package com.finalpretty.app.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.finalpretty.app.model.DailyRecord;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
+import com.finalpretty.app.order.service.OrderService;
 import com.finalpretty.app.repositories.DailyRecordRespository;
 import com.finalpretty.app.repositories.MemberRespository;
 
@@ -29,6 +32,7 @@ public class DailyRecordController {
     @Autowired
     private DailyRecordRespository dailyRecordR;
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     // 日記
     // 前台
 
@@ -57,6 +61,7 @@ public class DailyRecordController {
         Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer member_id = ((Users) o).getFkMember().getMember_id();
         Member member = memberR.findById(member_id).get();
+
         try {
             daily.setMembers(member);
         } catch (Exception e) {
@@ -65,7 +70,10 @@ public class DailyRecordController {
         dailyRecordR.save(daily);
         Integer Daily_record_id = daily.getDaily_record_id();
         Optional<DailyRecord> a1 = dailyRecordR.findById(Daily_record_id);
-        model.addAttribute("daily_record", a1.orElse(null));
+        System.out.println("a1.get().getDaily_record_id()");
+        System.out.println(a1.get().getDaily_record_id());
+        System.out.println("a1.get().getDaily_record_id()");
+        model.addAttribute("daily_record", a1.get());
         return "/dailyRecord/frontEndAddDailyPage";
     }
 
@@ -83,17 +91,25 @@ public class DailyRecordController {
             @RequestParam(name = "weight") Integer weight,
             @RequestParam(name = "bodyFat") Integer bodyFat,
             @RequestParam(name = "drinkingWater") Integer drinkingWater) {
-        DailyRecord daily = new DailyRecord();
-        try {
-            daily.setWeight(weight);
-            daily.setBodyFat(bodyFat);
-            daily.setDrinkingWater(drinkingWater);
-            dailyRecordR.updateById(weight, bodyFat, drinkingWater, daily_record_id);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        dailyRecordR.save(daily);
-        return "/daily/frontEndAddDailyPage";
+        // DailyRecord daily = new DailyRecord();
+
+        // long miliseconds = System.currentTimeMillis();
+        Date date = new Date();
+        String Date_time = dateFormat.format(date);
+        // daily.setWeight(weight);
+        // daily.setBodyFat(bodyFat);
+        // daily.setDrinkingWater(drinkingWater);
+        // System.out.println(Date_time);
+        DailyRecord dailyRecord = dailyRecordR.findById(daily_record_id).get();
+        dailyRecord.setWeight(weight);
+        dailyRecord.setBodyFat(bodyFat);
+        dailyRecord.setDrinkingWater(drinkingWater);
+        dailyRecord.setDate_time(Date_time);
+
+        // dailyRecordR.updateById(weight, bodyFat, drinkingWater, daily_record_id);
+
+        dailyRecordR.save(dailyRecord);
+        return "/dailyRecord/frontEndManageDaily";
     }
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.finalpretty.app.Response.OrderDto;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Order;
+import com.finalpretty.app.repositories.DailyRecordRespository;
 import com.finalpretty.app.repositories.MemberRespository;
 import com.finalpretty.app.repositories.OrderRespository;
 

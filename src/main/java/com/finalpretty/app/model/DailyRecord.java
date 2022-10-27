@@ -51,11 +51,8 @@ public class DailyRecord {
 	private Integer drinkingWater;
 
 	// 日期
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-	@Column(name = "date_time", columnDefinition = "datetime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE", timezone = "GMT+8")
-	private Date date_time;
+	@Column(name = "date_time")
+	private String date_time;
 
 	// 跟Member連動
 	@ManyToOne

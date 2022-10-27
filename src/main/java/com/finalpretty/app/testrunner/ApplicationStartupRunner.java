@@ -13,15 +13,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.finalpretty.app.model.Article;
+import com.finalpretty.app.model.DailyRecord;
+import com.finalpretty.app.model.Food;
+import com.finalpretty.app.model.Food_daily;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Product;
+import com.finalpretty.app.model.Sports;
+import com.finalpretty.app.model.Sports_daily;
 import com.finalpretty.app.model.Users;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.ArticleRespository;
+import com.finalpretty.app.repositories.FoodDailyRespository;
+import com.finalpretty.app.repositories.FoodRespository;
 import com.finalpretty.app.repositories.MemberRespository;
 import com.finalpretty.app.repositories.OrderRespository;
 import com.finalpretty.app.repositories.Order_detailRespository;
 import com.finalpretty.app.repositories.ProductRespository;
+import com.finalpretty.app.repositories.SportsDailyRespository;
+import com.finalpretty.app.repositories.SportsRespository;
 import com.finalpretty.app.repositories.VideoRespository;
 import com.finalpretty.app.security.UserRole;
 import com.finalpretty.app.security.UsersRepository;
@@ -43,6 +52,18 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
         @Autowired
         private ProductRespository pDao;
+
+        @Autowired
+        private FoodRespository foodRespository;
+
+        @Autowired
+        private FoodDailyRespository foodDailyRespository;
+
+        @Autowired
+        private SportsRespository sportsRespository;
+
+        @Autowired
+        private SportsDailyRespository sportsDailyRespository;
 
         @Autowired
         private OrderRespository oDao;
@@ -99,6 +120,92 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 // memberRespository.save(m2);
                 usersRepository.save(users);
 
+                // 插入食物
+                byte[] foodP1 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/food/rice.jpg"));
+                Food food1 = new Food();
+                food1.setFoodname("白飯");
+                food1.setCalorie(116);
+                food1.setPicture(foodP1);
+                foodRespository.save(food1);
+
+                byte[] foodP2 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/food/corn.jpg"));
+                Food food2 = new Food();
+                food2.setFoodname("玉米");
+                food2.setCalorie(106);
+                food2.setPicture(foodP2);
+                foodRespository.save(food2);
+
+                // 插入運動
+                byte[] sportsP1 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/badminton.jpg"));
+                Sports sports1 = new Sports();
+                sports1.setSportsname("羽球");
+                sports1.setCalorie(153);
+                sports1.setPicture(sportsP1);
+                sportsRespository.save(sports1);
+
+                byte[] sportsP2 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/jog.jpg"));
+                Sports sports2 = new Sports();
+                sports2.setSportsname("慢跑");
+                sports2.setCalorie(246);
+                sports2.setPicture(sportsP2);
+                sportsRespository.save(sports2);
+
+                byte[] sportsP3 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/swim.jpg"));
+                Sports sports3 = new Sports();
+                sports3.setSportsname("游泳");
+                sports3.setCalorie(300);
+                sports3.setPicture(sportsP3);
+                sportsRespository.save(sports3);
+
+                // // 插入日記
+                // DailyRecord dailyRecord1 = new DailyRecord();
+                // dailyRecord1.setWeight(50);
+                // dailyRecord1.setBodyFat(15);
+                // dailyRecord1.setDrinkingWater(1000);
+                // dailyRecord1.setMembers(null);
+
+                // DailyRecord dailyRecord2 = new DailyRecord();
+                // dailyRecord2.setWeight(50);
+                // dailyRecord2.setBodyFat(15);
+                // dailyRecord2.setDrinkingWater(1000);
+                // dailyRecord2.setMembers(null);
+
+                // // 日記食物細節
+                // Food_daily food_daily1 = new Food_daily();
+                // food_daily1.setSide(1);
+                // food_daily1.setFood(food1);
+                // food_daily1.setDaily_record(dailyRecord1);
+                // foodDailyRespository.save(food_daily1);
+
+                // Food_daily food_daily2 = new Food_daily();
+                // food_daily2.setSide(2);
+                // food_daily2.setFood(food2);
+                // food_daily2.setDaily_record(dailyRecord2);
+                // foodDailyRespository.save(food_daily2);
+
+                // // 日記運動細節
+                // Sports_daily sports_daily1 = new Sports_daily();
+                // sports_daily1.setTime(1);
+                // sports_daily1.setSports(sports1);
+                // sports_daily1.setDaily_record(dailyRecord1);
+                // sportsDailyRespository.save(sports_daily1);
+
+                // Sports_daily sports_daily2 = new Sports_daily();
+                // sports_daily2.setTime(2);
+                // sports_daily2.setSports(sports2);
+                // sports_daily2.setDaily_record(dailyRecord2);
+                // sportsDailyRespository.save(sports_daily2);
+
                 // 插入影片
                 byte[] video1 = Files
                                 .readAllBytes(Paths.get(
@@ -131,66 +238,6 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a2.setText(content2);
                 a2.setPicture(article2);
                 articleRespository.save(a2);
-
-                Path text3 = Paths.get("src/main/resources/static/img/article/article3.txt");
-                String content3 = Files.readString(text3);
-                byte[] article3 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article3.png"));
-                Article a3 = new Article();
-                a3.setTitle("便秘不硬擠，順暢四技巧！");
-                a3.setText(content3);
-                a3.setPicture(article3);
-                articleRespository.save(a3);
-
-                Path text4 = Paths.get("src/main/resources/static/img/article/article4.txt");
-                String content4 = Files.readString(text4);
-                byte[] article4 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article4.png"));
-                Article a4 = new Article();
-                a4.setTitle("消水腫的祕密武器 食物篇");
-                a4.setText(content4);
-                a4.setPicture(article4);
-                articleRespository.save(a4);
-
-                Path text5 = Paths.get("src/main/resources/static/img/article/article5.txt");
-                String content5 = Files.readString(text5);
-                byte[] article5 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article5.png"));
-                Article a5 = new Article();
-                a5.setTitle("舒緩經痛不發胖的好食材");
-                a5.setText(content5);
-                a5.setPicture(article5);
-                articleRespository.save(a5);
-
-                Path text6 = Paths.get("src/main/resources/static/img/article/article6.txt");
-                String content6 = Files.readString(text6);
-                byte[] article6 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article6.png"));
-                Article a6 = new Article();
-                a6.setTitle("瘦身不瘦胸 美胸十全大補帖");
-                a6.setText(content6);
-                a6.setPicture(article6);
-                articleRespository.save(a6);
-
-                Path text7 = Paths.get("src/main/resources/static/img/article/article7.txt");
-                String content7 = Files.readString(text7);
-                byte[] article7 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
-                Article a7 = new Article();
-                a7.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
-                a7.setText(content7);
-                a7.setPicture(article7);
-                articleRespository.save(a7);
-
-                Path text8 = Paths.get("src/main/resources/static/img/article/article8.txt");
-                String content8 = Files.readString(text8);
-                byte[] article8 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article8.png"));
-                Article a8 = new Article();
-                a8.setTitle("工作久站腳好痠？ 3撇步告別腫脹蘿蔔腿！");
-                a8.setText(content8);
-                a8.setPicture(article8);
-                articleRespository.save(a8);
 
                 // 產品
                 Product product = new Product();

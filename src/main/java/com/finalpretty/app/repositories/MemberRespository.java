@@ -16,8 +16,9 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
     // 後台編輯的修改
     @Transactional
     @Modifying
-    @Query(value = "update member set gender=:gender, age=:age, height=:height, weight=:weight, bodyFat=:bodyFat, visceralFat=:visceralFat, muscleMass=:muscleMass, becomeVIP=:becomeVIP where member_id=:member_id", nativeQuery = true)
+    @Query(value = "update member set nickname=:nickname, gender=:gender, age=:age, height=:height, weight=:weight, bodyFat=:bodyFat, visceralFat=:visceralFat, muscleMass=:muscleMass, becomeVIP=:becomeVIP where member_id=:member_id", nativeQuery = true)
     void updateById(@Param("member_id") Integer member_id,
+            @Param("nickname") String nickname,
             @Param("gender") Integer gender,
             @Param("age") Integer age,
             @Param("height") double height,
@@ -28,8 +29,8 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
             @Param("becomeVIP") Integer becomeVIP);
 
     // 後台所有會員分頁
-    @Query("select u from Member u")
-    Page<Member> findList(Pageable pageable);
+    // @Query("select u from Member u")
+    // Page<Member> findList(Pageable pageable);
 
     // Page<Member> getMemberList(Integer pageNum, Integer pageSize);
 

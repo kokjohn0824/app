@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" th:inline="text">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <div th:replace="jsmodules"></div>
+  <style>
+    body {
+      background: url(/img/wallpaper.jpg) no-repeat;
+      background-color: black;
+      background-size: 100vw;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    footer {
+      min-height: 100px;
+      background: PapayaWhip;
+    }
+
+    article {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div th:replace="@{component/navbar}"></div>
+
+  <article>
+
+    <div th:replace="component/navbar :: navbar"></div>
+
+    <div class="container-lg" style="width: 50%; margin: 20px auto">
+
+      <h1>會員資料修改</h1>
+      <div class="container-lg" style="width: 800px;" th:fragment="form">
+        <form th:object="${member}" th:action="@{/member/edit}" method="Get" enctype="multipart/form-data">
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="暱稱" name="nickname" th:field="*{nickname}" required />
+            <label for="nickname" class="form-label"><b>暱稱</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="性別" name="gender" th:field="*{gender}" required />
+            <label for="gender" class="form-label"><b>性別</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="年齡" name="age" th:field="*{age}" required />
+            <label for="age" class="form-label"><b>年齡</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="身高" name="height" th:field="*{height}" required />
+            <label for="height" class="form-label"><b>身高</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="體重" name="weight" th:field="*{weight}" required />
+            <label for="weight" class="form-label"><b>體重</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" th:field="*{bodyFat}" required />
+            <label for="bodyFat" class="form-label"><b>體脂肪</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat" th:field="*{visceralFat}"
+              required />
+            <label for="visceralFat" class="form-label"><b>內臟脂肪</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="肌肉量" name="muscleMass" th:field="*{muscleMass}"
+              required />
+            <label for="muscleMass" class="form-label"><b>肌肉量</b></label>
+          </div>
+          <div class="form-floating mb-3">
+            <input class="form-control" type="text" placeholder="VIP" name="becomeVIP" th:field="*{becomeVIP}"
+              required />
+            <label for="becomeVIP" class="form-label"><b>VIP</b></label>
+          </div>
+          <div>
+            <input th:field="*{member_id}" type="hidden">
+          </div>
+
+          <button type="reset" class="btn btn-secondary">重置</button>
+          <button type="submit" class="signupbtn btn btn-primary">送出</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </article>
+
+  <footer>
+    <div th:replace="component/footer"></div>
+  </footer>
+</body>
+
+</html>

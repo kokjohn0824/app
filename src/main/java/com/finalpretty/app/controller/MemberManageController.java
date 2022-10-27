@@ -48,6 +48,7 @@ public class MemberManageController {
 	// 新增會員
 	@PostMapping("/backendMember/add")
 	public String addMember(
+			@RequestParam(name = "nickname") String nickname,
 			@RequestParam(name = "gender") Integer gender,
 			@RequestParam(name = "age") Integer age,
 			@RequestParam(name = "height") double height,
@@ -58,6 +59,7 @@ public class MemberManageController {
 			@RequestParam(name = "becomeVIP") Integer becomeVIP) {
 		Member member = new Member();
 		try {
+			member.setNickname(nickname);
 			member.setGender(gender);
 			member.setAge(age);
 			member.setHeight(height);
@@ -145,6 +147,7 @@ public class MemberManageController {
 
 	@PostMapping("/backendMember/edit")
 	public String backendMemberEditPost(@RequestParam(name = "member_id") Integer member_id,
+			@RequestParam(name = "nickname") String nickname,
 			@RequestParam(name = "gender") Integer gender,
 			@RequestParam(name = "age") Integer age,
 			@RequestParam(name = "height") double height,
@@ -157,6 +160,7 @@ public class MemberManageController {
 		Member member = new Member();
 
 		try {
+			member.setNickname(nickname);
 			member.setGender(gender);
 			member.setAge(age);
 			member.setHeight(height);
@@ -165,7 +169,7 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
-			memberR.updateById(member_id, gender, age, height, weight, bodyFat,
+			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
 					visceralFat, muscleMass, becomeVIP);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -183,16 +187,14 @@ public class MemberManageController {
 	// }
 
 	// 註冊完，輸入會員資料
-	@GetMapping("/member/inputpage/")
+	@GetMapping("/member/inputpage")
 	public String memberPage(Integer member_id) {
-		// if (memberR.findById(member_id).get() != null) {
-
-		// }
 		return "/member/memberInputPage";
 	}
 
 	@PostMapping("/member/inputpage")
 	public String memberInputPage(
+			@RequestParam(name = "nickname") String nickname,
 			@RequestParam(name = "gender") Integer gender,
 			@RequestParam(name = "age") Integer age,
 			@RequestParam(name = "height") double height,
@@ -205,6 +207,7 @@ public class MemberManageController {
 		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer user_id = ((Users) o).getId();
 		try {
+			member.setNickname(nickname);
 			member.setGender(gender);
 			member.setAge(age);
 			member.setHeight(height);
@@ -228,43 +231,51 @@ public class MemberManageController {
 
 	// 輸入完會員資料，抓取會員資料
 	@GetMapping("/member/page")
-	public String memberEdit(@RequestParam(name = "member_id") Integer id, Model m) {
+	public String memberPage(@RequestParam(name = "member_id") Integer id, Model m) {
 		Optional<Member> m1 = memberR.findById(id);
 		m.addAttribute("member", m1.orElse(null));
 		return "/member/memberPage";
 	}
 
-	// 抓取完會員資料，可編輯
-	// @PostMapping("/member/page")
-	// public String memberEditPost(@RequestParam(name = "member_id") Integer
-	// member_id,
-	// @RequestParam(name = "gender") Integer gender,
-	// @RequestParam(name = "age") Integer age,
-	// @RequestParam(name = "height") double height,
-	// @RequestParam(name = "weight") double weight,
-	// @RequestParam(name = "bodyFat") double bodyFat,
-	// @RequestParam(name = "visceralFat") double visceralFat,
-	// @RequestParam(name = "muscleMass") double muscleMass,
-	// @RequestParam(name = "becomeVIP") Integer becomeVIP,
-	// Model m) {
-	// Member member = new Member();
+	// 抓取會員資料，編輯
+	@GetMapping("/member/edit")
+	public String memberEdit(@RequestParam(name = "member_id") Integer id, Model m) {
+		Optional<Member> m1 = memberR.findById(id);
+		m.addAttribute("member", m1.orElse(null));
+		return "/member/memberEdit";
+	}
 
-	// try {
-	// member.setGender(gender);
-	// member.setAge(age);
-	// member.setHeight(height);
-	// member.setWeight(weight);
-	// member.setBodyFat(bodyFat);
-	// member.setVisceralFat(visceralFat);
-	// member.setMuscleMass(muscleMass);
-	// member.setBecomeVIP(becomeVIP);
-	// memberR.updateById(member_id, gender, age, height, weight, bodyFat,
-	// visceralFat, muscleMass, becomeVIP);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// return "/member/memberPage";
-	// }
+	@PostMapping("/member/edit")
+	public String memberEditPost(@RequestParam(name = "member_id") Integer member_id,
+			@RequestParam(name = "nickname") String nickname,
+			@RequestParam(name = "gender") Integer gender,
+			@RequestParam(name = "age") Integer age,
+			@RequestParam(name = "height") double height,
+			@RequestParam(name = "weight") double weight,
+			@RequestParam(name = "bodyFat") double bodyFat,
+			@RequestParam(name = "visceralFat") double visceralFat,
+			@RequestParam(name = "muscleMass") double muscleMass,
+			@RequestParam(name = "becomeVIP") Integer becomeVIP,
+			Model m) {
+		Member member = new Member();
+
+		try {
+			member.setNickname(nickname);
+			member.setGender(gender);
+			member.setAge(age);
+			member.setHeight(height);
+			member.setWeight(weight);
+			member.setBodyFat(bodyFat);
+			member.setVisceralFat(visceralFat);
+			member.setMuscleMass(muscleMass);
+			member.setBecomeVIP(becomeVIP);
+			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
+					visceralFat, muscleMass, becomeVIP);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "/member/page";
+	}
 
 	// 顯示個人資料find by ID
 	// @GetMapping("/member/page")

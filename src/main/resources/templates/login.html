@@ -53,6 +53,10 @@
         }
       }
 
+      #submitBtn {
+        width: 80%;
+      }
+
       @keyframes fadeEffect {
         from {
           opacity: 0;
@@ -98,12 +102,15 @@
         </div>
         <div>
           <div
+            id="mainCard"
             class="card mx-auto shadow-lg"
             style="
               width: 400px;
               height: 500px;
               border-radius: 10px;
               margin: 100px;
+              position: relative;
+              transition: height 0.5s;
             "
           >
             <div class="d-flex justify-content-around m-2">
@@ -125,7 +132,11 @@
               </ul>
             </div>
             <div id="loginContent" class="tabcontent">
-              <form class="px-4 py-3" method="post" action="/perform_login">
+              <form
+                class="px-4 py-3 my-5"
+                method="post"
+                action="/perform_login"
+              >
                 <div class="form-group p-3">
                   <input
                     type="text"
@@ -178,7 +189,11 @@
                 ></span>
               </div>
             </div>
-            <div id="registerContent" class="tabcontent">
+            <div
+              id="registerContent"
+              class="tabcontent"
+              style="position: relative; overflow: hidden"
+            >
               <div class="" style="width: 80%; margin: 20px auto">
                 <form class="" method="post" id="registerForm">
                   <div class="form-floating mb-3">
@@ -247,9 +262,11 @@
                     </small>
                   </div>
                 </form>
-                <div class="d-flex justify-content-end" style="width: 100%">
-                  <button id="submitBtn" class="btn btn-primary">註冊</button>
-                </div>
+              </div>
+              <div class="d-flex justify-content-center" style="width: 100%">
+                <button id="submitBtn" class="btn bg-dark text-light">
+                  註冊
+                </button>
               </div>
             </div>
           </div>
@@ -309,6 +326,8 @@
     const loginContent = document.getElementById("loginContent");
     const registerContent = document.getElementById("registerContent");
     const tabcontents = document.getElementsByClassName("tabcontent");
+    const mainCard = document.getElementById("mainCard");
+
     const showTab = function (e, action) {
       for (let item of tabcontents) {
         item.style.display = "none";
@@ -317,11 +336,13 @@
         loginContent.style.display = "block";
         loginTab.classList.add("active");
         registerTab.classList.remove("active");
+        mainCard.style.height = "500px";
       }
       if (action === "register") {
         registerContent.style.display = "block";
         registerTab.classList.add("active");
         loginTab.classList.remove("active");
+        mainCard.style.height = "600px";
       }
     };
     //近來頁面先秀註冊頁面

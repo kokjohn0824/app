@@ -17,11 +17,6 @@
     <div th:replace="component/navbar :: navbar"></div>
     <div class="top">
       <div class="container-lg">
-        <input
-          id="member"
-          type="hidden"
-          th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-        />
         <input id="article" th:field="${article.article_id}" type="hidden" />
 
         <img
@@ -41,28 +36,28 @@
             th:text="${article.create_date}"
             itemprop="datePublished"
           ></time>
-          <!-- <img
-            name="cleanAll"
-            id="idimg1"
-            th:src="@{/img/other/star.gif}"
-            height="30px"
-          /> -->
-
-          <span id="sapn" th:name="${bool}" th:if="${bool} eq 'ok'">
-            <img
-              name="cleanAll"
-              id="idimg1"
-              th:src="@{/img/other/chngstar.gif}"
-              height="30px"
+          <span sec:authorize="isAuthenticated()">
+            <input
+              id="member"
+              type="hidden"
+              th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
             />
-          </span>
-          <span th:if="${bool} eq 'null'">
-            <img
-              name="cleanAll"
-              id="idimg1"
-              th:src="@{/img/other/star.gif}"
-              height="30px"
-            />
+            <span id="sapn" th:name="${bool}" th:if="${bool} eq 'ok'">
+              <img
+                name="cleanAll"
+                id="idimg1"
+                th:src="@{/img/other/chngstar.gif}"
+                height="30px"
+              />
+            </span>
+            <span th:if="${bool} eq 'null'">
+              <img
+                name="cleanAll"
+                id="idimg1"
+                th:src="@{/img/other/star.gif}"
+                height="30px"
+              />
+            </span>
           </span>
         </span>
         <p id="resulthtml" th:text="${article.text}"></p>

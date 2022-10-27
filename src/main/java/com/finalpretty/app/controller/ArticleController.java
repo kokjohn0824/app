@@ -45,7 +45,7 @@ public class ArticleController {
 	}
 
 	// 顯示全部文章的圖片
-	@GetMapping("/showImage/{id}")
+	@GetMapping("/public/showImage/{id}")
 	public ResponseEntity<byte[]> showArticleImage(@PathVariable Integer id) {
 		Article article = articleR.findById(id).get();
 		byte[] photoFile = article.getPicture();

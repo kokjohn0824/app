@@ -35,8 +35,8 @@ public class ApplicationStartupRunner implements CommandLineRunner {
         @Autowired
         private ArticleRespository articleRespository;
 
-        // @Autowired
-        // private VideoRespository videoRespository;
+        @Autowired
+        private VideoRespository videoRespository;
 
         @Autowired
         private UsersRepository usersRepository;
@@ -100,16 +100,16 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 usersRepository.save(users);
 
                 // 插入影片
-                // byte[] video1 = Files
-                // .readAllBytes(Paths.get(
-                // "src/main/resources/static/video/939eaf7939f3495ebab182315ff76849.jpg"));
-                // Video v1 = new Video();
-                // v1.setTitle("四足俯臥撐");
-                // v1.setType("胸肌");
-                // v1.setBody_parts("胸大肌");
-                // v1.setPicture(video1);
-                // v1.setUrl("3db97465e2684771a6bce945645c9d00.mp4");
-                // videoRespository.save(v1);
+                byte[] video1 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/video/939eaf7939f3495ebab182315ff76849.jpg"));
+                Video v1 = new Video();
+                v1.setTitle("四足俯臥撐");
+                v1.setType("胸肌");
+                v1.setBody_parts("胸大肌");
+                v1.setPicture(video1);
+                v1.setUrl("3db97465e2684771a6bce945645c9d00.mp4");
+                videoRespository.save(v1);
 
                 // 插入文章
                 Path text1 = Paths.get("src/main/resources/static/img/article/article1.txt");

@@ -148,20 +148,22 @@ public class ArticleController {
 
 	// 按讚文章
 	@ResponseBody
-	@PostMapping("/public/article/like/{member_id}/{article_id}")
+	@PostMapping("/article/like/{article_id}")
 	public ArticleResponse likeArticle(
-			@PathVariable(name = "article_id") Integer article_id,
-			@PathVariable(name = "member_id") Integer member_id) {
+			@PathVariable(name = "article_id") Integer article_id) {
 		try {
-			Member member = memberR.findById(member_id).get();
+			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Member member = ((Users) o).getFkMember();
+			Integer member_id = member.getMember_id();
+			Member memberFromJpa = memberR.findById(member_id).get();
 			Article article = articleR.findById(article_id).get();
-			Set<Article> like = member.getArticles();
+			Set<Article> like = memberFromJpa.getArticles();
 			like.add(article);
+			memberR.save(member);
 
 			ArticleResponse ar = new ArticleResponse();
 			ar.setArticle_id(article_id);
 			ar.setMember_id(member_id);
-			articleR.save(article);
 
 			return ar;
 		} catch (Exception e) {
@@ -172,14 +174,21 @@ public class ArticleController {
 
 	// 取消按讚文章
 	@ResponseBody
-	@PostMapping("/public/article/delike/{member_id}/{article_id}")
+	@PostMapping("/article/delike/{article_id}")
 	public ArticleResponse delikeArticle(
-			@PathVariable(name = "article_id") Integer article_id,
-			@PathVariable(name = "member_id") Integer member_id) {
+			@PathVariable(name = "article_id") Integer article_id) {
 		try {
-			Member member = memberR.findById(member_id).get();
+			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			Member member = ((Users) o).getFkMember();
+
+			Integer member_id = member.getMember_id();
+			Member memberFromJpa = memberR.findById(member_id).get();
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+			System.out.println(member);
+			System.out.println(memberFromJpa);
+			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 			Article article = articleR.findById(article_id).get();
-			Set<Article> ss = member.getArticles();
+			Set<Article> ss = memberFromJpa.getArticles();
 			ss.remove(article);
 			ArticleResponse ar = new ArticleResponse();
 			ar.setArticle_id(article_id);

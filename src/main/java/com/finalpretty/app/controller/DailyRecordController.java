@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import com.finalpretty.app.model.Users;
 import com.finalpretty.app.repositories.DailyRecordRespository;
 import com.finalpretty.app.repositories.MemberRespository;
 
+@Controller
 public class DailyRecordController {
 
     @Autowired
@@ -45,16 +47,16 @@ public class DailyRecordController {
         List<DailyRecord> list = new ArrayList<DailyRecord>();
         list.addAll(daily_record);
         m.addAttribute("list", list);
-        return "/daily/frontEndManageDaily";
+        return "/dailyRecord/frontEndManageDaily";
     }
 
     // 前往新增日記
-    @GetMapping("/daily/add")
+    @GetMapping("/dailyRecord/add")
     public String goAddDaily() {
-        return "/daily/frontEndAddDailyPage";
+        return "/dailyRecord/frontEndAddDailyPage";
     }
 
-    @PostMapping("/daily/add")
+    @PostMapping("/dailyRecord/add")
     public String addDaily(
             @RequestParam(name = "weight") String weight,
             @RequestParam(name = "bodyFat") String bodyFat,

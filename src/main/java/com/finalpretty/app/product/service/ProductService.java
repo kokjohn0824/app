@@ -18,6 +18,10 @@ public class ProductService {
 	@Autowired
 	private ProductRespository pDao;
 
+	public List<Product> findAllByOnSale() {
+		return pDao.findAllByOnSale();
+	}
+
 	public List<Product> findAll() {
 		return pDao.findAll();
 	}

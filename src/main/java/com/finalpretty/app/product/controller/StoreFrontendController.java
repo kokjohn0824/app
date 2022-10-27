@@ -30,11 +30,11 @@ public class StoreFrontendController {
     }
 
     // 前台
-    // 顯示全部文章
+    // 顯示全部
 
     @GetMapping("/storefrontend")
     public String getAllProduct(Model model) {
-        List<Product> list = pService.findAll();
+        List<Product> list = pService.findAllByOnSale();
 
         for (Product li : list) {
             System.out.println(li.getPicture());

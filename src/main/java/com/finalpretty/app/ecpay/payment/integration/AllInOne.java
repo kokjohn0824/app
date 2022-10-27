@@ -53,6 +53,7 @@ import com.finalpretty.app.ecpay.payment.integration.verification.VerifyTradeNoA
  * @author mark.chiu
  *
  */
+@SuppressWarnings("all")
 public class AllInOne extends AllInOneBase {
 
 	public static final Logger log = (Logger) LogManager.getLogger(AllInOne.class);

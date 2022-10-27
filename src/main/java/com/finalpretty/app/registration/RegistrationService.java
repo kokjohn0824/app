@@ -1,22 +1,18 @@
 package com.finalpretty.app.registration;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
 
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import com.finalpretty.app.Response.RegistrationResponse;
 import com.finalpretty.app.email.EmailSender;
-import com.finalpretty.app.email.EmailService;
 import com.finalpretty.app.model.Users;
 import com.finalpretty.app.registration.token.ConfirmationToken;
 import com.finalpretty.app.registration.token.ConfirmationTokenServices;
 import com.finalpretty.app.security.UserRole;
-import com.finalpretty.app.security.UsersRepository;
 import com.finalpretty.app.security.UsersServices;
 
 import lombok.AllArgsConstructor;
@@ -28,10 +24,11 @@ public class RegistrationService {
     private final String ValidEmailRegex = "^[a-zA-Z0-9_]+@[a-zA-Z0-9]+\\.[a-z]{2,3}$";
     private final String EMAIL_NOT_VALID = "email not valid";
     private final String EMAIL_ALREADY_CONFIRMED = "email already confirmed";
-    private final String EMAIL_SEND_SUCCESS = "email send ok!";
     private final String TOKEN_NOT_FOUND = "token not found";
     private final String TOKEN_EXPIRED = "token expired";
-    private final String LINK = "https://localhost:8443/api/v1/registration/confirm?token=";
+    // private final String LINK =
+    // "https://localhost:8443/api/v1/registration/confirm?token=";
+    private final String EMAIL_SEND_SUCCESS = "email send ok!";
     private final String CONFIRMED = "Confirmed";
     private final ConfirmationTokenServices confirmationTokenServices;
 
@@ -62,7 +59,6 @@ public class RegistrationService {
             registrationResponse.setError(e.getMessage());
             return registrationResponse;
         }
-        // TODO: Create a proper email
         emailSender.verificationEmailsend(request.getEmail(), token);
 
         return registrationResponse;

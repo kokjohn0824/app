@@ -15,6 +15,7 @@ import com.finalpretty.app.ecpay.payment.integration.ecpayOperator.PaymentVerify
 import com.finalpretty.app.ecpay.payment.integration.errorMsg.ErrorMessage;
 import com.finalpretty.app.ecpay.payment.integration.exception.EcpayException;
 
+@SuppressWarnings("all")
 public class VerifyAioCheckOut extends PaymentVerifyBase {
 
 	public VerifyAioCheckOut() {

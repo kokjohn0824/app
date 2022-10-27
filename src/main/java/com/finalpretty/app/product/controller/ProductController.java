@@ -3,7 +3,6 @@ package com.finalpretty.app.product.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,10 +197,7 @@ public class ProductController {
 		System.out.println("two" + product.getOnsale());
 
 		m.addAttribute("product", product);
-		if (product != null) {
-			return product;
-		}
-		return null;
+		return product;
 		// return "redirect:/public/listProduct";
 	}
 

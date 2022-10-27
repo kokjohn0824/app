@@ -63,7 +63,6 @@ public class PaymentVerifyBase {
 			else if (mode.equals("EXCLUDE") && value >= Integer.valueOf(minimum) && value <= Integer.valueOf(maximum))
 				throw new EcpayException(ele.getAttribute("name") + "必須小於" + minimum + "或大於" + maximum);
 		} else if (type.equals("DepOpt")) {
-			// TODO
 		}
 	}
 }

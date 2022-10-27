@@ -46,6 +46,7 @@ import com.finalpretty.app.ecpay.payment.integration.exception.EcpayException;
  * @author mark.chiu
  *
  */
+@SuppressWarnings("all")
 public class EcpayFunction {
 
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();

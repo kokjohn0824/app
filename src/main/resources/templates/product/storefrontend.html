@@ -57,7 +57,7 @@
 <div >
         <ul class="d-flex justify-content-center" style="list-style:none ;">
           <li>
-            <a href="/">食品</a>　/　
+            <a th:href="@{/public}">食品</a>
           </li>
           <p></p>
           <li>
@@ -193,7 +193,7 @@
               >
                 關閉
               </button>
-              <button type="button" class="btn btn-primary">下一步</button>
+              <a th:href="@{/public/cartCheck}" type="button" class="btn btn-primary">下一步</a>
             </div>
           </div>
         </div>
@@ -409,9 +409,9 @@
             "<td>" +
             cartArray[i].name +
             "</td>" +
-            "<td>(" +
+            "<td>$" +
             cartArray[i].price +
-            ")</td>" +
+            "</td>" +
             '<td><img src="' +
             cartArray[i].img +
             ' " height="200" width="200"/></td>' +
@@ -430,7 +430,7 @@
             cartArray[i].name +
             ">X</button></td>" +
             " = " +
-            "<td>" +
+            "<td>$" +
             cartArray[i].total +
             "</td>" +
             "</tr>";

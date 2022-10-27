@@ -34,130 +34,146 @@
       th:href="@{/admin/gotoProduct}"
       >新增商品</a
     >
+    <input type="text" value="" name="productname" /><button id="productname">
+      查詢
+    </button>
     <table border="1">
-      <tr border="1">
-        <th>商品名稱</th>
-        <th>商品價格</th>
-        <th>商品庫存</th>
-        <th>商品狀態</th>
-        <th>商品上下架</th>
-        <th>商品種類</th>
-        <th>商品簡介</th>
-        <th>商品照片</th>
-      </tr>
-      <tr th:each="productinfo : ${productList}">
-        <td th:text="${productinfo.title}"></td>
-        <td th:text="${productinfo.price}"></td>
-        <td th:text="${productinfo.stock}"></td>
-        <td th:if="${productinfo.stock} eq 0">
-          <span style="color: gray">關閉中</span>
-        </td>
-        <td
-          id="onsalecheck"
-          th:if="${productinfo.onsale} eq 1 and ${productinfo.stock} != 0"
-          th:name="${productinfo.product_id}"
-        >
-          <span th:name="${productinfo.product_id}" style="color: green"
-            >販售中</span
+      <thead>
+        <tr border="1">
+          <th>商品名稱</th>
+          <th>商品價格</th>
+          <th>商品庫存</th>
+          <th>商品狀態</th>
+          <th>商品上下架</th>
+          <th>商品種類</th>
+          <th>商品簡介</th>
+          <th>商品照片</th>
+          <th>修改</th>
+          <th>刪除</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr th:each="productinfo : ${productList}">
+          <td th:text="${productinfo.title}"></td>
+          <td th:text="${productinfo.price}"></td>
+          <td th:text="${productinfo.stock}"></td>
+          <td th:if="${productinfo.stock} eq 0">
+            <span style="color: gray">關閉中</span>
+          </td>
+          <td
+            id="onsalecheck"
+            th:if="${productinfo.onsale} eq 1 and ${productinfo.stock} != 0"
+            th:name="${productinfo.product_id}"
           >
-        </td>
-        <td
-          id="onsalecheck"
-          th:if="${productinfo.onsale} eq 0 and ${productinfo.stock} != 0"
-          th:name="${productinfo.product_id}"
-        >
-          <span th:name="${productinfo.product_id}" style="color: red"
-            >下架中</span
+            <span th:name="${productinfo.product_id}" style="color: green"
+              >販售中</span
+            >
+          </td>
+          <td
+            id="onsalecheck"
+            th:if="${productinfo.onsale} eq 0 and ${productinfo.stock} != 0"
+            th:name="${productinfo.product_id}"
           >
-        </td>
-        <td th:if="${productinfo.stock} eq 0">
-          <button type="button" class="btn btn-secondary" disabled>
-            已關閉
-          </button>
-        </td>
-        <td
-          th:id="${productinfo.onsale}"
-          th:if="${productinfo.onsale} eq 1 and ${productinfo.stock} != 0"
-          th:name="${productinfo.product_id}"
-        >
-          <button
-            th:id="${productinfo.product_id}"
-            type="button"
-            class="btn btn-success"
-            style="display: none"
-            name="check"
+            <span th:name="${productinfo.product_id}" style="color: red"
+              >下架中</span
+            >
+          </td>
+          <td th:if="${productinfo.stock} eq 0">
+            <button type="button" class="btn btn-secondary" disabled>
+              已關閉
+            </button>
+          </td>
+          <td
+            th:id="${productinfo.onsale}"
+            th:if="${productinfo.onsale} eq 1 and ${productinfo.stock} != 0"
+            th:name="${productinfo.product_id}"
           >
-            上架
-          </button>
-          <button
-            th:id="${productinfo.product_id}"
-            type="button"
-            class="btn btn-danger"
-            name="check"
+            <button
+              th:id="${productinfo.product_id}"
+              type="button"
+              class="btn btn-success"
+              style="display: none"
+              name="check"
+            >
+              上架
+            </button>
+            <button
+              th:id="${productinfo.product_id}"
+              type="button"
+              class="btn btn-danger"
+              name="check"
+            >
+              下架
+            </button>
+            <input name="sp1" th:id="${productinfo.onsale}" type="hidden" />
+          </td>
+          <td
+            th:id="${productinfo.onsale}"
+            th:if="${productinfo.onsale} eq 0 and ${productinfo.stock} != 0"
+            th:name="${productinfo.product_id}"
           >
-            下架
-          </button>
-          <input name="sp1" th:id="${productinfo.onsale}" type="hidden" />
-        </td>
-        <td
-          th:id="${productinfo.onsale}"
-          th:if="${productinfo.onsale} eq 0 and ${productinfo.stock} != 0"
-          th:name="${productinfo.product_id}"
-        >
-          <button
-            th:id="${productinfo.product_id}"
-            type="button"
-            class="btn btn-success"
-            name="check"
-          >
-            上架
-          </button>
-          <button
-            th:id="${productinfo.product_id}"
-            type="button"
-            class="btn btn-danger"
-            style="display: none"
-            name="check"
-          >
-            下架
-          </button>
-          <input name="sp1" th:id="${productinfo.onsale}" type="hidden" />
-        </td>
-        <td th:text="${productinfo.type}"></td>
-        <td th:text="${productinfo.text}"></td>
-        <td>
-          <img
-            th:src="@{'/admin/downloadImage/'+${productinfo.product_id}}"
-            width="30px"
-            height="40px"
-          />
-        </td>
-        <td>
-          <!-- <a
+            <button
+              th:id="${productinfo.product_id}"
+              type="button"
+              class="btn btn-success"
+              name="check"
+            >
+              上架
+            </button>
+            <button
+              th:id="${productinfo.product_id}"
+              type="button"
+              class="btn btn-danger"
+              style="display: none"
+              name="check"
+            >
+              下架
+            </button>
+            <input name="sp1" th:id="${productinfo.onsale}" type="hidden" />
+          </td>
+          <td th:text="${productinfo.type}"></td>
+          <td>
+            <textarea
+              th:text="${productinfo.text}"
+              class="form-control"
+              id="text"
+              disabled
+            ></textarea>
+          </td>
+          <td>
+            <img
+              th:src="@{'/admin/downloadImage/'+${productinfo.product_id}}"
+              width="30px"
+              height="40px"
+            />
+          </td>
+          <td>
+            <!-- <a
           th:onclick="return confirm('確定修改嗎?')"
           th:href="@{'/admin/updateProduct?product_id='+${productinfo.product_id}}"
           >編輯</a
           > -->
-          <button
-            th:id="${productinfo.product_id}"
-            name="checkboxone"
-            type="button"
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            data-bs-whatever="@getbootstrap"
-          >
-            編輯
-          </button>
-        </td>
-        <td>
-          <a
-            th:onclick="return confirm('確定刪除嗎?')"
-            th:href="@{'/admin/deleteProduct?product_id='+${productinfo.product_id}}"
-            >刪除</a
-          >
-        </td>
-      </tr>
+            <button
+              th:id="${productinfo.product_id}"
+              name="checkboxone"
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              data-bs-whatever="@getbootstrap"
+            >
+              編輯
+            </button>
+          </td>
+          <td>
+            <a
+              th:onclick="return confirm('確定刪除嗎?')"
+              th:href="@{'/admin/deleteProduct?product_id='+${productinfo.product_id}}"
+              >刪除</a
+            >
+          </td>
+        </tr>
+      </tbody>
     </table>
 
     <div
@@ -231,7 +247,6 @@
                   name="text"
                   class="form-control"
                   id="recipient-text"
-                  value=""
                   required
                 ></textarea>
               </div>
@@ -284,7 +299,8 @@
     </div>
 
     <script>
-      $("#inputFileToLoad").change(function () {
+      var inputFileToLoad = $("#inputFileToLoad");
+      inputFileToLoad.change(function () {
         readURL(this);
       });
       function readURL(input) {
@@ -321,7 +337,7 @@
             $("#recipient-title").attr("value", result.title);
             $("#recipient-price").attr("value", result.price);
             $("#recipient-stock").attr("value", result.stock);
-            $("#recipient-text").attr("value", result.text);
+            $("#recipient-text").text(result.text);
             $("#onsale").attr("value", result.onsale);
             $("#product_id").attr("value", result.product_id);
             $("#preview_img").attr(
@@ -376,6 +392,142 @@
             $(e.target).prev().show().attr("class", "btn btn-success");
           }
         });
+      });
+      $("#productname").click(function () {
+        // $("#tbody").hide();
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = $("input[name='productname']").val();
+        if (!raw || raw.length === 0) {
+          raw = '""';
+        }
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch("http://localhost:8082/public/api/selectLike", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            var str;
+            for (let i of result) {
+              str += "<tr><td>" + i.title + "</td>";
+              str += "<td>" + i.price + "</td>";
+              str += "<td>" + i.stock + "</td>";
+              if (i.stock == 0) {
+                str += "<td><span style='color:gray'>關閉中</span></td>";
+                str +=
+                  "<td><button type='button' class='btn btn-secondary' disabled>已關閉</button></td>";
+              }
+              if (i.onsale == 1 && i.stock != 0) {
+                str += "<td><span style='color:green'>販售中</span></td>";
+                str +=
+                  '<td id="' +
+                  i.onsale +
+                  "\"><button id='" +
+                  i.product_id +
+                  "' type='button' class='btn btn-success' style=\"display: none;\" name=\"checksale\">上架</button>";
+                str +=
+                  "<button id='" +
+                  i.product_id +
+                  "' type='button' class='btn btn-danger' name=\"checksale\">下架</button></td>";
+              } else if (i.onsale == 0 && i.stock != 0) {
+                str += "<td><span style='color:red'>下架中</span></td>";
+                str +=
+                  '<td id="' +
+                  i.onsale +
+                  "\"><button id='" +
+                  i.product_id +
+                  "' type='button' class='btn btn-success' name=\"checksale\">上架</button>";
+                str +=
+                  "<button id='" +
+                  i.product_id +
+                  "' type='button' class='btn btn-danger' style=\"display: none;\" name=\"checksale\">下架</button></td>";
+              }
+              str += "<td>" + i.type + "</td>";
+              str +=
+                "<td><textarea text='" +
+                i.text +
+                "' class='form-control' id='text' disabled>" +
+                i.text +
+                "</textarea></td>";
+              str +=
+                "<td><img src='/admin/downloadImage/" +
+                i.product_id +
+                '\' style="width:50px;height:50px;border-radius:50px 50px 50px 50px;"/></td>';
+              str +=
+                "<td><button id='" +
+                i.product_id +
+                "' name='checkboxone' type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@getbootstrap'>編輯</button>";
+              str +=
+                "<td><a onclick=\"return confirm('確定刪除嗎?')\" href=\"/admin/deleteProduct?product_id='" +
+                i.product_id +
+                '">刪除</a></td></tr>';
+            }
+            $("#tbody").html(str);
+
+            var btn = document.getElementsByName("checkboxone");
+
+            for (let i of btn) {
+              i.addEventListener("click", (e) => {
+                checkbox(e);
+              });
+            }
+
+            var check = $("button[name='checksale']");
+            check.click(function (e) {
+              var id = $(e.target).attr("id");
+              var onsale = $(e.target).parent().attr("id");
+              // console.log(id);
+              // console.log(onsale);
+              var settings = {
+                url:
+                  "http://localhost:8082/admin/api/changeOnsale/" +
+                  id +
+                  "/" +
+                  onsale,
+                method: "POST",
+                timeout: 0,
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                data: JSON.stringify({}),
+              };
+
+              $.ajax(settings).done(function (response) {
+                // console.log($(e.target).prev()[0]);
+                // console.log($(e.target).next()[0]);
+                console.log(response.onsale);
+                if (response.onsale == 1) {
+                  $(e.target)
+                    .parent()
+                    .prev()
+                    .find("span")
+                    .attr("style", "color:green")
+                    .text("販售中");
+                  console.log($(e.target).prev()[0]);
+                  console.log($(e.target).next()[0]);
+                  $(e.target).parent().attr("id", response.onsale);
+                  $(e.target).hide();
+                  $(e.target).next().show();
+                } else if (response.onsale == 0) {
+                  $(e.target)
+                    .parent()
+                    .prev()
+                    .find("span")
+                    .attr("style", "color:red")
+                    .text("下架中");
+                }
+                $(e.target).parent().attr("id", response.onsale);
+                $(e.target).hide();
+                $(e.target).prev().show();
+              });
+            });
+          })
+          .catch((error) => console.log("error", error));
       });
     </script>
   </body>

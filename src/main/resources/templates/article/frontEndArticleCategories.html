@@ -23,14 +23,6 @@
   <body th:inline="text">
     <div th:replace="component/navbar :: navbar"></div>
     <!-- <div style="width: 100%; top: 76px"></div> -->
-
-    <div sec:authorize="isAuthenticated()">
-      <input
-        id="member"
-        type="hidden"
-        th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-      />
-    </div>
     <div class="top">
       <div class="container-lg" style="margin: 20px auto">
         <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -66,7 +58,7 @@
 
             <div class="card" style="width: 18rem; margin: 10px">
               <img
-                th:src="@{'/showImage/'+${article.article_id}}"
+                th:src="@{'/public/showArticleImage/'+${article.article_id}}"
                 class="card-img-top"
                 alt="..."
               />
@@ -79,7 +71,7 @@
                   th:text="${article.text}"
                 ></p>
                 <a
-                  th:href="@{'/public/article/show?article_id='+${article.article_id}+'&member_id='+${#authentication.getPrincipal().getFkMember().getMember_id()}}"
+                  th:href="@{'/public/article/show?article_id='+${article.article_id}}"
                   class="btn btn-primary"
                   >Read more</a
                 >

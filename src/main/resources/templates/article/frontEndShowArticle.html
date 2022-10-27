@@ -61,19 +61,12 @@
     <script>
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;
+
       $("img[name='cleanAll']").click(function (e) {
-        // var member = $(e.target).attr("id");
-        // var myHeaders = new Headers();
-        var member = $("#member").val();
         var article = $("#article").val();
-        // console.log(member);
-        // console.log(article);
+        console.log(article);
         var settings = {
-          url:
-            "http://localhost:8082/public/article/like/" +
-            member +
-            "/" +
-            article,
+          url: "http://localhost:8082/article/like/" + article,
           method: "POST",
           timeout: 0,
           headers: {
@@ -87,18 +80,11 @@
       });
 
       $("img[name='cleanAll']").dblclick(function (e) {
-        // var member = $(e.target).attr("id");
-        // var myHeaders = new Headers();
-        var member = $("#member").val();
         var article = $("#article").val();
         // console.log(member);
         // console.log(article);
         var settings = {
-          url:
-            "http://localhost:8082/public/article/delike/" +
-            member +
-            "/" +
-            article,
+          url: "http://localhost:8082/article/delike/" + article,
           method: "POST",
           timeout: 0,
           headers: {
@@ -129,10 +115,6 @@
         var modals = document.getElementById("idimg1");
         modals.addEventListener("dblclick", clean);
       }
-
-      let sss =
-        "@{'/public/article/findlike/'+${#authentication.getPrincipal().getFkMember().getMember_id()}+'/'+${article.article_id}}";
-      console.log($("#sapn").attr("name"));
     </script>
   </body>
 </html>

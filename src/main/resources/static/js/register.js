@@ -41,7 +41,7 @@ const handleSyncPassword = function (e) {
   }
   flags["repeatPwdChecked"] = true;
   repeatPwdInput.classList.remove("is-invalid");
-  repeatPwdHelpBlock.innerText = "ok!";
+  repeatPwdHelpBlock.innerText = "OK!";
 };
 
 let myHeaders = new Headers();
@@ -74,7 +74,7 @@ accountInput.addEventListener("blur", (e) => {
 
   flags["accountChecked"] = true;
   e.target.classList.remove("is-invalid");
-  accountHelpBlock.innerText = "ok!";
+  accountHelpBlock.innerText = "OK!";
 });
 
 emailInput.addEventListener("blur", (e) => {
@@ -145,7 +145,7 @@ passwordInput.addEventListener("input", (e) => {
   } else {
     e.target.classList.remove("is-invalid");
     flags["passwordChecked"] = true;
-    passwordHelpBlock.innerText = "OK";
+    passwordHelpBlock.innerText = "OK!";
   }
 
   //同步
@@ -155,7 +155,7 @@ passwordInput.addEventListener("input", (e) => {
     flags["repeatPwdChecked"] = false;
     return;
   } else {
-    repeatPwdHelpBlock.innerText = "OK";
+    repeatPwdHelpBlock.innerText = "OK!";
     repeatPwdInput.classList.remove("is-invalid");
     flags["repeatPwdChecked"] = true;
   }

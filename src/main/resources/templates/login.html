@@ -33,12 +33,7 @@
 
       /* Change background color of buttons on hover */
       .tab button:hover {
-        background-color: #ddd;
-      }
-
-      /* Create an active/current tablink class */
-      .tab button.active {
-        background-color: blue;
+        background-color: red;
       }
 
       /* Style the tab content */
@@ -74,7 +69,11 @@
     <article>
       <div
         class="d-flex"
-        style="height: 100vh; background: url(/img/wallpaper2.webp)"
+        style="
+          height: 100vh;
+          background: url(/img/wallpaper2.webp);
+          background-size: 100%;
+        "
       >
         <!-- 黃金比例格子 -->
         <div
@@ -107,13 +106,23 @@
               margin: 100px;
             "
           >
-            <div class="d-flex justify-content-around" style="height: 100px">
-              <button class="btn tablinks" onclick="showTab(event, 'login')">
-                登入
-              </button>
-              <button class="btn tablinks" onclick="showTab(event, 'register')">
-                註冊
-              </button>
+            <div class="d-flex justify-content-around m-2">
+              <ul class="nav nav-tabs">
+                <button
+                  id="loginTab"
+                  class="nav-link active"
+                  onclick="showTab(event, 'login')"
+                >
+                  登入
+                </button>
+                <button
+                  id="registerTab"
+                  class="nav-link"
+                  onclick="showTab(event, 'register')"
+                >
+                  註冊
+                </button>
+              </ul>
             </div>
             <div id="loginContent" class="tabcontent">
               <form class="px-4 py-3" method="post" action="/perform_login">
@@ -295,6 +304,8 @@
   </body>
   <script>
     //嗅出tab
+    const loginTab = document.getElementById("loginTab");
+    const registerTab = document.getElementById("registerTab");
     const loginContent = document.getElementById("loginContent");
     const registerContent = document.getElementById("registerContent");
     const tabcontents = document.getElementsByClassName("tabcontent");
@@ -302,8 +313,16 @@
       for (let item of tabcontents) {
         item.style.display = "none";
       }
-      if (action === "login") loginContent.style.display = "block";
-      if (action === "register") registerContent.style.display = "block";
+      if (action === "login") {
+        loginContent.style.display = "block";
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+      }
+      if (action === "register") {
+        registerContent.style.display = "block";
+        registerTab.classList.add("active");
+        loginTab.classList.remove("active");
+      }
     };
     //近來頁面先秀註冊頁面
 
@@ -316,8 +335,10 @@
       )
         return decodeURIComponent(name[1]);
     }
-    let tab = get("tab");
-    if (!tab) tab = "login";
-    showTab(event, tab);
+    if (get("tab") === "register") {
+      registerTab.click();
+    } else {
+      loginTab.click();
+    }
   </script>
 </html>

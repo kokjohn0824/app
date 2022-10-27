@@ -40,4 +40,7 @@ public interface ProductRespository extends JpaRepository<Product, Integer> {
 	@Query(value = "select * from product where onsale = 1 and [type] like '%用品' order by product_id desc", nativeQuery = true)
 	List<Product> selectByUseProduct();
 
+	@Query(value = "select * from product where onsale = 1  order by product_id desc", nativeQuery = true)
+	List<Product> findAllByOnSale();
+
 }

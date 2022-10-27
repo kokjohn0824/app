@@ -25,12 +25,12 @@ public class Sports_daily {
     @Column(name = "sports_daily_id")
     private Integer sports_daily_id;
 
-    @Column(name = "time") // 食品份量
+    @Column(name = "time") // 運動時間
     private Integer time;
 
     @ManyToOne
-    @JoinColumn(name = "fk_sports_id") // 食品ID
-    private Food sports;
+    @JoinColumn(name = "fk_sports_id") // 運動ID
+    private Sports sports;
 
     @ManyToOne
     @JoinColumn(name = "fk_daily_record_id") // 日記編號

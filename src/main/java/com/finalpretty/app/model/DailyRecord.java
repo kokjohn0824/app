@@ -38,28 +38,35 @@ public class DailyRecord {
 	@Column(name = "daily_record_id")
 	private Integer daily_record_id;
 
+	// 當日體重
 	@Column(name = "weight")
 	private Integer weight;
 
+	// 當日體脂
 	@Column(name = "bodyFat")
 	private Integer bodyFat;
 
+	// 當日飲水量
 	@Column(name = "drinkingWater")
 	private Integer drinkingWater;
 
+	// 日期
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "date_time", columnDefinition = "datetime")
 	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE", timezone = "GMT+8")
 	private Date date_time;
 
+	// 跟Member連動
 	@ManyToOne
 	@JoinColumn(name = "fk_member_id")
 	private Member members;
 
+	// 食物明細外來鍵
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
 	private Set<Food_daily> food_daily;
 
+	// 運動明細外來鍵
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
 	private Set<Sports_daily> sports_daily = new HashSet<Sports_daily>();
 

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.finalpretty.app.Response.ArticleResponse;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
+import com.finalpretty.app.model.Users;
 import com.finalpretty.app.repositories.ArticleRespository;
 import com.finalpretty.app.repositories.MemberRespository;
 
@@ -45,7 +47,7 @@ public class ArticleController {
 	}
 
 	// 顯示全部文章的圖片
-	@GetMapping("/public/showImage/{id}")
+	@GetMapping("/public/showArticleImage/{id}")
 	public ResponseEntity<byte[]> showArticleImage(@PathVariable Integer id) {
 		Article article = articleR.findById(id).get();
 		byte[] photoFile = article.getPicture();
@@ -124,19 +126,23 @@ public class ArticleController {
 
 	// 顯示選取文章
 	@GetMapping("/public/article/show")
-	public String showArticle(@RequestParam(name = "article_id") Integer article_id,
-			@RequestParam(name = "member_id") Integer member_id, Model m) {
-		Member member = memberR.findById(member_id).get();
+	public String showArticle(@RequestParam(name = "article_id") Integer article_id, Model m) {
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Member member;
 		Optional<Article> optional = articleR.findById(article_id);
 		Article article = optional.get();
+		Set<Member> members = article.getMembers();
+		if (o instanceof Users) {
+			member = ((Users) o).getFkMember();
+			if (members.contains(member)) {
+				m.addAttribute("bool", "true");
+			} else {
+				m.addAttribute("bool", "false");
+			}
+
+		}
 		m.addAttribute("article", article);
 
-		Set<Article> ss = member.getArticles();
-		if (ss.contains(article)) {
-			m.addAttribute("bool", "ok");
-		} else {
-			m.addAttribute("bool", "null");
-		}
 		return "/article/frontEndShowArticle";
 	}
 

@@ -17,6 +17,14 @@ public class ProductService {
 	@Autowired
 	private ProductRespository pDao;
 
+	public List<Product> selectByEatProduct() {
+		return pDao.selectByEatProduct();
+	}
+
+	public List<Product> selectByUseProduct() {
+		return pDao.selectByUseProduct();
+	}
+
 	public List<Product> findAllByOnSale() {
 		return pDao.findAllByOnSale();
 	}

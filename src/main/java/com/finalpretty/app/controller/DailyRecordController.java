@@ -40,12 +40,12 @@ public class DailyRecordController {
     @GetMapping("/dailyRecord/all")
     public String manageDailyRecordPage(Model m) {
         Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Integer member_id;
-        if (o instanceof Users) {
-            member_id = ((Users) o).getFkMember().getMember_id();
-        } else {
-            member_id = 0;
-        }
+        Integer member_id = ((Users) o).getFkMember().getMember_id();
+        // if (o instanceof Users) {
+        // member_id = ((Users) o).getFkMember().getMember_id();
+        // } else {
+        // member_id = 0;
+        // }
         Member member = memberR.findById(member_id).get();
         Set<DailyRecord> daily_record = member.getDaily_records();
         List<DailyRecord> list = new ArrayList<DailyRecord>();
@@ -77,6 +77,37 @@ public class DailyRecordController {
         return "/dailyRecord/frontEndAddDailyPage";
     }
 
+    // 新增日記
+    @PostMapping("/dailyRecord/add")
+    public String addDaily(
+            @RequestParam(name = "daily_record_id") Integer daily_record_id,
+            @RequestParam(name = "weight") Integer weight,
+            @RequestParam(name = "bodyFat") Integer bodyFat,
+            @RequestParam(name = "drinkingWater") Integer drinkingWater) {
+        Date date = new Date();
+        String date_time = dateFormat.format(date);
+
+        DailyRecord dailyRecord = dailyRecordR.findById(daily_record_id).get();
+
+        dailyRecord.setWeight(weight);
+        dailyRecord.setBodyFat(bodyFat);
+        dailyRecord.setDrinkingWater(drinkingWater);
+        dailyRecord.setDate_time(date_time);
+
+        dailyRecordR.save(dailyRecord);
+        return "redirect:/dailyRecord/all";
+    }
+
+    // 刪除日記(by Date_time)
+    @GetMapping("/dailyRecord/delete")
+    public String deleteArticle(@RequestParam(name = "daily_record_id") Integer daily_record_id) {
+        DailyRecord dailyRecord = dailyRecordR.findById(daily_record_id).get();
+        dailyRecord.setMembers(null);
+        dailyRecordR.save(dailyRecord);
+        dailyRecordR.deleteById(daily_record_id);
+        return "redirect:/dailyRecord/all";
+    }
+
     // // 修改日記
     // @GetMapping("/dailyRecord/edit")
     // public String editArticle(@RequestParam(name = "article_id") Integer id,
@@ -84,32 +115,5 @@ public class DailyRecordController {
     // Optional<Article> a1 = articleR.findById(id);
     // model.addAttribute("article", a1.orElse(null));
     // return "/article/backEndEditArticle";
-
-    @PostMapping("/dailyRecord/add")
-    public String addDaily(
-            @RequestParam(name = "daily_record_id") Integer daily_record_id,
-            @RequestParam(name = "weight") Integer weight,
-            @RequestParam(name = "bodyFat") Integer bodyFat,
-            @RequestParam(name = "drinkingWater") Integer drinkingWater) {
-        // DailyRecord daily = new DailyRecord();
-
-        // long miliseconds = System.currentTimeMillis();
-        Date date = new Date();
-        String Date_time = dateFormat.format(date);
-        // daily.setWeight(weight);
-        // daily.setBodyFat(bodyFat);
-        // daily.setDrinkingWater(drinkingWater);
-        // System.out.println(Date_time);
-        DailyRecord dailyRecord = dailyRecordR.findById(daily_record_id).get();
-        dailyRecord.setWeight(weight);
-        dailyRecord.setBodyFat(bodyFat);
-        dailyRecord.setDrinkingWater(drinkingWater);
-        dailyRecord.setDate_time(Date_time);
-
-        // dailyRecordR.updateById(weight, bodyFat, drinkingWater, daily_record_id);
-
-        dailyRecordR.save(dailyRecord);
-        return "/dailyRecord/frontEndManageDaily";
-    }
 
 }

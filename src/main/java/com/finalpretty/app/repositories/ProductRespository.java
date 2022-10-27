@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finalpretty.app.Response.ProductDto;
 import com.finalpretty.app.model.Product;
 
 public interface ProductRespository extends JpaRepository<Product, Integer> {
@@ -33,5 +34,8 @@ public interface ProductRespository extends JpaRepository<Product, Integer> {
 
 	@Query(value = "select * from product order by product_id desc", nativeQuery = true)
 	List<Product> findAll();
+
+	@Query(value = "select * from product where title like :productname or [text] like :productname order by product_id desc", nativeQuery = true)
+	List<Product> selectLike(@Param("productname") String productname);
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.finalpretty.app.Response.ProductDto;
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.repositories.ProductRespository;
 
@@ -51,6 +52,14 @@ public class ProductService {
 	@Transactional
 	public void deleteProduct(Integer product_id) {
 		pDao.deleteProduct(product_id);
+	}
+
+	public List<Product> selectLike(String prodcutname) {
+		if (("\"\"").equals(prodcutname)) {
+			return pDao.selectLike("%%");
+		} else {
+			return pDao.selectLike("%" + prodcutname + "%");
+		}
 	}
 
 }

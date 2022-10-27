@@ -36,7 +36,7 @@ public class StoreFrontendController {
     }
 
     // 找食品
-    @GetMapping("/storefrontend/eatproduct")
+    @GetMapping("/public/eatproduct")
     public String selectByEatProduct(Model model) {
         List<Product> list = pService.selectByEatProduct();
 
@@ -45,11 +45,11 @@ public class StoreFrontendController {
         }
         model.addAttribute("productlisteat", list);
 
-        return "/product/storefrontend/eatproduct";
+        return "/product/eatproduct";
     }
 
     // 找用品
-    @GetMapping("/storefrontend/useproduct")
+    @GetMapping("/public/useproduct")
     public String selectByUseProduct(Model model) {
         List<Product> list = pService.selectByUseProduct();
 
@@ -58,7 +58,7 @@ public class StoreFrontendController {
         }
         model.addAttribute("productlistuse", list);
 
-        return "/product/storefrontend/useproduct";
+        return "/product/useproduct";
     }
 
     // 秀全部商品

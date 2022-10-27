@@ -56,12 +56,16 @@
 
 <div >
         <ul class="d-flex justify-content-center" style="list-style:none ;">
+          商品分類：　
           <li>
-            <a th:href="@{/public}">食品</a>
+            <a th:href="@{/storefrontend}">全部商品</a>　/　
+          </li>
+          <li>
+            <a th:href="@{/public/eatproduct}">食品</a>　/　
           </li>
           <p></p>
           <li>
-            <a href="/"> 用品</a>
+            <a th:href="@{/public/useproduct}">用品</a>
           </li>
         </ul> 
 </div>
@@ -125,39 +129,7 @@
         </div>
       </div>
 
-      <!-- <div>
-    <div class="allcard" style="display: flex;">
-      <div class="card" style="width: 20rem;justify-content: center;  background-color:#ffffff;
-      border-radius:3px;
-      border: 1px solid #a1a1a1;
-      padding:20px;">
-
-        <div th:each="product : ${productlist}">
-
-          <img
-          th:src="@{'/admin/downloadImage/'+${product.product_id}}"
-          class="card-img-top"
-          alt="..."
-          />
-
-
-        <div class="card-block">
-          <h4 class="card-title" th:text="${product.title}"></h4>
-          <p class="card-text" th:text="'$'+${product.price}"></p>
-          <p class="card-text" th:text="${product.text}"></p>
-          <p class="card-text" th:text="${product.product_id}"></p>
-          <a
-            href="#"
-            th:data-name="${product.title}"
-            th:data-price="${product.price}"
-            th:data-id="${product.product_id}"
-            
-            class="add-to-cart btn btn-primary"
-            >加入購物車</a>
-          
-        </div>
-      </div>
-    </div> -->
+     
 
       <!-- Modal -->
       <div
@@ -199,31 +171,7 @@
         </div>
       </div>
 
-      <!-- 
-      <div class="allproduct">
-       
-        <img
-          th:src="@{/img/product/product1.jpg}"
-          class="card-img-top"
-          alt="..."
-          />
-        <div th:each="product : ${productlist}">
-
-        <div class="card-body" >
-          
-          <h5 style="margin: auto;" class="card-title" th:text="${product.title}" ></h5>
-          <p class="productPrice" style="color:blue ;" th:text="'$'+${product.price}"></p>
-        </div>
-        <ul>
-          <li class="list-group-item" th:text="${product.text}"></li>
-        </ul>
-        <div class="card-body" style="margin: auto;">
-          <a href="#" class="card-link"><button style="border-radius: 10px;" type="button" class="btn btn-outline-warning"></a>立即結帳</button></a>
-          <a href="#" class="card-link"><button style="border-radius: 10px;" type="button" class="btn btn-outline-warning"></a>加購物車</button></a>
-        </div>
-      
-        </div>
- -->
+ 
     </div>
 
     <script th:inline="javascript">

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:replace="jsmodules"></div>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}" />
+    
     <title>商城</title>
     <link
       rel="stylesheet"
@@ -45,6 +45,7 @@
         height: 200px;
         align-self: center;
       }
+
     </style>
   </head>
 
@@ -52,9 +53,20 @@
     <div th:replace="component/navbar :: navbar"></div>
     <div th:replace="component/chatbubble"></div>
 
-    <div style="margin-top: 8%">
-      <!-- Nav -->
-      <!-- <nav class="navbar navbar-inverse bg-inverse fixed-top bg-faded"> -->
+
+<div >
+        <ul class="d-flex justify-content-center" style="list-style:none ;">
+          <li>
+            <a href="/">食品</a>　/　
+          </li>
+          <p></p>
+          <li>
+            <a href="/"> 用品</a>
+          </li>
+        </ul> 
+</div>
+ 
+     
 
       <div>
         <button

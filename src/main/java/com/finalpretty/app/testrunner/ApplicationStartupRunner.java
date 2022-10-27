@@ -1,24 +1,21 @@
 package com.finalpretty.app.testrunner;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.imageio.ImageIO;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
-import com.finalpretty.app.model.Order;
 import com.finalpretty.app.model.Product;
+import com.finalpretty.app.model.Users;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.ArticleRespository;
 import com.finalpretty.app.repositories.MemberRespository;
@@ -26,6 +23,8 @@ import com.finalpretty.app.repositories.OrderRespository;
 import com.finalpretty.app.repositories.Order_detailRespository;
 import com.finalpretty.app.repositories.ProductRespository;
 import com.finalpretty.app.repositories.VideoRespository;
+import com.finalpretty.app.security.UserRole;
+import com.finalpretty.app.security.UsersRepository;
 
 @Component
 public class ApplicationStartupRunner implements CommandLineRunner {
@@ -36,8 +35,11 @@ public class ApplicationStartupRunner implements CommandLineRunner {
         @Autowired
         private ArticleRespository articleRespository;
 
+        // @Autowired
+        // private VideoRespository videoRespository;
+
         @Autowired
-        private VideoRespository videoRespository;
+        private UsersRepository usersRepository;
 
         @Autowired
         private ProductRespository pDao;
@@ -47,6 +49,9 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
         @Autowired
         private Order_detailRespository dtaDao;
+
+        @Autowired
+        private BCryptPasswordEncoder bCryptPasswordEncoder;
 
         protected final Log logger = LogFactory.getLog(getClass());
 
@@ -81,19 +86,30 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 m2.setVisceralFat(8.1);
                 m2.setMuscleMass(10.4);
                 m2.setBecomeVIP(0);
-                memberRespository.save(m2);
+
+                // 插入帳號
+                String encodedPassword;
+                Users users = new Users("alex", "bbbblf3@gmail.com", "asds", UserRole.USER);
+                users.setNickname("金尼");
+                logger.info("users password: " + users.getPassword());
+                encodedPassword = bCryptPasswordEncoder.encode(users.getPassword());
+                users.setPassword((encodedPassword));
+                users.setEnabled(true);
+                users.setFkMember(m2);
+                // memberRespository.save(m2);
+                usersRepository.save(users);
 
                 // 插入影片
-                byte[] video1 = Files
-                                .readAllBytes(Paths.get(
-                                                "src/main/resources/static/video/939eaf7939f3495ebab182315ff76849.jpg"));
-                Video v1 = new Video();
-                v1.setTitle("四足俯臥撐");
-                v1.setType("胸肌");
-                v1.setBody_parts("胸大肌");
-                v1.setPicture(video1);
-                v1.setUrl("3db97465e2684771a6bce945645c9d00.mp4");
-                videoRespository.save(v1);
+                // byte[] video1 = Files
+                // .readAllBytes(Paths.get(
+                // "src/main/resources/static/video/939eaf7939f3495ebab182315ff76849.jpg"));
+                // Video v1 = new Video();
+                // v1.setTitle("四足俯臥撐");
+                // v1.setType("胸肌");
+                // v1.setBody_parts("胸大肌");
+                // v1.setPicture(video1);
+                // v1.setUrl("3db97465e2684771a6bce945645c9d00.mp4");
+                // videoRespository.save(v1);
 
                 // 插入文章
                 Path text1 = Paths.get("src/main/resources/static/img/article/article1.txt");

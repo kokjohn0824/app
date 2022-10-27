@@ -100,9 +100,8 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 usersRepository.save(users);
 
                 // 插入影片
-                // byte[] video1 = Files
-                // .readAllBytes(Paths.get(
-                // "src/main/resources/static/video/939eaf7939f3495ebab182315ff76849.jpg"));
+                // byte[] video1 = Files.readAllBytes(
+                // Paths.get("src/main/resources/static/video/939eaf7939f3495ebab182315ff76849.jpg"));
                 // Video v1 = new Video();
                 // v1.setTitle("四足俯臥撐");
                 // v1.setType("胸肌");

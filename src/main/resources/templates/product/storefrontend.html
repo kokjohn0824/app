@@ -93,7 +93,11 @@
                 <h4 class="card-title" th:text="${product.title}"></h4>
                 <p class="card-text" th:text="'$'+${product.price}"></p>
                 <p class="card-text" th:text="${product.text}"></p>
-                <p class="card-text" th:text="${product.product_id}"></p>
+                <p
+                  style="visibility: hidden"
+                  class="card-text"
+                  th:text="${product.product_id}"
+                ></p>
                 <a
                   href="#"
                   th:data-name="${product.title}"

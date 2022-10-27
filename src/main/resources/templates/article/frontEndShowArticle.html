@@ -20,7 +20,7 @@
         <input id="article" th:field="${article.article_id}" type="hidden" />
 
         <img
-          th:src="@{'/showImage/'+${article.article_id}}"
+          th:src="@{'/public/showArticleImage/'+${article.article_id}}"
           height="400px"
           class="attachment-full size-full wp-post-image"
           alt=""
@@ -36,13 +36,8 @@
             th:text="${article.create_date}"
             itemprop="datePublished"
           ></time>
-          <span sec:authorize="isAuthenticated()">
-            <input
-              id="member"
-              type="hidden"
-              th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-            />
-            <span id="sapn" th:name="${bool}" th:if="${bool} eq 'ok'">
+          <div sec:authorize="isAuthenticated()">
+            <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
               <img
                 name="cleanAll"
                 id="idimg1"
@@ -50,7 +45,7 @@
                 height="30px"
               />
             </span>
-            <span th:if="${bool} eq 'null'">
+            <span th:if="${bool} eq 'false'">
               <img
                 name="cleanAll"
                 id="idimg1"
@@ -58,7 +53,7 @@
                 height="30px"
               />
             </span>
-          </span>
+          </div>
         </span>
         <p id="resulthtml" th:text="${article.text}"></p>
       </div>
@@ -66,7 +61,6 @@
     <script>
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;
-
       $("img[name='cleanAll']").click(function (e) {
         // var member = $(e.target).attr("id");
         // var myHeaders = new Headers();

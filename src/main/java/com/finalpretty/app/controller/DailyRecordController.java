@@ -1,5 +1,6 @@
 package com.finalpretty.app.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,24 +52,43 @@ public class DailyRecordController {
 
     // 前往新增日記
     @GetMapping("/dailyRecord/add")
-    public String goAddDaily() {
+    public String goAddDaily(Model model) {
+        DailyRecord daily = new DailyRecord();
+        Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Integer member_id = ((Users) o).getFkMember().getMember_id();
+        Member member = memberR.findById(member_id).get();
+        try {
+            daily.setMembers(member);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dailyRecordR.save(daily);
+        Integer Daily_record_id = daily.getDaily_record_id();
+        Optional<DailyRecord> a1 = dailyRecordR.findById(Daily_record_id);
+        model.addAttribute("daily_record", a1.orElse(null));
         return "/dailyRecord/frontEndAddDailyPage";
     }
 
+    // // 修改日記
+    // @GetMapping("/dailyRecord/edit")
+    // public String editArticle(@RequestParam(name = "article_id") Integer id,
+    // Model model) {
+    // Optional<Article> a1 = articleR.findById(id);
+    // model.addAttribute("article", a1.orElse(null));
+    // return "/article/backEndEditArticle";
+
     @PostMapping("/dailyRecord/add")
     public String addDaily(
-            @RequestParam(name = "weight") String weight,
-            @RequestParam(name = "bodyFat") String bodyFat,
-            @RequestParam(name = "drinkingWater") Integer drinkingWater,
-            @RequestParam(name = "member_id") Integer member_id) {
+            @RequestParam(name = "daily_record_id") Integer daily_record_id,
+            @RequestParam(name = "weight") Integer weight,
+            @RequestParam(name = "bodyFat") Integer bodyFat,
+            @RequestParam(name = "drinkingWater") Integer drinkingWater) {
         DailyRecord daily = new DailyRecord();
-        Optional<Member> member = memberR.findById(member_id);
-
         try {
-            daily.setWeight(member_id);
-            daily.setBodyFat(member_id);
+            daily.setWeight(weight);
+            daily.setBodyFat(bodyFat);
             daily.setDrinkingWater(drinkingWater);
-            daily.setMembers(member.orElse(null));
+            dailyRecordR.updateById(weight, bodyFat, drinkingWater, daily_record_id);
         } catch (Exception e) {
             e.printStackTrace();
         }

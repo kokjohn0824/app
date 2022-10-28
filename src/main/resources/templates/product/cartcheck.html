@@ -127,7 +127,7 @@
 			<div class="method_host_">
 	<h2 class="common_headline2_">購買者</h2>
 	<div class="host_info_">
-		<p class="host_name_"><strong>姓名</strong></p>
+		<p class="host_name_"><span th:text="${#authentication.getPrincipal().getFkMember().getNickname()}"></span></p>
 		<address>
 			
 		
@@ -221,11 +221,11 @@
 	<span class="pc_method_link_" id="method_link_method_invoice"></span>
 	<h3>出貨方式</h3>
 	<div class="method_box_content_">
-		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_0" value="2"  checked>
-		<label for="invoice_type_0">宅配	
+		<input class="invoice_type" name="invoice_type" type="radio" id="input0" value="2"  checked>
+		<label for="input0">宅配	
 		<div class="small">※運費$100</div></label>
 
-		<div id="invoice_type0_block">
+		<div id="input0">
 			<input type="text" placeholder="請輸入宅配地址">
 		</div>
 		
@@ -271,7 +271,7 @@
 jQuery( function( $ ){
 
 	var hide_all_block = function(){
-		$('#invoice_type0_block'  ).hide();
+		$('#input0'  ).hide();
 		$('#invoice_type1_block'  ).hide();
 		$('#invoice_type2_block'  ).hide();
 		$('#invoice_type0_1_block').hide();
@@ -281,7 +281,7 @@ jQuery( function( $ ){
 	}
 
 	var hide_type0_block = function(){
-		$('#invoice_type0_1_block').hide();
+		$('#input0').hide();
 		$('#invoice_type0_2_block').hide();
 	}
 

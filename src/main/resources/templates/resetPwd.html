@@ -37,7 +37,6 @@
 
       /* Style the tab content */
       .tabcontent {
-        display: none;
         -webkit-animation: fadeEffect 1s;
         animation: fadeEffect 1s;
       }
@@ -68,11 +67,7 @@
     <article>
       <div
         class="d-flex"
-        style="
-          height: 100vh;
-          background: url(/img/wallpaper2.webp);
-          background-size: 100%;
-        "
+        style="height: 100vh; background: white; background-size: 100%"
       >
         <!-- 黃金比例格子 -->
         <div
@@ -80,17 +75,10 @@
           style="width: 60%; position: relative"
         >
           <div style="position: absolute; top: 280px">
-            <span
-              style="
-                color: white;
-                font-size: 60px;
-                text-shadow: black 0.1em 0.1em 0.2em;
-                letter-spacing: 10px;
-              "
-            >
+            <span style="color: orange; font-size: 60px; letter-spacing: 10px">
               <strong>
-                愛自己，<br />
-                就從健康瘦身開始
+                比起被圍觀，<br />
+                悄悄努力或許更踏實
               </strong>
             </span>
           </div>
@@ -109,22 +97,7 @@
             "
           >
             <div class="d-flex justify-content-around m-2">
-              <ul class="nav nav-tabs">
-                <button
-                  id="loginTab"
-                  class="nav-link active"
-                  onclick="showTab(event, 'login')"
-                >
-                  登入
-                </button>
-                <button
-                  id="registerTab"
-                  class="nav-link"
-                  onclick="showTab(event, 'register')"
-                >
-                  註冊
-                </button>
-              </ul>
+              <h2>修改密碼</h2>
             </div>
             <div id="loginContent" class="tabcontent">
               <form
@@ -134,10 +107,10 @@
               >
                 <div class="form-group p-3">
                   <input
-                    type="text"
+                    type="password"
                     class="form-control"
-                    id="exampleDropdownFormEmail1"
-                    placeholder="請輸入帳號或email..."
+                    id="passwordinput"
+                    placeholder="請輸入新密碼"
                     name="username"
                     required
                     autofocus
@@ -147,16 +120,23 @@
                   <input
                     type="password"
                     class="form-control"
-                    id="exampleDropdownFormPassword1"
+                    id="repeatPwdInput"
                     name="password"
                     required
-                    placeholder="密碼...."
+                    placeholder="請再次輸入密碼"
                   />
                 </div>
-                <div class="form-group p-2">
-                  <button type="submit" class="btn btn-primary w-100">
-                    登入
-                  </button>
+                <div class="p-3 d-flex justify-content-between">
+                  <div class="" style="width: 33%">
+                    <button type="reset" class="btn btn-primary w-100">
+                      重新輸入
+                    </button>
+                  </div>
+                  <div class="" style="width: 33%">
+                    <button type="submit" class="btn btn-primary w-100">
+                      送出
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>

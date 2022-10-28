@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArticleCategories</title>
+    <div th:replace="jsmodules"></div>
+  </head>
+
+  <body>
+    <div th:replace="component/navbar :: navbar"></div>
+    <a
+      class="btn btn-dark"
+      style="background-color: #f45b69"
+      href="/dailyRecord/all"
+      >取消修改</a
+    >
+    <div class="container-lg" style="width: 800px" th:fragment="form">
+      <form
+        th:object="${daily_record}"
+        th:action="@{/dailyRecord/edit}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div>
+          體重:<input type="text" name="weight" th:field="*{weight}" /><br />
+          體脂:<input type="text" name="bodyFat" th:field="*{bodyFat}" /><br />
+          飲水量:<input
+            type="text"
+            name="drinkingWater"
+            th:field="*{drinkingWater}"
+          /><br />
+          <input th:field="*{daily_record_id}" type="hidden" />
+          <!-- <input th:field="${daily_record.date_time}" type="hidden" /> -->
+          <button type="reset" class="btn btn-secondary">重置</button>
+          <button type="submit" class="signupbtn btn btn-primary">送出</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

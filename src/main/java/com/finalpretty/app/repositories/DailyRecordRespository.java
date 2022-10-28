@@ -1,6 +1,8 @@
 package com.finalpretty.app.repositories;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,11 +16,11 @@ public interface DailyRecordRespository extends JpaRepository<DailyRecord, Integ
 
     @Transactional
     @Modifying
-    @Query(value = "update daily_record set [weight]= :weight, bodyFat= :bodyFat, drinkingWater= :drinkingWater where daily_record_id= :daily_record_id", nativeQuery = true)
-    void updateById(
-            @Param("daily_record_id") Integer daily_record_id,
-            @Param("weight") Integer weight,
-            @Param("bodyFat") Integer bodyFat,
-            @Param("drinkingWater") Integer drinkingWater);
-    // @Param("Date_time") String Date_time
+    @Query(value = "select * from daily_record where fk_member_id=:member_id and Date_time=:today", nativeQuery = true)
+    List<DailyRecord> selectRecord(
+            @Param("member_id") Integer member_id,
+            @Param("today") String today);
+
+    @Query(value = "select * from daily_record where Date_time=:date_time", nativeQuery = true)
+    Optional<DailyRecord> findByDate(@Param("date_time") String date_time);
 }

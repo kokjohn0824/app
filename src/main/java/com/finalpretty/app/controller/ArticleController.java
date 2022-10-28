@@ -183,10 +183,6 @@ public class ArticleController {
 
 			Integer member_id = member.getMember_id();
 			Member memberFromJpa = memberR.findById(member_id).get();
-			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-			System.out.println(member);
-			System.out.println(memberFromJpa);
-			System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 			Article article = articleR.findById(article_id).get();
 			Set<Article> ss = memberFromJpa.getArticles();
 			ss.remove(article);

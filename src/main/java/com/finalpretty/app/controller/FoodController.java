@@ -106,4 +106,16 @@ public class FoodController {
         return "redirect:/food/manage";
     }
 
+    // =============================================================================================
+    // 前台
+    // 生成食物下拉式選單
+    @GetMapping("/food/all")
+    public String deleteFood(Model m) {
+        List<Food> foodList = foodR.findFoodName();
+        System.out.println("++++++++++++++++++++++++++++");
+        System.out.println(foodList);
+        System.out.println("++++++++++++++++++++++++++++");
+        m.addAttribute("foodList", foodList);
+        return "/dailyRecord/frontEndAddDailyPage";
+    }
 }

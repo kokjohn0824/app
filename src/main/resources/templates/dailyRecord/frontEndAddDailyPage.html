@@ -13,7 +13,7 @@
     <a
       class="btn btn-dark"
       style="background-color: #f45b69"
-      href="/dailyRecord/all"
+      th:href="@{'/dailyRecord/delete?daily_record_id='+${daily_record.daily_record_id}}"
       >取消新增</a
     >
     <div class="container-lg" style="width: 800px" th:fragment="form">
@@ -31,12 +31,105 @@
             name="drinkingWater"
             th:field="*{drinkingWater}"
           /><br />
-          <input th:field="*{daily_record_id}" type="hidden" />
-          <!-- <input th:field="${daily_record.date_time}" type="hidden" /> -->
+          <input
+            id="daily_record_id"
+            th:field="*{daily_record_id}"
+            type="hidden"
+          />
           <button type="reset" class="btn btn-secondary">重置</button>
-          <button type="submit" class="signupbtn btn btn-primary">送出</button>
+          <button type="submit" class="signupbtn btn btn-primary">送出</button
+          ><br />
+          <button
+            id="${productinfo.product_id}"
+            name="checkboxone"
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-bs-whatever="@getbootstrap"
+          >
+            新增食物
+          </button>
         </div>
       </form>
     </div>
+
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">新增食物</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              食物分類:<select>
+                <option id="foodname" th:each="allFoodList:${foodList}">
+                  [[${allFoodList.foodname}]]
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message-stock" class="col-form-label"
+                >食品份量:</label
+              >
+              <input
+                name="stock"
+                type="number"
+                class="form-control"
+                id="recipient-stock"
+                value=""
+                required
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var side = $("#recipient-stock").val();
+      var daily_record_id = $("#daily_record_id").val();
+      var foodname = $("#foodname").val();
+      console.log(side);
+      console.log("-----------------------");
+      console.log(daily_record_id);
+      console.log("-----------------------");
+      console.log(foodname);
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(
+        "http://localhost:8082/public/dailyRecord/addFood/1/1/2",
+        requestOptions
+      )
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.log("error", error));
+    </script>
   </body>
 </html>

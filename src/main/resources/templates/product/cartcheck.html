@@ -29,7 +29,7 @@
 <link href="//cdn.beams.co.jp/taiwan/beams/css/pc/application.css?20220316" rel="stylesheet" media="all" />
 <link href="//cdn.beams.co.jp/taiwan/beams/css/pc/application2.css?20220316" rel="stylesheet" media="all" />
 
-<link
+<!-- <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
       integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -49,18 +49,18 @@
       src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
       integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
 
-<style>
+<!-- <style>
     #recommender_pc111 .dv_rc_title:after {
         content: "RECOMMEND" !important;
     }
 
     #recommender_pc211 .dv_rc_title:after {
         content: "RECOMMEND" !important;
-    }
+    } 
 
-</style>
+</style>-->
 <script src="//cdn.beams.co.jp/taiwan/beams/javascript/pc/vendor.js?20220316"></script>
 <script>
     if(jQuery_system) jQuery = jQuery_system
@@ -79,10 +79,13 @@
 
 
 </head>
-<body >
 
-
-<!-- 商品清單 -->
+<body>
+    <div th:replace="component/navbar"></div>
+    <div th:replace="component/chatbubble"></div>
+    <article>
+    
+<!-- -----------------商品清單-------------------- -->
 <P>
 	商品明細確認
 </p>
@@ -90,11 +93,8 @@
 
 
 
-<!-- 填寫資料 -->
+<!-- -----------------填寫資料-------------------- -->
 
-
-	
-	
 	<div class="all-pc-container wrapper_">
 		
 		<div id="pid_method">
@@ -361,6 +361,15 @@
 
 			
 	
-</body>
+
+    </article>
+
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
+  </body>
+
+
+
 </html>
 

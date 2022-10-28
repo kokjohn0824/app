@@ -8,7 +8,7 @@
 <meta name="format-detection" content="telephone=no" />
 <title>填寫訂單資料</title>
 <link href="//cdn.beams.co.jp/taiwan/css/style.css?20220316" rel="stylesheet" />
-<script src="//cdn.beams.co.jp/taiwan/lib/jquery.js?20220316"></script>
+<!-- <script src="//cdn.beams.co.jp/taiwan/lib/jquery.js?20220316"></script>
 <script src="//cdn.beams.co.jp/taiwan/lib/jquery-ui.js?20220316"></script>
 <script src="//cdn.beams.co.jp/taiwan/lib/jquery.balloon.js?20220316"></script>
 <script src="//cdn.beams.co.jp/taiwan/lib/goods/jquery.tile.min.js?20220316"></script>
@@ -17,7 +17,7 @@
 <script src="//cdn.beams.co.jp/taiwan/js/search_suggest.js?20220316"></script>
 <script src="//cdn.beams.co.jp/taiwan/js/user.js?20220316"></script>
 <script src="//cdn.beams.co.jp/taiwan/js/estimate_savecard.js?20220316"></script>
-<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goods_cartlist.js?20220316"></script>
+<script type="text/javascript" src="//cdn.beams.co.jp/taiwan/js/goods_cartlist.js?20220316"></script> -->
 <!--[if IE 8]>
 <script src="//cdn.beams.co.jp/taiwan/javascript/ecb/pie_ie678.js?20220316"></script>
 <script src="//cdn.beams.co.jp/taiwan/js/init_ie8.js?20220316"></script>
@@ -125,10 +125,11 @@
 			
 			
 			<div class="method_host_">
-	<h2 class="common_headline2_">購買者</h2>
-	<div class="host_info_">
-		<p class="host_name_"><span th:text="${#authentication.getPrincipal().getFkMember().getNickname()}"></span></p>
-		<address>
+				<h2 class="common_headline2_">購買者</h2>
+				<div class="host_info_">
+					<p class="host_name_"><span th:text="${#authentication.getPrincipal().getFkMember().getNickname()}"></span></p>
+					<address>
+
 			
 		
 			
@@ -145,12 +146,11 @@
 	<div class="addresslist_">
 		<div class="address_item_">
 
+		
+		
+		<p class="host_name_"><input type="text" placeholder="請輸入連絡電話"></p>
+		
 
-		
-		
-		<input type="text" placeholder="請輸入連絡電話">
-		
-	
 	
 </div>
 
@@ -197,7 +197,7 @@
 	<h3>付款方式</h3>
 	<div class="method_box_content_">
 		<label for="method_rF">
-	<input id="method_rF" name="method" type="radio" value="2" checked  >
+	<input id="method_rF" name="method" type="radio" value="F"   >
 	信用卡付款
 	<div class="small">
 		※可利用的信用卡：VISA、Master、JCB
@@ -205,7 +205,7 @@
 </label>
 
 <label for="method_r2">
-	<input id="method_r2" name="method" type="radio" value="1"   >
+	<input id="method_r2" name="method" type="radio" value="2"   >
 	超取付款
 	<div class="small">
 		※超商取貨時請以「現金」進行付款
@@ -221,18 +221,14 @@
 	<span class="pc_method_link_" id="method_link_method_invoice"></span>
 	<h3>出貨方式</h3>
 	<div class="method_box_content_">
-		<input class="invoice_type" name="invoice_type" type="radio" id="input0" value="2"  checked>
-		<label for="input0">宅配	
+		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_0" value="0"  checked>
+		<label for="invoice_type_0">宅配	
 		<div class="small">※運費$100</div></label>
 
-		<div id="input0">
+		<div id="invoice_type0_block">
 			<input type="text" placeholder="請輸入宅配地址">
 		</div>
 		
-
-
-
-
 
 
 
@@ -246,10 +242,14 @@
 			<input class="invoice_type1" name="invoice_type1" type="radio" id="invoice_type1_0" value="0" >
 			<label for="invoice_type1_0">選擇超商</label>
 			<div id="invoice_type1_0_block">
-				<select class="invoice_type1_0_0" name="invoice_type1_0_0" id="invoice_type1_0_0"><option value="" selected>請選擇超商</option><option value="25885">7-11大安店</option></select>
+				<select class="invoice_type1_0_0" name="invoice_type1_0_0" id="invoice_type1_0_0">
+					<option value="" selected>請選擇超商</option>
+					<option value="25885">7-11大安店</option>
+				</select>
 			</div>
-			
 		</div>
+
+		
 		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_2" value="2" >
 		
 		<p class="error_"></p>
@@ -257,79 +257,85 @@
 </div>
 
 			
-			<div class="submit_">
+<div class="submit_">
 				
-					<input type="image" name="submit" src="//cdn.beams.co.jp/taiwan/img/sys/button/ordernext.gif" alt="確認訂單內容" class="button_">
-				
-				<div class="back_ button_"><a onclick="history.back()">回到上一頁</a></div>
-			</div>
+	<input type="image" name="submit" src="//cdn.beams.co.jp/taiwan/img/sys/button/ordernext.gif" alt="確認訂單內容" class="button_">
+
+<!-- <div class="back_ button_"><a th:href="@{/public/storefrontend}">回到上一頁</a></div> -->
+</div>
+
+
 			
 		</form>
 	</div>
 </div>
+
+
+
+
 <script type="text/javascript">
-jQuery( function( $ ){
-
-	var hide_all_block = function(){
-		$('#input0'  ).hide();
-		$('#invoice_type1_block'  ).hide();
-		$('#invoice_type2_block'  ).hide();
-		$('#invoice_type0_1_block').hide();
-		$('#invoice_type0_2_block').hide();
-		$('#invoice_type1_0_block').hide();
-		$('#invoice_type1_1_block').hide();
-	}
-
-	var hide_type0_block = function(){
-		$('#input0').hide();
-		$('#invoice_type0_2_block').hide();
-	}
-
-	var hide_type1_block = function(){
-		$('#invoice_type1_0_block').hide();
-		$('#invoice_type1_1_block').hide();
-	}
-
-	$('.invoice_type','.method_box_content_').on('click',function(){
-
-		hide_all_block();
-
-		var $block = $('#invoice_type' + $(this).val() + '_block');
-		var $radio = $block.children(':radio:checked');
-
-		if( 0 == $radio.length ){
-			$radio = $block.children(':radio:first');
-			$radio.prop('checked', true);
+	jQuery( function( $ ){
+	
+		var hide_all_block = function(){
+			$('#invoice_type0_block'  ).hide();
+			$('#invoice_type1_block'  ).hide();
+			$('#invoice_type2_block'  ).hide();
+			$('#invoice_type0_1_block').hide();
+			$('#invoice_type0_2_block').hide();
+			$('#invoice_type1_0_block').hide();
+			$('#invoice_type1_1_block').hide();
 		}
-
-		$radio.trigger('click');
-
-		$('#invoice_type' + $(this).val() + '_block').fadeIn( 300 );
-
+	
+		var hide_type0_block = function(){
+			$('#invoice_type0_1_block').hide();
+			$('#invoice_type0_2_block').hide();
+		}
+	
+		var hide_type1_block = function(){
+			$('#invoice_type1_0_block').hide();
+			$('#invoice_type1_1_block').hide();
+		}
+	
+		$('.invoice_type','.method_box_content_').on('click',function(){
+	
+			hide_all_block();
+	
+			var $block = $('#invoice_type' + $(this).val() + '_block');
+			var $radio = $block.children(':radio:checked');
+	
+			if( 0 == $radio.length ){
+				$radio = $block.children(':radio:first');
+				$radio.prop('checked', true);
+			}
+	
+			$radio.trigger('click');
+	
+			$('#invoice_type' + $(this).val() + '_block').fadeIn( 300 );
+	
+		});
+	
+		$('.invoice_type0','.method_box_content_').on('click',function(){
+			hide_type0_block();
+			$('#invoice_type0_' + $(this).val() + '_block').fadeIn( 300 );
+		});
+	
+		$('.invoice_type1','.method_box_content_').on('click',function(){
+			hide_type1_block();
+			$('#invoice_type1_' + $(this).val() + '_block').fadeIn( 300 );
+		});
+	
+		hide_all_block();
+	
+		var $radio1 = $('.method_box_content_').children(':radio:checked');
+	
+		if ( 0 == $radio1.length ){
+			$radio1 = $('.method_box_content_').children(':radio:first')
+			$radio1.prop('checked', true);
+		}
+	
+		$radio1.trigger('click');
+	
 	});
-
-	$('.invoice_type0','.method_box_content_').on('click',function(){
-		hide_type0_block();
-		$('#invoice_type0_' + $(this).val() + '_block').fadeIn( 300 );
-	});
-
-	$('.invoice_type1','.method_box_content_').on('click',function(){
-		hide_type1_block();
-		$('#invoice_type1_' + $(this).val() + '_block').fadeIn( 300 );
-	});
-
-	hide_all_block();
-
-	var $radio1 = $('.method_box_content_').children(':radio:checked');
-
-	if ( 0 == $radio1.length ){
-		$radio1 = $('.method_box_content_').children(':radio:first')
-		$radio1.prop('checked', true);
-	}
-
-	$radio1.trigger('click');
-
-});
 
 
 
@@ -338,13 +344,8 @@ jQuery( function( $ ){
 
 
 //--------------------------------------------
-
-		// Save cart
-        //TODO:session
-        
-
-        // Load cart
-        function loadCart() {
+   // Load cart
+   function loadCart() {
           var cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
 		  console.log(cart)
 		  var card = $("#method_rF:checked").attr("value");
@@ -354,7 +355,6 @@ jQuery( function( $ ){
 		loadCart();
 
 
-        
 
 
 </script>

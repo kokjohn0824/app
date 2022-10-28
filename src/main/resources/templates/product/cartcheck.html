@@ -29,7 +29,7 @@
 <link href="//cdn.beams.co.jp/taiwan/beams/css/pc/application.css?20220316" rel="stylesheet" media="all" />
 <link href="//cdn.beams.co.jp/taiwan/beams/css/pc/application2.css?20220316" rel="stylesheet" media="all" />
 
-<!-- <link
+<link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
       integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -49,7 +49,7 @@
       src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
       integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
       crossorigin="anonymous"
-    ></script> -->
+    ></script>
 
 <!-- <style>
     #recommender_pc111 .dv_rc_title:after {
@@ -85,34 +85,64 @@
     <div th:replace="component/chatbubble"></div>
     <article>
     
-<!-- -----------------商品清單-------------------- -->
-<P>
-	商品明細確認
-</p>
 
 
 
 
-<!-- -----------------填寫資料-------------------- -->
+
 
 	<div class="all-pc-container wrapper_">
+
+
+
+
+
+
+		
 		
 		<div id="pid_method">
 		
-			
-			<div id="beams-header-wrapper">
-				
-					
 
-
-				
-			</div>
 
 			<div class="beams-pc-wrapper">
 	
 	
 	<div class="order_ order_col1_">
 		<div class="order_flow_">
+<!-- -----------------商品清單-------------------- -->
+
+<h1>
+	訂購清單
+</h1>
+<table class="table table-striped">
+	<thead >
+	  <tr>
+		<th scope="col">商品名稱</th>
+		<th scope="col">價格</th>
+		<th scope="col">數量</th>
+		<th scope="col">總計</th>
+	  </tr>
+	</thead>
+
+	<tbody>
+	  <tr>
+		<td>@</td>
+		<td>@</td>
+		<td>@</td>
+		<td>@</td>
+	  </tr>
+	 </tbody>
+
+  </table>
+	 <span style="margin-right: -650px;">訂單合計(含運):</span> 
+
+ 
+
+
+
+
+
+			<!-- -----------------填寫資料-------------------- -->
     <h1>
         收件資料
     </h1>

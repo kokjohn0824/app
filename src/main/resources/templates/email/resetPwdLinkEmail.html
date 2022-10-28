@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>重新設定您的密碼</title>
+  </head>
+  <body>
+    <div
+      style="
+        border-style: solid;
+        border-width: thin;
+        border-color: #dadce0;
+        border-radius: 8px;
+        padding: 40px 20px;
+      "
+      align="center"
+      class="m_855821013577569661mdv2rw"
+    >
+      <div
+        style="
+          font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial,
+            sans-serif;
+          border-bottom: thin solid #dadce0;
+          color: rgba(0, 0, 0, 0.87);
+          line-height: 32px;
+          padding-bottom: 24px;
+          text-align: center;
+          word-break: break-word;
+        "
+      >
+        <div style="font-size: 24px">請驗證您的信箱來啟用服務</div>
+        <table align="center" style="margin-top: 8px">
+          <tbody>
+            <tr style="line-height: normal">
+              <td align="right" style="padding-right: 8px"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        style="
+          font-family: Roboto-Regular, Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.87);
+          line-height: 20px;
+          padding-top: 20px;
+          text-align: left;
+        "
+      >
+        您需要點擊下方按鈕來完成密碼重新設定。請注意，連結將於
+        15分鐘後失效。若連結失效，您需要再次前往官網重新發送。
+        <div style="padding-top: 32px; text-align: center">
+          <a
+            th:href="${resetPwdLink}"
+            style="
+              font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial,
+                sans-serif;
+              line-height: 16px;
+              color: #ffffff;
+              font-weight: 400;
+              text-decoration: none;
+              font-size: 14px;
+              display: inline-block;
+              padding: 10px 24px;
+              background-color: #4184f3;
+              border-radius: 5px;
+              min-width: 90px;
+            "
+            target="_blank"
+            data-saferedirecturl="https://www.google.com/url?q=https://accounts.google.com/AccountChooser?Email%3Dbbbblf2@gmail.com%26continue%3Dhttps://myaccount.google.com/security-checkup/1?utm_source%253Dgoogle%2526utm_medium%253Demail%2526utm_campaign%253Dsbd%2526aneid%253D8547390537239139593%2526rfn%253D1635817391084%2526anexp%253Dnret-fa&amp;source=gmail&amp;ust=1666282089701000&amp;usg=AOvVaw0N6a3xYScwtToSgqbA5_NW"
+            >點擊重新設定</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

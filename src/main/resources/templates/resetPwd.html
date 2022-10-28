@@ -1,0 +1,171 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <div th:replace="jsmodules"></div>
+    <style>
+      body {
+        background-color: black;
+        background-size: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      footer {
+        min-height: 100px;
+        background: PapayaWhip;
+      }
+      article {
+        flex: 1;
+      }
+
+      /* Style the buttons inside the tab */
+      .tab button {
+        transition: 0.3s;
+      }
+
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        background-color: red;
+      }
+
+      /* Style the tab content */
+      .tabcontent {
+        display: none;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+      }
+
+      /* Fade in tabs */
+      @-webkit-keyframes fadeEffect {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeEffect {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <title>更改密碼</title>
+  </head>
+  <body>
+    <div th:replace="component/navbar"></div>
+    <article>
+      <div
+        class="d-flex"
+        style="
+          height: 100vh;
+          background: url(/img/wallpaper2.webp);
+          background-size: 100%;
+        "
+      >
+        <!-- 黃金比例格子 -->
+        <div
+          class="d-flex justify-content-center"
+          style="width: 60%; position: relative"
+        >
+          <div style="position: absolute; top: 280px">
+            <span
+              style="
+                color: white;
+                font-size: 60px;
+                text-shadow: black 0.1em 0.1em 0.2em;
+                letter-spacing: 10px;
+              "
+            >
+              <strong>
+                愛自己，<br />
+                就從健康瘦身開始
+              </strong>
+            </span>
+          </div>
+        </div>
+        <div>
+          <div
+            id="mainCard"
+            class="card mx-auto shadow-lg"
+            style="
+              width: 400px;
+              height: 500px;
+              border-radius: 10px;
+              margin: 100px;
+              position: relative;
+              transition: height 0.5s;
+            "
+          >
+            <div class="d-flex justify-content-around m-2">
+              <ul class="nav nav-tabs">
+                <button
+                  id="loginTab"
+                  class="nav-link active"
+                  onclick="showTab(event, 'login')"
+                >
+                  登入
+                </button>
+                <button
+                  id="registerTab"
+                  class="nav-link"
+                  onclick="showTab(event, 'register')"
+                >
+                  註冊
+                </button>
+              </ul>
+            </div>
+            <div id="loginContent" class="tabcontent">
+              <form
+                class="px-4 py-3 my-5"
+                method="post"
+                action="/perform_login"
+              >
+                <div class="form-group p-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleDropdownFormEmail1"
+                    placeholder="請輸入帳號或email..."
+                    name="username"
+                    required
+                    autofocus
+                  />
+                </div>
+                <div class="form-group p-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="exampleDropdownFormPassword1"
+                    name="password"
+                    required
+                    placeholder="密碼...."
+                  />
+                </div>
+                <div class="form-group p-2">
+                  <button type="submit" class="btn btn-primary w-100">
+                    登入
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
+  </body>
+</html>

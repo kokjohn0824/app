@@ -50,7 +50,7 @@ public class hello {
             all = new AllInOne(" ");
             AioCheckOutALL obj = new AioCheckOutALL();
             // FIXME:測試訂單應該要隨機生成字串
-            obj.setMerchantTradeNo("testComp124sssasss");
+            obj.setMerchantTradeNo("testComp124sssaqqwes");
             obj.setMerchantTradeDate("2017/01/01 08:05:23");
             obj.setTotalAmount("50");
             obj.setTradeDesc("test Description");

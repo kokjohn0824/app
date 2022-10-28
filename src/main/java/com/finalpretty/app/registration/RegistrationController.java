@@ -31,10 +31,10 @@ public class RegistrationController {
         return registrationService.register(request);
     }
 
+    // 驗證信箱是否存在 回傳json
     @PostMapping("/checkEmail")
     @ResponseBody
     public Map<String, Boolean> emailExists(@RequestBody() Map<String, String> email) {
-        System.out.println(email);
         Map<String, Boolean> m = new HashMap<String, Boolean>();
         boolean emailExists = usersServices.emailExists(email.get("email"));
         m.put("emailExists", emailExists);

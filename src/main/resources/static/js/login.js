@@ -5,16 +5,26 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/;
 const url = "http://localhost:8082/public/api/";
 const invalidAccountNameSet = new Set(["root", "admin", "管理員"]);
 //抓取元素
-let registerForm = document.querySelector("#registerForm");
+const registerForm = document.querySelector("#registerForm");
 const submitBtn = document.querySelector("#submitBtn");
-let accountInput = document.querySelector("#accountInput");
-let emailInput = document.querySelector("#emailInput");
-let passwordInput = document.querySelector("#passwordInput");
-let repeatPwdInput = document.querySelector("#repeatPwdInput");
-let accountHelpBlock = document.querySelector("#accountHelpBlock");
-let emailHelpBlock = document.querySelector("#emailHelpBlock");
-let passwordHelpBlock = document.querySelector("#passwordHelpBlock");
-let repeatPwdHelpBlock = document.querySelector("#repeatPwdHelpBlock");
+const accountInput = document.querySelector("#accountInput");
+const emailInput = document.querySelector("#emailInput");
+const passwordInput = document.querySelector("#passwordInput");
+const repeatPwdInput = document.querySelector("#repeatPwdInput");
+const accountHelpBlock = document.querySelector("#accountHelpBlock");
+const emailHelpBlock = document.querySelector("#emailHelpBlock");
+const passwordHelpBlock = document.querySelector("#passwordHelpBlock");
+const repeatPwdHelpBlock = document.querySelector("#repeatPwdHelpBlock");
+const loginTab = document.getElementById("loginTab");
+const registerTab = document.getElementById("registerTab");
+const loginContent = document.getElementById("loginContent");
+const registerContent = document.getElementById("registerContent");
+const tabcontents = document.getElementsByClassName("tabcontent");
+const mainCard = document.getElementById("mainCard");
+const confirmEmailinput = document.getElementById("confirmEmailinput");
+const confirmEmailbtn = document.getElementById("confirmEmailbtn");
+const ResetPwdEmailinput = document.getElementById("ResetPwdEmailinput");
+
 // 設定資料
 let flags = {
   accountChecked: false,
@@ -22,6 +32,8 @@ let flags = {
   passwordChecked: false,
   repeatPwdChecked: false,
 };
+
+//form 表單清除預設送出行為
 
 //設定 handler function
 const handleSyncPassword = function (e) {
@@ -36,7 +48,6 @@ const handleSyncPassword = function (e) {
     repeatPwdHelpBlock.innerText = "您沒有對上您的密碼";
     repeatPwdInput.classList.add("is-invalid");
     flags["repeatPwdChecked"] = false;
-    console.log("i am in?");
     return;
   }
   flags["repeatPwdChecked"] = true;
@@ -101,7 +112,6 @@ emailInput.addEventListener("blur", (e) => {
     .then((response) => response.json())
     .then((result) => {
       if (result.emailExists) {
-        console.log(result.emailExists);
         e.target.classList.add("is-invalid");
         flags["emailChecked"] = false;
         emailHelpBlock.innerText = "Email帳號已存在！";
@@ -111,7 +121,7 @@ emailInput.addEventListener("blur", (e) => {
         emailHelpBlock.innerText = "Email帳號可使用";
       }
     })
-    .catch((error) => console.log("error", error));
+    .catch((error) => console.error("error", error));
 });
 
 passwordInput.addEventListener("input", (e) => {
@@ -161,12 +171,12 @@ passwordInput.addEventListener("input", (e) => {
   }
 });
 
-// 送出按鈕事件
+// 送出註冊按鈕事件
 submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
   if (Object.values(flags).includes(false)) {
     return;
   }
-  e.preventDefault();
   let registerdata = JSON.stringify({
     account: accountInput.value,
     email: emailInput.value,
@@ -182,11 +192,12 @@ submitBtn.addEventListener("click", (e) => {
     .then((response) => response.json())
     .then((result) => {
       if (result.error) {
-        emailHelpBlock.innerText = result.error;
+        alert(result.error);
+      } else {
+        alert("已寄送確認信到您的信箱，請去信箱收信驗證");
       }
-      console.log(result);
     })
-    .catch((error) => console.log("error", error));
+    .catch((error) => console.error("error", error));
 });
 
 //設定 popover
@@ -195,4 +206,56 @@ var popoverTriggerList = [].slice.call(
 );
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
   return new bootstrap.Popover(popoverTriggerEl);
+});
+8;
+const showTab = function (e, action) {
+  for (let item of tabcontents) {
+    item.style.display = "none";
+  }
+  if (action === "login") {
+    loginContent.style.display = "block";
+    loginTab.classList.add("active");
+    registerTab.classList.remove("active");
+    mainCard.style.height = "500px";
+  }
+  if (action === "register") {
+    registerContent.style.display = "block";
+    registerTab.classList.add("active");
+    loginTab.classList.remove("active");
+    mainCard.style.height = "600px";
+  }
+};
+//近來頁面先秀註冊頁面
+
+//取得request.getparamter
+function get(name) {
+  if (
+    (name = new RegExp("[?&]" + encodeURIComponent(name) + "=([^&]*)").exec(
+      location.search
+    ))
+  )
+    return decodeURIComponent(name[1]);
+}
+if (get("tab") === "register") {
+  registerTab.click();
+} else {
+  loginTab.click();
+}
+
+//modal email send
+confirmEmailbtn.addEventListener("click", (e) => {
+  console.info(`ResetPwdEmailinput: ${ResetPwdEmailinput.value}`);
+  let requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: JSON.stringify({ email: ResetPwdEmailinput.value }),
+    redirect: "follow",
+  };
+
+  fetch(`http://localhost:8082/public/api/user/resetpwd`, requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      alert(result.message);
+    })
+    .catch((error) => console.error("error", error));
 });

@@ -24,14 +24,15 @@ public class EmailService implements EmailSender {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
     private final JavaMailSender mailSender;
-    private final String LINK = "http://localhost:8082/public/api/registration/public/confirm?token=";
+    private final String verificationLink = "http://localhost:8082/public/api/registration/public/confirm?token=";
+    private final String resetPwdLink = "http://localhost:8082/public/user/confirmresetpwd?token=";
 
     @Autowired
     private SpringTemplateEngine thymeleafTemplateEngine;
 
     @Override
     @Async
-    public void send(EmailBean emailBean) {
+    public void send(EmailBean emailBean) throws IllegalStateException {
         MimeMessage message;
 
         try {
@@ -64,15 +65,50 @@ public class EmailService implements EmailSender {
         // 生成Map 來塞入變數
         Map<String, Object> templateModel = new HashMap<>();
         // 將token接上網址
-        String verificationLink = LINK + token;
+        String LINK = verificationLink + token;
         // 將連結塞入Map中
-        templateModel.put("verificationLink", verificationLink);
+        templateModel.put("verificationLink", LINK);
         // 設定變數至引擎中
         thymeleafContext.setVariables(templateModel);
         // 將指定模板轉換成html字串
         String htmlBody = thymeleafTemplateEngine.process("/email/verificationEmail.html", thymeleafContext);
         emailBean.setContent(htmlBody);
         // 呼叫傳送信件method
-        send(emailBean);
+        try {
+            send(emailBean);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String resetPwdEmailsend(String to, String resetPwdToken) {
+        // 生成 Email Bean
+        EmailBean emailBean = new EmailBean();
+        // 設定 收信者
+        emailBean.setTo(to);
+        // 設定信件標題
+        emailBean.setSubject("重新設定您的密碼");
+
+        // 載入 thymleaf 引擎
+        Context thymeleafContext = new Context();
+        // 生成Map 來塞入變數
+        Map<String, Object> templateModel = new HashMap<>();
+        // 將token接上網址
+        String LINK = resetPwdLink + resetPwdToken;
+        // 將連結塞入Map中
+        templateModel.put("resetPwdLink", LINK);
+        // 設定變數至引擎中
+        thymeleafContext.setVariables(templateModel);
+        // 將指定模板轉換成html字串
+        String htmlBody = thymeleafTemplateEngine.process("/email/resetPwdLinkEmail.html", thymeleafContext);
+        emailBean.setContent(htmlBody);
+        // 呼叫傳送信件method
+        try {
+            send(emailBean);
+            return "success";
+        } catch (IllegalStateException e) {
+            return e.getMessage();
+        }
     }
 }

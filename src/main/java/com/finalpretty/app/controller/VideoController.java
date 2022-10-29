@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.model.Member;
+import com.finalpretty.app.model.Users;
 import com.finalpretty.app.model.Video;
+import com.finalpretty.app.repositories.MemberRespository;
 import com.finalpretty.app.repositories.VideoRespository;
 
 @Controller
@@ -26,6 +31,9 @@ public class VideoController {
 
     @Autowired
     private VideoRespository videoR;
+
+    @Autowired
+    private MemberRespository memberR;
 
     // 後台
     // 顯示全部影片
@@ -137,12 +145,29 @@ public class VideoController {
     // 顯示選取影片
     @GetMapping("/public/video/show")
     public String showVideo(@RequestParam(name = "video_id") Integer video_id, Model m) {
+        Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Member member;
         Optional<Video> optional = videoR.findById(video_id);
         Video video = optional.get();
+        Set<Member> members = video.getMembers();
+
         Integer views = video.getViews();
         views++;
         video.setViews(views);
         videoR.save(video);
+
+        if (o instanceof Users) {
+            member = ((Users) o).getFkMember();
+            Integer member_id = member.getMember_id();
+            Member memberFromJpa = memberR.findById(member_id).get();
+
+            if (members.contains(memberFromJpa)) {
+                m.addAttribute("bool", "true");
+            } else {
+                m.addAttribute("bool", "false");
+            }
+
+        }
         m.addAttribute("video", video);
         return "/video/frontEndShowVideo";
     }

@@ -1,96 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShowArticle</title>
-    <div th:replace="jsmodules"></div>
-    <link rel="stylesheet" th:href="@{/css/article.css}" />
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-  </head>
-  <body>
-    <div th:replace="component/navbar :: navbar"></div>
-    <input id="article" th:field="${article.article_id}" type="hidden" />
-    <!-- --------------------------------------------------------- -->
-    <div class="gb-container gb-container-76538e7c">
-      <div class="gb-inside-container">
-        <div class="gb-container gb-container-5bd62610">
-          <div class="gb-inside-container">
-            <div class="gb-grid-wrapper gb-grid-wrapper-1e86e997">
-              <div class="gb-grid-column gb-grid-column-363cb139">
-                <div class="gb-container gb-container-363cb139">
-                  <div class="gb-inside-container">
-                    <img
-                      width="560"
-                      height="1080"
-                      th:src="@{'/public/showArticleImage/'+${article.article_id}}"
-                      class="dynamic-featured-image wp-post-image"
-                      alt=""
-                      loading="lazy"
-                      sizes="(max-width: 1920px) 100vw, 1920px"
-                    />
-                  </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShowArticle</title>
+  <div th:replace="jsmodules"></div>
+  <link rel="stylesheet" th:href="@{/css/article.css}" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+</head>
+
+<body>
+  <div th:replace="component/navbar :: navbar"></div>
+  <input id="article" th:field="${article.article_id}" type="hidden" />
+  <!-- --------------------------------------------------------- -->
+  <div class="gb-container gb-container-76538e7c">
+    <div class="gb-inside-container">
+      <div class="gb-container gb-container-5bd62610">
+        <div class="gb-inside-container">
+          <div class="gb-grid-wrapper gb-grid-wrapper-1e86e997">
+            <div class="gb-grid-column gb-grid-column-363cb139">
+              <div class="gb-container gb-container-363cb139">
+                <div class="gb-inside-container">
+                  <img width="560" height="1080" th:src="@{'/public/showArticleImage/'+${article.article_id}}"
+                    class="dynamic-featured-image wp-post-image" alt="" loading="lazy"
+                    sizes="(max-width: 1920px) 100vw, 1920px" />
                 </div>
               </div>
-              <div class="gb-grid-column gb-grid-column-b93830e5">
-                <div class="gb-container gb-container-b93830e5">
-                  <div class="gb-inside-container">
-                    <div class="gb-container gb-container-6f6ee9ad">
-                      <div class="gb-inside-container">
-                        <div class="gb-grid-wrapper gb-grid-wrapper-573f4cf8">
-                          <div class="gb-grid-column gb-grid-column-e364ad4e">
-                            <div class="gb-container gb-container-e364ad4e">
-                              <div class="gb-inside-container">
-                                <div
-                                  class="gb-headline gb-headline-eab7ffd4 gb-headline-text"
-                                >
-                                  <time
-                                    class="entry-date updated-date"
-                                    th:text="${article.create_date}"
-                                  ></time>
-                                </div>
+            </div>
+            <div class="gb-grid-column gb-grid-column-b93830e5">
+              <div class="gb-container gb-container-b93830e5">
+                <div class="gb-inside-container">
+                  <div class="gb-container gb-container-6f6ee9ad">
+                    <div class="gb-inside-container">
+                      <div class="gb-grid-wrapper gb-grid-wrapper-573f4cf8">
+                        <div class="gb-grid-column gb-grid-column-e364ad4e">
+                          <div class="gb-container gb-container-e364ad4e">
+                            <div class="gb-inside-container">
+                              <div class="gb-headline gb-headline-eab7ffd4 gb-headline-text">
+                                <time class="entry-date updated-date" th:text="${article.create_date}"></time>
                               </div>
                             </div>
                           </div>
-                          <div class="gb-grid-column gb-grid-column-7f898725">
-                            <div class="gb-container gb-container-7f898725">
-                              <div class="gb-inside-container">
-                                <!-- class="gb-headline gb-headline-77ec9488 gb-headline-text" -->
-                                <div sec:authorize="isAuthenticated()">
-                                  <span
-                                    id="sapn"
-                                    th:name="${bool}"
-                                    th:if="${bool} eq 'true'"
-                                  >
-                                    <img
-                                      name="cleanAll"
-                                      id="idimg1"
-                                      th:src="@{/img/other/chngstar.gif}"
-                                      height="30px"
-                                    />
-                                  </span>
-                                  <span th:if="${bool} eq 'false'">
-                                    <img
-                                      name="cleanAll"
-                                      id="idimg1"
-                                      th:src="@{/img/other/star.gif}"
-                                      height="30px"
-                                    />
-                                  </span>
-                                </div>
+                        </div>
+                        <div class="gb-grid-column gb-grid-column-7f898725">
+                          <div class="gb-container gb-container-7f898725">
+                            <div class="gb-inside-container">
+                              <div sec:authorize="isAuthenticated()"
+                                class="gb-headline gb-headline-77ec9488 gb-headline-text">
+                                <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
+                                  <img name="cleanAll" id="idimg1" th:src="@{/img/other/chngstar.gif}" height="30px" />
+                                </span>
+                                <span th:if="${bool} eq 'false'">
+                                  <img name="cleanAll" id="idimg1" th:src="@{/img/other/star.gif}" height="30px" />
+                                </span>
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <h1
-                      class="gb-headline gb-headline-feb297cc gb-headline-text"
-                    >
-                      <a th:text="${article.title}"></a>
-                    </h1>
                   </div>
+                  <h1 class="gb-headline gb-headline-feb297cc gb-headline-text">
+                    <a th:text="${article.title}"></a>
+                  </h1>
                 </div>
               </div>
             </div>
@@ -98,70 +72,73 @@
         </div>
       </div>
     </div>
-    <!-- --------------------------------------------------------- -->
+  </div>
+  <!-- --------------------------------------------------------- -->
 
-    <div class="top">
-      <div class="container-lg">
-        <p id="resulthtml" th:text="${article.text}"></p>
-      </div>
+  <div class="top">
+    <div class="container-lg">
+      <br>
+      <p id="resulthtml" th:text="${article.text}"></p>
     </div>
-    <script>
-      const resulthtml = document.querySelector("#resulthtml");
-      resulthtml.innerHTML = resulthtml.innerText;
+  </div>
+  <script>
+    const resulthtml = document.querySelector("#resulthtml");
+    resulthtml.innerHTML = resulthtml.innerText;
 
-      $("img[name='cleanAll']").click(function (e) {
-        var article = $("#article").val();
-        console.log(article);
-        var settings = {
-          url: "http://localhost:8082/article/like/" + article,
-          method: "POST",
-          timeout: 0,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: JSON.stringify({}),
-        };
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-        });
+    $("img[name='cleanAll']").click(function (e) {
+      var article = $("#article").val();
+      console.log(article);
+      var settings = {
+        url: "http://localhost:8082/article/like/" + article,
+        method: "POST",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({}),
+      };
+      $.ajax(settings).done(function (response) {
+        console.log(response);
       });
+    });
 
-      $("img[name='cleanAll']").dblclick(function (e) {
-        var article = $("#article").val();
-        // console.log(member);
-        // console.log(article);
-        var settings = {
-          url: "http://localhost:8082/article/delike/" + article,
-          method: "POST",
-          timeout: 0,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: JSON.stringify({}),
-        };
-        $.ajax(settings).done(function (response) {
-          console.log(response);
-        });
+    $("img[name='cleanAll']").dblclick(function (e) {
+      var article = $("#article").val();
+      // console.log(member);
+      // console.log(article);
+      var settings = {
+        url: "http://localhost:8082/article/delike/" + article,
+        method: "POST",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify({}),
+      };
+      $.ajax(settings).done(function (response) {
+        console.log(response);
       });
+    });
 
-      let picture = document.getElementById("idimg1");
-      document.addEventListener("DOMContentLoaded", function () {
-        picture.addEventListener("click", Click);
-        var modals = document.getElementById("idimg1");
-        modals.addEventListener("dblclick", clean);
-      });
+    let picture = document.getElementById("idimg1");
+    document.addEventListener("DOMContentLoaded", function () {
+      picture.addEventListener("click", Click);
+      var modals = document.getElementById("idimg1");
+      modals.addEventListener("dblclick", clean);
+    });
 
-      function Click() {
-        picture.removeEventListener("click", Click);
-        picture.src = "/img/other/chngstar.gif";
-      }
+    function Click() {
+      picture.removeEventListener("click", Click);
+      picture.src = "/img/other/chngstar.gif";
+    }
 
-      function clean() {
-        picture.src = "/img/other/star.gif";
-        picture.addEventListener("click", Click);
-        var modals = document.getElementById("idimg1");
-        modals.addEventListener("dblclick", clean);
-      }
-    </script>
-  </body>
+    function clean() {
+      picture.src = "/img/other/star.gif";
+      picture.addEventListener("click", Click);
+      var modals = document.getElementById("idimg1");
+      modals.addEventListener("dblclick", clean);
+    }
+  </script>
+</body>
+
 </html>

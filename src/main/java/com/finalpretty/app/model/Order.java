@@ -52,6 +52,9 @@ public class Order {
 	@Column(name = "[address]")
 	private String address; // 地址
 
+	@Column(name = "payment")
+	private Integer payment; // 付款狀態
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")

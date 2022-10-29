@@ -36,9 +36,12 @@ public class OrderService {
             oDto.setOrder_num(i.getOrder_num());
             oDto.setShip(i.getShip());
             oDto.setPaid(i.getPaid());
+            oDto.setPhone(i.getPhone());
+            oDto.setPayment(i.getPayment());
             oDto.setAddress(i.getAddress());
             oDto.setCreate_date(i.getCreate_date());
             oDto.setTotal(i.getTotal());
+            oDto.setNickname(i.getMember().getNickname());
             listDto.add(oDto);
         }
 
@@ -69,7 +72,7 @@ public class OrderService {
         }
     }
 
-    public Integer addOrder(OrderDto orderDto) {
+    public Integer addOrder(OrderDto orderDto, Integer total) {
         Date date = new Date();
         Order order = new Order();
         Optional<Member> mem = memDao.findById(orderDto.getFk_member_id());
@@ -77,12 +80,22 @@ public class OrderService {
         order.setOrder_num(Long.parseLong(dateFormat.format(date)));
         order.setPaid(orderDto.getPaid());
         order.setShip(orderDto.getShip());
-        order.setTotal(orderDto.getTotal());
+        if (orderDto.getShip() == 1) {
+            total = total + 60;
+        } else if (orderDto.getShip() == 0) {
+            total = total + 100;
+        }
+        order.setTotal(total);
         order.setCreate_date(date);
+        order.setPhone(orderDto.getPhone());
         order.setAddress(orderDto.getAddress());
         oDao.save(order);
         order = oDao.findOrderByNew(orderDto.getFk_member_id());
         return order.getOrder_id();
+    }
+
+    public void updatePayment(Integer order_id) {
+        oDao.updatePayment(1, order_id);
     }
 
 }

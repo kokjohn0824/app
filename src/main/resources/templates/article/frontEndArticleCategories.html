@@ -27,7 +27,26 @@
       <div class="container-lg" style="margin: 20px auto">
         <div class="row row-cols-1 row-cols-md-2 g-4">
           <tr th:each="article : ${list}">
-            <!-- <article id=""
+            <div class="card" style="width: 18rem; margin: 10px">
+              <img
+                th:src="@{'/public/showArticleImage/'+${article.article_id}}"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title" th:text="${article.title}"></h5>
+                <p
+                  id="cleanText"
+                  class="resulthtml"
+                  style="max-width: 230px"
+                  th:text="${article.text}"
+                ></p>
+                <a
+                  th:href="@{'/public/article/show?article_id='+${article.article_id}}"
+                  class="btn btn-primary"
+                  >Read more</a
+                >
+                <!-- <article id=""
 				class="post-4233 post type-post status-publish format-standard has-post-thumbnail hentry category-all category-experience category-weight-loss category-nutrition generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33"
 				itemtype="" itemscope="">
 				<div class="">
@@ -55,26 +74,6 @@
 					</div>
 				</div>
 			</article> -->
-
-            <div class="card" style="width: 18rem; margin: 10px">
-              <img
-                th:src="@{'/public/showArticleImage/'+${article.article_id}}"
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <h5 class="card-title" th:text="${article.title}"></h5>
-                <p
-                  id="cleanText"
-                  class="resulthtml"
-                  style="max-width: 230px"
-                  th:text="${article.text}"
-                ></p>
-                <a
-                  th:href="@{'/public/article/show?article_id='+${article.article_id}}"
-                  class="btn btn-primary"
-                  >Read more</a
-                >
               </div>
             </div>
           </tr>

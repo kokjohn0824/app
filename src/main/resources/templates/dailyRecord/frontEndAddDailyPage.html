@@ -37,7 +37,7 @@
             type="hidden"
           />
           <button type="reset" class="btn btn-secondary">重置</button>
-          <button type="submit" class="signupbtn btn btn-primary">送出</button
+          <button type="button" class="signupbtn btn btn-primary">送出</button
           ><br />
           <button
             id="${productinfo.product_id}"
@@ -50,6 +50,17 @@
           >
             新增食物
           </button>
+          <div>
+            <table class="mytable" id="list_table_json">
+              <thead>
+                <tr>
+                  <th>食物名稱</th>
+                  <th>份量</th>
+                  <th>總卡路里</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
         </div>
       </form>
     </div>
@@ -102,34 +113,79 @@
             >
               Close
             </button>
-            <button type="submit" class="btn btn-primary">Send</button>
+            <button id="submitBtn" type="submit" class="btn btn-primary">
+              Send
+            </button>
           </div>
         </div>
       </div>
     </div>
 
     <script>
-      var side = $("#recipient-stock").val();
-      var daily_record_id = $("#daily_record_id").val();
-      var foodname = $("#foodname").val();
-      console.log(side);
-      console.log("-----------------------");
-      console.log(daily_record_id);
-      console.log("-----------------------");
-      console.log(foodname);
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        redirect: "follow",
-      };
+      // var side = $("#recipient-stock").val();
+      // var daily_record_id = $("#daily_record_id").val();
+      // var foodname = $("#foodname").val();
+      // var requestOptions = {
+      //   method: "POST",
+      //   headers: myHeaders,
+      //   redirect: "follow",
+      // };
 
-      fetch(
-        "http://localhost:8082/public/dailyRecord/addFood/1/1/2",
-        requestOptions
-      )
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
+      // fetch(
+      //   "http://localhost:8082/public/dailyRecord/addFood/" +
+      //     daily_record_id +
+      //     "/" +
+      //     foodname +
+      //     "/" +
+      //     side,
+      //   requestOptions
+      // )
+      //   .then((response) => response.text())
+      //   .then((result) => console.log(result))
+      //   .catch((error) => console.log("error", error));
+
+      $(document).ready(function () {
+        $("#submitBtn").click(function () {
+          var sd = $("#recipient-stock").val();
+          var d_r_id = $("#daily_record_id").val();
+          var fn = $("#foodname").val();
+          console.log(foodname);
+          var oja = {
+            daily_record_id: d_r_id,
+            foodname: fn,
+            side: sd,
+          };
+          var myJSONtext2 = JSON.stringify(oja);
+          $.ajax({
+            url: "http://localhost:8082/public/dailyRecord/addFood/",
+            data: { myJSONtext2 },
+            traditional: true,
+            method: "POST",
+            timeout: 0,
+            success: function (result) {
+              console.log(result);
+
+              $("#list_table_json tbody tr td").add();
+
+              msg_data = "<tbody>";
+              $.each(result, function (index, value) {
+                console.log(value.foodname);
+                msg_data += "<tr>";
+                msg_data += "<td>" + value.foodname + "</td>";
+                msg_data += "<td>" + value.side + "</td>";
+                msg_data += "<td>" + value.totle + "</td>";
+                msg_data += "</tr>";
+              });
+              msg_data += "</tbody>";
+
+              $("#list_table_json").append(msg_data);
+            },
+            error: function (err) {
+              console.log(err);
+            },
+          });
+        });
+      });
     </script>
   </body>
 </html>

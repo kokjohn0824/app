@@ -44,6 +44,10 @@ public class Video {
 	@Column(name = "body_parts")
 	private String body_parts;
 
+	// 觀看數
+	@Column(name = "views")
+	private Integer views;
+
 	// 影片預覽圖
 	@Lob
 	@Column(name = "picture")

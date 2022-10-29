@@ -49,8 +49,14 @@ public class Order {
 	@Column(name = "paid")
 	private Integer paid; // 支付方式 1..現金 2..信用卡
 
+	@Column(name = "phone")
+	private String phone; // 電話號碼
+
 	@Column(name = "[address]")
 	private String address; // 地址
+
+	@Column(name = "payment")
+	private Integer payment; // 付款狀態
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
 	@Temporal(TemporalType.TIMESTAMP)

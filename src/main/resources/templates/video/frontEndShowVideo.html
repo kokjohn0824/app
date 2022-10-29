@@ -29,6 +29,8 @@
         <source th:src="@{'/public/video/'+${video.url}}" type="video/mp4" />
         您的瀏覽器不支援此 HTML5 影片標籤
       </video>
+
+      觀看數:<span id="" th:text="${video.views}"></span>
     </div>
     <!-- <h2 class="entry-title" itemprop="headline">
       <a rel="bookmark" th:text="${video.title}"></a>

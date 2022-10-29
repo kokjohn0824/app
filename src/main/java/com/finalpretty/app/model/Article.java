@@ -52,9 +52,9 @@ public class Article {
 
 	// 文章時間
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@Column(name = "create_date", columnDefinition = "datetime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE", timezone = "GMT+8")
+	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
 	private Date create_date;
 
 	@PrePersist

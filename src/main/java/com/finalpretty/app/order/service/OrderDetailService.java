@@ -43,11 +43,12 @@ public class OrderDetailService {
         return odt;
     }
 
-    public Boolean addDetail(List<OrderDetailDto> detailDto, Integer order_id) {
-        Order_detail detail = new Order_detail();
+    public void addDetail(List<OrderDetailDto> detailDto, Integer order_id) {
+        Order_detail detail;
         Optional<Order> order = oDao.findById(order_id);
         for (OrderDetailDto dDto : detailDto) {
             Optional<Product> product = pDao.findById(dDto.getFk_product_id());
+            detail = new Order_detail();
             detail.setOrder(order.get());
             detail.setProduct(product.get());
             detail.setProduct_name(product.get().getTitle());
@@ -55,7 +56,7 @@ public class OrderDetailService {
             detail.setTotal(dDto.getTotal());
             detailDao.save(detail);
         }
-        return true;
+
     }
 
 }

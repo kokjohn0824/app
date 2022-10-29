@@ -29,7 +29,9 @@
 
 		<div th:style="'background-color:#F2FFF2; margin-left:300px; height:1000px; text-align:center;'">
 			<div class="container-lg" style="width: 50%; margin: 20px auto">
-
+				<div th:if="${username} != null">
+					<h1>您好，管理者<span th:text="${username}"></span></h1>
+				</div>
 				<h1>新增會員</h1>
 				<div class="container-lg" style="text-align:center" th:fragment="form">
 					<form th:action="@{/backendMember/add}" method="post" enctype="multipart/form-data">
@@ -49,39 +51,39 @@
 	            					<label for="title" class="form-label"><b>編號</b></label>
 	          					</div> -->
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="暱稱" name="nickname" required />
+							<input class="form-control" type="text" placeholder="暱稱" name="nickname" />
 							<label for="nickname" class="form-label"><b>暱稱</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="性別" name="gender" required />
+							<input class="form-control" type="text" placeholder="性別" name="gender" />
 							<label for="gender" class="form-label"><b>性別</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="年齡" name="age" required />
+							<input class="form-control" type="text" placeholder="年齡" name="age" />
 							<label for="age" class="form-label"><b>年齡</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="身高" name="height" required />
+							<input class="form-control" type="text" placeholder="身高" name="height" />
 							<label for="height" class="form-label"><b>身高</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="體重" name="weight" required />
+							<input class="form-control" type="text" placeholder="體重" name="weight" />
 							<label for="weight" class="form-label"><b>體重</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" required />
+							<input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" />
 							<label for="bodyFat" class="form-label"><b>體脂肪</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat" required />
+							<input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat" />
 							<label for="visceralFat" class="form-label"><b>內臟脂肪</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="肌肉量" name="muscleMass" required />
+							<input class="form-control" type="text" placeholder="肌肉量" name="muscleMass" />
 							<label for="muscleMass" class="form-label"><b>肌肉量</b></label>
 						</div>
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" placeholder="VIP" name="becomeVIP" required />
+							<input class="form-control" type="text" placeholder="VIP" name="becomeVIP" />
 							<label for="becomeVIP" class="form-label"><b>VIP</b></label>
 						</div>
 

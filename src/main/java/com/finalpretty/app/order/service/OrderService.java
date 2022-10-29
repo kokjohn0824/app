@@ -69,7 +69,7 @@ public class OrderService {
         }
     }
 
-    public Integer addOrder(OrderDto orderDto) {
+    public Integer addOrder(OrderDto orderDto, Integer total) {
         Date date = new Date();
         Order order = new Order();
         Optional<Member> mem = memDao.findById(orderDto.getFk_member_id());
@@ -77,7 +77,7 @@ public class OrderService {
         order.setOrder_num(Long.parseLong(dateFormat.format(date)));
         order.setPaid(orderDto.getPaid());
         order.setShip(orderDto.getShip());
-        order.setTotal(orderDto.getTotal());
+        order.setTotal(total);
         order.setCreate_date(date);
         order.setAddress(orderDto.getAddress());
         oDao.save(order);

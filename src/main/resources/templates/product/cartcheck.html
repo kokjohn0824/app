@@ -155,13 +155,14 @@
 			
 			
 			<div class="method_host_">
-				<h2 class="common_headline2_">購買者</h2>
-				<div class="host_info_">
-					<p class="host_name_"><span th:text="${#authentication.getPrincipal().getFkMember().getNickname()}"></span></p>
-					<address>
-
+	<h2 class="common_headline2_">購買者</h2>
+	<div class="host_info_">
+		<p class="host_name_"><strong>姓名</strong></p>
+		<input type="text" id="member_id" th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}" hidden />
+		<address>
 			
 		
+			
 			
 			
 		</address>
@@ -374,19 +375,72 @@
 
 
 //--------------------------------------------
-   // Load cart
-   function loadCart() {
-          var cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
-		  console.log(cart)
-		  var card = $("#method_rF:checked").attr("value");
-		  console.log(card);
-        }
 
-		loadCart();
+		// Save cart
+        //TODO:session
+        
 
+        // Load cart
+		
+		
+			var cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
+			console.log(cart);
+	
+			
+			$("#set").click(function(){
+				var cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
+			//   console.log(cart);
+				if ($("#method_rF:checked").val()){
+					var paid = $("#method_rF:checked").val();
+				}
+				if ($("#method_r2:checked").val()){
+					var paid = $("#method_r2:checked").val();
+				}
+				if ($("#invoice_type_0:checked").val()){
+					var ship = $("#invoice_type_0:checked").val();
+				}
+				if ($("#invoice_type_1:checked").val()){
+					var ship = $("#invoice_type_1:checked").val();
+				}
+				var member_id = $("#member_id").val();
+				var orderDto = {"paid":paid,"ship":ship,"address":null,"fk_member_id":member_id};
+				var detailDto = [];
+				// var detail;
+				var index = 0;
+				for(let i of cart){
+					var detail = {
+						"product_name":i.name,
+						"fk_product_id":i.product_id,
+						"count":i.count,
+						"total":i.price
+					}
+					detailDto[index++] = detail;
+				}
+				
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
 
+				var raw = JSON.stringify([{"orderDto":orderDto},{"detailDto":detailDto}]);
+			var requestOptions = {
+  					method: 'POST',
+  					headers: myHeaders,
+  					body: raw,
+  					redirect: 'follow'
+				};
 
+				fetch("http://localhost:8082/api/addOrder", requestOptions)
+				.then(response => response.json())
+				.then(result => {if(result[0] == 1){
+					console.log(result);
+					window.location.replace("http://localhost:8082/")
+				}else if(result[0] == 2){
+					window.location.replace("http://localhost:8082/ecpay/test/"+ result[1])
+					console.log(result);
+				}
+			})
+				.catch(error => console.log('error', error));	
 
+})
 </script>
 
 			

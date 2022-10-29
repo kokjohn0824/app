@@ -177,6 +177,9 @@ submitBtn.addEventListener("click", (e) => {
   if (Object.values(flags).includes(false)) {
     return;
   }
+  repeatPwdHelpBlock.innerHTML += `<div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>`;
   let registerdata = JSON.stringify({
     account: accountInput.value,
     email: emailInput.value,
@@ -191,6 +194,7 @@ submitBtn.addEventListener("click", (e) => {
   fetch(`${url}registration`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
+      repeatPwdHelpBlock.innerHTML = "";
       if (result.error) {
         alert(result.error);
       } else {

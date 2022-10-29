@@ -3,6 +3,7 @@ package com.finalpretty.app.product.controller;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +111,17 @@ public class ProductController {
 		model.addAttribute("productList", list);
 
 		return "/product/productAll";
+	}
+
+	@GetMapping("/admin/api/listProduct")
+	@ResponseBody
+	public List<ProductDto> getAllProduct() {
+		List<ProductDto> l = new ArrayList<>();
+		pService.findAll().forEach((e) -> {
+			l.add(new ProductDto(e.getProduct_id(), e.getTitle(), e.getType(), e.getText(), e.getOnsale(),
+					e.getVolume(), e.getStock(), e.getPrice()));
+		});
+		return l;
 	}
 
 	// 商品修改查詢

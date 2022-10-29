@@ -5,6 +5,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Optional;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.Response.ArticleDTO;
 import com.finalpretty.app.Response.ArticleResponse;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
@@ -122,6 +124,19 @@ public class ArticleController {
 		List<Article> list = articleR.findAlloOrderById();
 		m.addAttribute("list", list);
 		return "/article/frontEndArticleCategories";
+	}
+
+	@GetMapping("/public/api/article/categories")
+	@ResponseBody
+	public List<ArticleDTO> getAllarticles() {
+
+		List<ArticleDTO> artilcelist = new ArrayList<>();
+		articleR.findAlloOrderById().forEach((n) -> {
+			artilcelist.add(
+					new ArticleDTO(n.getArticle_id(), n.getTitle(), n.getText().substring(0, 15) + "...",
+							n.getCreate_date()));
+		});
+		return artilcelist;
 	}
 
 	// 顯示選取文章

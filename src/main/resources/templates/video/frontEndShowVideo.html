@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Show Video</title>
-    <div th:replace="jsmodules"></div>
-    <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
-    <style>
-      .top {
-        width: 100%;
-        margin-top: 76px;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div th:replace="component/navbar :: navbar"></div>
-    <div class="container-lg">
-      <br />
-      <video
-        style="width: 100%; height: 100%"
-        controls="controls"
-        preload="auto"
-        autoplay="true"
-        loop="loop"
-      >
-        <source th:src="@{'/public/video/'+${video.url}}" type="video/mp4" />
-        您的瀏覽器不支援此 HTML5 影片標籤
-      </video>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Show Video</title>
+  <div th:replace="jsmodules"></div>
+  <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
+  <style>
+    .top {
+      width: 100%;
+      margin-top: 76px;
+    }
+  </style>
+</head>
 
-      觀看數:<span id="" th:text="${video.views}"></span>
+<body>
+  <div th:replace="component/navbar :: navbar"></div>
+  <div class="container-lg">
+    <br />
+    <video style="width: 1000px" controls="controls" preload="auto" autoplay="true" loop="loop">
+      <source th:src="@{'/public/video/'+${video.url}}" type="video/mp4" />
+      您的瀏覽器不支援此 HTML5 影片標籤
+    </video>
+    <div class="clearfix">
+      <img src="..." class="col-md-6 float-md-end mb-3 ms-md-3" alt="...">
+
+      <p>
+        A paragraph of placeholder text. We're using it here to show the use of the clearfix class. We're adding quite a
+        few meaningless phrases here to demonstrate how the columns interact here with the floated image.
+      </p>
+
+      <p>
+        As you can see the paragraphs gracefully wrap around the floated image. Now imagine how this would look with
+        some actual content in here, rather than just this boring placeholder text that goes on and on, but actually
+        conveys no tangible information at. It simply takes up space and should not really be read.
+      </p>
+
+      <p>
+        觀看數:<span id="" th:text="${video.views}"></span>
+      </p>
     </div>
-    <!-- <h2 class="entry-title" itemprop="headline">
+    觀看數:<span id="" th:text="${video.views}"></span>
+  </div>
+  <!-- <h2 class="entry-title" itemprop="headline">
       <a rel="bookmark" th:text="${video.title}"></a>
     </h2>
     <span class="posted-on">
@@ -57,5 +69,6 @@
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;
     </script> -->
-  </body>
+</body>
+
 </html>

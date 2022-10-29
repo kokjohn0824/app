@@ -147,9 +147,13 @@ public class ArticleController {
 		Optional<Article> optional = articleR.findById(article_id);
 		Article article = optional.get();
 		Set<Member> members = article.getMembers();
+
 		if (o instanceof Users) {
 			member = ((Users) o).getFkMember();
-			if (members.contains(member)) {
+			Integer member_id = member.getMember_id();
+			Member memberFromJpa = memberR.findById(member_id).get();
+
+			if (members.contains(memberFromJpa)) {
 				m.addAttribute("bool", "true");
 			} else {
 				m.addAttribute("bool", "false");

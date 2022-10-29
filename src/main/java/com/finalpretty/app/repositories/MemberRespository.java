@@ -1,5 +1,7 @@
 package com.finalpretty.app.repositories;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -27,6 +29,12 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
             @Param("visceralFat") double visceralFat,
             @Param("muscleMass") double muscleMass,
             @Param("becomeVIP") Integer becomeVIP);
+
+    // 前台找ID
+    @Transactional
+    @Modifying
+    @Query(value = "select * from member where member_id=:member_id", nativeQuery = true)
+    List<Member> findListById(@Param("member_id") Integer member_id);
 
     // 後台所有會員分頁
     // @Query("select u from Member u")

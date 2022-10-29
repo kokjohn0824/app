@@ -75,6 +75,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 m1.setVisceralFat(7.1);
                 m1.setMuscleMass(20.4);
                 m1.setBecomeVIP(1);
+                m1.setNickname("tset");
                 memberRespository.save(m1);
 
                 Member m2 = new Member();

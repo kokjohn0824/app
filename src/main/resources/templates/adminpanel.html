@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:inline="text">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -42,6 +42,7 @@
       .tableview {
         height: 500px;
         width: 100%;
+        overflow: scroll;
         background-color: #ffffff;
         opacity: 0;
         transition: opacity 0.5s;
@@ -185,9 +186,31 @@
           background-position: 100% 50%;
         }
       }
+      .btn-icon-edit {
+        background-color: white;
+        background: url("[[@{/img/icon/Pencil.svg}]]") no-repeat;
+        width: 30px;
+        height: 30px;
+        border: none;
+        transition: 0.2s;
+      }
+      .btn-icon-edit:hover {
+        transform: rotate(45deg);
+      }
+
+      .btn-icon-delete {
+        background-color: white;
+        background: url("[[@{/img/icon/bin.svg}]]") no-repeat;
+        width: 30px;
+        height: 30px;
+        border: none;
+      }
+      .btn-icon-delete:hover {
+        background: url("[[@{/img/icon/bin-hover.svg}]]") no-repeat;
+      }
     </style>
   </head>
-  <body th:inline="text">
+  <body>
     <div class="d-flex">
       <div class="left-panel-container">
         <div class="m-2 d-flex">
@@ -373,8 +396,8 @@
         (el) =>
           `${Object.values(el)
             .map((td) => `<td class="data">${td}</td>`)
-            .join("")}<td><button class="save">Save</button>
-            <button class="edit">Edit</button></td>`
+            .join("")}<td><button class="save btn-icon-edit"></button>
+            <button class="delete btn-icon-delete"></button></td>`
       );
       let tbody = `<tbody>${trs
         .map((el) => `<tr>${el}</tr>`)
@@ -397,32 +420,6 @@
     //TODO:將資料匯出成csv檔
     document.getElementById("exportCSV").addEventListener("click", () => {
       alert("施工中");
-    });
-
-    //修改資料 (Jquery)
-    $(document).on("click", ".edit", function () {
-      $(this)
-        .parent()
-        .siblings("td.data")
-        .each(function () {
-          var content = $(this).html();
-          $(this).html('<input value="' + content + '" />');
-        });
-
-      $(this).siblings(".save").show();
-      $(this).siblings(".delete").hide();
-      $(this).hide();
-    });
-
-    $(document).on("click", ".save", function () {
-      $("input").each(function () {
-        var content = $(this).val();
-        $(this).html(content);
-        $(this).contents().unwrap();
-      });
-      $(this).siblings(".edit").show();
-      $(this).siblings(".delete").show();
-      $(this).hide();
     });
 
     //模糊搜尋

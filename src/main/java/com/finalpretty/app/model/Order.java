@@ -49,6 +49,9 @@ public class Order {
 	@Column(name = "paid")
 	private Integer paid; // 支付方式 1..現金 2..信用卡
 
+	@Column(name = "phone")
+	private String phone; // 電話號碼
+
 	@Column(name = "[address]")
 	private String address; // 地址
 

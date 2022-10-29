@@ -2,8 +2,11 @@ package com.finalpretty.app.order.controller;
 
 import java.io.Console;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +20,10 @@ import com.finalpretty.app.Response.OrderDetailDto;
 import com.finalpretty.app.Response.OrderDto;
 import com.finalpretty.app.ecpay.payment.integration.AllInOne;
 import com.finalpretty.app.ecpay.payment.integration.domain.AioCheckOutALL;
+import com.finalpretty.app.model.Order;
 import com.finalpretty.app.order.service.OrderDetailService;
 import com.finalpretty.app.order.service.OrderService;
+import com.finalpretty.app.repositories.OrderRespository;
 import com.finalpretty.app.request.MemberOrderDto;
 
 @Controller
@@ -29,6 +34,9 @@ public class OrderController {
 
     @Autowired
     private OrderDetailService detailService;
+
+    @Autowired
+    private OrderRespository oDao;
 
     // @GetMapping("/admin/orderAll")
     @GetMapping("/public/orderAll")
@@ -70,6 +78,9 @@ public class OrderController {
         List<Integer> num = new ArrayList<>();
         num.add(orderDto.getPaid());
         num.add(order_id);
+        for (Integer n : num) {
+            System.out.println(n);
+        }
         return num;
     }
 
@@ -78,6 +89,7 @@ public class OrderController {
         return "/member/memberOrder";
     }
 
+    // 成立訂單
     @ResponseBody
     @GetMapping("/public/findMemberOrder/{member_id}")
     public List<OrderDto> findMemberOrder(@PathVariable(name = "member_id") Integer member_id) {
@@ -85,24 +97,32 @@ public class OrderController {
     }
 
     // 綠界付款
-
     public static AllInOne all;
+
+    @GetMapping("/successPaid/{order_id}")
+    public String successPaid(@PathVariable("order_id") Integer order_id) {
+        oService.updatePayment(order_id);
+        return "/order/success";
+    }
 
     @GetMapping("/ecpay/test/{order_id}")
     @ResponseBody
     public String testEcpay(@PathVariable("order_id") Integer order_id) {
 
+        Optional<Order> order = oDao.findById(order_id);
         try {
             all = new AllInOne(" ");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
             AioCheckOutALL obj = new AioCheckOutALL();
             // FIXME:測試訂單應該要隨機生成字串
-            obj.setMerchantTradeNo("testComp124www2eeee");
-            obj.setMerchantTradeDate("2017/01/01 08:05:23");
-            obj.setTotalAmount("50");
+            obj.setMerchantTradeNo("testNo" + Long.toString(order.get().getOrder_num()));
+            obj.setMerchantTradeDate(dateFormat.format(date));
+            obj.setTotalAmount(Integer.toString(order.get().getTotal()));
             obj.setTradeDesc("test Description");
-            obj.setItemName("TestItem");
+            obj.setItemName("test");
             // TODO:新增付款成功頁面
-            obj.setReturnURL("http://localhost:8082/");
+            obj.setReturnURL("http://localhost:8082/successPaid/" + order_id);
             obj.setNeedExtraPaidInfo("N");
             obj.setClientBackURL("http://localhost:8082/");
             String form = all.aioCheckOut(obj, null);

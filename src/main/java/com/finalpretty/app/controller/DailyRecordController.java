@@ -167,19 +167,20 @@ public class DailyRecordController {
 
     // 新增食物
     @ResponseBody
-    @PostMapping("/public/dailyRecord/addFood/{daily_record_id}/{food_id}/{side}")
+    @PostMapping(path = "/public/dailyRecord/addFood", produces = {
+            "application/json; charset=UTF-8" })
     public DailyFoodResponse dailyAddFood(
             @PathVariable(name = "daily_record_id") Integer daily_record_id,
-            @PathVariable(name = "food_id") Integer food_id,
+            @PathVariable(name = "foodname") String foodname,
             @PathVariable(name = "side") Integer side) {
         try {
             Food_daily food_daily = new Food_daily();
 
             DailyRecord DailyRecord = dailyRecordR.findById(daily_record_id).get();
+            Integer food_id = foodR.findByName(foodname);
             Food food = foodR.findById(food_id).get();
 
             Integer calorie = food.getCalorie();
-            String foodname = food.getFoodname();
             Integer totle = calorie * side;
 
             food_daily.setDaily_record(DailyRecord);

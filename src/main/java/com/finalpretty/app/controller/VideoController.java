@@ -59,6 +59,7 @@ public class VideoController {
         video.setType(type);
         video.setBody_parts(body_parts);
         video.setUrl(fileName);
+        video.setViews(0);
         videoR.save(video);
         // if (fileName != null && fileName.length() != 0) {
         // videoR.setUrl(fileName);
@@ -138,6 +139,10 @@ public class VideoController {
     public String showVideo(@RequestParam(name = "video_id") Integer video_id, Model m) {
         Optional<Video> optional = videoR.findById(video_id);
         Video video = optional.get();
+        Integer views = video.getViews();
+        views++;
+        video.setViews(views);
+        videoR.save(video);
         m.addAttribute("video", video);
         return "/video/frontEndShowVideo";
     }

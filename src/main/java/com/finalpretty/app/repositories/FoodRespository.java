@@ -22,4 +22,7 @@ public interface FoodRespository extends JpaRepository<Food, Integer> {
 
     @Query(value = "select foodname form food", nativeQuery = true)
     List<Food> findFoodName();
+
+    @Query(value = "select food_id form food where foodname=:foodname", nativeQuery = true)
+    Integer findByName(@Param("foodname") String foodname);
 }

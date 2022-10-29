@@ -125,7 +125,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                                 .readAllBytes(Paths.get(
                                                 "src/main/resources/static/img/food/rice.jpg"));
                 Food food1 = new Food();
-                food1.setFoodname("白飯");
+                food1.setFoodname("rice");
                 food1.setCalorie(116);
                 food1.setPicture(foodP1);
                 foodRespository.save(food1);
@@ -215,6 +215,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 v1.setType("胸肌");
                 v1.setBody_parts("胸大肌");
                 v1.setPicture(video1);
+                v1.setViews(0);
                 v1.setUrl("3db97465e2684771a6bce945645c9d00.mp4");
                 videoRespository.save(v1);
 

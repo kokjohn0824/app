@@ -179,7 +179,7 @@
 
 		
 		
-		<p class="host_name_"><input type="text" placeholder="請輸入連絡電話"></p>
+		<p class="host_name_"><input id="phone" type="text" placeholder="請輸入連絡電話"></p>
 		
 
 	
@@ -228,7 +228,7 @@
 	<h3>付款方式</h3>
 	<div class="method_box_content_">
 		<label for="method_rF">
-	<input id="method_rF" name="method" type="radio" value="F"   >
+	<input id="method_rF" name="method" type="radio" value="2" checked>
 	信用卡付款
 	<div class="small">
 		※可利用的信用卡：VISA、Master、JCB
@@ -236,7 +236,7 @@
 </label>
 
 <label for="method_r2">
-	<input id="method_r2" name="method" type="radio" value="2"   >
+	<input id="method_r2" name="method" type="radio" value="1"   >
 	超取付款
 	<div class="small">
 		※超商取貨時請以「現金」進行付款
@@ -257,14 +257,14 @@
 		<div class="small">※運費$100</div></label>
 
 		<div id="invoice_type0_block">
-			<input type="text" placeholder="請輸入宅配地址">
+			<input name="setaddress" type="text" placeholder="請輸入宅配地址">
 		</div>
 		
 
 
 
 
-		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_1" value="1" >
+		<input class="invoice_type" name="invoice_type" type="radio" id="invoice_type_1" value="1" required	 >
 		<label for="invoice_type_1">超商取貨
 		<div class="small">※運費$60</div></label>
 
@@ -290,14 +290,12 @@
 			
 <div class="submit_">
 				
-	<input type="image" name="submit" src="//cdn.beams.co.jp/taiwan/img/sys/button/ordernext.gif" alt="確認訂單內容" class="button_">
-
-<div class="back_ button_"><a th:href="@{/storefrontend}">回到上一頁</a></div>
+	
+	<div class="back_ button_"><a th:href="@{/storefrontend}">回到上一頁</a></div>
 </div>
 
-
-			
-		</form>
+</form>
+<input id="set" type="button" name="submit" src="//cdn.beams.co.jp/taiwan/img/sys/button/ordernext.gif" value="確認訂單內容" class="btn btn-primary">
 	</div>
 </div>
 
@@ -398,12 +396,15 @@
 				}
 				if ($("#invoice_type_0:checked").val()){
 					var ship = $("#invoice_type_0:checked").val();
+					var address = $("input[name='setaddress']").val();
 				}
 				if ($("#invoice_type_1:checked").val()){
 					var ship = $("#invoice_type_1:checked").val();
+					var address = $("#invoice_type1_0_0 option:selected").text();
 				}
+				var phone = $("#phone").val();
 				var member_id = $("#member_id").val();
-				var orderDto = {"paid":paid,"ship":ship,"address":null,"fk_member_id":member_id};
+				var orderDto = {"paid":paid,"ship":ship,"address":address,"phone":phone,"fk_member_id":member_id};
 				var detailDto = [];
 				// var detail;
 				var index = 0;

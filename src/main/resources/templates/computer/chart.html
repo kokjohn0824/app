@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chart.js</title>
+    <!-- 利用th:insert 或是 th:replace 來載入模板 -->
+    <div th:replace="jsmodules"></div>
+  </head>
+  <body>
+    <div th:replace="component/navbar :: navbar"></div>
+    <canvas id="myChart" width="300" height="200"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      var ctx = document.getElementById("myChart");
+      var myChart = new Chart(ctx, {
+        type: "line", //圖表類型
+        data: {
+          //標題
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "# test", //標籤
+              data: [12, 19, 3, 5, 2, 3], //資料
+              //圖表背景色
+              //   backgroundColor: [
+              //     "rgba(255, 99, 132, 0.2)",
+              //     "rgba(54, 162, 235, 0.2)",
+              //     "rgba(255, 206, 86, 0.2)",
+              //     "rgba(75, 192, 192, 0.2)",
+              //     "rgba(153, 102, 255, 0.2)",
+              //     "rgba(255, 159, 64, 0.2)",
+              //   ],
+              //圖表外框線色
+              borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+              ],
+              //外框線寬度
+              borderWidth: 3,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                  responsive: true, //符合響應式
+                },
+              },
+            ],
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

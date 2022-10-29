@@ -1,8 +1,8 @@
 package com.finalpretty.app.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,11 +66,13 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
+
 		memberR.save(member);
-		return "redirect:/backendMember/showAll";
+		// return "redirect:/backendMember/showAll";
+		return "/member/backendMemberAdd";
 	}
 
 	// 顯示全部會員
@@ -223,66 +225,77 @@ public class MemberManageController {
 		Users user = userR.findById(user_id).get();
 		user.setFkMember(fkMember);
 		userR.save(user);
-		String str = "redirect:/member/page?member_id=" + id;
+		String str = "redirect:/member/inputshow?member_id=" + id;
 		return str;
+		// return "/member/inputpage";
 	}
 
-	// 輸入完會員資料，抓取會員資料
-	@GetMapping("/member/page")
+	// 註冊完，輸入完會員資料，抓取會員資料
+	@GetMapping("/member/inputshow")
 	public String memberPage(@RequestParam(name = "member_id") Integer id, Model m) {
 		Optional<Member> m1 = memberR.findById(id);
 		m.addAttribute("member", m1.orElse(null));
-		return "/member/memberPage";
+		return "/member/memberInputShow";
 	}
 
-	// 抓取會員資料，編輯
-	@GetMapping("/member/edit")
-	public String memberEdit(@RequestParam(name = "member_id") Integer id, Model m) {
-		Optional<Member> m1 = memberR.findById(id);
-		m.addAttribute("member", m1.orElse(null));
-		return "/member/memberEdit";
-	}
-
-	@PostMapping("/member/edit")
-	public String memberEditPost(@RequestParam(name = "member_id") Integer member_id,
-			@RequestParam(name = "nickname") String nickname,
-			@RequestParam(name = "gender") Integer gender,
-			@RequestParam(name = "age") Integer age,
-			@RequestParam(name = "height") double height,
-			@RequestParam(name = "weight") double weight,
-			@RequestParam(name = "bodyFat") double bodyFat,
-			@RequestParam(name = "visceralFat") double visceralFat,
-			@RequestParam(name = "muscleMass") double muscleMass,
-			@RequestParam(name = "becomeVIP") Integer becomeVIP,
-			Model m) {
-		Member member = new Member();
-
+	// 登入(userId & memberID)抓取會員資料、並可以編輯
+	@GetMapping("/member/page")
+	public String memberPage(Model m) {
+		// 取Users物件
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		try {
-			member.setNickname(nickname);
-			member.setGender(gender);
-			member.setAge(age);
-			member.setHeight(height);
-			member.setWeight(weight);
-			member.setBodyFat(bodyFat);
-			member.setVisceralFat(visceralFat);
-			member.setMuscleMass(muscleMass);
-			member.setBecomeVIP(becomeVIP);
-			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
-					visceralFat, muscleMass, becomeVIP);
+			// 把Users強制轉型成Bean，並抓member_ID
+			Integer member_id = ((Users) o).getFkMember().getMember_id();
+			// 透過member_ID去找相關的User
+			Optional<Member> m1 = memberR.findById(member_id);
+			// 存入並抓取member資料
+			m.addAttribute("member", m1.get());
+			// 去抓會員資料
+			return "/member/memberPage";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "/member/page";
+		// 去輸入會員資料頁面
+		return "/member/inputpage";
 	}
 
-	// 顯示個人資料find by ID
 	// @GetMapping("/member/page")
-	// public String findByIdMember(@RequestParam(name = "member_id") Integer
-	// member_id, Model m) {
-	// Optional<Member> optional = memberR.findById(member_id);
-	// Member member = optional.get();
-	// m.addAttribute("member", member);
+	// public String memberPage2(Model m) {
+	// Object o =
+	// SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	// Integer member_id = ((Users) o).getFkMember().getMember_id();
+	// Optional<Member> member = memberR.findById(member_id);
+	// if (member != null) {
+	// m.addAttribute("member", member.get());
 	// return "/member/memberPage";
+	// } else {
+	// return "/member/inputpage";
+	// }
+	// }
+	// memberPage2 & memberPage3結果一樣，方法不同
+	// @GetMapping("/member/page")
+	// public String memberPage3(Model m) {
+	// Object o =
+	// SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	// Integer member_id = ((Users) o).getFkMember().getMember_id();
+	// List<Member> m1 = memberR.findListById(member_id);
+	// if (m1 != null && m1.size() > 0) {
+	// Optional<Member> member = memberR.findById(member_id);
+	// m.addAttribute("member", member.get());
+	// return "/member/memberPage";
+	// } else {
+	// return "/member/inputpage";
+	// }
+	// }
+
+	// List<Member> member = memberR.findListById(member_id);
+	// // 判斷member 是否有值，有就導入，沒有就去輸入頁面
+	// if (member != null && member.size() > 0) {
+	// //
+	// Optional<Member> member = memberR.findById(member_id);
+	// return "/member/memberPage";
+	// } else {
+	// return "/member/inputpage";
 	// }
 
 }

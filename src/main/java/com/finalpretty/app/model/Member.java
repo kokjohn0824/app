@@ -1,6 +1,7 @@
 package com.finalpretty.app.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +44,7 @@ public class Member {
 	@Column(name = "member_id")
 	private Integer member_id;
 
-	@Column(name = "nickname")
+	@Column(name = "nickname", columnDefinition = "nvarchar(50)")
 	private String nickname;
 
 	@Column(name = "gender")
@@ -66,6 +74,19 @@ public class Member {
 
 	@Column(name = "becomeVIP")
 	private Integer becomeVIP;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
+	@Column(name = "create_date", columnDefinition = "datetime")
+	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss EEEE", timezone = "GMT+8")
+	private Date create_date;
+
+	@PrePersist
+	public void onCreate() {
+		if (create_date == null) {
+			create_date = new Date();
+		}
+	}
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "fkMember")
 	private Users users;

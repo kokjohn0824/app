@@ -1,5 +1,7 @@
 package com.finalpretty.app.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +18,10 @@ public interface SportsRespository extends JpaRepository<Sports, Integer> {
             @Param("sportsname") String sportsname,
             @Param("calorie") Integer calorie,
             @Param("picture") byte[] picture);
+
+    @Query(value = "select sportsname form sports", nativeQuery = true)
+    List<Sports> findSportsName();
+
+    @Query(value = "select sports_id form sports where sportsname=:sportsname", nativeQuery = true)
+    Integer findByName(@Param("sportsname") String sportsname);
 }

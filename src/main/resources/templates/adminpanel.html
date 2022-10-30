@@ -333,7 +333,9 @@
     //設定頁面改變所需要之變數
     let tabletitle = document.getElementById("tabletitle");
     let showAllurl = "http://localhost:8082/public/api/article/categories";
+    //綁定table view 的變數
     let tableData;
+    let initialTableData;
 
     //設定小時鐘
 
@@ -342,7 +344,7 @@
         "clock"
       ).innerHTML = `${new Date().toDateString()} ${new Date()
         .toLocaleTimeString()
-        .substring(0, 4)}`;
+        .substring(0, 8)}`;
     };
     setclock();
     setInterval(() => {
@@ -411,6 +413,8 @@
       document.querySelector("#table").style.opacity = 0;
       setTimeout(() => {
         getdata(showAllurl, (result) => {
+          //make a copy of data
+          [...initialTableData] = [...result];
           jsonToHTMLbyQ("#table", result);
           document.querySelector("#table").style.opacity = 1;
         });
@@ -449,7 +453,6 @@
         alert("table is null!");
         return;
       }
-      console.info(tableData);
       var fields = Object.keys(tableData[0]);
       var replacer = function (key, value) {
         return value === null ? "" : value;
@@ -463,7 +466,6 @@
       });
       csv.unshift(fields.join(",")); // add header column
       csv = csv.join("\r\n");
-      console.log(csv);
       //create a download link and click and destroy it
       let filename = saveTextAsFile("test.csv", csv);
     });
@@ -489,9 +491,9 @@
       return resArr;
     };
 
-    document.getElementById("searchinput").addEventListener("input", () => {
+    document.getElementById("searchinput").addEventListener("change", () => {
       if (!document.getElementById("searchinput").value) {
-        jsonToHTMLbyQ("#table", tableData);
+        jsonToHTMLbyQ("#table", initialTableData);
         return;
       }
 

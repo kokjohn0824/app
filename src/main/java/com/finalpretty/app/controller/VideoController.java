@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.Response.VideoResponse;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
 import com.finalpretty.app.model.Video;
@@ -170,6 +172,58 @@ public class VideoController {
         }
         m.addAttribute("video", video);
         return "/video/frontEndShowVideo";
+    }
+
+    // 按讚影片
+    @ResponseBody
+    @PostMapping("/video/like/{video_id}")
+    public VideoResponse likeVideo(
+            @PathVariable(name = "video_id") Integer video_id) {
+        try {
+            Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Member member = ((Users) o).getFkMember();
+            Integer member_id = member.getMember_id();
+            Member memberFromJpa = memberR.findById(member_id).get();
+            Video video = videoR.findById(video_id).get();
+            Set<Video> like = memberFromJpa.getVideos();
+            like.add(video);
+            memberR.save(member);
+
+            VideoResponse ar = new VideoResponse();
+            ar.setVideo_id(video_id);
+            ar.setMember_id(member_id);
+
+            return ar;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 取消按讚影片
+    @ResponseBody
+    @PostMapping("/video/delike/{video_id}")
+    public VideoResponse delikeVideo(
+            @PathVariable(name = "video_id") Integer video_id) {
+        try {
+            Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Member member = ((Users) o).getFkMember();
+
+            Integer member_id = member.getMember_id();
+            Member memberFromJpa = memberR.findById(member_id).get();
+            Video video = videoR.findById(video_id).get();
+            Set<Video> ss = memberFromJpa.getVideos();
+            ss.remove(video);
+            VideoResponse ar = new VideoResponse();
+            ar.setVideo_id(video_id);
+            ar.setMember_id(member_id);
+            videoR.save(video);
+
+            return ar;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // @GetMapping("/video/add")

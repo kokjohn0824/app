@@ -23,11 +23,15 @@ import com.finalpretty.app.model.DailyRecord;
 import com.finalpretty.app.model.Food;
 import com.finalpretty.app.model.Food_daily;
 import com.finalpretty.app.model.Member;
+import com.finalpretty.app.model.Sports;
+import com.finalpretty.app.model.Sports_daily;
 import com.finalpretty.app.model.Users;
 import com.finalpretty.app.repositories.DailyRecordRespository;
 import com.finalpretty.app.repositories.FoodDailyRespository;
 import com.finalpretty.app.repositories.FoodRespository;
 import com.finalpretty.app.repositories.MemberRespository;
+import com.finalpretty.app.repositories.SportsDailyRespository;
+import com.finalpretty.app.repositories.SportsRespository;
 
 @Controller
 public class DailyRecordController {
@@ -42,7 +46,13 @@ public class DailyRecordController {
     private FoodRespository foodR;
 
     @Autowired
+    private SportsRespository sportsR;
+
+    @Autowired
     private FoodDailyRespository foodDailyR;
+
+    @Autowired
+    private SportsDailyRespository sportsDailyR;
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -91,8 +101,10 @@ public class DailyRecordController {
         dailyRecordR.save(daily);
         Integer Daily_record_id = daily.getDaily_record_id();
         List<Food> foodList = foodR.findAll();
+        List<Sports> sportsList = sportsR.findAll();
         Optional<DailyRecord> a1 = dailyRecordR.findById(Daily_record_id);
         model.addAttribute("foodList", foodList);
+        model.addAttribute("sportsList", sportsList);
         model.addAttribute("daily_record", a1.get());
         return "/dailyRecord/frontEndAddDailyPage";
     }
@@ -167,7 +179,7 @@ public class DailyRecordController {
 
     // 新增食物
     @ResponseBody
-    @PostMapping(path = "/public/dailyRecord/addFood", produces = {
+    @PostMapping(path = "/dailyRecord/addFood", produces = {
             "application/json; charset=UTF-8" })
     public DailyFoodResponse dailyAddFood(
             @PathVariable(name = "daily_record_id") Integer daily_record_id,
@@ -194,6 +206,77 @@ public class DailyRecordController {
             ar.setTotle(totle);
 
             return ar;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 刪除食物
+    @ResponseBody
+    @PostMapping(path = "/dailyRecord/deleteFood", produces = {
+            "application/json; charset=UTF-8" })
+    public DailyFoodResponse dailyDeleteFood(
+            @PathVariable(name = "food_daily_id") Integer food_daily_id) {
+        try {
+            Food_daily food_daily = foodDailyR.findById(food_daily_id).get();
+            food_daily.setDaily_record(null);
+            food_daily.setFood(null);
+            foodDailyR.save(food_daily);
+            foodDailyR.delete(food_daily);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 新增運動
+    @ResponseBody
+    @PostMapping(path = "/dailyRecord/addSports", produces = {
+            "application/json; charset=UTF-8" })
+    public DailyFoodResponse dailyAddSports(
+            @PathVariable(name = "daily_record_id") Integer daily_record_id,
+            @PathVariable(name = "sportsname") String sportsname,
+            @PathVariable(name = "time") Integer time) {
+        try {
+            Sports_daily sports_daily = new Sports_daily();
+
+            DailyRecord DailyRecord = dailyRecordR.findById(daily_record_id).get();
+            Integer sport_id = sportsR.findByName(sportsname);
+            Sports sports = sportsR.findById(sport_id).get();
+
+            Integer calorie = sports.getCalorie();
+            Integer totle = calorie * time;
+
+            sports_daily.setDaily_record(DailyRecord);
+            sports_daily.setSports(sports);
+            sports_daily.setTime(time);
+            sportsDailyR.save(sports_daily);
+
+            DailyFoodResponse ar = new DailyFoodResponse();
+            ar.setFoodname(sportsname);
+            ar.setSide(time);
+            ar.setTotle(totle);
+
+            return ar;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // 刪除運動
+    @ResponseBody
+    @PostMapping(path = "/dailyRecord/deleteSports", produces = {
+            "application/json; charset=UTF-8" })
+    public DailyFoodResponse dailyDeleteSports(
+            @PathVariable(name = "sports_daily_id") Integer sports_daily_id) {
+        try {
+            Sports_daily sports_daily = sportsDailyR.findById(sports_daily_id).get();
+            sports_daily.setDaily_record(null);
+            sports_daily.setSports(null);
+            sportsDailyR.save(sports_daily);
+            sportsDailyR.delete(sports_daily);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -319,7 +319,7 @@
             <button id="exportCSV" class="button-48">
               <span style="font-size: large">匯出成csv檔</span></button
             ><button class="button-48">
-              <span style="font-size: large">過濾條件</span>
+              <span id="filterbtn" style="font-size: large">過濾條件</span>
             </button>
           </div>
           <div id="table" class="tableview"></div>
@@ -402,7 +402,7 @@
       let tbody = `<tbody>${trs
         .map((el) => `<tr>${el}</tr>`)
         .join("")}</tbody>`;
-      let table = `<table class="table">${title}${tbody}</table>`;
+      let table = `<table class="table table-hover">${title}${tbody}</table>`;
       document.querySelector(querySelector).innerHTML = table;
     };
 
@@ -417,8 +417,59 @@
       }, 300);
     });
 
-    //TODO:將資料匯出成csv檔
+    //將輸入文字存成檔案
+    function saveTextAsFile(_fileName, _text) {
+      var textFileAsBlob = new Blob([_text], { type: "text/plain" });
+
+      var downloadLink = document.createElement("a");
+      downloadLink.download = _fileName;
+      downloadLink.innerHTML = "Download File";
+      if (window.webkitURL != null) {
+        // Chrome allows the link to be clicked
+        // without actually adding it to the DOM.
+        downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+      } else {
+        // Firefox requires the link to be added to the DOM
+        // before it can be clicked.
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+      }
+
+      downloadLink.click();
+    }
+
+    function destroyClickedElement(event) {
+      document.body.removeChild(event.target);
+    }
+
     document.getElementById("exportCSV").addEventListener("click", () => {
+      if (!tableData) {
+        alert("table is null!");
+        return;
+      }
+      console.info(tableData);
+      var fields = Object.keys(tableData[0]);
+      var replacer = function (key, value) {
+        return value === null ? "" : value;
+      };
+      var csv = tableData.map(function (row) {
+        return fields
+          .map(function (fieldName) {
+            return JSON.stringify(row[fieldName], replacer);
+          })
+          .join(",");
+      });
+      csv.unshift(fields.join(",")); // add header column
+      csv = csv.join("\r\n");
+      console.log(csv);
+      //create a download link and click and destroy it
+      let filename = saveTextAsFile("test.csv", csv);
+    });
+
+    //TODO:排序資料，過濾
+    document.getElementById("filterbtn").addEventListener("click", () => {
       alert("施工中");
     });
 

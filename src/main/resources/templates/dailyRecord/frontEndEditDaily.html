@@ -190,7 +190,7 @@
     });
 
     $(document).ready(function () {
-      $("#submitDeleteFood").click(function (e) {
+      $("#submitDeleteFood").click(function () {
         var f_d_id = $("#food_daily_id").val();
         console.log(f_d_id)
         var requestOptions = {
@@ -205,7 +205,7 @@
         )
           .then((response) => response.text())
           .then((result) => {
-            $(e.target).parent().parent().remove();
+            $(this).parent().parent().remove();
           })
           .catch((error) => console.log("error", error));
       });

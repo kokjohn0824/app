@@ -7,134 +7,73 @@
     <title>chart.js</title>
     <!-- 利用th:insert 或是 th:replace 來載入模板 -->
     <div th:replace="jsmodules"></div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <canvas id="myChart" width="300" height="200"></canvas>
+    <div width="300px" height="400px" class="container">
+      <div style="width: 400px" class="row pt-5">
+        <canvas style="height: 20px" id="canvas-1" class="col-sm-12"></canvas>
+      </div>
+      <div class="row pt-5">
+        <canvas id="canvas-2" class="col-sm-12"></canvas>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+      integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script>
-      const labels = ["January", "February", "March", "April", "May", "June"];
+      var ctx1 = document.getElementById("canvas-1"),
+        ctx2 = document.getElementById("canvas-2");
 
-      const data = {
-        labels: labels,
+      var data = {
+        labels: ["一月", "二月", "三月", "四月", "五月", "六月", "七月"], // X軸名稱
         datasets: [
+          // datasets是陣列，每個陣列代表一個資料類型
           {
-            label: "My First dataset",
-            backgroundColor: "rgb(255, 99, 132)",
-            borderColor: "rgb(255, 99, 132)",
-            data: [0, 10, 5, 2, 20, 30, 45],
+            label: "體脂", // Y軸的名稱
+            data: [33, 29, 37, 48, 44, 54, 60], // Y軸的值
+            fill: true,
+            backgroundColor: "rgba(31,119,180,0.5)",
+            borderColor: "#1f77b4",
+            lineTension: 0,
           },
         ],
       };
 
-      const config = {
-        type: "line",
+      var myChart1 = new Chart(ctx1, {
+        type: "line", //設定為柱狀圖
         data: data,
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: "top",
+      });
+
+      var myChart2 = new Chart(ctx2, {
+        type: "line", //設定為柱狀圖
+        data: {
+          labels: ["一月", "二月", "三月", "四月", "五月", "六月", "七月"], // X軸名稱
+          datasets: [
+            // datasets是陣列，每個陣列代表一個資料類型
+            {
+              label: "芒果電腦", // Y軸的名稱
+              data: [33, 29, 37, 48, 44, 54, 60], // Y軸的值
+              backgroundColor: "rgba(31,119,180,0.2)",
+              borderColor: "#1f77b4",
+              lineTension: 0,
             },
-            title: {
-              display: true,
-              text: "Chart.js Line Chart",
+            {
+              label: "三叔", // Y軸的名稱
+              data: [24, 27, 44, 34, 44, 59, 59], // Y軸的值
+              backgroundColor: "rgba(255,127,14,0.2)",
+              borderColor: "#ff7f0e",
+              fill: true,
+              lineTension: 0,
             },
-          },
+          ],
+          opt,
         },
-      };
-
-      const DATA_COUNT = 7;
-      const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
-
-      // labels = Utils.months({ count: 7 });
-      data = {
-        labels: labels,
-        datasets: [
-          {
-            label: "Dataset 1",
-            data: data,
-            borderColor: Utils.CHART_COLORS.red,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-          },
-          {
-            label: "Dataset 2",
-            data: Utils.numbers(NUMBER_CFG),
-            borderColor: Utils.CHART_COLORS.blue,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
-          },
-        ],
-      };
-
-      const actions = [
-        {
-          name: "Randomize",
-          handler(chart) {
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data = Utils.numbers({
-                count: chart.data.labels.length,
-                min: -100,
-                max: 100,
-              });
-            });
-            chart.update();
-          },
-        },
-        {
-          name: "Add Dataset",
-          handler(chart) {
-            const data = chart.data;
-            const dsColor = Utils.namedColor(chart.data.datasets.length);
-            const newDataset = {
-              label: "Dataset " + (data.datasets.length + 1),
-              backgroundColor: Utils.transparentize(dsColor, 0.5),
-              borderColor: dsColor,
-              data: Utils.numbers({
-                count: data.labels.length,
-                min: -100,
-                max: 100,
-              }),
-            };
-            chart.data.datasets.push(newDataset);
-            chart.update();
-          },
-        },
-        {
-          name: "Add Data",
-          handler(chart) {
-            const data = chart.data;
-            if (data.datasets.length > 0) {
-              data.labels = Utils.months({ count: data.labels.length + 1 });
-
-              for (let index = 0; index < data.datasets.length; ++index) {
-                data.datasets[index].data.push(Utils.rand(-100, 100));
-              }
-
-              chart.update();
-            }
-          },
-        },
-        {
-          name: "Remove Dataset",
-          handler(chart) {
-            chart.data.datasets.pop();
-            chart.update();
-          },
-        },
-        {
-          name: "Remove Data",
-          handler(chart) {
-            chart.data.labels.splice(-1, 1); // remove the label first
-
-            chart.data.datasets.forEach((dataset) => {
-              dataset.data.pop();
-            });
-
-            chart.update();
-          },
-        },
-      ];
-      const myChart = new Chart(document.getElementById("myChart"), config);
+      });
     </script>
   </body>
 </html>

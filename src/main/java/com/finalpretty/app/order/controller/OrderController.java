@@ -75,6 +75,7 @@ public class OrderController {
         // if (orderDto.getPaid() == 2) {
         // return "redirect:/ecpay/test/";
         // }
+
         List<Integer> num = new ArrayList<>();
         num.add(orderDto.getPaid());
         num.add(order_id);
@@ -89,7 +90,7 @@ public class OrderController {
         return "/member/memberOrder";
     }
 
-    // 成立訂單
+    // 尋找個人訂單
     @ResponseBody
     @GetMapping("/public/findMemberOrder/{member_id}")
     public List<OrderDto> findMemberOrder(@PathVariable(name = "member_id") Integer member_id) {
@@ -124,7 +125,7 @@ public class OrderController {
             // TODO:新增付款成功頁面
             obj.setReturnURL("http://localhost:8082/successPaid/" + order_id);
             obj.setNeedExtraPaidInfo("N");
-            obj.setClientBackURL("http://localhost:8082/");
+            obj.setClientBackURL("http://localhost:8082/successPaid/" + order_id);
             String form = all.aioCheckOut(obj, null);
             return form;
 

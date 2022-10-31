@@ -61,6 +61,7 @@ public class OrderService {
                 oDto.setShip(i.getShip());
                 oDto.setTotal(i.getTotal());
                 oDto.setAddress(i.getAddress());
+                oDto.setPayment(i.getPayment());
                 oDto.setCreate_date(i.getCreate_date());
                 oDto.setFk_member_id(i.getMember().getMember_id());
                 listOrder.add(oDto);

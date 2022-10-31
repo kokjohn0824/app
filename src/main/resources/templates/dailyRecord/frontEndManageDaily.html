@@ -27,6 +27,13 @@
         >修改今天日記</a
       >
     </span>
+
+    <button
+      th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}"
+      id="chart"
+    >
+      體重bmi數據
+    </button>
     <div class="" style="width: 50%; margin: 20px auto">
       <h1>所有日記</h1>
       <div class="container-lg" style="width: 800px" th:fragment="form">
@@ -55,6 +62,98 @@
         </table>
       </div>
     </div>
-    <script></script>
+    <div width="300px" height="400px" class="container">
+      <div style="width: 400px" class="row pt-5">
+        <canvas style="height: 20px" id="canvas-1" class="col-sm-12"></canvas>
+      </div>
+      <div style="width: 400px" class="row pt-5">
+        <canvas style="height: 20px" id="canvas-2" class="col-sm-12"></canvas>
+      </div>
+    </div>
+    <script>
+      var btm = document.getElementById("chart");
+      btm.addEventListener("click", (e) => click(e));
+      function click(e) {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
+        fetch(
+          "http://localhost:8082/public/api/chartBmi/" +
+            $(e.target).attr("name"),
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            var wei = [];
+            var bmi = [];
+            var bodyfat = [];
+            var date = [];
+            var index = 0;
+            for (let i of result) {
+              wei[index] = i.weight;
+              bmi[index] = i.bmi;
+              bodyfat[index] = i.bodyfat;
+              date[index] = i.date_time;
+              index++;
+            }
+            var ctx1 = document.getElementById("canvas-1"),
+              ctx2 = document.getElementById("canvas-2");
+
+            var data = {
+              labels: date, // X軸名稱
+              datasets: [
+                // datasets是陣列，每個陣列代表一個資料類型
+                {
+                  label: "體脂", // Y軸的名稱
+                  data: bodyfat, // Y軸的值
+                  fill: true,
+                  backgroundColor: "rgba(31,119,180,0.5)",
+                  borderColor: "#1f77b4",
+                  lineTension: 0,
+                },
+              ],
+            };
+
+            var myChart1 = new Chart(ctx1, {
+              type: "line", //設定為柱狀圖
+              data: data,
+            });
+
+            var myChart2 = new Chart(ctx2, {
+              type: "line", //設定為柱狀圖
+              data: {
+                labels: date, // X軸名稱
+                datasets: [
+                  // datasets是陣列，每個陣列代表一個資料類型
+                  {
+                    label: "BMI", // Y軸的名稱
+                    data: bmi, // Y軸的值
+                    backgroundColor: "rgba(31,119,180,0.2)",
+                    borderColor: "#1f77b4",
+                    fill: true,
+                    lineTension: 0,
+                  },
+                  {
+                    label: "體重", // Y軸的名稱
+                    data: wei, // Y軸的值
+                    backgroundColor: "rgba(255,127,14,0.2)",
+                    borderColor: "#ff7f0e",
+                    fill: true,
+                    lineTension: 0,
+                  },
+                ],
+                opt,
+              },
+            });
+          })
+          .catch((error) => console.log("error", error));
+      }
+    </script>
   </body>
 </html>

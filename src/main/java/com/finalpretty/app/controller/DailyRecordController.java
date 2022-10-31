@@ -149,6 +149,29 @@ public class DailyRecordController {
         Date date = new Date();
         String date_time = dateFormat.format(date);
         Optional<DailyRecord> a1 = dailyRecordR.findByDate(date_time);
+        DailyRecord dailyRecord = a1.get();
+        Set<Food_daily> Food_dailys = dailyRecord.getFood_daily();
+        List<Food_daily> Food_daily = new ArrayList<Food_daily>();
+        Food_daily.addAll(Food_dailys);
+        List<Food> foodList = foodR.findAll();
+
+        FoodDailyDTO foodDailyDTO;
+        List<FoodDailyDTO> odt = new ArrayList<FoodDailyDTO>();
+        for (Food_daily i : Food_daily) {
+            Integer food_daily_id = i.getFood_daily_id();
+            String foodname = i.getFood().getFoodname();
+            Integer calorie = i.getFood().getCalorie();
+            Integer side = i.getSide();
+            Integer title = calorie * i.getSide();
+            foodDailyDTO = new FoodDailyDTO();
+            foodDailyDTO.setFoodname(foodname);
+            foodDailyDTO.setSide(side);
+            foodDailyDTO.setTitle(title);
+            foodDailyDTO.setFood_daily_id(food_daily_id);
+            odt.add(foodDailyDTO);
+        }
+        model.addAttribute("foodList", foodList);
+        model.addAttribute("odt", odt);
         model.addAttribute("daily_record", a1.orElse(null));
         return "/dailyRecord/frontEndEditDaily";
     }

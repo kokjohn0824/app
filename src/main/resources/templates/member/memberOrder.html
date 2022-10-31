@@ -94,9 +94,9 @@
         redirect: "follow",
       };
 
-      var id = $("#in").attr("value");
+      var member_id = $("#in").attr("value");
       fetch(
-        "http://localhost:8082/public/findMemberOrder/" + id,
+        "http://localhost:8082/public/findMemberOrder/" + member_id,
         requestOptions
       )
         .then((response) => response.json())

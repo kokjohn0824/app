@@ -159,6 +159,7 @@
 	<div class="host_info_">
 		<p class="host_name_"><strong>姓名</strong></p>
 		<input type="text" id="member_id" th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}" hidden />
+		<span th:text="${#authentication.getPrincipal().getFkMember().getNickname()}"></span>
 		<address>
 			
 		

@@ -166,11 +166,14 @@
             </button>
           </td>
           <td>
-            <a
-              th:onclick="return confirm('確定刪除嗎?')"
-              th:href="@{'/admin/deleteProduct?product_id='+${productinfo.product_id}}"
-              >刪除</a
+            <button
+              th:id="${productinfo.product_id}"
+              name="deletebox"
+              type="button"
+              class="btn btn-danger"
             >
+              刪除
+            </button>
           </td>
         </tr>
       </tbody>
@@ -528,6 +531,39 @@
             });
           })
           .catch((error) => console.log("error", error));
+      });
+
+      $("button[name='deletebox']").click(function (e) {
+        if (confirm("確定刪除嗎?") == true) {
+          var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+
+          var requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow",
+          };
+
+          fetch(
+            "http://localhost:8082/public/api/deleteProduct?product_id=" +
+              $(e.target).attr("id"),
+            requestOptions
+          )
+            .then((response) => response.json())
+            .then((result) => {
+              if (result) {
+                window.location.replace(
+                  "http://localhost:8082/admin/listProduct"
+                );
+              } else {
+                alert("訂單中有此商品故不可刪除");
+                window.location.replace(
+                  "http://localhost:8082/admin/listProduct"
+                );
+              }
+            })
+            .catch((error) => console.log("error", error));
+        }
       });
     </script>
   </body>

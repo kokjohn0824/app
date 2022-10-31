@@ -15,10 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.Response.DailyFoodResponse;
+import com.finalpretty.app.Response.Food_dailyDTO;
+import com.finalpretty.app.Response.Sports_dailyDTO;
 import com.finalpretty.app.model.DailyRecord;
 import com.finalpretty.app.model.Food;
 import com.finalpretty.app.model.Food_daily;
@@ -179,12 +182,15 @@ public class DailyRecordController {
 
     // 新增食物
     @ResponseBody
-    @PostMapping(path = "/dailyRecord/addFood", produces = {
+    @PostMapping(path = "/public/dailyRecord/addFood", produces = {
             "application/json; charset=UTF-8" })
-    public DailyFoodResponse dailyAddFood(
-            @PathVariable(name = "daily_record_id") Integer daily_record_id,
-            @PathVariable(name = "foodname") String foodname,
-            @PathVariable(name = "side") Integer side) {
+    public DailyFoodResponse dailyAddFood(@RequestBody Food_dailyDTO jsonFood) {
+        Integer daily_record_id = jsonFood.getDaily_record_id();
+        String foodname = jsonFood.getFoodname();
+        Integer side = jsonFood.getSide();
+        System.out.println("----------------------------------------------------------");
+        System.out.println(daily_record_id);
+        System.out.println("----------------------------------------------------------");
         try {
             Food_daily food_daily = new Food_daily();
 
@@ -234,10 +240,10 @@ public class DailyRecordController {
     @ResponseBody
     @PostMapping(path = "/dailyRecord/addSports", produces = {
             "application/json; charset=UTF-8" })
-    public DailyFoodResponse dailyAddSports(
-            @PathVariable(name = "daily_record_id") Integer daily_record_id,
-            @PathVariable(name = "sportsname") String sportsname,
-            @PathVariable(name = "time") Integer time) {
+    public DailyFoodResponse dailyAddSports(@RequestBody Sports_dailyDTO jsonSports) {
+        Integer daily_record_id = jsonSports.getDaily_record_id();
+        String sportsname = jsonSports.getSportsname();
+        Integer time = jsonSports.getTime();
         try {
             Sports_daily sports_daily = new Sports_daily();
 

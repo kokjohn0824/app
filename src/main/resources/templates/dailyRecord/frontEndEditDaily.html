@@ -37,6 +37,348 @@
           <button type="submit" class="signupbtn btn btn-primary">送出</button>
         </div>
       </form>
+      <button
+        id=""
+        name="checkboxone"
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#food"
+        data-bs-whatever="@getbootstrap"
+      >
+        新增食物
+      </button>
+      <div>
+        <table class="mytable" id="list_table_json">
+          <thead>
+            <tr>
+              <th>食物名稱</th>
+              <th>份量</th>
+              <th>總卡路里</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <!-- ---------------------------------------------------------------------------- -->
+
+      <button
+        id=""
+        name="checkboxone"
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#sports"
+        data-bs-whatever="@getbootstrap"
+      >
+        新增運動
+      </button>
+      <div>
+        <table class="mytable" id="list_table_json">
+          <thead>
+            <tr>
+              <th>運動名稱</th>
+              <th>時間</th>
+              <th>總卡路里</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
+    <!-- ---------------------------------------------------------------------------- -->
+    <div
+      class="modal fade"
+      id="food"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">新增食物</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              食物分類:<select>
+                <option id="foodname" th:each="allFoodList:${foodList}">
+                  [[${allFoodList.foodname}]]
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message-stock" class="col-form-label"
+                >食品份量:</label
+              >
+              <input
+                name="stock"
+                type="number"
+                class="form-control"
+                id="food-side"
+                value=""
+                required
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="submitBtnFood" type="submit" class="btn btn-primary">
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ---------------------------------------------------------------------------- -->
+    <div
+      class="modal fade"
+      id="sports"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">新增運動</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              運動分類:<select>
+                <option id="sportsname" th:each="allSportsList:${sportsList}">
+                  [[${allSportsList.sportsname}]]
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message-stock" class="col-form-label"
+                >運動時間:</label
+              >
+              <input
+                name="stock"
+                type="number"
+                class="form-control"
+                id="Sports-time"
+                value=""
+                required
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="submitBtnSports" type="submit" class="btn btn-primary">
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // var side = $("#recipient-stock").val();
+      // var daily_record_id = $("#daily_record_id").val();
+      // var foodname = $("#foodname").val();
+      // var requestOptions = {
+      //   method: "POST",
+      //   headers: myHeaders,
+      //   redirect: "follow",
+      // };
+
+      // fetch(
+      //   "http://localhost:8082/public/dailyRecord/addFood/" +
+      //     daily_record_id +
+      //     "/" +
+      //     foodname +
+      //     "/" +
+      //     side,
+      //   requestOptions
+      // )
+      //   .then((response) => response.text())
+      //   .then((result) => console.log(result))
+      //   .catch((error) => console.log("error", error));
+      // ---------------------------------------------------------------------------------------------------
+      //新增當日食物紀錄
+      $(document).ready(function () {
+        $("#submitBtnFood").click(function () {
+          var sd = $("#food-side").val();
+          var d_r_id = $("#daily_record_id").val();
+          var fn = $("#foodname").val();
+          console.log(foodname);
+          var food = {
+            daily_record_id: d_r_id,
+            foodname: fn,
+            side: sd,
+          };
+          var jsonFood = JSON.stringify(food);
+          $.ajax({
+            url: "http://localhost:8082/dailyRecord/addFood/",
+            data: { jsonFood },
+            traditional: true,
+            method: "POST",
+            timeout: 0,
+            success: function (result) {
+              console.log(result);
+
+              $("#list_table_json tbody tr td").add();
+
+              msg_data = "<tbody>";
+              $.each(result, function (index, value) {
+                console.log(value.foodname);
+                msg_data += "<tr>";
+                msg_data += "<td>" + value.foodname + "</td>";
+                msg_data += "<td>" + value.side + "</td>";
+                msg_data += "<td>" + value.totle + "</td>";
+                msg_data += "</tr>";
+              });
+              msg_data += "</tbody>";
+
+              $("#list_table_json").append(msg_data);
+            },
+            error: function (err) {
+              console.log(err);
+            },
+          });
+        });
+      });
+      // ---------------------------------------------------------------------------------------------------
+      //新增當日運動紀錄
+      $(document).ready(function () {
+        $("#submitBtnSports").click(function () {
+          var tm = $("#Sports-time").val();
+          var d_r_id = $("#daily_record_id").val();
+          var sn = $("#sportsname").val();
+          console.log(foodname);
+          var sports = {
+            daily_record_id: d_r_id,
+            sportsname: sn,
+            time: tm,
+          };
+          var jsonSports = JSON.stringify(sports);
+          $.ajax({
+            url: "http://localhost:8082/dailyRecord/addSports/",
+            data: { jsonSports },
+            traditional: true,
+            method: "POST",
+            timeout: 0,
+            success: function (result) {
+              console.log(result);
+
+              $("#list_table_json tbody tr td").add();
+
+              msg_data = "<tbody>";
+              $.each(result, function (index, value) {
+                console.log(value.sportsname);
+                msg_data += "<tr>";
+                msg_data += "<td>" + value.sportsname + "</td>";
+                msg_data += "<td>" + value.time + "</td>";
+                msg_data += "<td>" + value.totle + "</td>";
+                msg_data += "</tr>";
+              });
+              msg_data += "</tbody>";
+
+              $("#list_table_json").append(msg_data);
+            },
+            error: function (err) {
+              console.log(err);
+            },
+          });
+        });
+      });
+      // ---------------------------------------------------------------------------------------------------
+      //刪除單筆食物紀錄
+      $(document).ready(function () {
+        $("#submitBtnSports").click(function () {
+          var f_d_id = $("#food_daily_id").val();
+          console.log(f_d_id);
+          $.ajax({
+            url: "http://localhost:8082/dailyRecord/deleteFood/" + f_d_id,
+            data: { myJSONtext2 },
+            traditional: true,
+            method: "POST",
+            timeout: 0,
+            success: function (result) {
+              console.log(result);
+
+              $("#list_table_json tbody tr td").remove();
+
+              msg_data = "<tbody>";
+              $.each(result, function (index, value) {
+                console.log(value.sportsname);
+                msg_data += "<tr>";
+                msg_data += "<td>" + value.sportsname + "</td>";
+                msg_data += "<td>" + value.time + "</td>";
+                msg_data += "<td>" + value.totle + "</td>";
+                msg_data += "</tr>";
+              });
+              msg_data += "</tbody>";
+
+              $("#list_table_json").append(msg_data);
+            },
+            error: function (err) {
+              console.log(err);
+            },
+          });
+        });
+      });
+      // ---------------------------------------------------------------------------------------------------
+      //刪除單筆運動紀錄
+      $(document).ready(function () {
+        $("#submitBtnSports").click(function () {
+          var s_d_id = $("#sports_daily_id").val();
+          console.log(foodname);
+          $.ajax({
+            url: "http://localhost:8082/dailyRecord/deleteSports/",
+            data: { myJSONtext2 },
+            traditional: true,
+            method: "POST",
+            timeout: 0,
+            success: function (result) {
+              console.log(result);
+
+              $("#list_table_json tbody tr td").add();
+
+              msg_data = "<tbody>";
+              $.each(result, function (index, value) {
+                console.log(value.sportsname);
+                msg_data += "<tr>";
+                msg_data += "<td>" + value.sportsname + "</td>";
+                msg_data += "<td>" + value.time + "</td>";
+                msg_data += "<td>" + value.totle + "</td>";
+                msg_data += "</tr>";
+              });
+              msg_data += "</tbody>";
+
+              $("#list_table_json").append(msg_data);
+            },
+            error: function (err) {
+              console.log(err);
+            },
+          });
+        });
+      });
+    </script>
   </body>
 </html>

@@ -20,9 +20,9 @@ public interface FoodRespository extends JpaRepository<Food, Integer> {
             @Param("calorie") Integer calorie,
             @Param("picture") byte[] picture);
 
-    @Query(value = "select foodname form food", nativeQuery = true)
+    @Query(value = "select foodname from food", nativeQuery = true)
     List<Food> findFoodName();
 
-    @Query(value = "select food_id form food where foodname=:foodname", nativeQuery = true)
+    @Query(value = "select food_id from food where foodname=:foodname", nativeQuery = true)
     Integer findByName(@Param("foodname") String foodname);
 }

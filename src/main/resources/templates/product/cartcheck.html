@@ -422,10 +422,54 @@
         //TODO:session
 
         // Load cart
+<<<<<<< HEAD
         check();
         function check() {
           var cartdetail = JSON.parse(sessionStorage.getItem("shoppingCart"));
           console.log(cartdetail);
+=======
+		
+		
+			var cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
+			console.log(cart);
+	
+			
+			$("#set").click(function(){
+				var cart = JSON.parse(sessionStorage.getItem("shoppingCart"));
+			//   console.log(cart);
+				if ($("#method_rF:checked").val()){
+					var paid = $("#method_rF:checked").val();
+				}
+				if ($("#method_r2:checked").val()){
+					var paid = $("#method_r2:checked").val();
+				}
+				if ($("#invoice_type_0:checked").val()){
+					var ship = $("#invoice_type_0:checked").val();
+					var address = $("input[name='setaddress']").val();
+				}
+				if ($("#invoice_type_1:checked").val()){
+					var ship = $("#invoice_type_1:checked").val();
+					var address = $("#invoice_type1_0_0 option:selected").text();
+				}
+				var phone = $("#phone").val();
+				var member_id = $("#member_id").val();
+				var orderDto = {"paid":paid,"ship":ship,"address":address,"phone":phone,"fk_member_id":member_id};
+				var detailDto = [];
+				// var detail;
+				var index = 0;
+				for(let i of cart){
+					var detail = {
+						"product_name":i.name,
+						"fk_product_id":i.product_id,
+						"count":i.count,
+						"total":i.price
+					}
+					detailDto[index++] = detail;
+				}
+				console.log(orderDto);
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+>>>>>>> Qilin
 
           var table;
           var total = 0;

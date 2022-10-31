@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Show Video</title>
     <div th:replace="jsmodules"></div>
-    <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
     <style>
       .top {
         width: 100%;
         margin-top: 76px;
+      }
+      body {
+        background-color: black;
+      }
+      p {
+        color: #fff;
+      }
+      h1 {
+        color: #fff;
       }
     </style>
   </head>
@@ -18,14 +26,17 @@
   <body>
     <div th:replace="component/navbar :: navbar"></div>
     <input id="video" th:field="${video.video_id}" type="hidden" />
-    <div class="container-lg">
+    <br />
+    <br />
+    <div class="container-lg" style="width: 1000px">
       <br />
       <video
-        style="width: 1000px"
+        style="width: 100%; border-radius: 20px"
         controls="controls"
         preload="auto"
         autoplay="true"
         loop="loop"
+        justify-content="center"
       >
         <source th:src="@{'/public/video/'+${video.url}}" type="video/mp4" />
         您的瀏覽器不支援此 HTML5 影片標籤
@@ -35,6 +46,7 @@
         <span
           sec:authorize="isAuthenticated()"
           class="gb-headline gb-headline-77ec9488 gb-headline-text"
+          style="float: right"
         >
           <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
             <img
@@ -47,7 +59,11 @@
             <img name="cleanAll" id="idimg1" th:src="@{/img/other/star.gif}" />
           </span>
         </span>
-
+        <h1 th:text="${video.title}" style="margin-bottom: 0px"></h1>
+        <p style="margin-bottom: 0px">
+          分類:<span id="" th:text="${video.type}"></span>
+        </p>
+        <p>主要肌群:<span id="" th:text="${video.body_parts}"></span></p>
         <p>觀看數:<span id="" th:text="${video.views}"></span></p>
       </div>
     </div>

@@ -54,7 +54,7 @@ public class DailyRecord {
 
 	// 食物明細外來鍵
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)
-	private Set<Food_daily> food_daily;
+	private Set<Food_daily> food_daily = new HashSet<Food_daily>();
 
 	// 運動明細外來鍵
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "daily_record", cascade = CascadeType.ALL)

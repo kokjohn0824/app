@@ -109,7 +109,7 @@
             str += "<td>" + i.total + "</td>";
             str += "<td>" + i.address + "</td>";
             str += "<td>" + i.create_date + "</td>";
-            if (i.payment == 1) {
+            if (i.payment === 1) {
               str += "<td style='color:green'>已付款</td>";
             } else if (i.payment == null) {
               str += "<td style='color:red'>尚未付款</td>";

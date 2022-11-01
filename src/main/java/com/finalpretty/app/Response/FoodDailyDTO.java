@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
-public class DailyFoodResponse {
+@AllArgsConstructor
+public class FoodDailyDTO {
+
+    private Integer food_daily_id;
     private String foodname;
     private Integer side;
     private Integer title;
-    private Integer food_daily_id;
 }

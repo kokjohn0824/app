@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.finalpretty.app.Response.ProductDto;
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.product.service.ProductService;
+import com.finalpretty.app.repositories.Order_detailRespository;
 
 @Controller
 // @RequestMapping("/admin")
@@ -34,8 +35,8 @@ public class ProductController {
 	@Autowired
 	private ProductService pService;
 
-	// @Autowired
-	// private ProductRespository pDao;
+	@Autowired
+	private Order_detailRespository detailDao;
 
 	@GetMapping("/admin/findAllProduct")
 	public String findAllproduct() {
@@ -173,10 +174,16 @@ public class ProductController {
 		return "redirect:/admin/listProduct";
 	}
 
-	@GetMapping("/admin/deleteProduct")
-	public String deleteProduct(@RequestParam("product_id") Integer product_id) {
-		pService.deleteProduct(product_id);
-		return "redirect:/admin/listProduct";
+	@ResponseBody
+	@GetMapping("/public/api/deleteProduct")
+	public Boolean deleteProduct(@RequestParam("product_id") Integer product_id) {
+		if (detailDao.findByFkProductId(product_id).isEmpty()) {
+			pService.deleteProduct(product_id);
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	@GetMapping("/admin/downloadImage/{id}")

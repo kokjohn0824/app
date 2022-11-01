@@ -54,6 +54,7 @@ public class OrderDetailService {
             detail.setProduct_name(product.get().getTitle());
             detail.setCount(dDto.getCount());
             detail.setTotal(dDto.getTotal());
+            pDao.updateVolume(dDto.getCount(), product.get().getProduct_id());
             detailDao.save(detail);
         }
 

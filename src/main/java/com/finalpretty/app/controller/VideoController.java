@@ -2,6 +2,7 @@ package com.finalpretty.app.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.Response.VideoDTO;
 import com.finalpretty.app.Response.VideoResponse;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
@@ -44,6 +46,18 @@ public class VideoController {
         List<Video> list = videoR.findAll();
         m.addAttribute("list", list);
         return "/video/backEndManageVideo";
+    }
+
+    @GetMapping("/public/api/video/manage")
+    @ResponseBody
+    public List<VideoDTO> getAllvideos() {
+
+        List<VideoDTO> videolist = new ArrayList<>();
+        videoR.findAlloOrderById().forEach((n) -> {
+            videolist.add(
+                    new VideoDTO(n.getVideo_id(), n.getTitle(), n.getType(), n.getBody_parts(), n.getViews()));
+        });
+        return videolist;
     }
 
     // 前往新增影片

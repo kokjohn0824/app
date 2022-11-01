@@ -35,11 +35,13 @@ public class CalculatorController {
 		}
 		for (DailyRecord i : dRecord) {
 			recordDto = new DailyRecordDto();
+			recordDto.setDaily_record_id(i.getDaily_record_id());
 			recordDto.setDrinkingWater(i.getDrinkingWater());
 			recordDto.setWeight(i.getWeight());
 			recordDto.setBodyFat(i.getBodyFat());
+			Double bmi = (double) (i.getWeight()) / Math.pow((double) (i.getMembers().getHeight() / 100), 2);
+			recordDto.setBmi(bmi);
 			recordDto.setDate_time(i.getDate_time());
-			recordDto.setHeight(i.getMembers().getHeight());
 			recordDtolist.add(recordDto);
 		}
 

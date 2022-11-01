@@ -1,19 +1,20 @@
 package com.finalpretty.app.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
@@ -46,15 +47,15 @@ public class MemberManageController {
 	// 新增會員
 	@PostMapping("/backendMember/add")
 	public String addMember(
-			@RequestParam(name = "nickname") String nickname,
-			@RequestParam(name = "gender") Integer gender,
-			@RequestParam(name = "age") Integer age,
-			@RequestParam(name = "height") double height,
-			@RequestParam(name = "weight") double weight,
-			@RequestParam(name = "bodyFat") double bodyFat,
-			@RequestParam(name = "visceralFat") double visceralFat,
-			@RequestParam(name = "muscleMass") double muscleMass,
-			@RequestParam(name = "becomeVIP") Integer becomeVIP) {
+			@RequestParam(name = "nickname", required = false) String nickname,
+			@RequestParam(name = "gender", required = false) Integer gender,
+			@RequestParam(name = "age", required = false) Integer age,
+			@RequestParam(name = "height", required = false) Double height,
+			@RequestParam(name = "weight", required = false) Double weight,
+			@RequestParam(name = "bodyFat", required = false) Double bodyFat,
+			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
+			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
+			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP) {
 		Member member = new Member();
 		try {
 			member.setNickname(nickname);
@@ -147,15 +148,15 @@ public class MemberManageController {
 
 	@PostMapping("/backendMember/edit")
 	public String backendMemberEditPost(@RequestParam(name = "member_id") Integer member_id,
-			@RequestParam(name = "nickname") String nickname,
-			@RequestParam(name = "gender") Integer gender,
-			@RequestParam(name = "age") Integer age,
-			@RequestParam(name = "height") double height,
-			@RequestParam(name = "weight") double weight,
-			@RequestParam(name = "bodyFat") double bodyFat,
-			@RequestParam(name = "visceralFat") double visceralFat,
-			@RequestParam(name = "muscleMass") double muscleMass,
-			@RequestParam(name = "becomeVIP") Integer becomeVIP,
+			@RequestParam(name = "nickname", required = false) String nickname,
+			@RequestParam(name = "gender", required = false) Integer gender,
+			@RequestParam(name = "age", required = false) Integer age,
+			@RequestParam(name = "height", required = false) Double height,
+			@RequestParam(name = "weight", required = false) Double weight,
+			@RequestParam(name = "bodyFat", required = false) Double bodyFat,
+			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
+			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
+			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
 			Model m) {
 		Member member = new Member();
 
@@ -193,52 +194,58 @@ public class MemberManageController {
 	}
 
 	@PostMapping("/member/inputpage")
+	@ResponseBody
 	public String memberInputPage(
-			@RequestParam(name = "nickname") String nickname,
-			@RequestParam(name = "gender") Integer gender,
-			@RequestParam(name = "age") Integer age,
-			@RequestParam(name = "height") double height,
-			@RequestParam(name = "weight") double weight,
-			@RequestParam(name = "bodyFat") double bodyFat,
-			@RequestParam(name = "visceralFat") double visceralFat,
-			@RequestParam(name = "muscleMass") double muscleMass,
-			@RequestParam(name = "becomeVIP") Integer becomeVIP) {
-		Member member = new Member();
+			// @RequestParam(name = "nickname", required = false) String nickname,
+			// @RequestParam(name = "gender", required = false) Integer gender,
+			// @RequestParam(name = "age", required = false) Integer age,
+			// @RequestParam(name = "height", required = false) Double height,
+			// @RequestParam(name = "weight", required = false) Double weight,
+			// @RequestParam(name = "bodyFat", required = false) Double bodyFat,
+			// @RequestParam(name = "visceralFat", required = false) Double visceralFat,
+			// @RequestParam(name = "muscleMass", required = false) Double muscleMass,
+			// @RequestParam(name = "becomeVIP", required = false) Integer becomeVIP
+			@RequestBody Member member) {
+		// Member member = new Member();
 		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer user_id = ((Users) o).getId();
-		try {
-			member.setNickname(nickname);
-			member.setGender(gender);
-			member.setAge(age);
-			member.setHeight(height);
-			member.setWeight(weight);
-			member.setBodyFat(bodyFat);
-			member.setVisceralFat(visceralFat);
-			member.setMuscleMass(muscleMass);
-			member.setBecomeVIP(becomeVIP);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Member m1 = memberR.save(member);
-		Integer id = m1.getMember_id();
-		Member fkMember = memberR.findById(id).get();
+		// try {
+		// member.setNickname(nickname);
+		// member.setGender(gender);
+		// member.setAge(age);
+		// member.setHeight(height);
+		// member.setWeight(weight);
+		// member.setBodyFat(bodyFat);
+		// member.setVisceralFat(visceralFat);
+		// member.setMuscleMass(muscleMass);
+		// member.setBecomeVIP(becomeVIP);
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+		// Member m1 = memberR.save(member);
+		// Integer id = m1.getMember_id();
+		// Member fkMember = memberR.findById(id).get();
 		Users user = userR.findById(user_id).get();
-		user.setFkMember(fkMember);
+		// ((Users) o).setFkMember(member);
+		user.setFkMember(member);
+		String url = "redirect:/member/inputshow/" + user.getFkMember().getMember_id();
 		userR.save(user);
-		String str = "redirect:/member/inputshow?member_id=" + id;
-		return str;
-		// return "/member/inputpage";
+
+		return url;
+		// return str;
+		// return "/member/inputshow";
 	}
 
 	// 註冊完，輸入完會員資料，抓取會員資料
-	@GetMapping("/member/inputshow")
-	public String memberPage(@RequestParam(name = "member_id") Integer id, Model m) {
+	@GetMapping("/member/inputshow/{id}")
+	public String memberPage(@PathVariable(name = "member_id") Integer id, Model m) {
 		Optional<Member> m1 = memberR.findById(id);
 		m.addAttribute("member", m1.orElse(null));
 		return "/member/memberInputShow";
+		// return "redirect:/member/page";
 	}
 
-	// 登入(userId & memberID)抓取會員資料、並可以編輯
+	// 登入(userId & memberID)抓取會員資料
 	@GetMapping("/member/page")
 	public String memberPage(Model m) {
 		// 取Users物件
@@ -246,6 +253,7 @@ public class MemberManageController {
 		try {
 			// 把Users強制轉型成Bean，並抓member_ID
 			Integer member_id = ((Users) o).getFkMember().getMember_id();
+			System.out.println("find!");
 			// 透過member_ID去找相關的User
 			Optional<Member> m1 = memberR.findById(member_id);
 			// 存入並抓取member資料
@@ -256,7 +264,7 @@ public class MemberManageController {
 			e.printStackTrace();
 		}
 		// 去輸入會員資料頁面
-		return "/member/inputpage";
+		return "/member/memberInputPage";
 	}
 
 	// @GetMapping("/member/page")
@@ -272,7 +280,7 @@ public class MemberManageController {
 	// return "/member/inputpage";
 	// }
 	// }
-	// memberPage2 & memberPage3結果一樣，方法不同
+	// ----------memberPage2 & memberPage3結果一樣，方法不同----------
 	// @GetMapping("/member/page")
 	// public String memberPage3(Model m) {
 	// Object o =
@@ -288,14 +296,46 @@ public class MemberManageController {
 	// }
 	// }
 
-	// List<Member> member = memberR.findListById(member_id);
-	// // 判斷member 是否有值，有就導入，沒有就去輸入頁面
-	// if (member != null && member.size() > 0) {
-	// //
-	// Optional<Member> member = memberR.findById(member_id);
-	// return "/member/memberPage";
-	// } else {
-	// return "/member/inputpage";
-	// }
+	// 編輯會員資料
+	@GetMapping("/member/edit")
+	public String memberEdit(Model m) {
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Integer member_id = ((Users) o).getFkMember().getMember_id();
+		Optional<Member> m1 = memberR.findById(member_id);
+		m.addAttribute("member", m1.get());
+		return "/member/memberEdit";
+	}
+
+	@PostMapping("/member/edit")
+	public String memberEditPost(@RequestParam(name = "member_id") Integer member_id,
+			@RequestParam(name = "nickname", required = false) String nickname,
+			@RequestParam(name = "gender", required = false) Integer gender,
+			@RequestParam(name = "age", required = false) Integer age,
+			@RequestParam(name = "height", required = false) Double height,
+			@RequestParam(name = "weight", required = false) Double weight,
+			@RequestParam(name = "bodyFat", required = false) Double bodyFat,
+			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
+			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
+			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			Model m) {
+		Member member = new Member();
+
+		try {
+			member.setNickname(nickname);
+			member.setGender(gender);
+			member.setAge(age);
+			member.setHeight(height);
+			member.setWeight(weight);
+			member.setBodyFat(bodyFat);
+			member.setVisceralFat(visceralFat);
+			member.setMuscleMass(muscleMass);
+			member.setBecomeVIP(becomeVIP);
+			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
+					visceralFat, muscleMass, becomeVIP);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/member/page";
+	}
 
 }

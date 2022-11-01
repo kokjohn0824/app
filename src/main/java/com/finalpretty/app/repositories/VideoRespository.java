@@ -24,4 +24,9 @@ public interface VideoRespository extends JpaRepository<Video, Integer> {
             @Param("body_parts") String body_parts,
             @Param("picture") byte[] picture);
 
+    @Transactional
+    @Modifying
+    @Query(value = "select * from video order by video_id desc", nativeQuery = true)
+    List<Video> findAlloOrderById();
+
 }

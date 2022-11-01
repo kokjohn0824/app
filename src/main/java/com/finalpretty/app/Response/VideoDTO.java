@@ -13,13 +13,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ArticleDTO {
+public class VideoDTO {
     @JsonProperty("ID")
-    private Integer article_id;
+    private Integer video_id;
     @JsonProperty("標題")
     private String title;
-    @JsonProperty("內文")
-    private String text;
-    @JsonProperty("日期")
-    private Date create_date;
+    @JsonProperty("分類")
+    private String type;
+    @JsonProperty("主要部位")
+    private String body_parts;
+    @JsonProperty("觀看數")
+    private Integer views;
 }

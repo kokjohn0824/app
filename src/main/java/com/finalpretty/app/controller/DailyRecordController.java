@@ -1,6 +1,5 @@
 package com.finalpretty.app.controller;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.Response.DailyFoodResponse;
+import com.finalpretty.app.Response.FoodDailyDTO;
 import com.finalpretty.app.Response.Food_dailyDTO;
 import com.finalpretty.app.Response.Sports_dailyDTO;
 import com.finalpretty.app.model.DailyRecord;
@@ -149,6 +149,29 @@ public class DailyRecordController {
         Date date = new Date();
         String date_time = dateFormat.format(date);
         Optional<DailyRecord> a1 = dailyRecordR.findByDate(date_time);
+        DailyRecord dailyRecord = a1.get();
+        Set<Food_daily> Food_dailys = dailyRecord.getFood_daily();
+        List<Food_daily> Food_daily = new ArrayList<Food_daily>();
+        Food_daily.addAll(Food_dailys);
+        List<Food> foodList = foodR.findAll();
+
+        FoodDailyDTO foodDailyDTO;
+        List<FoodDailyDTO> odt = new ArrayList<FoodDailyDTO>();
+        for (Food_daily i : Food_daily) {
+            Integer food_daily_id = i.getFood_daily_id();
+            String foodname = i.getFood().getFoodname();
+            Integer calorie = i.getFood().getCalorie();
+            Integer side = i.getSide();
+            Integer title = calorie * i.getSide();
+            foodDailyDTO = new FoodDailyDTO();
+            foodDailyDTO.setFoodname(foodname);
+            foodDailyDTO.setSide(side);
+            foodDailyDTO.setTitle(title);
+            foodDailyDTO.setFood_daily_id(food_daily_id);
+            odt.add(foodDailyDTO);
+        }
+        model.addAttribute("foodList", foodList);
+        model.addAttribute("odt", odt);
         model.addAttribute("daily_record", a1.orElse(null));
         return "/dailyRecord/frontEndEditDaily";
     }
@@ -157,7 +180,38 @@ public class DailyRecordController {
     @GetMapping("/dailyRecord/edit")
     public String goEditDaily(@RequestParam(name = "date_time") String date_time,
             Model model) {
+        // 透過日期找要修改的日記
         Optional<DailyRecord> a1 = dailyRecordR.findByDate(date_time);
+        DailyRecord dailyRecord = a1.get();
+
+        // 透過日記找所有的食物紀錄(然後Set轉List)
+        Set<Food_daily> Food_dailys = dailyRecord.getFood_daily();
+        List<Food_daily> Food_daily = new ArrayList<Food_daily>();
+        Food_daily.addAll(Food_dailys);
+
+        // 找全部的食物名稱
+        List<Food> foodList = foodR.findAll();
+
+        FoodDailyDTO foodDailyDTO;
+
+        // 透過食物紀錄找所有的食物名跟卡路里
+        List<FoodDailyDTO> odt = new ArrayList<FoodDailyDTO>();
+        for (Food_daily i : Food_daily) {
+            Integer food_daily_id = i.getFood_daily_id();
+            String foodname = i.getFood().getFoodname();
+            Integer calorie = i.getFood().getCalorie();
+            Integer side = i.getSide();
+            Integer title = calorie * i.getSide();
+            foodDailyDTO = new FoodDailyDTO();
+            foodDailyDTO.setFoodname(foodname);
+            foodDailyDTO.setSide(side);
+            foodDailyDTO.setTitle(title);
+            foodDailyDTO.setFood_daily_id(food_daily_id);
+            odt.add(foodDailyDTO);
+        }
+
+        model.addAttribute("foodList", foodList);
+        model.addAttribute("odt", odt);
         model.addAttribute("daily_record", a1.orElse(null));
         return "/dailyRecord/frontEndEditDaily";
     }
@@ -188,9 +242,6 @@ public class DailyRecordController {
         Integer daily_record_id = jsonFood.getDaily_record_id();
         String foodname = jsonFood.getFoodname();
         Integer side = jsonFood.getSide();
-        System.out.println("----------------------------------------------------------");
-        System.out.println(daily_record_id);
-        System.out.println("----------------------------------------------------------");
         try {
             Food_daily food_daily = new Food_daily();
 
@@ -199,30 +250,34 @@ public class DailyRecordController {
             Food food = foodR.findById(food_id).get();
 
             Integer calorie = food.getCalorie();
-            Integer totle = calorie * side;
+            Integer title = calorie * side;
 
             food_daily.setDaily_record(DailyRecord);
             food_daily.setFood(food);
             food_daily.setSide(side);
             foodDailyR.save(food_daily);
+            Integer food_daily_id = food_daily.getFood_daily_id();
 
             DailyFoodResponse ar = new DailyFoodResponse();
             ar.setFoodname(foodname);
             ar.setSide(side);
-            ar.setTotle(totle);
+            ar.setTitle(title);
+            ar.setFood_daily_id(food_daily_id);
 
             return ar;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+
     }
 
     // 刪除食物
     @ResponseBody
-    @PostMapping(path = "/dailyRecord/deleteFood", produces = {
+    @PostMapping(path = "/public/dailyRecord/deleteFood/{food_daily_id}", produces = {
             "application/json; charset=UTF-8" })
-    public DailyFoodResponse dailyDeleteFood(
+    public void dailyDeleteFood(
             @PathVariable(name = "food_daily_id") Integer food_daily_id) {
         try {
             Food_daily food_daily = foodDailyR.findById(food_daily_id).get();
@@ -233,7 +288,6 @@ public class DailyRecordController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     // 新增運動
@@ -252,7 +306,7 @@ public class DailyRecordController {
             Sports sports = sportsR.findById(sport_id).get();
 
             Integer calorie = sports.getCalorie();
-            Integer totle = calorie * time;
+            Integer title = calorie * time;
 
             sports_daily.setDaily_record(DailyRecord);
             sports_daily.setSports(sports);
@@ -262,7 +316,7 @@ public class DailyRecordController {
             DailyFoodResponse ar = new DailyFoodResponse();
             ar.setFoodname(sportsname);
             ar.setSide(time);
-            ar.setTotle(totle);
+            ar.setTitle(title);
 
             return ar;
         } catch (Exception e) {

@@ -47,4 +47,9 @@ public interface ProductRespository extends JpaRepository<Product, Integer> {
 	@Query(value = "select * from product where onsale = 1  order by product_id desc", nativeQuery = true)
 	List<Product> findAllByOnSale();
 
+	@Transactional
+	@Modifying
+	@Query(value = "update product set volume= :volume where product_id = :product_id", nativeQuery = true)
+	void updateVolume(@Param("volume") Integer volume, @Param("product_id") Integer product_id);
+
 }

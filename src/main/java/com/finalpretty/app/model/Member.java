@@ -28,6 +28,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,7 +49,7 @@ public class Member {
 	private String nickname;
 
 	@Column(name = "gender")
-	private Integer gender;
+	private Integer gender = 0;
 
 	@Column(name = "age")
 	private Integer age;

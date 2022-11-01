@@ -1,5 +1,6 @@
 package com.finalpretty.app.order.service;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +55,7 @@ public class OrderDetailService {
             detail.setProduct_name(product.get().getTitle());
             detail.setCount(dDto.getCount());
             detail.setTotal(dDto.getTotal());
-            pDao.updateVolume(dDto.getCount(), product.get().getProduct_id());
+            pDao.updateVolume(product.get().getVolume() + dDto.getCount(), product.get().getProduct_id());
             detailDao.save(detail);
         }
 

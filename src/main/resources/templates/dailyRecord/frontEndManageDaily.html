@@ -30,7 +30,7 @@
 
     <button
       th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-      id="chart"
+      id="chartset"
     >
       體重bmi數據
     </button>
@@ -62,16 +62,20 @@
         </table>
       </div>
     </div>
-    <div width="300px" height="400px" class="container">
-      <div style="width: 400px" class="row pt-5">
-        <canvas style="height: 20px" id="canvas-1" class="col-sm-12"></canvas>
-      </div>
-      <div style="width: 400px" class="row pt-5">
-        <canvas style="height: 20px" id="canvas-2" class="col-sm-12"></canvas>
+    <div id="chart" class="container">
+      <div class="row pt-5">
+        <canvas id="canvas-2" class="col-sm-12"></canvas>
       </div>
     </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+      integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script>
-      var btm = document.getElementById("chart");
+      var btm = document.getElementById("chartset");
       btm.addEventListener("click", (e) => click(e));
       function click(e) {
         var myHeaders = new Headers();
@@ -94,36 +98,24 @@
             var bmi = [];
             var bodyfat = [];
             var date = [];
+            var weirage = 0;
+            var bmirage = 0;
+            var bodyfatrage = 0;
             var index = 0;
             for (let i of result) {
               wei[index] = i.weight;
+              weirage += i.weight;
               bmi[index] = i.bmi;
-              bodyfat[index] = i.bodyfat;
+              bmirage += i.bmi;
+              bodyfat[index] = i.bodyFat;
+              bodyfatrage += i.bodyFat;
               date[index] = i.date_time;
               index++;
             }
-            var ctx1 = document.getElementById("canvas-1"),
-              ctx2 = document.getElementById("canvas-2");
-
-            var data = {
-              labels: date, // X軸名稱
-              datasets: [
-                // datasets是陣列，每個陣列代表一個資料類型
-                {
-                  label: "體脂", // Y軸的名稱
-                  data: bodyfat, // Y軸的值
-                  fill: true,
-                  backgroundColor: "rgba(31,119,180,0.5)",
-                  borderColor: "#1f77b4",
-                  lineTension: 0,
-                },
-              ],
-            };
-
-            var myChart1 = new Chart(ctx1, {
-              type: "line", //設定為柱狀圖
-              data: data,
-            });
+            weirage = (weirage / index).toFixed(2);
+            bmirage = (bmirage / index).toFixed(2);
+            bodyfatrage = (bodyfatrage / index).toFixed(2);
+            var ctx2 = document.getElementById("canvas-2");
 
             var myChart2 = new Chart(ctx2, {
               type: "line", //設定為柱狀圖
@@ -132,7 +124,7 @@
                 datasets: [
                   // datasets是陣列，每個陣列代表一個資料類型
                   {
-                    label: "BMI", // Y軸的名稱
+                    label: "平均BMI:" + bmirage, // Y軸的名稱
                     data: bmi, // Y軸的值
                     backgroundColor: "rgba(31,119,180,0.2)",
                     borderColor: "#1f77b4",
@@ -140,15 +132,23 @@
                     lineTension: 0,
                   },
                   {
-                    label: "體重", // Y軸的名稱
+                    label: "平均體重:" + weirage, // Y軸的名稱
                     data: wei, // Y軸的值
                     backgroundColor: "rgba(255,127,14,0.2)",
                     borderColor: "#ff7f0e",
                     fill: true,
                     lineTension: 0,
                   },
+                  {
+                    label: "平均體脂:" + bodyfatrage, // Y軸的名稱
+                    data: bodyfat, // Y軸的值
+
+                    fill: true,
+                    backgroundColor: "rgba(255,0,0,0.2)",
+                    borderColor: "red",
+                    lineTension: 0,
+                  },
                 ],
-                opt,
               },
             });
           })

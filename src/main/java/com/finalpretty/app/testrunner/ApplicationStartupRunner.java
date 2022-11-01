@@ -327,18 +327,6 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product7.setPicture(Files.readAllBytes(saveFilePath7.toPath()));
                 pDao.save(product7);
 
-                Product product8 = new Product();
-                product8.setTitle("Hyperice 無線震動按摩槍");
-                product8.setType("運動用品");
-                product8.setPrice(6999);
-                product8.setStock(50);
-                product8.setText("NBA/PGA/MLB官方指定運動恢復合作夥伴");
-                product8.setOnsale(1);
-                String saveFiledir8 = System.getProperty("user.dir") +
-                                "/src/main/resources/static/img/product/p8.jpg";
-                File saveFilePath8 = new File(saveFiledir8);
-                product8.setPicture(Files.readAllBytes(saveFilePath8.toPath()));
-                pDao.save(product8);
         }
 
 }

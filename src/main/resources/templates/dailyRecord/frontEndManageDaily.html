@@ -10,34 +10,30 @@
 
   <body>
     <div th:replace="component/navbar :: navbar"></div>
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+      <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
+          <a class="btn btn-primary" href="/dailyRecord/add">新增今天日記</a>
+        </span>
+        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
+          <a class="btn btn-primary" href="/todayDailyRecord/edit"
+            >修改今天日記</a
+          >
+        </span>
 
-    <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
-      <a
-        class="btn btn-dark"
-        style="background-color: #f45b69"
-        href="/dailyRecord/add"
-        >新增今天日記</a
-      >
-    </span>
-    <span id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
-      <a
-        class="btn btn-dark"
-        style="background-color: #f45b69"
-        href="/todayDailyRecord/edit"
-        >修改今天日記</a
-      >
-    </span>
-
-    <button
-      th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-      id="chartset"
-    >
-      體重bmi數據
-    </button>
-    <div class="" style="width: 50%; margin: 20px auto">
-      <h1>所有日記</h1>
-      <div class="container-lg" style="width: 800px" th:fragment="form">
-        <table border="2" cellpadding="2">
+        <button
+          class="btn btn-dark"
+          th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}"
+          id="chartset"
+          style="float: right"
+        >
+          體重bmi數據
+        </button>
+      </header>
+      <main>
+        <h1>所有日記</h1>
+        <!-- cellpadding="2" -->
+        <table class="fs-5 col-md-8">
           <tr>
             <th>日期</th>
             <th>編輯</th>
@@ -48,20 +44,25 @@
             <td th:text="${daily.date_time}"></td>
             <td>
               <a th:href="@{'/dailyRecord/edit?date_time='+${daily.date_time}}"
-                ><button type="submit" value="edite">修改</button></a
+                ><button type="submit" value="edite" class="btn btn-dark">
+                  修改
+                </button></a
               >
             </td>
             <td>
               <a
                 th:onclick="return confirm('確定刪除嗎?')"
                 th:href="@{'/dailyRecord/delete?daily_record_id='+${daily.daily_record_id}}"
-                ><button type="submit" value="delete">刪除</button></a
+                ><button type="submit" value="delete" class="btn btn-danger">
+                  刪除
+                </button></a
               >
             </td>
           </tr>
         </table>
-      </div>
+      </main>
     </div>
+
     <div id="chart" class="container">
       <div class="row pt-5">
         <canvas id="canvas-2" class="col-sm-12"></canvas>

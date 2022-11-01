@@ -283,17 +283,17 @@
   <div id="footerComponent" class="bg-dark" style="bottom: 0">
     <div class="col" id="col-1">
       <ul>
-        <li style="font-weight: bold">文章分類</li>
-        <li><a href="#0">有氧健身</a></li>
-        <li><a href="#0">飲食新知</a></li>
-        <li><a href="#0">衛教知識</a></li>
+        <li style="font-weight: bold">網站主題</li>
+        <li><a th:href="@{/public/video/categories}">運動教學</a></li>
+        <li><a th:href="@{/public/article/categories}">主題文章</a></li>
+        <li><a th:href="@{/metabolic}">健康檢測</a></li>
       </ul>
     </div>
     <div class="col" id="col-2">
       <ul>
-        <li style="font-weight: bold">線上商城</li>
-        <li><a href="#0">食品區</a></li>
-        <li><a href="#0">用品區</a></li>
+        <li style="font-weight: bold">購物商城</li>
+        <li><a th:href="@{/public/eatproduct}">食品類</a></li>
+        <li><a th:href="@{/public/useproduct}">用品類</a></li>
       </ul>
     </div>
     <div class="col" id="col-3">
@@ -309,7 +309,9 @@
       Final pretty 健身網 版權所有 © 2020 All rights reserved
     </div>
     <div id="privacypolicy">
-      <a th:href="@{/public/privacypolicy}">隱私權</a>
+      <a th:href="@{/public/termsofuse}">使用條款</a><span>　</span>
+      <a th:href="@{/public/privacypolicy}">隱私權政策</a><span>　</span>
+      <a th:href="@{/public/copyright}">版權聲明</a>
     </div>
   </div>
 </div>

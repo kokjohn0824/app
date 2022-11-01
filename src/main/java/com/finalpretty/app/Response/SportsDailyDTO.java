@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Sports_dailyDTO {
+public class SportsDailyDTO {
 
-    private Integer daily_record_id;
+    private Integer sports_daily_id;
     private String sportsname;
     private Integer time;
+    private Integer title;
 }

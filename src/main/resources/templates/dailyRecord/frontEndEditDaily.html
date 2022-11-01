@@ -1,216 +1,428 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArticleCategories</title>
+    <div th:replace="jsmodules"></div>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ArticleCategories</title>
-  <div th:replace="jsmodules"></div>
-</head>
-
-<body>
-  <div th:replace="component/navbar :: navbar"></div>
-  <a class="btn btn-dark" style="background-color: #f45b69" href="/dailyRecord/all">取消修改</a>
-  <div class="container-lg" style="width: 800px" th:fragment="form">
-    <form th:object="${daily_record}" th:action="@{/dailyRecord/edit}" method="post" enctype="multipart/form-data">
+  <body>
+    <div th:replace="component/navbar :: navbar"></div>
+    <a
+      class="btn btn-dark"
+      style="background-color: #f45b69"
+      href="/dailyRecord/all"
+      >取消修改</a
+    >
+    <div class="container-lg" style="width: 800px" th:fragment="form">
+      <form
+        th:object="${daily_record}"
+        th:action="@{/dailyRecord/add}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <div>
+          體重:<input type="text" name="weight" th:field="*{weight}" /><br />
+          體脂:<input type="text" name="bodyFat" th:field="*{bodyFat}" /><br />
+          飲水量:<input
+            type="text"
+            name="drinkingWater"
+            th:field="*{drinkingWater}"
+          /><br />
+          <input
+            id="daily_record_id"
+            th:field="*{daily_record_id}"
+            type="hidden"
+          />
+          <button type="reset" class="btn btn-secondary">重置</button>
+          <button type="submit" class="signupbtn btn btn-primary">送出</button
+          ><br />
+        </div>
+      </form>
+      <button
+        id=""
+        name="checkboxone"
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#food"
+        data-bs-whatever="@getbootstrap"
+      >
+        新增食物
+      </button>
       <div>
-        體重:<input type="text" name="weight" th:field="*{weight}" /><br />
-        體脂:<input type="text" name="bodyFat" th:field="*{bodyFat}" /><br />
-        飲水量:<input type="text" name="drinkingWater" th:field="*{drinkingWater}" /><br />
-        <input th:field="*{daily_record_id}" type="hidden" />
-        <!-- <input th:field="${daily_record.date_time}" type="hidden" /> -->
-        <button type="reset" class="btn btn-secondary">重置</button>
-        <button type="submit" class="signupbtn btn btn-primary">送出</button>
-      </div>
-    </form>
-    <button id="" name="checkboxone" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#food"
-      data-bs-whatever="@getbootstrap">
-      新增食物
-    </button>
-    <div>
-      <table class="mytable" id="list_table_json">
-        <thead>
-          <tr>
-            <th>食物名稱</th>
-            <th>份量(每份100g)</th>
-            <th>總卡路里</th>
-            <th>取消</th>
-          </tr>
-          <tr th:each="odt : ${odt}">
-            <td th:text="${odt.foodname}"></td>
-            <td th:text="${odt.side}"></td>
-            <td th:text="${odt.title}"></td>
+        <table class="mytable" id="list_table_json">
+          <thead>
+            <tr>
+              <th>食物名稱</th>
+              <th>份量</th>
+              <th>總卡路里</th>
+              <th>取消</th>
+            </tr>
+          </thead>
+          <tr th:each="fdt : ${fdt}">
+            <td th:text="${fdt.foodname}"></td>
+            <td th:text="${fdt.side}"></td>
+            <td th:text="${fdt.title}"></td>
             <td>
-              <input id="food_daily_id" th:value="${odt.food_daily_id}" type="hidden" />
-              <button id="submitDeleteFood" name="submitDeleteFood" type="button" class="btn btn-danger">
+              <input
+                id="f_daily_id"
+                th:value="${fdt.food_daily_id}"
+                type="hidden"
+              />
+              <button
+                th:id="${fdt.food_daily_id}"
+                name="submitDeleteFood"
+                type="button"
+                class="btn btn-danger"
+              >
                 X
               </button>
             </td>
           </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-      </table>
-    </div>
-  </div>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <!-- ---------------------------------------------------------------------------- -->
 
-  <!-- ---------------------------------------------------------------------------- -->
-  <div class="modal fade" id="food" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">新增食物</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            食物分類:<select id="foodname">
-              <option th:each="allFoodList:${foodList}">
-                [[${allFoodList.foodname}]]
-              </option>
-            </select>
+      <button
+        id=""
+        name="checkboxone"
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#sports"
+        data-bs-whatever="@getbootstrap"
+      >
+        新增運動
+      </button>
+      <div>
+        <table class="mytable" id="list_table_json">
+          <thead>
+            <tr>
+              <th>運動名稱</th>
+              <th>時間</th>
+              <th>總卡路里</th>
+              <th>取消</th>
+            </tr>
+          </thead>
+          <tr th:each="sdt : ${sdt}">
+            <td th:text="${sdt.sportsname}"></td>
+            <td th:text="${sdt.time}"></td>
+            <td th:text="${sdt.title}"></td>
+            <td>
+              <input
+                id="s_daily_id"
+                th:value="${sdt.sports_daily_id}"
+                type="hidden"
+              />
+              <button
+                th:id="${sdt.sports_daily_id}"
+                name="submitDeleteSports"
+                type="button"
+                class="btn btn-danger"
+              >
+                X
+              </button>
+            </td>
+          </tr>
+
+          <tbody id="sportsbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ---------------------------------------------------------------------------- -->
+    <div
+      class="modal fade"
+      id="food"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">新增食物</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-          <div class="mb-3">
-            <label for="message-stock" class="col-form-label">食品份量(每份100g):</label>
-            <input name="stock" type="number" class="form-control" id="food-side" value="" required />
+          <div class="modal-body">
+            <div class="mb-3">
+              食物分類:<select id="foodname">
+                <option th:each="allFoodList:${foodList}">
+                  [[${allFoodList.foodname}]]
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message-stock" class="col-form-label"
+                >食品份量(每份100g):</label
+              >
+              <input
+                name="stock"
+                type="number"
+                class="form-control"
+                id="food-side"
+                value=""
+                required
+              />
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button id="submitAddFood" type="submit" class="btn btn-primary">
-            Send
-          </button>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="submitAddFood" type="submit" class="btn btn-primary">
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- ---------------------------------------------------------------------------- -->
-  <div class="modal fade" id="sports" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">新增運動</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            運動分類:<select>
-              <option id="sportsname" th:each="allSportsList:${sportsList}">
-                [[${allSportsList.sportsname}]]
-              </option>
-            </select>
+    <!-- ---------------------------------------------------------------------------- -->
+    <div
+      class="modal fade"
+      id="sports"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">新增運動</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-          <div class="mb-3">
-            <label for="message-stock" class="col-form-label">運動時間:</label>
-            <input name="stock" type="number" class="form-control" id="Sports-time" value="" required />
+          <div class="modal-body">
+            <div class="mb-3">
+              運動分類:<select id="sportsname">
+                <option th:each="allSportsList:${sportsList}">
+                  [[${allSportsList.sportsname}]]
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message-stock" class="col-form-label"
+                >運動時間:</label
+              >
+              <input
+                name="stock"
+                type="number"
+                class="form-control"
+                id="sports-time"
+                value=""
+                required
+              />
+            </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button id="submitBtnSports" type="submit" class="btn btn-primary">
-            Send
-          </button>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="submitAddSports" type="submit" class="btn btn-primary">
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script>
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    //新增單筆食物紀錄
-    $(document).ready(function () {
-      $("#submitAddFood").click(function () {
-        var sd = $("#food-side").val();
-        var d_r_id = $("#daily_record_id").val();
-        var fn = $("#foodname option:selected").val();
-        var raw = JSON.stringify({
-          daily_record_id: d_r_id,
-          foodname: fn,
-          side: sd,
+    <script>
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      //新增單筆食物紀錄
+      $(document).ready(function () {
+        $("#submitAddFood").click(function () {
+          var sd = $("#food-side").val();
+          var d_r_id = $("#daily_record_id").val();
+          var fn = $("#foodname option:selected").val();
+          var raw = JSON.stringify({
+            daily_record_id: d_r_id,
+            foodname: fn,
+            side: sd,
+          });
+          var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+          };
+          fetch(
+            "http://localhost:8082/public/dailyRecord/addFood/",
+            requestOptions
+          )
+            .then((response) => response.json())
+            .then((result) => {
+              console.log(result.food_daily_id);
+              var msg_data;
+              msg_data += "<tr>";
+              msg_data += "<td><inpu>" + result.foodname + "</td>";
+              msg_data += "<td>" + result.side + "</td>";
+              msg_data += "<td>" + result.title + "</td>";
+              msg_data +=
+                "<td><input id='food_daily_id' value='" +
+                result.food_daily_id +
+                "' type='hidden'/><button id='" +
+                result.food_daily_id +
+                "' name='submitDeleteFood' type='button' class='btn btn-danger'>X</button></td>";
+              msg_data += "</tr>";
+              $("#tbody").append(msg_data);
+
+              var submitDeleteFood =
+                document.getElementsByName("submitDeleteFood");
+              for (let i of submitDeleteFood) {
+                i.addEventListener("click", (e) => click(e));
+              }
+              //刪除單筆食物紀錄
+              function click(e) {
+                var f_d_id = $(e.target).attr("id");
+
+                var requestOptions = {
+                  method: "POST",
+                  headers: myHeaders,
+                  redirect: "follow",
+                };
+                fetch(
+                  "http://localhost:8082/public/dailyRecord/deleteFood/" +
+                    f_d_id,
+                  requestOptions
+                )
+                  .then((response) => response.text())
+                  .then((result) => {
+                    $(e.target).parent().parent().remove();
+                  })
+                  .catch((error) => console.log("error", error));
+              }
+            })
+            .catch((error) => console.log("error", error));
         });
-        var requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
-        fetch(
-          "http://localhost:8082/public/dailyRecord/addFood/",
-          requestOptions
-        )
-          .then((response) => response.json())
-          .then((result) => {
-            console.log(result.food_daily_id);
-            var msg_data;
-            msg_data += "<tr>";
-            msg_data += "<td><inpu>" + result.foodname + "</td>";
-            msg_data += "<td>" + result.side + "</td>";
-            msg_data += "<td>" + result.title + "</td>";
-            msg_data +=
-              "<td><input id='food_daily_id' value='" +
-              result.food_daily_id +
-              "' type='hidden'/><button id='" +
-              result.food_daily_id +
-              "' name='submitDeleteFood' type='button' class='btn btn-danger'>X</button></td>";
-            msg_data += "</tr>";
-            $("#tbody").append(msg_data);
-
-            var submitDeleteFood =
-              document.getElementsByName("submitDeleteFood");
-            for (let i of submitDeleteFood) {
-              i.addEventListener("click", (e) => click(e));
-            }
-            //刪除單筆食物紀錄
-            function click(e) {
-              var f_d_id = $(e.target).attr("id");
-
-              var requestOptions = {
-                method: "POST",
-                headers: myHeaders,
-                redirect: "follow",
-              };
-              fetch(
-                "http://localhost:8082/public/dailyRecord/deleteFood/" +
-                f_d_id,
-                requestOptions
-              )
-                .then((response) => response.text())
-                .then((result) => {
-                  $(e.target).parent().parent().remove();
-                })
-                .catch((error) => console.log("error", error));
-            }
-          })
-          .catch((error) => console.log("error", error));
       });
-    });
 
-    $(document).ready(function () {
-      $("#submitDeleteFood").click(function () {
-        var f_d_id = $("#food_daily_id").val();
-        console.log(f_d_id)
-        var requestOptions = {
-          method: "POST",
-          headers: myHeaders,
-          redirect: "follow",
-        };
-        fetch(
-          "http://localhost:8082/public/dailyRecord/deleteFood/" +
-          f_d_id,
-          requestOptions
-        )
-          .then((response) => response.text())
-          .then((result) => {
-            $(this).parent().parent().remove();
-          })
-          .catch((error) => console.log("error", error));
+      $(document).ready(function () {
+        $("button[name='submitDeleteFood']").click(function (e) {
+          var f_d_id = $(e.target).attr("id");
+          console.log(f_d_id);
+          var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            redirect: "follow",
+          };
+          fetch(
+            "http://localhost:8082/public/dailyRecord/deleteFood/" + f_d_id,
+            requestOptions
+          )
+            .then((response) => response.text())
+            .then((result) => {
+              $(e.target).parent().parent().remove();
+            })
+            .catch((error) => console.log("error", error));
+        });
       });
-    });
-  </script>
-</body>
+      // ------------------------------------------------------------------------------------
+      //新增單筆運動紀錄
+      $(document).ready(function () {
+        $("#submitAddSports").click(function () {
+          var tm = $("#sports-time").val();
+          var d_r_id = $("#daily_record_id").val();
+          var sn = $("#sportsname option:selected").val();
+          var raw1 = JSON.stringify({
+            daily_record_id: d_r_id,
+            sportsname: sn,
+            time: tm,
+          });
+          var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw1,
+            redirect: "follow",
+          };
+          fetch(
+            "http://localhost:8082/public/dailyRecord/addSports/",
+            requestOptions
+          )
+            .then((response) => response.json())
+            .then((result) => {
+              var sps_data;
+              sps_data += "<tr>";
+              sps_data += "<td><inpu>" + result.sportsname + "</td>";
+              sps_data += "<td>" + result.time + "</td>";
+              sps_data += "<td>" + result.title + "</td>";
+              sps_data +=
+                "<td><input id='sports_daily_id' value='" +
+                result.sports_daily_id +
+                "' type='hidden'/><button id='" +
+                result.sports_daily_id +
+                "' name='submitDeleteSports' type='button' class='btn btn-danger'>X</button></td>";
+              sps_data += "</tr>";
+              $("#sportsbody").append(sps_data);
 
+              var submitDeleteSports =
+                document.getElementsByName("submitDeleteSports");
+              for (let i of submitDeleteSports) {
+                i.addEventListener("click", (e) => click(e));
+              }
+              //刪除單筆運動紀錄
+              function click(e) {
+                var s_d_id = $(e.target).attr("id");
+                var requestOptions = {
+                  method: "POST",
+                  headers: myHeaders,
+                  redirect: "follow",
+                };
+                fetch(
+                  "http://localhost:8082/public/dailyRecord/deleteSports/" +
+                    s_d_id,
+                  requestOptions
+                )
+                  .then((response) => response.text())
+                  .then((result) => {
+                    $(e.target).parent().parent().remove();
+                  })
+                  .catch((error) => console.log("error", error));
+              }
+            })
+            .catch((error) => console.log("error", error));
+        });
+      });
+
+      $(document).ready(function () {
+        $("button[name='submitDeleteSports']").click(function (e) {
+          var s_d_id = $(e.target).attr("id");
+          console.log(s_d_id);
+          var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            redirect: "follow",
+          };
+          fetch(
+            "http://localhost:8082/public/dailyRecord/deleteSports/" + s_d_id,
+            requestOptions
+          )
+            .then((response) => response.text())
+            .then((result) => {
+              $(e.target).parent().parent().remove();
+            })
+            .catch((error) => console.log("error", error));
+        });
+      });
+    </script>
+  </body>
 </html>

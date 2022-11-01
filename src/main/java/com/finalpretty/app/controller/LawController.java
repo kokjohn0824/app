@@ -12,4 +12,14 @@ public class LawController {
     public String privacyPolicy() {
         return "/law/privacypolicy";
     }
+
+    @GetMapping("/termsofuse")
+    public String termsOfuse() {
+        return "/law/termsofuse";
+    }
+
+    @GetMapping("/copyright")
+    public String copyRight() {
+        return "/law/copyright";
+    }
 }

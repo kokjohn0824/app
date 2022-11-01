@@ -102,6 +102,7 @@
               "
               th:each="product : ${productlist} "
             >
+         
               <img
                 th:id="${product.product_id}"
                 th:src="@{'/downloadImage/'+${product.product_id}}"
@@ -110,7 +111,8 @@
                 style="display: block; /* ★★★★★ */ max-width: 100%; /* ★★★★★ */"
               />
               <div class="card-body">
-                <h4 class="card-title" th:text="${product.title}"></h4>
+
+                <h4 class="card-title" th:text="${product.title}"></h4>      
                 <p class="card-text" th:text="'$'+${product.price}"></p>
                 <p class="card-text" th:text="${product.text}"></p>
                 <p
@@ -118,6 +120,8 @@
                   class="card-text"
                   th:text="${product.product_id}"
                 ></p>
+                
+              
                 <a 
                   href="#"
                   th:data-name="${product.title}"
@@ -125,8 +129,15 @@
                   th:data-img="@{'/downloadImage/'+${product.product_id}}"
                   th:data-id="${product.product_id}"
                   class="add-to-cart btn btn-primary"
-                  >加入購物車</a
-                >
+                  >加入購物車</a>                
+                <span th:if="${product.volume} > 1 and ${product.volume} != ${product.stock}"><i class="bi bi-fire"></i>
+                  熱賣中</span>
+                  <span th:unless="${product.volume} != ${product.stock}"><i class="bi bi-cart-x"></i>
+                    缺貨</span>
+                    
+
+               
+              
               </div>
             </div>
           </div>

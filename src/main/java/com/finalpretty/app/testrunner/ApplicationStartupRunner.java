@@ -311,7 +311,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product6.setTitle("DHC濃縮薑黃");
                 product6.setType("保健食品");
                 product6.setPrice(356);
-                product6.setStock(50);
+                product6.setStock(0);
                 product6.setText("台灣DHC直供．品質保證");
                 product6.setOnsale(1);
                 product6.setVolume(0);

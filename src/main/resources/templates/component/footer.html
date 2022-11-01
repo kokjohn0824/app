@@ -257,6 +257,21 @@
       display: block;
     }
   }
+
+  #privacypolicy {
+    font-size: 10px;
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+
+  #rights {
+    font-size: 10px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
 </style>
 
 <div th:fragment="footer">
@@ -289,6 +304,12 @@
         <li><a href="#0">線上客服</a></li>
       </ul>
     </div>
-    <div id="copy">Final pretty 健身網 版權所有 © 2020 All rights reserved</div>
+
+    <div id="rights">
+      Final pretty 健身網 版權所有 © 2020 All rights reserved
+    </div>
+    <div id="privacypolicy">
+      <a th:href="@{/public/privacypolicy}">隱私權</a>
+    </div>
   </div>
 </div>

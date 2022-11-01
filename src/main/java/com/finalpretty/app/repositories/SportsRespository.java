@@ -19,9 +19,9 @@ public interface SportsRespository extends JpaRepository<Sports, Integer> {
             @Param("calorie") Integer calorie,
             @Param("picture") byte[] picture);
 
-    @Query(value = "select sportsname form sports", nativeQuery = true)
+    @Query(value = "select sportsname from sports", nativeQuery = true)
     List<Sports> findSportsName();
 
-    @Query(value = "select sports_id form sports where sportsname=:sportsname", nativeQuery = true)
+    @Query(value = "select sports_id from sports where sportsname=:sportsname", nativeQuery = true)
     Integer findByName(@Param("sportsname") String sportsname);
 }

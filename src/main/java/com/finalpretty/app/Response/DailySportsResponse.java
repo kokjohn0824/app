@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DailySportsResponse {
-    private String foodname;
-    private Integer side;
-    private Integer totle;
+    private String sportsname;
+    private Integer time;
+    private Integer title;
+    private Integer sports_daily_id;
 }

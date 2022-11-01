@@ -28,7 +28,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,7 +48,7 @@ public class Member {
 	private String nickname;
 
 	@Column(name = "gender")
-	private Integer gender = 0;
+	private Integer gender;
 
 	@Column(name = "age")
 	private Integer age;
@@ -89,6 +88,7 @@ public class Member {
 		}
 	}
 
+	// 跟使用著一對一的連動
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "fkMember")
 	private Users users;
 

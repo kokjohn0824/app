@@ -48,6 +48,7 @@
 					<th>內臟脂肪</th>
 					<th>肌肉量</th>
 					<th>VIP</th>
+					<th>建日日期</th>
 					<th>編輯</th>
 				</tr>
 
@@ -62,6 +63,7 @@
 					<td th:text="${member.visceralFat}"></td>
 					<td th:text="${member.muscleMass}"></td>
 					<td th:text="${member.becomeVIP}"></td>
+					<td th:text="${member.create_date}"></td>
 					<td>
 						<a th:href="@{'/backendMember/delete?member_id='+${member.member_id}}"
 							th:onclick="return confirm('確定刪除嗎?')"><button type="submit" value="delete">刪除</button></a>
@@ -71,92 +73,7 @@
 				</tr>
 			</table>
 
-
 			<!-- 使用分頁 -->
-			<!-- <div class="container">
-				<h1>所有會員</h1>
-				<table border="2" width="70%" cellpadding="2">
-					<tr>
-						<th>編號</th>
-						<th>性別</th>
-						<th>年齡</th>
-						<th>身高</th>
-						<th>體重</th>
-						<th>體脂肪</th>
-						<th>內臟脂肪</th>
-						<th>肌肉量</th>
-						<th>VIP</th>
-						<th>編輯</th>
-					</tr>
-
-					<tr th:each="member : ${members}">
-						<td th:text="${member.member_id}"></td>
-						<td th:text="${member.gender}"></td>
-						<td th:text="${member.age}"></td>
-						<td th:text="${member.height}"></td>
-						<td th:text="${member.weight}"></td>
-						<td th:text="${member.bodyFat}"></td>
-						<td th:text="${member.visceralFat}"></td>
-						<td th:text="${member.muscleMass}"></td>
-						<td th:text="${member.becomeVIP}"></td>
-						<td>
-							<a th:href="@{'/backendMember/delete?member_id='+${member.member_id}}"
-								th:onclick="return confirm('確定刪除嗎?')"><button type="submit"
-									value="delete">刪除</button></a>
-							<a th:href="@{'/backendMember/edit?member_id='+${member.member_id}}"><button type="submit"
-									value="edite">修改</button></a>
-						</td>
-					</tr>
-				</table> -->
-
-			<!-- <div th:replace="member/page :: pager" th:remove="tag"></div> -->
-
-			<!-- <div class="model-footer no-margin-top">
-					<ul class="pagination pull-right no-margin">
-
-						<li>
-							<a th:href="'/backendMemberShowAll.html?pageNum=0'">首頁</a>
-						</li>
-
-						<li th:if="${members.hasPrevious}">
-							<a th:href="'/backendMemberShowAll.html?pageNum=0'">上一頁</a>
-						</li>
-
-						
-						<li>
-							<a></a>
-						</li>
-
-						<li>
-							<a>下一頁</a>
-						</li>
-
-						<li>
-							<a>尾頁</a>
-						</li>
-
-
-
-
-					</ul>
-				</div> -->
-
-
-
-
-
-
-
-
-			<!-- </div> -->
-
-
-
-
-
-
-
-
 
 		</div>
 

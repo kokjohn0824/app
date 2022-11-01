@@ -24,6 +24,7 @@ public interface DailyRecordRespository extends JpaRepository<DailyRecord, Integ
     @Query(value = "select * from daily_record where Date_time=:date_time", nativeQuery = true)
     Optional<DailyRecord> findByDate(@Param("date_time") String date_time);
 
-    @Query(value = "select * from daily_record where fk_member_id = :member_id", nativeQuery = true)
-    List<DailyRecord> chartBmi(@Param("member_id") Integer member_id);
+    @Query(value = "select * from daily_record where fk_member_id = :member_id and date_time between :addDate and :dateEnd", nativeQuery = true)
+    List<DailyRecord> chartBmi(@Param("member_id") Integer member_id, @Param("addDate") String addDate,
+            @Param("dateEnd") String dateEnd);
 }

@@ -25,9 +25,11 @@ public class CalculatorController {
 	}
 
 	@ResponseBody
-	@GetMapping("/public/api/chartBmi/{member_id}")
-	public List<DailyRecordDto> chartBmi(@PathVariable("member_id") Integer member_id) {
-		List<DailyRecord> dRecord = drecordDao.chartBmi(member_id);
+	@GetMapping("/public/api/chartBmi/{member_id}/{addDate}/{dateEnd}")
+	public List<DailyRecordDto> chartBmi(@PathVariable("member_id") Integer member_id,
+			@PathVariable("addDate") String addDate,
+			@PathVariable("dateEnd") String dateEnd) {
+		List<DailyRecord> dRecord = drecordDao.chartBmi(member_id, addDate, dateEnd);
 		List<DailyRecordDto> recordDtolist = new ArrayList<>();
 		DailyRecordDto recordDto;
 		if (dRecord == null) {

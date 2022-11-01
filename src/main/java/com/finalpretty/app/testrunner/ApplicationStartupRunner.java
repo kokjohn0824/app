@@ -249,6 +249,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product.setStock(500);
                 product.setText("專為耐力運動設計，每錠200mg咖啡因");
                 product.setOnsale(1);
+                product.setVolume(0);
                 String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p1.jpg";
                 File saveFilePath = new File(saveFiledir);
                 product.setPicture(Files.readAllBytes(saveFilePath.toPath()));
@@ -261,6 +262,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product2.setStock(50);
                 product2.setText("無添加香料、色素、甜味劑、奶精");
                 product2.setOnsale(1);
+                product2.setVolume(0);
                 String saveFiledir2 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p2.jpg";
                 File saveFilePath2 = new File(saveFiledir2);
                 product2.setPicture(Files.readAllBytes(saveFilePath2.toPath()));
@@ -273,6 +275,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product3.setStock(50);
                 product3.setText("特別添加番茄紅素、葉黃素、B群");
                 product3.setOnsale(1);
+                product3.setVolume(0);
                 String saveFiledir3 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p3.jpg";
                 File saveFilePath3 = new File(saveFiledir3);
                 product3.setPicture(Files.readAllBytes(saveFilePath3.toPath()));
@@ -285,6 +288,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product4.setStock(50);
                 product4.setText("直達筋骨 靈活好動");
                 product4.setOnsale(1);
+                product4.setVolume(0);
                 String saveFiledir4 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p4.jpg";
                 File saveFilePath4 = new File(saveFiledir4);
                 product4.setPicture(Files.readAllBytes(saveFilePath4.toPath()));
@@ -297,6 +301,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product5.setStock(50);
                 product5.setText("口感升級～多酚乳酸味");
                 product5.setOnsale(1);
+                product5.setVolume(0);
                 String saveFiledir5 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p5.jpg";
                 File saveFilePath5 = new File(saveFiledir5);
                 product5.setPicture(Files.readAllBytes(saveFilePath5.toPath()));
@@ -309,6 +314,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product6.setStock(50);
                 product6.setText("台灣DHC直供．品質保證");
                 product6.setOnsale(1);
+                product6.setVolume(0);
                 String saveFiledir6 = System.getProperty("user.dir") + "/src/main/resources/static/img/product/p6.jpg";
                 File saveFilePath6 = new File(saveFiledir6);
                 product6.setPicture(Files.readAllBytes(saveFilePath6.toPath()));
@@ -321,6 +327,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product7.setStock(50);
                 product7.setText("適合瑜珈、皮拉提斯、體適能球操等運動");
                 product7.setOnsale(1);
+                product7.setVolume(0);
                 String saveFiledir7 = System.getProperty("user.dir") +
                                 "/src/main/resources/static/img/product/p7.jpg";
                 File saveFilePath7 = new File(saveFiledir7);
@@ -334,6 +341,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product8.setStock(50);
                 product8.setText("NBA/PGA/MLB官方指定運動恢復合作夥伴");
                 product8.setOnsale(1);
+                product8.setVolume(0);
                 String saveFiledir8 = System.getProperty("user.dir") +
                                 "/src/main/resources/static/img/product/p8.jpg";
                 File saveFilePath8 = new File(saveFiledir8);

@@ -10,237 +10,266 @@
 
   <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <a
-      class="btn btn-dark"
-      style="background-color: #f45b69"
-      th:href="@{'/dailyRecord/delete?daily_record_id='+${daily_record.daily_record_id}}"
-      >取消新增</a
-    >
-    <div class="container-lg" style="width: 800px" th:fragment="form">
-      <form
-        th:object="${daily_record}"
-        th:action="@{/dailyRecord/add}"
-        method="post"
-        enctype="multipart/form-data"
-      >
-        <div>
-          體重:<input type="text" name="weight" th:field="*{weight}" /><br />
-          體脂:<input type="text" name="bodyFat" th:field="*{bodyFat}" /><br />
-          飲水量:<input
-            type="text"
-            name="drinkingWater"
-            th:field="*{drinkingWater}"
-          /><br />
-          <input
-            id="daily_record_id"
-            th:field="*{daily_record_id}"
-            type="hidden"
-          />
-          <button type="reset" class="btn btn-secondary">重置</button>
-          <button type="submit" class="signupbtn btn btn-primary">送出</button
-          ><br />
-        </div>
-      </form>
-      <button
-        id=""
-        name="checkboxone"
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#food"
-        data-bs-whatever="@getbootstrap"
-      >
-        新增食物
-      </button>
-      <div>
-        <table class="mytable" id="list_table_json">
-          <thead>
-            <tr>
-              <th>食物名稱</th>
-              <th>份量</th>
-              <th>總卡路里</th>
-              <th>取消</th>
-            </tr>
-          </thead>
-          <tr th:each="fdt : ${fdt}">
-            <td th:text="${fdt.foodname}"></td>
-            <td th:text="${fdt.side}"></td>
-            <td th:text="${fdt.title}"></td>
-            <td>
-              <input
-                id="food_daily_id"
-                th:value="${fdt.food_daily_id}"
-                type="hidden"
-              />
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+      <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+        <a
+          class="d-flex align-items-center text-dark text-decoration-none"
+          th:href="@{'/dailyRecord/delete?daily_record_id='+${daily_record.daily_record_id}}"
+          ><span class="fs-4">取消新增</span></a
+        >
+      </header>
+      <main>
+        <div class="container-lg" style="width: 800px" th:fragment="form">
+          <form
+            th:object="${daily_record}"
+            th:action="@{/dailyRecord/add}"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div>
+              <p class="fs-5 col-md-8">
+                體重:<input
+                  type="text"
+                  name="weight"
+                  th:field="*{weight}"
+                /><br />
+                體脂:<input
+                  type="text"
+                  name="bodyFat"
+                  th:field="*{bodyFat}"
+                /><br />
+                飲水:<input
+                  type="text"
+                  name="drinkingWater"
+                  th:field="*{drinkingWater}"
+                /><br />
+                <input
+                  id="daily_record_id"
+                  th:field="*{daily_record_id}"
+                  type="hidden"
+                />
+              </p>
+              <div class="mb-5">
+                <button type="reset" class="btn btn-secondary">重置</button>
+                <button type="submit" class="signupbtn btn btn-primary">
+                  送出
+                </button>
+              </div>
+              <br />
+            </div>
+          </form>
+          <hr class="col-3 col-md-2 mb-5" />
+          <div class="row g-5">
+            <div class="col-md-6">
               <button
-                id="submitDeleteFood"
-                name="submitDeleteFood"
+                id=""
+                name="checkboxone"
                 type="button"
-                class="btn btn-danger"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#food"
+                data-bs-whatever="@getbootstrap"
               >
-                X
+                新增食物
               </button>
-            </td>
-          </tr>
-          <tbody id="tbody"></tbody>
-        </table>
+              <div>
+                <table class="mytable" id="list_table_json">
+                  <thead>
+                    <tr>
+                      <th>食物名稱</th>
+                      <th>份量(每份100g)</th>
+                      <th>總卡路里</th>
+                      <th>取消</th>
+                    </tr>
+                  </thead>
+                  <tr th:each="fdt : ${fdt}">
+                    <td th:text="${fdt.foodname}"></td>
+                    <td th:text="${fdt.side}"></td>
+                    <td th:text="${fdt.title}"></td>
+                    <td>
+                      <input
+                        id="food_daily_id"
+                        th:value="${fdt.food_daily_id}"
+                        type="hidden"
+                      />
+                      <button
+                        id="submitDeleteFood"
+                        name="submitDeleteFood"
+                        type="button"
+                        class="btn btn-danger"
+                      >
+                        X
+                      </button>
+                    </td>
+                  </tr>
+                  <tbody id="tbody"></tbody>
+                </table>
+              </div>
+            </div>
+            <!-- ---------------------------------------------------------------------------- -->
+            <div class="col-md-6">
+              <button
+                id=""
+                name="checkboxone"
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#sports"
+                data-bs-whatever="@getbootstrap"
+              >
+                新增運動
+              </button>
+              <div>
+                <table class="mytable" id="list_table_json">
+                  <thead>
+                    <tr>
+                      <th>運動名稱</th>
+                      <th>時間(每次30min)</th>
+                      <th>總卡路里</th>
+                      <th>取消</th>
+                    </tr>
+                  </thead>
+                  <tr th:each="sdt : ${sdt}">
+                    <td th:text="${sdt.sportsname}"></td>
+                    <td th:text="${sdt.time}"></td>
+                    <td th:text="${sdt.title}"></td>
+                    <td>
+                      <input
+                        id="sports_daily_id"
+                        th:value="${sdt.sports_daily_id}"
+                        type="hidden"
+                      />
+                      <button
+                        id="submitDeleteSports"
+                        name="submitDeleteSports"
+                        type="button"
+                        class="btn btn-danger"
+                      >
+                        X
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tbody id="sportsbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- ---------------------------------------------------------------------------- -->
+      <div
+        class="modal fade"
+        id="food"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">新增食物</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                食物分類:<select id="foodname">
+                  <option th:each="allFoodList:${foodList}">
+                    [[${allFoodList.foodname}]]
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="message-stock" class="col-form-label"
+                  >食品份量(每份100g):</label
+                >
+                <input
+                  name="stock"
+                  type="number"
+                  class="form-control"
+                  id="food-side"
+                  value=""
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="submitAddFood" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- ---------------------------------------------------------------------------- -->
-
-      <button
-        id=""
-        name="checkboxone"
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#sports"
-        data-bs-whatever="@getbootstrap"
+      <div
+        class="modal fade"
+        id="sports"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
       >
-        新增運動
-      </button>
-      <div>
-        <table class="mytable" id="list_table_json">
-          <thead>
-            <tr>
-              <th>運動名稱</th>
-              <th>時間</th>
-              <th>總卡路里</th>
-              <th>取消</th>
-            </tr>
-          </thead>
-          <tr th:each="sdt : ${sdt}">
-            <td th:text="${sdt.sportsname}"></td>
-            <td th:text="${sdt.time}"></td>
-            <td th:text="${sdt.title}"></td>
-            <td>
-              <input
-                id="sports_daily_id"
-                th:value="${sdt.sports_daily_id}"
-                type="hidden"
-              />
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">新增運動</h5>
               <button
-                id="submitDeleteSports"
-                name="submitDeleteSports"
                 type="button"
-                class="btn btn-danger"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                運動分類:<select id="sportsname">
+                  <option th:each="allSportsList:${sportsList}">
+                    [[${allSportsList.sportsname}]]
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="message-stock" class="col-form-label"
+                  >運動時間:</label
+                >
+                <input
+                  name="stock"
+                  type="number"
+                  class="form-control"
+                  id="sports-time"
+                  value=""
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
               >
-                X
+                Close
               </button>
-            </td>
-          </tr>
-
-          <tbody id="sportsbody"></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- ---------------------------------------------------------------------------- -->
-    <div
-      class="modal fade"
-      id="food"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">新增食物</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              食物分類:<select id="foodname">
-                <option th:each="allFoodList:${foodList}">
-                  [[${allFoodList.foodname}]]
-                </option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="message-stock" class="col-form-label"
-                >食品份量(每份100g):</label
+              <button
+                id="submitAddSports"
+                type="submit"
+                class="btn btn-primary"
               >
-              <input
-                name="stock"
-                type="number"
-                class="form-control"
-                id="food-side"
-                value=""
-                required
-              />
+                Send
+              </button>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button id="submitAddFood" type="submit" class="btn btn-primary">
-              Send
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ---------------------------------------------------------------------------- -->
-    <div
-      class="modal fade"
-      id="sports"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">新增運動</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              運動分類:<select id="sportsname">
-                <option th:each="allSportsList:${sportsList}">
-                  [[${allSportsList.sportsname}]]
-                </option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="message-stock" class="col-form-label"
-                >運動時間:</label
-              >
-              <input
-                name="stock"
-                type="number"
-                class="form-control"
-                id="sports-time"
-                value=""
-                required
-              />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button id="submitAddSports" type="submit" class="btn btn-primary">
-              Send
-            </button>
           </div>
         </div>
       </div>

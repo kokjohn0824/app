@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.Response.DailyFoodResponse;
+import com.finalpretty.app.Response.DailySportsResponse;
 import com.finalpretty.app.Response.FoodDailyDTO;
 import com.finalpretty.app.Response.Food_dailyDTO;
+import com.finalpretty.app.Response.SportsDailyDTO;
 import com.finalpretty.app.Response.Sports_dailyDTO;
 import com.finalpretty.app.model.DailyRecord;
 import com.finalpretty.app.model.Food;
@@ -96,8 +98,12 @@ public class DailyRecordController {
         Integer member_id = ((Users) o).getFkMember().getMember_id();
         Member member = memberR.findById(member_id).get();
 
+        Date date = new Date();
+        String date_time = dateFormat.format(date);
+
         try {
             daily.setMembers(member);
+            daily.setDate_time(date_time);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,15 +125,12 @@ public class DailyRecordController {
             @RequestParam(name = "weight") Integer weight,
             @RequestParam(name = "bodyFat") Integer bodyFat,
             @RequestParam(name = "drinkingWater") Integer drinkingWater) {
-        Date date = new Date();
-        String date_time = dateFormat.format(date);
 
         DailyRecord dailyRecord = dailyRecordR.findById(daily_record_id).get();
 
         dailyRecord.setWeight(weight);
         dailyRecord.setBodyFat(bodyFat);
         dailyRecord.setDrinkingWater(drinkingWater);
-        dailyRecord.setDate_time(date_time);
 
         dailyRecordR.save(dailyRecord);
         return "redirect:/dailyRecord/all";
@@ -150,28 +153,52 @@ public class DailyRecordController {
         String date_time = dateFormat.format(date);
         Optional<DailyRecord> a1 = dailyRecordR.findByDate(date_time);
         DailyRecord dailyRecord = a1.get();
+
         Set<Food_daily> Food_dailys = dailyRecord.getFood_daily();
         List<Food_daily> Food_daily = new ArrayList<Food_daily>();
         Food_daily.addAll(Food_dailys);
+        Set<Sports_daily> Sports_dailys = dailyRecord.getSports_daily();
+        List<Sports_daily> Sports_daily = new ArrayList<Sports_daily>();
+        Sports_daily.addAll(Sports_dailys);
+
         List<Food> foodList = foodR.findAll();
+        List<Sports> sportsList = sportsR.findAll();
 
         FoodDailyDTO foodDailyDTO;
-        List<FoodDailyDTO> odt = new ArrayList<FoodDailyDTO>();
-        for (Food_daily i : Food_daily) {
-            Integer food_daily_id = i.getFood_daily_id();
-            String foodname = i.getFood().getFoodname();
-            Integer calorie = i.getFood().getCalorie();
-            Integer side = i.getSide();
-            Integer title = calorie * i.getSide();
+        List<FoodDailyDTO> fdt = new ArrayList<FoodDailyDTO>();
+        for (Food_daily fd : Food_daily) {
+            Integer food_daily_id = fd.getFood_daily_id();
+            String foodname = fd.getFood().getFoodname();
+            Integer calorie = fd.getFood().getCalorie();
+            Integer side = fd.getSide();
+            Integer title = calorie * fd.getSide();
             foodDailyDTO = new FoodDailyDTO();
             foodDailyDTO.setFoodname(foodname);
             foodDailyDTO.setSide(side);
             foodDailyDTO.setTitle(title);
             foodDailyDTO.setFood_daily_id(food_daily_id);
-            odt.add(foodDailyDTO);
+            fdt.add(foodDailyDTO);
+        }
+
+        SportsDailyDTO sportsDailyDTO;
+        List<SportsDailyDTO> sdt = new ArrayList<SportsDailyDTO>();
+        for (Sports_daily sd : Sports_daily) {
+            Integer sports_daily_id = sd.getSports_daily_id();
+            String sportsname = sd.getSports().getSportsname();
+            Integer calorie = sd.getSports().getCalorie();
+            Integer time = sd.getTime();
+            Integer title = calorie * time;
+            sportsDailyDTO = new SportsDailyDTO();
+            sportsDailyDTO.setSportsname(sportsname);
+            sportsDailyDTO.setTime(time);
+            sportsDailyDTO.setTitle(title);
+            sportsDailyDTO.setSports_daily_id(sports_daily_id);
+            sdt.add(sportsDailyDTO);
         }
         model.addAttribute("foodList", foodList);
-        model.addAttribute("odt", odt);
+        model.addAttribute("sportsList", sportsList);
+        model.addAttribute("fdt", fdt);
+        model.addAttribute("sdt", sdt);
         model.addAttribute("daily_record", a1.orElse(null));
         return "/dailyRecord/frontEndEditDaily";
     }
@@ -188,30 +215,51 @@ public class DailyRecordController {
         Set<Food_daily> Food_dailys = dailyRecord.getFood_daily();
         List<Food_daily> Food_daily = new ArrayList<Food_daily>();
         Food_daily.addAll(Food_dailys);
+        Set<Sports_daily> Sports_dailys = dailyRecord.getSports_daily();
+        List<Sports_daily> Sports_daily = new ArrayList<Sports_daily>();
+        Sports_daily.addAll(Sports_dailys);
 
         // 找全部的食物名稱
         List<Food> foodList = foodR.findAll();
+        List<Sports> sportsList = sportsR.findAll();
 
         FoodDailyDTO foodDailyDTO;
 
         // 透過食物紀錄找所有的食物名跟卡路里
-        List<FoodDailyDTO> odt = new ArrayList<FoodDailyDTO>();
-        for (Food_daily i : Food_daily) {
-            Integer food_daily_id = i.getFood_daily_id();
-            String foodname = i.getFood().getFoodname();
-            Integer calorie = i.getFood().getCalorie();
-            Integer side = i.getSide();
-            Integer title = calorie * i.getSide();
+        List<FoodDailyDTO> fdt = new ArrayList<FoodDailyDTO>();
+        for (Food_daily fd : Food_daily) {
+            Integer food_daily_id = fd.getFood_daily_id();
+            String foodname = fd.getFood().getFoodname();
+            Integer calorie = fd.getFood().getCalorie();
+            Integer side = fd.getSide();
+            Integer title = calorie * fd.getSide();
             foodDailyDTO = new FoodDailyDTO();
             foodDailyDTO.setFoodname(foodname);
             foodDailyDTO.setSide(side);
             foodDailyDTO.setTitle(title);
             foodDailyDTO.setFood_daily_id(food_daily_id);
-            odt.add(foodDailyDTO);
+            fdt.add(foodDailyDTO);
+        }
+        SportsDailyDTO sportsDailyDTO;
+        List<SportsDailyDTO> sdt = new ArrayList<SportsDailyDTO>();
+        for (Sports_daily sd : Sports_daily) {
+            Integer sports_daily_id = sd.getSports_daily_id();
+            String sportsname = sd.getSports().getSportsname();
+            Integer calorie = sd.getSports().getCalorie();
+            Integer time = sd.getTime();
+            Integer title = calorie * time;
+            sportsDailyDTO = new SportsDailyDTO();
+            sportsDailyDTO.setSportsname(sportsname);
+            sportsDailyDTO.setTime(time);
+            sportsDailyDTO.setTitle(title);
+            sportsDailyDTO.setSports_daily_id(sports_daily_id);
+            sdt.add(sportsDailyDTO);
         }
 
         model.addAttribute("foodList", foodList);
-        model.addAttribute("odt", odt);
+        model.addAttribute("sportsList", sportsList);
+        model.addAttribute("fdt", fdt);
+        model.addAttribute("sdt", sdt);
         model.addAttribute("daily_record", a1.orElse(null));
         return "/dailyRecord/frontEndEditDaily";
     }
@@ -292,9 +340,9 @@ public class DailyRecordController {
 
     // 新增運動
     @ResponseBody
-    @PostMapping(path = "/dailyRecord/addSports", produces = {
+    @PostMapping(path = "/public/dailyRecord/addSports", produces = {
             "application/json; charset=UTF-8" })
-    public DailyFoodResponse dailyAddSports(@RequestBody Sports_dailyDTO jsonSports) {
+    public DailySportsResponse dailyAddSports(@RequestBody Sports_dailyDTO jsonSports) {
         Integer daily_record_id = jsonSports.getDaily_record_id();
         String sportsname = jsonSports.getSportsname();
         Integer time = jsonSports.getTime();
@@ -302,8 +350,8 @@ public class DailyRecordController {
             Sports_daily sports_daily = new Sports_daily();
 
             DailyRecord DailyRecord = dailyRecordR.findById(daily_record_id).get();
-            Integer sport_id = sportsR.findByName(sportsname);
-            Sports sports = sportsR.findById(sport_id).get();
+            Integer sports_id = sportsR.findByName(sportsname);
+            Sports sports = sportsR.findById(sports_id).get();
 
             Integer calorie = sports.getCalorie();
             Integer title = calorie * time;
@@ -312,13 +360,15 @@ public class DailyRecordController {
             sports_daily.setSports(sports);
             sports_daily.setTime(time);
             sportsDailyR.save(sports_daily);
+            Integer sports_daily_id = sports_daily.getSports_daily_id();
 
-            DailyFoodResponse ar = new DailyFoodResponse();
-            ar.setFoodname(sportsname);
-            ar.setSide(time);
-            ar.setTitle(title);
+            DailySportsResponse sr = new DailySportsResponse();
+            sr.setSportsname(sportsname);
+            sr.setTime(time);
+            sr.setTitle(title);
+            sr.setSports_daily_id(sports_daily_id);
 
-            return ar;
+            return sr;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -327,9 +377,9 @@ public class DailyRecordController {
 
     // 刪除運動
     @ResponseBody
-    @PostMapping(path = "/dailyRecord/deleteSports", produces = {
+    @PostMapping(path = "/public/dailyRecord/deleteSports/{sports_daily_id}", produces = {
             "application/json; charset=UTF-8" })
-    public DailyFoodResponse dailyDeleteSports(
+    public void dailyDeleteSports(
             @PathVariable(name = "sports_daily_id") Integer sports_daily_id) {
         try {
             Sports_daily sports_daily = sportsDailyR.findById(sports_daily_id).get();
@@ -340,7 +390,6 @@ public class DailyRecordController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 
 }

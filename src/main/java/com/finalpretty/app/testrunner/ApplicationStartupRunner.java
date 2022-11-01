@@ -334,6 +334,118 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product7.setPicture(Files.readAllBytes(saveFilePath7.toPath()));
                 pDao.save(product7);
 
-             
+                Product product8 = new Product();
+                product8.setTitle("易利氣磁力項圈");
+                product8.setType("運動用品");
+                product8.setPrice(611);
+                product8.setStock(0);
+                product8.setText("日本銷售逾1千萬條");
+                product8.setOnsale(1);
+                product8.setVolume(0);
+                String saveFiledir8 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p8.jpg";
+                File saveFilePath8 = new File(saveFiledir8);
+                product8.setPicture(Files.readAllBytes(saveFilePath8.toPath()));
+                pDao.save(product8);
+
+                Product product9 = new Product();
+                product9.setTitle("Adidas Strength 吊鉤式舉重助力帶");
+                product9.setType("運動用品");
+                product9.setPrice(790);
+                product9.setStock(2);
+                product9.setText("適合瑜珈、皮拉提斯、體適能球操等運動");
+                product9.setOnsale(1);
+                product9.setVolume(0);
+                String saveFiledir9 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p9.jpg";
+                File saveFilePath9 = new File(saveFiledir9);
+                product9.setPicture(Files.readAllBytes(saveFilePath9.toPath()));
+                pDao.save(product9);
+
+                Product product10 = new Product();
+                product10.setTitle("智能計數呼拉圈");
+                product10.setType("運動用品");
+                product10.setPrice(590);
+                product10.setStock(1);
+                product10.setText("高效燃燒脂肪,可邊旋轉邊按摩,深層刺激燃燒脂肪");
+                product10.setOnsale(1);
+                product10.setVolume(0);
+                String saveFiledir10 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p10.jpg";
+                File saveFilePath10 = new File(saveFiledir10);
+                product10.setPicture(Files.readAllBytes(saveFilePath10.toPath()));
+                pDao.save(product10);
+
+                Product product11 = new Product();
+                product11.setTitle("刺蝟造型震動按摩枕");
+                product11.setType("運動用品");
+                product11.setPrice(930);
+                product11.setStock(10);
+                product11.setText("蓬鬆好笑的刺蝟造型,每天的好夥伴送禮也很棒");
+                product11.setOnsale(1);
+                product11.setVolume(0);
+                String saveFiledir11 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p11.jpg";
+                File saveFilePath11 = new File(saveFiledir11);
+                product11.setPicture(Files.readAllBytes(saveFilePath11.toPath()));
+                pDao.save(product11);
+
+                Product product12 = new Product();
+                product12.setTitle("兩用小腿背部按摩拉筋板");
+                product12.setType("運動用品");
+                product12.setPrice(490);
+                product12.setStock(3);
+                product12.setText("網路最夯的按摩神器");
+                product12.setOnsale(1);
+                product12.setVolume(0);
+                String saveFiledir12 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p12.jpg";
+                File saveFilePath12 = new File(saveFiledir12);
+                product12.setPicture(Files.readAllBytes(saveFilePath12.toPath()));
+                pDao.save(product12);
+
+                Product product13 = new Product();
+                product13.setTitle("【桂格】養氣人蔘滋補液60ml");
+                product13.setType("運動用品");
+                product13.setPrice(399);
+                product13.setStock(5);
+                product13.setText("有助於降低血清 GOT、GPT 值");
+                product13.setOnsale(1);
+                product13.setVolume(0);
+                String saveFiledir13 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p13.jpg";
+                File saveFilePath13 = new File(saveFiledir13);
+                product13.setPicture(Files.readAllBytes(saveFilePath13.toPath()));
+                pDao.save(product13);
+
+                Product product14 = new Product();
+                product14.setTitle("【葡萄王】樟芝王(100粒/瓶)");
+                product14.setType("運動食品");
+                product14.setPrice(1197);
+                product14.setStock(0);
+                product14.setText("◆樟芝多醣9%補精力有活力 ◆技術創新 榮獲國家七項專利");
+                product14.setOnsale(1);
+                product14.setVolume(0);
+                String saveFiledir14 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p14.jpg";
+                File saveFilePath14 = new File(saveFiledir14);
+                product14.setPicture(Files.readAllBytes(saveFilePath14.toPath()));
+                pDao.save(product14);
+
+                Product product15 = new Product();
+                product15.setTitle("【達摩本草】法國西印度櫻桃植萃天然維他命C");
+                product15.setType("運動食品");
+                product15.setPrice(290);
+                product15.setStock(2);
+                product15.setText("無化學合成，西印度櫻桃植萃");
+                product15.setOnsale(1);
+                product15.setVolume(0);
+                String saveFiledir15 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p15.jpg";
+                File saveFilePath15 = new File(saveFiledir15);
+                product15.setPicture(Files.readAllBytes(saveFilePath15.toPath()));
+                pDao.save(product15);
+
+        }
 
 }

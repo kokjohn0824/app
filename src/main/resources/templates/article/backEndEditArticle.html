@@ -27,7 +27,6 @@
         </div> -->
 
         <h1>修改文章</h1>
-        <div>[[${article.article_id}]]</div>
         <div class="container-lg" style="width: 800px" th:fragment="form">
           <form
             th:object="${article}"
@@ -48,7 +47,7 @@
                 class="form-control"
                 type="file"
                 placeholder="請加入圖片"
-                name="picture"
+                name="file"
               />
               <br />
               文章標題:<input

@@ -17,6 +17,9 @@
         white-space: nowrap;
         text-overflow: ellipsis;
       }
+      body{
+        background-color: black;
+      }
     </style>
   </head>
 
@@ -24,26 +27,26 @@
     <div th:replace="component/navbar :: navbar"></div>
     <!-- <div style="width: 100%; top: 76px"></div> -->
     <div class="top">
-      <div class="container-lg" style="margin: 20px auto">
+      <div class="container-lg">
         <div class="row row-cols-1 row-cols-md-2 g-4">
           <tr th:each="article : ${list}">
-            <div class="card" style="width: 18rem; margin: 10px">
+            <div class="card" style="width: 18rem; margin: 10px;background-color:black;border: 1px solid white;">
               <img
                 th:src="@{'/public/showArticleImage/'+${article.article_id}}"
                 class="card-img-top"
                 alt="..."
               />
               <div class="card-body">
-                <h5 class="card-title" th:text="${article.title}"></h5>
+                <h5 class="card-title" th:text="${article.title}" style="color:white;"></h5>
                 <p
                   id="cleanText"
                   class="resulthtml"
-                  style="max-width: 230px"
+                  style="color:white;max-width: 230px"
                   th:text="${article.text}"
                 ></p>
                 <a
                   th:href="@{'/public/article/show?article_id='+${article.article_id}}"
-                  class="btn btn-primary"
+                  class="btn btn-light"
                   >Read more</a
                 >
                 <!-- <article id=""

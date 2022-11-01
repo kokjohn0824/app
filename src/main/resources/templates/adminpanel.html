@@ -20,9 +20,12 @@
       }
 
       .left-panel-container {
-        background-color: #ffffff;
+        z-index: 1;
+        background-color: white;
         width: 255px;
         height: 100vh;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+          rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
       }
 
       .left-panel-container span {
@@ -331,6 +334,7 @@
     ("use strict");
     //抓取元素
     //設定頁面改變所需要之變數
+    let clock = document.getElementById("clock");
     let tabletitle = document.getElementById("tabletitle");
     let showAllurl = "http://localhost:8082/public/api/article/categories";
     //綁定table view 的變數
@@ -338,13 +342,45 @@
     let initialTableData;
 
     //設定小時鐘
+    const monthNamesZh = [
+      "一月",
+      "二月",
+      "三月",
+      "四月",
+      "五月",
+      "六月",
+      "七月",
+      "八月",
+      "九月",
+      "十月",
+      "十一月",
+      "十二月",
+    ];
+    const dayNamesZh = [
+      "星期日",
+      "星期一",
+      "星期二",
+      "星期三",
+      "星期四",
+      "星期五",
+      "星期六",
+    ];
+
+    const getclocktime = () => {
+      let d = new Date();
+      let s = d.getSeconds();
+      let m = d.getMinutes();
+      let h = d.getHours();
+      let D = d.getDay();
+      let date = d.getDate();
+      let M = d.getMonth();
+      let year = d.getFullYear();
+
+      return `${year}年 ${monthNamesZh[M]}${date}日${dayNamesZh[D]} ${h}:${m}`;
+    };
 
     const setclock = () => {
-      document.getElementById(
-        "clock"
-      ).innerHTML = `${new Date().toDateString()} ${new Date()
-        .toLocaleTimeString()
-        .substring(0, 8)}`;
+      clock.innerHTML = `${getclocktime()}`;
     };
     setclock();
     setInterval(() => {

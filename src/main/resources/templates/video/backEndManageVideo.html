@@ -28,7 +28,7 @@
     </div>
     <h1>所有影片</h1>
     <div class="container-lg" style="width: 800px" th:fragment="form">
-      <table border="2" cellpadding="2">
+      <table style="border:2 ;" cellpadding="2">
         <!-- width="70%" -->
         <tr>
           <th>編號</th>
@@ -47,11 +47,11 @@
           <td th:text="${video.type}"></td>
           <td th:text="${video.body_parts}"></td>
           <td>
-            <img th:src="@{'/showVideoImage/'+${video.video_id}}" height="100px" />
+            <img th:src="@{'/public/showVideoImage/'+${video.video_id}}" width="200px" />
           </td>
-          <td>
-            <video style="height: 100px" controls>
-              <source th:src="@{'/video/'+${video.url}}" type="video/mp4" />
+          <td style="width: 200px">
+            <video style="width: 100%" controls>
+              <source th:src="@{'/public/video/'+${video.url}}" type="video/mp4" />
               您的瀏覽器不支援此 HTML5 影片標籤
             </video>
           </td>

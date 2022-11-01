@@ -74,7 +74,7 @@ public class VideoController {
             @RequestParam(name = "type") String type,
             @RequestParam(name = "body_parts") String body_parts) throws IllegalStateException, IOException {
         String fileName = mf.getOriginalFilename();
-        String saveFileDir = System.getProperty("user.dir") + "/src/main/resources/static/video";
+        String saveFileDir = System.getProperty("user.dir") + "/src/main/resources/static/public/video";
         File saveFilePath = new File(saveFileDir, fileName);
         mf.transferTo(saveFilePath);
         Video video = new Video();
@@ -115,19 +115,19 @@ public class VideoController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "type") String type,
             @RequestParam(name = "body_parts") String body_parts,
-            @RequestParam(name = "picture") MultipartFile picture,
+            @RequestParam(name = "file") MultipartFile file,
             Model model) {
-        Video video = new Video();
+        byte[] picture = null;
         try {
-            byte[] picture2 = picture.getBytes();
-            video.setPicture(picture2);
-            video.setTitle(title);
-            video.setType(type);
-            video.setBody_parts(body_parts);
-            videoR.updateById(video_id, title, type, body_parts, picture2);
+            if (file.getBytes().length == 0) {
+                picture = videoR.findById(video_id).get().getPicture();
+            } else {
+                picture = file.getBytes();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        videoR.updateById(video_id, title, type, body_parts, picture);
         return "redirect:/video/manage";
     }
 

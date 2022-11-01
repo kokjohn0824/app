@@ -12,7 +12,7 @@ import com.finalpretty.app.model.Video;
 public interface VideoRespository extends JpaRepository<Video, Integer> {
 
     @Modifying
-    @Query(value = "select * from video where type=:type", nativeQuery = true)
+    @Query(value = "select * from video where type=:type order by video_id desc", nativeQuery = true)
     List<Video> findByType(@Param("type") String type);
 
     @Transactional

@@ -22,7 +22,7 @@ public class StoreFrontendController {
     @Autowired
     private ProductService pService;
 
-    @GetMapping("/storefrontendone")
+    @GetMapping("/public/storefrontendone")
     public String addProduct() {
         return "product/storefrontend";
     }
@@ -62,7 +62,7 @@ public class StoreFrontendController {
     }
 
     // 秀全部商品
-    @GetMapping("/storefrontend")
+    @GetMapping("/public/storefrontend")
     public String getAllProduct(Model model) {
         List<Product> list = pService.findAllByOnSale();
 
@@ -74,7 +74,7 @@ public class StoreFrontendController {
         return "/product/storefrontend";
     }
 
-    @GetMapping("/downloadImage/{id}")
+    @GetMapping("/public/downloadImage/{id}")
     public ResponseEntity<byte[]> downloadImage(@PathVariable Integer id) {
         System.out.println(id);
         Product product = pService.findById(id);

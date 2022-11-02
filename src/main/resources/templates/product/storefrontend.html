@@ -192,10 +192,17 @@
             >
               關閉
             </button>
-            <button class="clear-cart btn btn-danger">清空購物車</button>
+            <button id="cleanbtn" class="clear-cart btn btn-danger">
+              清空購物車
+            </button>
 
             <button id="nextbtn" class="btn btn-primary">
-              <a th:href="@{/public/cartCheck}"> 下一步 </a>
+              <a
+                th:href="@{/public/cartCheck}"
+                style="color: white; text-decoration: none"
+              >
+                下一步
+              </a>
             </button>
           </div>
         </div>
@@ -384,6 +391,15 @@
         document.querySelector("#nextbtn").disabled = true;
         document.getElementById("nextbtn").style.display = "none";
       }
+
+      document.querySelector("#cleanbtn").disabled = false;
+      document.getElementById("cleanbtn").style.display = "block";
+      if (sessionStorage["shoppingCart"].length == 2) {
+        console.log("in");
+        document.querySelector("#cleanbtn").disabled = true;
+        document.getElementById("cleanbtn").style.display = "none";
+      }
+
       var cartArray = shoppingCart.listCart();
       var output = "";
 

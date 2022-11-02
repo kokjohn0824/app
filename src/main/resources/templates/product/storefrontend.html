@@ -192,13 +192,8 @@
             >
               關閉
             </button>
-            <button
-              id="nextbtn"
-              th:href="@{/public/cartCheck}"
-              type="button"
-              class="btn btn-primary"
-            >
-              下一步
+            <button id="nextbtn" class="btn btn-primary">
+              <a th:href="@{/public/cartCheck}"> 下一步 </a>
             </button>
           </div>
         </div>
@@ -379,8 +374,13 @@
     });
 
     function displayCart() {
-      if (sessionStorage == []) {
+      console.log(sessionStorage["shoppingCart"].length);
+      document.querySelector("#nextbtn").disabled = false;
+      document.getElementById("nextbtn").style.display = "block";
+      if (sessionStorage["shoppingCart"].length == 2) {
+        console.log("in");
         document.querySelector("#nextbtn").disabled = true;
+        document.getElementById("nextbtn").style.display = "none";
       }
       var cartArray = shoppingCart.listCart();
       var output = "";

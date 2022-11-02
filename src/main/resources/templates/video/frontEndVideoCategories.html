@@ -8,11 +8,30 @@
   <title>Video Categories</title>
   <div th:replace="jsmodules"></div>
   <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
+  <style>
+     body {
+        background-color: black;
+        background-size: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      footer {
+        min-height: 100px;
+        background: PapayaWhip;
+      }
+      article {
+        flex: 1;
+      }
+  </style>
 </head>
 
 <body>
   <div th:replace="component/navbar :: navbar"></div>
-  <br />
+  
+  <article>
+    <br />
   <div class="container-lg">
     <div data-hicms-tmpl="index3_course_action">
       <div id="header" class="but1" onclick="location.href='/public/video/type/胸肌';"
@@ -57,6 +76,11 @@
     </div>
   </div>
   </div>
+  </article>
+  <footer>
+    <div th:replace="component/footer"></div>
+
+  </footer>
 </body>
 
 </html>

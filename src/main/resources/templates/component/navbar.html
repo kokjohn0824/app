@@ -2,44 +2,84 @@
   <div class="fixed-top">
     <nav class="shadow-lg navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"> </span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <img style="height: 56px; position: relative; margin: 0px" th:src="@{/img/f2.png}" />
+          <img
+            style="height: 56px; position: relative; margin: 0px"
+            th:src="@{/img/f2.png}"
+          />
 
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" th:href="@{/}">首頁</a>
+              <a class="nav-link active" aria-current="page" th:href="@{/}"
+                >首頁</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" th:href="@{/public/video/categories}">運動教學</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                th:href="@{/public/video/categories}"
+                >運動教學</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" th:href="@{/public/article/categories}">主題文章</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                th:href="@{/public/article/categories}"
+                >主題文章</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" th:href="@{/metabolic}">健康檢測</a>
+              <a class="nav-link" aria-current="page" th:href="@{/metabolic}"
+                >健康檢測</a
+              >
             </li>
             <li class="nav-item">
               <!-- TODO:購物商城連結 -->
-              <a class="nav-link" aria-current="page" th:href="@{/storefrontend}">購物商城</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                th:href="@{/storefrontend}"
+                >購物商城</a
+              >
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" th:href="@{/}" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <a
+                class="nav-link dropdown-toggle"
+                th:href="@{/}"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 會員中心
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" th:href="@{/member/page}">個人資料</a>
+                  <a class="dropdown-item" th:href="@{/member/page}"
+                    >個人資料</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" th:href="@{/dailyRecord/all}">日記管理</a>
+                  <a class="dropdown-item" th:href="@{/dailyRecord/all}"
+                    >日記管理</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" th:href="@{/memberOrder}">查看訂單</a>
+                  <a class="dropdown-item" th:href="@{/memberOrder}"
+                    >查看訂單</a
+                  >
                 </li>
                 <li>
                   <hr class="dropdown-divider" />
@@ -51,8 +91,13 @@
             </li>
             <!-- 將開發用連結放在這裡 -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 開發用
               </a>
               <ul class="dropdown-menu">
@@ -60,7 +105,9 @@
                   <a class="dropdown-item" th:href="@{/hello}">hello</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" th:href="@{/websocketdemo}">websocketdemo</a>
+                  <a class="dropdown-item" th:href="@{/websocketdemo}"
+                    >websocketdemo</a
+                  >
                 </li>
                 <li>
                   <hr class="dropdown-divider" />
@@ -76,28 +123,61 @@
           </ul>
           <div sec:authorize="isAuthenticated()">
             <!-- 顯示用戶暱稱 -->
-            <span class="navbar-brand" th:text="${#authentication.getPrincipal().getNickname()}"></span>
-            <a class="navbar-brand" th:href="@{/perform_logout}" style="font-size: 18px">
+            <span
+              class="navbar-brand"
+              th:text="${#authentication.getPrincipal().getNickname()}"
+            ></span>
+            <a
+              class="navbar-brand"
+              th:href="@{/perform_logout}"
+              style="font-size: 18px"
+            >
               <i class="bi bi-arrow-bar-left"></i> 登出
             </a>
           </div>
           <!-- dropsown button -->
           <div class="nav-item dropdown" sec:authorize="!isAuthenticated()">
-            <a class="navbar-brand" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a
+              class="navbar-brand"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <i class="bi bi-people-fill"></i> 登入
             </a>
-            <div class="dropdown-menu" style="width: 400px; left: -200px; top: 40px">
+            <div
+              class="dropdown-menu"
+              style="width: 400px; left: -200px; top: 40px"
+            >
               <form class="px-4 py-3" method="post" action="/perform_login">
                 <div class="form-group p-2">
-                  <input type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="請輸入帳號或email..."
-                    name="username" required autofocus />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleDropdownFormEmail1"
+                    placeholder="請輸入帳號或email..."
+                    name="username"
+                    required
+                    autofocus
+                  />
                 </div>
                 <div class="form-group p-2">
-                  <input type="password" class="form-control" id="exampleDropdownFormPassword1" name="password" required
-                    placeholder="密碼..." />
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="exampleDropdownFormPassword1"
+                    name="password"
+                    required
+                    placeholder="密碼..."
+                  />
                 </div>
                 <div class="form-group p-2">
-                  <button type="submit" class="btn btn-primary w-100" style="background-color: #64748b; border: none">
+                  <button
+                    type="submit"
+                    class="btn btn-primary w-100"
+                    style="background-color: #64748b; border: none"
+                  >
                     快速登入
                   </button>
                 </div>
@@ -113,7 +193,13 @@
           </div>
           <!-- end of dropsown button -->
           <div class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <input
+              id="navsearchinput"
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
             <button class="btn" type="submit">
               <!-- 搜尋icon -->
               <i style="color: white" class="bi bi-search"></i>
@@ -124,6 +210,12 @@
     </nav>
   </div>
   <div style="margin-top: 72px"></div>
+  <script th:src="@{/js/ajax.js}"></script>
+  <script>
+    //抓取搜尋匡
+    const navsearchinput = document.getElementById("navsearchinput");
+    navsearchinput.addEventListener("input", () => {});
+  </script>
 </div>
 
 <!-- end of fragment -->

@@ -30,7 +30,7 @@ public class StoreFrontendController {
     // 前台
     // 顯示全部
 
-    @GetMapping("/public/cartCheck")
+    @GetMapping("/cartCheck")
     public String cartCheck() {
         return "/product/cartcheck";
     }

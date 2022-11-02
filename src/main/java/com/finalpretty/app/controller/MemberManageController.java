@@ -169,7 +169,8 @@ public class MemberManageController {
 			@RequestParam(name = "bodyFat", required = false) Double bodyFat,
 			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
 			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
-			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP) {
+			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			@RequestParam(name = "photo", required = false) MultipartFile photo) {
 		Member member = new Member();
 		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer user_id = ((Users) o).getId();
@@ -183,6 +184,7 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
+			member.setPhoto(photo.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -321,6 +323,7 @@ public class MemberManageController {
 			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
 			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
 			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			@RequestParam(name = "photo", required = false) MultipartFile photo,
 			Model m) {
 		Member member = new Member();
 
@@ -334,8 +337,9 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
+			member.setPhoto(photo.getBytes());
 			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
-					visceralFat, muscleMass, becomeVIP);
+					visceralFat, muscleMass, becomeVIP, photo.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

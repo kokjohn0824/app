@@ -84,6 +84,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 logger.info("測試程式碼開始...");
                 logger.info("請注意，run()內的程式碼報錯時將結束springboot");
                 // 塞入測試資料
+                byte[] head1 = Files.readAllBytes(Paths.get("src/main/resources/static/img/member/head1.png"));
                 Member m1 = new Member();
                 m1.setGender(1);
                 m1.setAge(18);
@@ -93,9 +94,11 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 m1.setVisceralFat(7.1);
                 m1.setMuscleMass(20.4);
                 m1.setBecomeVIP(1);
-                m1.setNickname("tset");
+                m1.setNickname("one");
+                m1.setPhoto(head1);
                 memberRespository.save(m1);
 
+                byte[] head2 = Files.readAllBytes(Paths.get("src/main/resources/static/img/member/head2.png"));
                 Member m2 = new Member();
                 m2.setGender(0);
                 m2.setAge(16);
@@ -105,6 +108,8 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 m2.setVisceralFat(8.1);
                 m2.setMuscleMass(10.4);
                 m2.setBecomeVIP(0);
+                m2.setNickname("two");
+                m2.setPhoto(head2);
 
                 // 插入帳號
                 String encodedPassword;

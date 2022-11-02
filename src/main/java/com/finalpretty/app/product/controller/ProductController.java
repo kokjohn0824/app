@@ -28,6 +28,7 @@ import com.finalpretty.app.Response.ProductDto;
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.product.service.ProductService;
 import com.finalpretty.app.repositories.Order_detailRespository;
+import com.finalpretty.app.repositories.ProductRespository;
 
 @Controller
 // @RequestMapping("/admin")
@@ -38,6 +39,9 @@ public class ProductController {
 
 	@Autowired
 	private Order_detailRespository detailDao;
+
+	@Autowired
+	private ProductRespository productRespository;
 
 	@GetMapping("/admin/findAllProduct")
 	public String findAllproduct() {
@@ -233,13 +237,9 @@ public class ProductController {
 	}
 
 	@ResponseBody
-	@GetMapping("/public/api/selectLike")
-	public List<Product> getselectLike(@RequestBody Map<String, String> searchInput) {
-		// System.out.println("++++++++++++++++++++++++++++++++++");
-		// System.out.println(productname);
-		// System.out.println("++++++++++++++++++++++++++++++++++");
-
-		return pService.selectLike(searchInput.get("searchInput"));
+	@PostMapping("/public/api/selectLike2")
+	public List<Product> selectLike2(@RequestBody Map<String, String> searchInput) {
+		return productRespository.selectLike(searchInput.get("searchInput"));
 	}
 
 }

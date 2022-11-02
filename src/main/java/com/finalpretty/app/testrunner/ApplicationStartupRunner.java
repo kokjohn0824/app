@@ -110,7 +110,6 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 String encodedPassword;
                 Users users = new Users("alex", "bbbblf3@gmail.com", "asds", UserRole.USER);
                 users.setNickname("金尼");
-                logger.info("users password: " + users.getPassword());
                 encodedPassword = bCryptPasswordEncoder.encode(users.getPassword());
                 users.setPassword((encodedPassword));
                 users.setEnabled(true);
@@ -120,7 +119,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
 
                 // 新增admin帳號
                 Users admin = new Users("sa", "root@gmail.com", "123", UserRole.ADMIN);
-                admin.setNickname("金尼");
+                admin.setNickname("後台管理員");
                 logger.info("admin password: " + admin.getPassword());
                 encodedPassword = bCryptPasswordEncoder.encode(admin.getPassword());
                 admin.setPassword((encodedPassword));

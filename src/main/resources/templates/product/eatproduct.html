@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <div th:replace="jsmodules"></div>
-    
+
     <title>商城</title>
     <link
       rel="stylesheet"
@@ -31,7 +31,19 @@
     ></script>
     <style>
       body {
-        padding-top: 80px;
+        background-color: white;
+        background-size: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      footer {
+        min-height: 100px;
+        background: PapayaWhip;
+      }
+      article {
+        flex: 1;
       }
 
       .show-cart li {
@@ -45,8 +57,9 @@
         height: 200px;
         align-self: center;
       }
-      .card-title{
-        color:rgb(54, 143, 109);
+
+      .card-title {
+        color: rgb(54, 143, 109);
         font-size: large;
       }
     </style>
@@ -56,35 +69,24 @@
     <div th:replace="component/navbar :: navbar"></div>
     <div th:replace="component/chatbubble"></div>
 
-
-
-    <div >
-      <ul class="d-flex justify-content-center" style="list-style:none ;">
-        商品分類：　
-        <li>
-          <a th:href="@{/storefrontend}">全部商品</a>　/　
-        </li>
-        <li>
-          <a style="pointer-events: none; color: black;" th:href="@{/public/eatproduct}">食品</a>　/　
-        </li>
-        <p></p>
-        <li>
-          <a th:href="@{/public/useproduct}">用品</a>
-        </li>
-      </ul> 
-</div>
- 
-     
-
+    <article>
+      <!-- 網站內文放這裡 -->
       <div>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#cart"
-        >
-          購物車 (<span class="total-count"></span>)</button
-        ><button class="clear-cart btn btn-danger">清空購物車</button>
+        <ul class="d-flex justify-content-center" style="list-style: none">
+          商品分類：　
+          <li><a th:href="@{/public/storefrontend}">全部商品</a>　/　</li>
+          <li>
+            <a
+              style="pointer-events: none; color: black"
+              th:href="@{/public/eatproduct}"
+              >食品</a
+            >　/　
+          </li>
+          <p></p>
+          <li>
+            <a th:href="@{/public/useproduct}">用品</a>
+          </li>
+        </ul>
       </div>
 
       <div class="container">
@@ -96,6 +98,7 @@
                 width: 20rem;
                 display: flex;
                 flex-direction: column;
+                height: 700px;
                 width: 30%;
                 margin: 0 auto;
                 background-color: #ccc;
@@ -104,7 +107,7 @@
             >
               <img
                 th:id="${product.product_id}"
-                th:src="@{'/downloadImage/'+${product.product_id}}"
+                th:src="@{'/public/downloadImage/'+${product.product_id}}"
                 alt=""
                 class="card-img"
                 style="display: block; /* ★★★★★ */ max-width: 100%; /* ★★★★★ */"
@@ -118,14 +121,35 @@
                   class="card-text"
                   th:text="${product.product_id}"
                 ></p>
+                <button
+                  th:if="${product.volume} == ${product.stock}"
+                  class="add-to-cart btn btn-secondary disabled text-dark"
+                  style="background-color: #64748b"
+                >
+                  加入購物車
+                </button>
+
                 <a
+                  th:if="${product.volume} != ${product.stock}"
                   href="#"
                   th:data-name="${product.title}"
                   th:data-price="${product.price}"
-                  th:data-img="@{'/downloadImage/'+${product.product_id}}"
+                  th:data-img="@{'/public/downloadImage/'+${product.product_id}}"
                   th:data-id="${product.product_id}"
                   class="add-to-cart btn btn-primary"
-                  >加入購物車</a
+                >
+                  加入購物車
+                </a>
+
+                <span
+                  th:if="${product.volume} > 1 and ${product.volume} != ${product.stock}"
+                  style="color: red; font-weight: bold"
+                  ><i class="bi bi-fire"></i> 熱賣中</span
+                >
+                <span
+                  th:unless="${product.volume} != ${product.stock}"
+                  style="color: rgb(12, 39, 139); font-weight: bold"
+                  ><i class="bi bi-cart-x"></i> 缺貨</span
                 >
               </div>
             </div>
@@ -133,51 +157,8 @@
         </div>
       </div>
 
-     
-
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="cart"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">購物車</h5>
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <table class="show-cart table"></table>
-              <div>總金額: $<span class="total-cart"></span></div>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                關閉
-              </button>
-              <a th:href="@{/public/cartCheck}" type="button" class="btn btn-primary">下一步</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      
- 
-    </div>
+      <div th:replace="component/cart"></div>
+    </article>
 
     <script th:inline="javascript">
       /*<![DATA[*/

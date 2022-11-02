@@ -76,7 +76,7 @@
           <li>
             <a
               style="pointer-events: none; color: black"
-              th:href="@{/storefrontend}"
+              th:href="@{/public/storefrontend}"
               >全部商品</a
             >　/　
           </li>
@@ -86,17 +86,6 @@
             <a th:href="@{/public/useproduct}">用品</a>
           </li>
         </ul>
-      </div>
-
-      <div
-        class="fixed-bottom top-50 d-flex justify-content-end"
-        style="height: 80px"
-      >
-        <div>
-          <a class="mr-3" data-toggle="modal" data-target="#cart">
-            <img th:src="@{/img/icon/cart.svg}" alt="" width="50px"
-          /></a>
-        </div>
       </div>
 
       <div class="container">
@@ -118,7 +107,7 @@
               <div class="" style="overflow: hidden">
                 <img
                   th:id="${product.product_id}"
-                  th:src="@{'/downloadImage/'+${product.product_id}}"
+                  th:src="@{'/public/downloadImage/'+${product.product_id}}"
                   alt=""
                   class="card-img"
                 />
@@ -133,16 +122,28 @@
                   th:text="${product.product_id}"
                 ></p>
 
+                <button
+                  th:if="${product.volume} == ${product.stock}"
+                  class="add-to-cart btn btn-secondary disabled text-dark"
+                  style="background-color: #64748b"
+                >
+                  加入購物車
+                </button>
+
                 <a
+                  th:if="${product.volume} != ${product.stock}"
                   href="#"
                   th:data-name="${product.title}"
                   th:data-price="${product.price}"
-                  th:data-img="@{'/downloadImage/'+${product.product_id}}"
+                  th:data-img="@{'/public/downloadImage/'+${product.product_id}}"
                   th:data-id="${product.product_id}"
                   class="add-to-cart btn btn-secondary text-dark"
                   style="background-color: #64748b"
                   >加入購物車</a
                 >
+                  加入購物車
+                </a>
+
                 <span
                   th:if="${product.volume} > 1 and ${product.volume} != ${product.stock}"
                   style="color: red; font-weight: bold"
@@ -158,50 +159,8 @@
           </div>
         </div>
       </div>
+      <div th:replace="component/cart"></div>
     </article>
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="cart"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">購物車</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <table class="show-cart table"></table>
-            <div>總金額: $<span class="total-cart"></span></div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              關閉
-            </button>
-            <button class="clear-cart btn btn-danger">清空購物車</button>
-
-            <button id="nextbtn" class="btn btn-primary">
-              <a th:href="@{/public/cartCheck}"> 下一步 </a>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <footer>
       <div th:replace="component/footer"></div>
@@ -212,6 +171,11 @@
     // ************************************************
     // Shopping Cart API
     // ************************************************
+    function myFunction(stock) {
+      if (stock == 0) {
+        addcartbtn.style.display = "none";
+      }
+    }
 
     var shoppingCart = (function () {
       // =============================
@@ -384,6 +348,15 @@
         document.querySelector("#nextbtn").disabled = true;
         document.getElementById("nextbtn").style.display = "none";
       }
+
+      document.querySelector("#cleanbtn").disabled = false;
+      document.getElementById("cleanbtn").style.display = "block";
+      if (sessionStorage["shoppingCart"].length == 2) {
+        console.log("in");
+        document.querySelector("#cleanbtn").disabled = true;
+        document.getElementById("cleanbtn").style.display = "none";
+      }
+
       var cartArray = shoppingCart.listCart();
       var output = "";
 

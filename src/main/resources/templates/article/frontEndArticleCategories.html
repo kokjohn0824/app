@@ -6,7 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ArticleCategories</title>
     <div th:replace="jsmodules"></div>
+
     <style>
+      body {
+        background-color: black;
+        background-size: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      footer {
+        min-height: 100px;
+        background: PapayaWhip;
+      }
+      article {
+        flex: 1;
+      }
       .top {
         width: 100%;
         margin-top: 115px;
@@ -17,72 +33,86 @@
         white-space: nowrap;
         text-overflow: ellipsis;
       }
-      body{
-        background-color: black;
-      }
     </style>
   </head>
 
   <body th:inline="text">
     <div th:replace="component/navbar :: navbar"></div>
     <!-- <div style="width: 100%; top: 76px"></div> -->
-    <div class="top">
-      <div class="container-lg">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-          <tr th:each="article : ${list}">
-            <div class="card" style="width: 18rem; margin: 10px;background-color:black;border: 1px solid white;">
-              <img
-                th:src="@{'/public/showArticleImage/'+${article.article_id}}"
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <h5 class="card-title" th:text="${article.title}" style="color:white;"></h5>
-                <p
-                  id="cleanText"
-                  class="resulthtml"
-                  style="color:white;max-width: 230px"
-                  th:text="${article.text}"
-                ></p>
-                <a
-                  th:href="@{'/public/article/show?article_id='+${article.article_id}}"
-                  class="btn btn-light"
-                  >Read more</a
-                >
-                <!-- <article id=""
-				class="post-4233 post type-post status-publish format-standard has-post-thumbnail hentry category-all category-experience category-weight-loss category-nutrition generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33"
-				itemtype="" itemscope="">
-				<div class="">
-					<div class="">
-						<a th:href="@{'/article/show?article_id='+${article.article_id}}">
-							<img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
-								class="attachment-full size-full wp-post-image" alt="" loading="lazy"
-								itemprop="image">
-						</a>
-					</div>
-					<header class="entry-header" aria-label="內容">
-						<h2 class="entry-title" itemprop="headline"><a
-							th:href="@{'/article/show?article_id='+${article.article_id}}" rel="bookmark" th:text="${article.title}"></a></h2>
-						<div class="entry-meta">
-							<span class="posted-on"><time class="entry-date published"
-								th:text="${article.create_date}"
-									itemprop="datePublished">2022-03-16</time></span> <span class="byline"></a></span></span>
-						</div>
-					</header>
-					<div class="entry-summary" itemprop="text">
-						<p th:text="${article.text}"></p>
-						<p class="read-more-container"><a title="" class="read-more button"
-							th:href="@{'/article/show?article_id='+${article.article_id}}"
-								aria-label="/">Read more</a></p>
-					</div>
-				</div>
-			</article> -->
-              </div>
+
+    <article>
+      <!-- 網站內文放這裡 -->
+      <div class="top">
+        <div class="container-lg">
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            <tr th:each="article : ${list}">
+              <div
+                class="card"
+                style="
+                  width: 18rem;
+                  margin: 10px;
+                  background-color: black;
+                  border: 1px solid white;
+                "
+              >
+                <img
+                  th:src="@{'/public/showArticleImage/'+${article.article_id}}"
+                  class="card-img-top"
+                  alt="..."
+                />
+                <div class="card-body">
+                  <h5
+                    class="card-title"
+                    th:text="${article.title}"
+                    style="color: white"
+                  ></h5>
+                  <p
+                    id="cleanText"
+                    class="resulthtml"
+                    style="color: white; max-width: 230px"
+                    th:text="${article.text}"
+                  ></p>
+                  <a
+                    th:href="@{'/public/article/show?article_id='+${article.article_id}}"
+                    class="btn btn-light"
+                    >Read more</a
+                  >
+                  <!-- <article id=""
+          class="post-4233 post type-post status-publish format-standard has-post-thumbnail hentry category-all category-experience category-weight-loss category-nutrition generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33"
+          itemtype="" itemscope="">
+          <div class="">
+            <div class="">
+              <a th:href="@{'/article/show?article_id='+${article.article_id}}">
+                <img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
+                  class="attachment-full size-full wp-post-image" alt="" loading="lazy"
+                  itemprop="image">
+              </a>
             </div>
-          </tr>
+            <header class="entry-header" aria-label="內容">
+              <h2 class="entry-title" itemprop="headline"><a
+                th:href="@{'/article/show?article_id='+${article.article_id}}" rel="bookmark" th:text="${article.title}"></a></h2>
+              <div class="entry-meta">
+                <span class="posted-on"><time class="entry-date published"
+                  th:text="${article.create_date}"
+                    itemprop="datePublished">2022-03-16</time></span> <span class="byline"></a></span></span>
+              </div>
+            </header>
+            <div class="entry-summary" itemprop="text">
+              <p th:text="${article.text}"></p>
+              <p class="read-more-container"><a title="" class="read-more button"
+                th:href="@{'/article/show?article_id='+${article.article_id}}"
+                  aria-label="/">Read more</a></p>
+            </div>
+          </div>
+        </article> -->
+                </div>
+              </div>
+            </tr>
+          </div>
         </div>
       </div>
-    </div>
+    </article>
+
     <script>
       //移除html tag
       const cleanTextList = document.querySelectorAll("#cleanText");
@@ -90,5 +120,9 @@
         (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
       );
     </script>
+
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
   </body>
 </html>

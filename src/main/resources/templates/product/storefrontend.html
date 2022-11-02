@@ -88,15 +88,15 @@
         </ul>
       </div>
 
-      <div>
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#cart"
-        >
-          購物車 (<span class="total-count"></span>)</button
-        ><button class="clear-cart btn btn-danger">清空購物車</button>
+      <div
+        class="fixed-bottom top-50 d-flex justify-content-end"
+        style="height: 80px"
+      >
+        <div>
+          <a class="mr-3" data-toggle="modal" data-target="#cart">
+            <img th:src="@{/img/icon/cart.svg}" alt="" width="50px"
+          /></a>
+        </div>
       </div>
 
       <div class="container">
@@ -192,6 +192,8 @@
             >
               關閉
             </button>
+            <button class="clear-cart btn btn-danger">清空購物車</button>
+
             <button id="nextbtn" class="btn btn-primary">
               <a th:href="@{/public/cartCheck}"> 下一步 </a>
             </button>

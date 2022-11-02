@@ -139,7 +139,8 @@
                   th:data-price="${product.price}"
                   th:data-img="@{'/downloadImage/'+${product.product_id}}"
                   th:data-id="${product.product_id}"
-                  class="add-to-cart btn btn-primary"
+                  class="add-to-cart btn btn-secondary text-dark"
+                  style="background-color: #64748b"
                   >加入購物車</a
                 >
                 <span
@@ -380,7 +381,6 @@
       document.querySelector("#nextbtn").disabled = false;
       document.getElementById("nextbtn").style.display = "block";
       if (sessionStorage["shoppingCart"].length == 2) {
-        console.log("in");
         document.querySelector("#nextbtn").disabled = true;
         document.getElementById("nextbtn").style.display = "none";
       }

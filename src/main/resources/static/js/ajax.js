@@ -20,6 +20,7 @@ const getdata = (url, callbackfunction) => {
     method: "GET",
     redirect: "follow",
   };
+
   fetch(url, requestOptions)
     .then((response) => response.json())
     .then((result) => {

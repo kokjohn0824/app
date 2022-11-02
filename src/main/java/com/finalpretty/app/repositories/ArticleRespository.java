@@ -25,4 +25,7 @@ public interface ArticleRespository extends JpaRepository<Article, Integer> {
     @Query(value = "select * from article order by article_id desc", nativeQuery = true)
     List<Article> findAlloOrderById();
 
+    @Query(value = "select * from article where title like :searchinput or [text] like :searchinput", nativeQuery = true)
+    List<Article> selectLike(String searchinput);
+
 }

@@ -52,11 +52,17 @@
             <img
               name="cleanAll"
               id="idimg1"
-              th:src="@{/img/other/chngstar.gif}"
+              th:src="@{/img/icon/ThumbsUpFill.svg}"
+              width="100px"
             />
           </span>
           <span th:if="${bool} eq 'false'">
-            <img name="cleanAll" id="idimg1" th:src="@{/img/other/star.gif}" />
+            <img
+              name="cleanAll"
+              id="idimg1"
+              th:src="@{/img/icon/ThumbsUpHolo.svg}"
+              width="100px"
+            />
           </span>
         </span>
         <h1 th:text="${video.title}" style="margin-bottom: 0px"></h1>
@@ -138,11 +144,11 @@
 
       function Click() {
         picture.removeEventListener("click", Click);
-        picture.src = "/img/other/chngstar.gif";
+        picture.src = "/img/icon/ThumbsUpFill.svg";
       }
 
       function clean() {
-        picture.src = "/img/other/star.gif";
+        picture.src = "/img/icon/ThumbsUpHolo.svg";
         picture.addEventListener("click", Click);
         var modals = document.getElementById("idimg1");
         modals.addEventListener("dblclick", clean);

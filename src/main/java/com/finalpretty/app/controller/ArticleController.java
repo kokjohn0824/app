@@ -87,6 +87,7 @@ public class ArticleController {
 			article.setTitle(title);
 			article.setText(text);
 			article.setPicture(file.getBytes());
+			article.setViews(0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -171,6 +172,11 @@ public class ArticleController {
 		Article article = optional.get();
 		Set<Member> members = article.getMembers();
 
+		Integer views = article.getViews();
+		views++;
+		article.setViews(views);
+		articleR.save(article);
+
 		if (o instanceof Users) {
 			member = ((Users) o).getFkMember();
 			Integer member_id = member.getMember_id();
@@ -221,6 +227,7 @@ public class ArticleController {
 			Article article = articleR.findById(article_id).get();
 			Set<Article> ss = memberFromJpa.getArticles();
 			ss.remove(article);
+			articleR.save(article);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -54,6 +54,10 @@ public class Article {
 	@Column(name = "views")
 	private Integer views;
 
+	// 文章分類
+	@Column(name = "type")
+	private String type;
+
 	// 文章時間
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")

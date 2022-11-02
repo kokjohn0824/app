@@ -6,74 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ArticleCategories</title>
     <div th:replace="jsmodules"></div>
+    <style>
+      body {
+        background-color: white;
+        background-size: 100vw;
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      footer {
+        min-height: 100px;
+        background: PapayaWhip;
+      }
+      article {
+        flex: 1;
+      }
+    </style>
   </head>
 
   <body>
     <div th:replace="component/navbar :: navbar"></div>
-    <div class="col-lg-8 mx-auto p-3 py-md-5">
-      <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
-          <a class="btn btn-primary" href="/dailyRecord/add">新增今天日記</a>
-        </span>
-        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
-          <a class="btn btn-primary" href="/todayDailyRecord/edit"
-            >修改今天日記</a
+
+    <article>
+      <!-- 網站內文放這裡 -->
+      <div class="col-lg-8 mx-auto p-3 py-md-5">
+        <div class="d-flex align-items-center pb-3 mb-5 border-bottom">
+          <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
+            <a class="btn btn-primary" href="/dailyRecord/add">新增今天日記</a>
+          </span>
+          <span id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
+            <a class="btn btn-primary" href="/todayDailyRecord/edit"
+              >修改今天日記</a
+            >
+          </span>
+          <div>
+            <label for="date1">起始日期:</label>
+            <input id="date1" type="date" />
+            <label for="date2">結束日期</label>
+            <input id="date2" type="date" />
+          </div>
+
+          <button
+            class="btn btn-dark"
+            th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}"
+            id="chartset"
+            style="float: right"
           >
-        </span>
-        <div>
-          <label for="date1">起始日期:</label>
-          <input id="date1" type="date" />
-          <label for="date2">結束日期</label>
-          <input id="date2" type="date" />
+            體重bmi數據
+          </button>
         </div>
+        <main>
+          <h1>所有日記</h1>
+          <!-- cellpadding="2" -->
+          <table class="fs-5 col-md-8">
+            <tr>
+              <th>日期</th>
+              <th>編輯</th>
+              <th>刪除</th>
+            </tr>
 
-        <button
-          class="btn btn-dark"
-          th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-          id="chartset"
-          style="float: right"
-        >
-          體重bmi數據
-        </button>
-      </header>
-      <main>
-        <h1>所有日記</h1>
-        <!-- cellpadding="2" -->
-        <table class="fs-5 col-md-8">
-          <tr>
-            <th>日期</th>
-            <th>編輯</th>
-            <th>刪除</th>
-          </tr>
-
-          <tr th:each="daily : ${list}">
-            <td th:text="${daily.date_time}"></td>
-            <td>
-              <a th:href="@{'/dailyRecord/edit?date_time='+${daily.date_time}}"
-                ><button type="submit" value="edite" class="btn btn-dark">
-                  修改
-                </button></a
-              >
-            </td>
-            <td>
-              <a
-                th:onclick="return confirm('確定刪除嗎?')"
-                th:href="@{'/dailyRecord/delete?daily_record_id='+${daily.daily_record_id}}"
-                ><button type="submit" value="delete" class="btn btn-danger">
-                  刪除
-                </button></a
-              >
-            </td>
-          </tr>
-        </table>
-      </main>
-    </div>
-
-    <div id="chart" class="container">
-      <div class="row pt-5">
-        <canvas id="canvas-2" class="col-sm-12"></canvas>
+            <tr th:each="daily : ${list}">
+              <td th:text="${daily.date_time}"></td>
+              <td>
+                <a
+                  th:href="@{'/dailyRecord/edit?date_time='+${daily.date_time}}"
+                  ><button type="submit" value="edite" class="btn btn-dark">
+                    修改
+                  </button></a
+                >
+              </td>
+              <td>
+                <a
+                  th:onclick="return confirm('確定刪除嗎?')"
+                  th:href="@{'/dailyRecord/delete?daily_record_id='+${daily.daily_record_id}}"
+                  ><button type="submit" value="delete" class="btn btn-danger">
+                    刪除
+                  </button></a
+                >
+              </td>
+            </tr>
+          </table>
+        </main>
       </div>
-    </div>
+
+      <div id="chart" class="container">
+        <div class="row pt-5">
+          <canvas id="canvas-2" class="col-sm-12"></canvas>
+        </div>
+      </div>
+    </article>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
@@ -188,5 +210,8 @@
         }
       }
     </script>
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
   </body>
 </html>

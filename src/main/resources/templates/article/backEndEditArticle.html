@@ -55,6 +55,12 @@
                 name="title"
                 th:field="*{title}"
               /><br />
+              文章分類:<select name="type" th:value="*{type}">
+                <option>減重知識</option>
+                <option>運動教學</option>
+                <option>飲食營養</option>
+                <option>心得分享</option></select
+              ><br />
               內文:<br />
               <textarea id="editor" name="text" th:text="*{text}"></textarea>
               <input th:field="*{article_id}" type="hidden" />

@@ -81,11 +81,13 @@ public class ArticleController {
 	public String addArticle(
 			@RequestParam(name = "title") String title,
 			@RequestParam(name = "text") String text,
+			@RequestParam(name = "type") String type,
 			@RequestParam(name = "file") MultipartFile file) {
 		Article article = new Article();
 		try {
 			article.setTitle(title);
 			article.setText(text);
+			article.setType(type);
 			article.setPicture(file.getBytes());
 			article.setViews(0);
 		} catch (IOException e) {
@@ -107,6 +109,7 @@ public class ArticleController {
 	public String editArticlePost(@RequestParam(name = "article_id") Integer article_id,
 			@RequestParam(name = "title") String title,
 			@RequestParam(name = "text") String text,
+			@RequestParam(name = "type") String type,
 			@RequestParam(name = "file") MultipartFile file,
 			Model model) {
 
@@ -120,7 +123,7 @@ public class ArticleController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		articleR.updateById(article_id, title, text, picture);
+		articleR.updateById(article_id, title, text, type, picture);
 
 		return "redirect:/article/manage";
 	}

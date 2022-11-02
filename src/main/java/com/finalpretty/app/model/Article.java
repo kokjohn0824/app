@@ -53,14 +53,14 @@ public class Article {
 	// 文章時間
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd")
-	@Column(name = "create_date", columnDefinition = "datetime")
+	@Column(name = "added", columnDefinition = "datetime")
 	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
-	private Date create_date;
+	private Date added;
 
 	@PrePersist
 	public void onCreate() {
-		if (create_date == null) {
-			create_date = new Date();
+		if (added == null) {
+			added = new Date();
 		}
 	}
 

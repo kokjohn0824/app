@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ import com.finalpretty.app.Response.ArticleResponse;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
+import com.finalpretty.app.product.service.ArticleService;
 import com.finalpretty.app.repositories.ArticleRespository;
 import com.finalpretty.app.repositories.MemberRespository;
 
@@ -38,6 +40,9 @@ public class ArticleController {
 
 	@Autowired
 	private MemberRespository memberR;
+
+	@Autowired
+	private ArticleService articleS;
 
 	// 後台
 	// 顯示全部文章
@@ -122,11 +127,26 @@ public class ArticleController {
 	// =============================================================================================
 	// 前台
 	// 顯示全部文章
+
 	@GetMapping("/public/article/categories")
-	public String articleCategories(Model m) {
-		List<Article> list = articleR.findAlloOrderById();
-		m.addAttribute("list", list);
+	public String articleCategories(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model m) {
+		// List<Article> list = articleR.findAlloOrderById();
+		// m.addAttribute("list", list);
+		Page<Article> page = articleS.findByPage(pageNumber);
+		m.addAttribute("page", page);
 		return "/article/frontEndArticleCategories";
+	}
+
+	@ResponseBody
+	@PostMapping("/public/article/categories")
+	public Page<Article> articleCategoriesByPage(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
+			Model m) {
+		Page<Article> page = articleS.findByPage(pageNumber);
+
+		// ArticleResponse ar = new ArticleResponse();
+		// ar.setArticle_id(article_id);
+		// ar.setMember_id(member_id);
+		return page;
 	}
 
 	@GetMapping("/public/api/article/categories")
@@ -137,7 +157,7 @@ public class ArticleController {
 		articleR.findAlloOrderById().forEach((n) -> {
 			artilcelist.add(
 					new ArticleDTO(n.getArticle_id(), n.getTitle(), n.getText().substring(0, 15) + "...",
-							n.getCreate_date()));
+							n.getAdded()));
 		});
 		return artilcelist;
 	}
@@ -171,7 +191,7 @@ public class ArticleController {
 	// 按讚文章
 	@ResponseBody
 	@PostMapping("/article/like/{article_id}")
-	public ArticleResponse likeArticle(
+	public void likeArticle(
 			@PathVariable(name = "article_id") Integer article_id) {
 		try {
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -182,22 +202,15 @@ public class ArticleController {
 			Set<Article> like = memberFromJpa.getArticles();
 			like.add(article);
 			memberR.save(member);
-
-			ArticleResponse ar = new ArticleResponse();
-			ar.setArticle_id(article_id);
-			ar.setMember_id(member_id);
-
-			return ar;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	// 取消按讚文章
 	@ResponseBody
 	@PostMapping("/article/delike/{article_id}")
-	public ArticleResponse delikeArticle(
+	public void delikeArticle(
 			@PathVariable(name = "article_id") Integer article_id) {
 		try {
 			Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -208,16 +221,9 @@ public class ArticleController {
 			Article article = articleR.findById(article_id).get();
 			Set<Article> ss = memberFromJpa.getArticles();
 			ss.remove(article);
-			ArticleResponse ar = new ArticleResponse();
-			ar.setArticle_id(article_id);
-			ar.setMember_id(member_id);
-			articleR.save(article);
-
-			return ar;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 	// 取消按讚文章

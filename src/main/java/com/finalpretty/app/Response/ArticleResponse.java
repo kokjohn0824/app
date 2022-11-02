@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ArticleResponse {
-    private Integer member_id;
     private Integer article_id;
+    private String title;
+    private String text;
 }

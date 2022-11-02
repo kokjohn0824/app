@@ -13,13 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.finalpretty.app.model.Article;
-import com.finalpretty.app.model.DailyRecord;
 import com.finalpretty.app.model.Food;
-import com.finalpretty.app.model.Food_daily;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.model.Sports;
-import com.finalpretty.app.model.Sports_daily;
 import com.finalpretty.app.model.Users;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.ArticleRespository;
@@ -120,6 +117,16 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 users.setFkMember(m2);
                 // memberRespository.save(m2);
                 usersRepository.save(users);
+
+                // 新增admin帳號
+                Users admin = new Users("sa", "root@gmail.com", "123", UserRole.ADMIN);
+                admin.setNickname("金尼");
+                logger.info("admin password: " + admin.getPassword());
+                encodedPassword = bCryptPasswordEncoder.encode(admin.getPassword());
+                admin.setPassword((encodedPassword));
+                admin.setEnabled(true);
+                // memberRespository.save(m2);
+                usersRepository.save(admin);
 
                 // 插入食物
                 byte[] foodP1 = Files

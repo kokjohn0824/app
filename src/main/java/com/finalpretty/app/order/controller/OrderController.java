@@ -57,13 +57,19 @@ public class OrderController {
         OrderDto orderDto = new OrderDto();
         List<OrderDetailDto> detailDto = new ArrayList<>();
         for (MemberOrderDto mem : memDto) {
-            if (mem.getOrderDto() != null) {
+            if (mem.getOrderDto() == null) {
+                break;
+            } else {
                 orderDto = mem.getOrderDto();
             }
+        }
+        for (MemberOrderDto mem : memDto) {
             detailDto = mem.getDetailDto();
         }
         Integer total = 0;
         for (OrderDetailDto dto : detailDto) {
+            System.out.println("+++++++++++++++++++");
+            System.out.println(total);
             total = total + dto.getTotal();
             // System.out.println("++++++++++++++++++");
             // System.out.println(dto.getProduct_name());

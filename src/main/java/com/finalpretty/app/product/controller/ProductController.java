@@ -142,38 +142,46 @@ public class ProductController {
 	}
 
 	// 商品修改
-	@PostMapping("/admin/updateProduct")
-	public String updateProduct(@ModelAttribute ProductDto product, @RequestParam("file") MultipartFile file) {
+	@ResponseBody
+	@PostMapping("/admin/api/updateProduct")
+	public Boolean updateProduct(@RequestParam(name = "product_id") Integer product_id,
+			@RequestParam(name = "title") String title, @RequestParam(name = "type") String type,
+			@RequestParam(name = "price") Integer price, @RequestParam(name = "stock") Integer stock,
+			@RequestParam(name = "text") String text, @RequestParam(name = "onsale") Integer onsale,
+			@RequestParam(name = "file") MultipartFile file) {
 
-		System.out.println("名稱" + product.getTitle());
-		System.out.println("種類" + product.getType());
-		System.out.println("id" + product.getProduct_id());
-		System.out.println("價錢" + product.getPrice());
-		System.out.println("簡介" + product.getText());
+		// System.out.println("名稱" + product.getTitle());
+		// System.out.println("種類" + product.getType());
+		// System.out.println("id" + product.getProduct_id());
+		// System.out.println("價錢" + product.getPrice());
+		// System.out.println("簡介" + product.getText());
 
-		String title = product.getTitle();
-		Integer price = product.getPrice();
-		Integer stock = product.getStock();
-		String type = product.getType();
-		Integer onsale = 0;
-		String text = product.getText();
+		// String title = product.getTitle();
+		// Integer price = product.getPrice();
+		// Integer stock = product.getStock();
+		// String type = product.getType();
+		onsale = 0;
+		System.out.println("++++++++++++++++++++++++++");
+		// String text = product.getText();
 		byte[] picture = null;
 		try {
 			if (file.getBytes().length == 0) {
-				picture = pService.findById(product.getProduct_id()).getPicture();
+				// picture = pService.findById(product.getProduct_id()).getPicture();
+				picture = pService.findById(product_id).getPicture();
 			} else {
 				picture = file.getBytes();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Integer product_id = product.getProduct_id();
+		// Integer product_id = product.getProduct_id();
 		System.out.println(picture);
 		pService.updateProduct(title, price, stock, type, onsale, text, picture, product_id);
 
-		return "redirect:/admin/listProduct";
+		return true;
 	}
 
+	// 商品刪除
 	@ResponseBody
 	@GetMapping("/public/api/deleteProduct")
 	public Boolean deleteProduct(@RequestParam("product_id") Integer product_id) {

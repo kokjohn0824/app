@@ -214,6 +214,24 @@
     </style>
   </head>
   <body>
+    <!-- 商品選取照片預覽 -->
+    <script>
+      function loadImageFileAsURL() {
+        let filesSelected = document.getElementById("inputFileToLoad").files;
+        if (filesSelected.length > 0) {
+          let fileToLoad = filesSelected[0];
+
+          let fileReader = new FileReader();
+
+          fileReader.onload = function (fileLoadedEvent) {
+            fileDataURL = fileLoadedEvent.target.result;
+          };
+
+          fileReader.readAsDataURL(fileToLoad);
+        }
+      }
+    </script>
+    <!-- 商品選取照片預覽 -->
     <div class="d-flex">
       <div class="left-panel-container">
         <div class="m-2 d-flex">
@@ -334,6 +352,126 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">商品修改</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="myForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-title" class="col-form-label"
+                  >商品名稱:</label
+                >
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  id="recipient-title"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-price" class="col-form-label"
+                  >商品價格:</label
+                >
+                <input
+                  name="price"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  id="recipient-price"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-stock" class="col-form-label"
+                  >商品庫存:</label
+                >
+                <input
+                  name="stock"
+                  type="number"
+                  class="form-control"
+                  id="recipient-stock"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                  >商品簡介:</label
+                >
+                <textarea
+                  name="text"
+                  class="form-control"
+                  id="recipient-text"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                商品種類:<select id="type">
+                  <option>運動食品</option>
+                  <option>運動用品</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="inputFileToLoad" class="col-form-label"
+                  >商品圖片:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  th:src="@{#}"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+                <input id="onsale" name="onsale" value="" hidden />
+                <input id="product_id" name="product_id" value="" hidden />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="send" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
   <script>
     ("use strict");
@@ -424,7 +562,46 @@
         .catch((error) => console.error("error", error));
     };
 
-    //將json陣列轉為 table
+    // //將json陣列轉為 table
+    // const jsonToHTMLbyQ = (querySelector, json) => {
+    //   if (json.length == 0) {
+    //     document.querySelector(querySelector).innerHTML = "";
+    //     return;
+    //   }
+    //   //define table head
+    //   let title = `<thead><tr>${Object.keys(json[0])
+    //     .map((el) => `<th><strong>${el}</strong></th>`)
+    //     .join("")}<th>操作</th></tr></thead>`;
+    //   // define table body
+    //   let trs = json.map(
+    //     (el) =>
+    //       `${Object.values(el)
+    //         .map((td) => `<td class="data">${td}</td>`)
+    //         .join("")}<td><button class="save btn-icon-edit"></button>
+    //         <button class="delete btn-icon-delete"></button></td>`
+    //   );
+    //   let tbody = `<tbody>${trs
+    //     .map((el) => `<tr>${el}</tr>`)
+    //     .join("")}</tbody>`;
+    //   let table = `<table class="table table-hover">${title}${tbody}</table>`;
+    //   document.querySelector(querySelector).innerHTML = table;
+    // };
+
+    // //按鈕觸發呈現table
+    // document.getElementById("showtable").addEventListener("click", () => {
+    //   document.querySelector("#table").style.opacity = 0;
+    //   setTimeout(() => {
+    //     getdata(showAllurl, (result) => {
+    //       //make a copy of data
+    //       [...initialTableData] = [...result];
+    //       jsonToHTMLbyQ("#table", result);
+    //       document.querySelector("#table").style.opacity = 1;
+    //     });
+    //   }, 300);
+    // });
+
+    //按鈕觸發呈現table 商品管理部分
+    //將json陣列轉為 table 商品管理部分
     const jsonToHTMLbyQ = (querySelector, json) => {
       if (json.length == 0) {
         document.querySelector(querySelector).innerHTML = "";
@@ -433,14 +610,34 @@
       //define table head
       let title = `<thead><tr>${Object.keys(json[0])
         .map((el) => `<th><strong>${el}</strong></th>`)
-        .join("")}<th>操作</th></tr></thead>`;
+        .join("")}<th>商品圖</th><th>操作</th></tr></thead>`;
       // define table body
       let trs = json.map(
         (el) =>
           `${Object.values(el)
-            .map((td) => `<td class="data">${td}</td>`)
-            .join("")}<td><button class="save btn-icon-edit"></button>
-            <button class="delete btn-icon-delete"></button></td>`
+            .map((td, index) => {
+              if (index == 4) {
+                if (td == 1) {
+                  return `<td class="data"><span id="${td}" name="${el.product_id}" style='color:green'>販售中</span></td>`;
+                } else {
+                  return `<td class="data"><span id="${td}" name="${el.product_id}" style='color:red'>下架中</span></td>`;
+                }
+              } else if (index == 7) {
+                return `<td><class="date">${td}</td><td><img style="width:50px; height:50px" src="/admin/downloadImage/${el.product_id}"></td>`;
+              } else {
+                return `<td class="data">${td}</td>`;
+              }
+            })
+            .join("")}<td><button id="${el.product_id}"
+              name="checkboxone"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
+            <button id="${el.product_id}"
+              name="deletebox" class="delete btn-icon-delete"></button><button name="onsale" id="${
+                el.product_id
+              }" class="btn btn-primary">上下架</button></td>`
       );
       let tbody = `<tbody>${trs
         .map((el) => `<tr>${el}</tr>`)
@@ -448,19 +645,173 @@
       let table = `<table class="table table-hover">${title}${tbody}</table>`;
       document.querySelector(querySelector).innerHTML = table;
     };
+    document.getElementById("showtable").addEventListener(
+      "click",
+      (product = () => {
+        document.querySelector("#table").style.opacity = 0;
+        setTimeout(() => {
+          getdata(showAllurl, (result) => {
+            //make a copy of data
+            [...initialTableData] = [...result];
+            jsonToHTMLbyQ("#table", result);
+            document.querySelector("#table").style.opacity = 1;
+            //商品圖片預覽
+            var inputFileToLoad = $("#inputFileToLoad");
+            inputFileToLoad.change(function () {
+              readURL(this);
+            });
+            function readURL(input) {
+              if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                  $("#preview_img").attr("src", e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+              }
+            }
+            //商品上下架
+            $("button[name='onsale']").click(
+              (updateOnsale = (e) => {
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                var id = $(e.target).attr("id");
+                console.log(id);
+                var onsale = $(`span[name="${id}"]`).attr("id");
+                console.log(onsale);
+                var requestOptions = {
+                  method: "POST",
+                  headers: myHeaders,
+                  redirect: "follow",
+                };
 
-    //按鈕觸發呈現table
-    document.getElementById("showtable").addEventListener("click", () => {
-      document.querySelector("#table").style.opacity = 0;
-      setTimeout(() => {
-        getdata(showAllurl, (result) => {
-          //make a copy of data
-          [...initialTableData] = [...result];
-          jsonToHTMLbyQ("#table", result);
-          document.querySelector("#table").style.opacity = 1;
-        });
-      }, 300);
-    });
+                fetch(
+                  `http://localhost:8082/admin/api/changeOnsale/${id}/${onsale}`,
+                  requestOptions
+                )
+                  .then((response) => response.json())
+                  .then((result) => {
+                    console.log(result);
+                    if (result.onsale == 1) {
+                      $(`span[name="${$(e.target).attr("id")}"]`)
+                        .attr("id", result.onsale)
+                        .attr("style", "color:green")
+                        .text("販售中");
+                    } else {
+                      $(`span[name="${$(e.target).attr("id")}"]`)
+                        .attr("id", result.onsale)
+                        .attr("style", "color:red")
+                        .text("下架中");
+                    }
+                  })
+                  .catch((error) => console.log("error", error));
+              })
+            );
+
+            $("button[name='checkboxone']").click(
+              (updateQuery = (e) => {
+                console.log("好痛苦");
+                var product_id = $(e.target).attr("id");
+                var requestOptions = {
+                  method: "GET",
+                  redirect: "follow",
+                };
+                fetch(
+                  "http://localhost:8082/admin/updateProduct?product_id=" +
+                    product_id,
+                  requestOptions
+                )
+                  .then((response) => response.json())
+                  .then((result) => {
+                    console.log(result.product_id);
+                    $("#recipient-title").attr("value", result.title);
+                    $("#recipient-price").attr("value", result.price);
+                    $("#recipient-stock").attr("value", result.stock);
+                    $("#recipient-text").text(result.text);
+                    $("#onsale").attr("value", result.onsale);
+                    $("#product_id").attr("value", result.product_id);
+                    $("#preview_img").attr(
+                      "src",
+                      "/admin/downloadImage/" + result.product_id
+                    );
+                  })
+                  .catch((error) => console.log("error", error));
+              })
+            );
+
+            $("#send").click(
+              (update = (e) => {
+                e.preventDefault();
+                var myHeaders = new Headers();
+                var datas = new FormData();
+                datas.append("product_id", $("#product_id").val());
+                datas.append("title", $("#recipient-title").val());
+                datas.append("price", $("#recipient-price").val());
+                datas.append("stock", $("#recipient-stock").val());
+                datas.append("text", $("#recipient-text").val());
+                datas.append("type", $("#type option:selected").text());
+                datas.append("file", $("#inputFileToLoad")[0].files[0]);
+                datas.append("onsale", $("input[name='onsale']").val());
+
+                var requestOptions = {
+                  method: "POST",
+                  headers: myHeaders,
+                  body: datas,
+                  redirect: "follow",
+                };
+
+                fetch(
+                  "http://localhost:8082/admin/api/updateProduct",
+                  requestOptions
+                )
+                  .then((response) => response.json())
+                  .then((result) => {
+                    console.log(result);
+                    if (result) {
+                      alert("更新成功");
+                      product();
+                    } else {
+                      alert("更新失敗");
+                      product();
+                    }
+                  })
+                  .catch((error) => console.log("error", error));
+              })
+            );
+
+            $("button[name='deletebox']").click(
+              (deleteproduct = (e) => {
+                if (confirm("確定刪除嗎?") == true) {
+                  var myHeaders = new Headers();
+                  myHeaders.append("Content-Type", "application/json");
+
+                  var requestOptions = {
+                    method: "GET",
+                    headers: myHeaders,
+                    redirect: "follow",
+                  };
+
+                  fetch(
+                    "http://localhost:8082/public/api/deleteProduct?product_id=" +
+                      $(e.target).attr("id"),
+                    requestOptions
+                  )
+                    .then((response) => response.json())
+                    .then((result) => {
+                      if (result) {
+                        product();
+                      } else {
+                        alert("訂單中有此商品故不可刪除");
+                        product();
+                      }
+                    })
+                    .catch((error) => console.log("error", error));
+                }
+              })
+            );
+          });
+        }, 300);
+      })
+    );
 
     //將輸入文字存成檔案
     function saveTextAsFile(_fileName, _text) {
@@ -550,6 +901,7 @@
       e.addEventListener("click", (f) => {
         tabletitle.innerText = f.target.dataset.title;
         showAllurl = f.target.dataset.url;
+        addurl = f.target.dataset.addurl;
       });
     }
   </script>

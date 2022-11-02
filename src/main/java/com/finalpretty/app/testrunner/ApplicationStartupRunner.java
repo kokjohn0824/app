@@ -471,7 +471,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product14.setPrice(1197);
                 product14.setStock(0);
                 product14.setText("◆樟芝多醣9%補精力有活力 ◆技術創新 榮獲國家七項專利");
-                product14.setOnsale(1);
+                product14.setOnsale(0);
                 product14.setVolume(0);
                 String saveFiledir14 = System.getProperty("user.dir") +
                                 "/src/main/resources/static/img/product/p14.jpg";
@@ -485,7 +485,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product15.setPrice(290);
                 product15.setStock(2);
                 product15.setText("無化學合成，西印度櫻桃植萃");
-                product15.setOnsale(1);
+                product15.setOnsale(0);
                 product15.setVolume(0);
                 String saveFiledir15 = System.getProperty("user.dir") +
                                 "/src/main/resources/static/img/product/p15.jpg";

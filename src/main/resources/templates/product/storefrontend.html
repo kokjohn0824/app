@@ -137,7 +137,7 @@
                     
 
                
-              
+                    
               </div>
             </div>
           </div>
@@ -188,8 +188,9 @@
 
  
     </div>
-
     <script th:inline="javascript">
+      
+      
       /*<![DATA[*/
       // ************************************************
       // Shopping Cart API
@@ -214,6 +215,8 @@
         function saveCart() {
           sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
         }
+        
+        
 
         // Load cart
         function loadCart() {

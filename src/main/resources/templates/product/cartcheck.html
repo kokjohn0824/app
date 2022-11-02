@@ -491,7 +491,7 @@
               product_name: i.name,
               fk_product_id: i.product_id,
               count: i.count,
-              total: i.price,
+              total: i.count * i.price,
             };
             detailDto[index++] = detail;
           }
@@ -515,8 +515,10 @@
             .then((result) => {
               if (result[0] == 1) {
                 console.log(result);
+                alert("訂單已成立尚未付款");
                 window.location.replace("http://localhost:8082/");
               } else if (result[0] == 2) {
+                alert("即將進入付款畫面");
                 window.location.replace(
                   "http://localhost:8082/ecpay/test/" + result[1]
                 );

@@ -38,7 +38,7 @@
 
         <div class="container-lg" style="width: 50%; margin: 20px auto">
 
-            <h1>會員資料輸入</h1>
+            <h1 style="color:white">會員資料輸入</h1>
             <div class="container-lg" style="width: 800px;" th:fragment="form">
                 <form th:action="@{/member/inputpage}" method="post" enctype="multipart/form-data">
                     <!-- <div class="form-floating mb-3">
@@ -64,7 +64,7 @@
                         <input class="form-control" type="text" placeholder="性別" name="gender" />
                         <label for="gender" class="form-label"><b>性別</b></label>
                     </div> -->
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" style="color:white">
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0"><b>性別</b></legend>
                             <div class="col-sm-10" style="text-align:left">
@@ -108,7 +108,7 @@
                         <input class="form-control" type="text" placeholder="VIP" name="becomeVIP" value="0" />
                         <label for="becomeVIP" class="form-label"><b>VIP</b></label>
                     </div> -->
-                    <fieldset class="form-group">
+                    <fieldset class="form-group" style="display:none; color:white">
                         <div class="row">
                             <legend class="col-form-label col-sm-2 pt-0"><b>VIP</b></legend>
                             <div class="col-sm-10" style="text-align:left">

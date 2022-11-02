@@ -55,14 +55,20 @@
 				<tr th:each="member : ${list}">
 					<td th:text="${member.member_id}"></td>
 					<td th:text="${member.nickname}"></td>
-					<td th:text="${member.gender}"></td>
+					<td>
+						<span th:if="${member.gender==1}">男</span>
+						<span th:if="${member.gender==0}">女</span>
+					</td>
 					<td th:text="${member.age}"></td>
 					<td th:text="${member.height}"></td>
 					<td th:text="${member.weight}"></td>
 					<td th:text="${member.bodyFat}"></td>
 					<td th:text="${member.visceralFat}"></td>
 					<td th:text="${member.muscleMass}"></td>
-					<td th:text="${member.becomeVIP}"></td>
+					<td>
+						<span th:if="${member.gender==1}">是</span>
+						<span th:if="${member.gender==0}">否</span>
+					</td>
 					<td th:text="${member.create_date}"></td>
 					<td>
 						<a th:href="@{'/backendMember/delete?member_id='+${member.member_id}}"

@@ -54,7 +54,7 @@ public class StoreFrontendController {
         List<Product> list = pService.selectByUseProduct();
 
         for (Product li : list) {
-            System.out.println(li.getPicture());
+            // System.out.println(li.getPicture());
         }
         model.addAttribute("productlistuse", list);
 
@@ -76,7 +76,7 @@ public class StoreFrontendController {
 
     @GetMapping("/public/downloadImage/{id}")
     public ResponseEntity<byte[]> downloadImage(@PathVariable Integer id) {
-        System.out.println(id);
+        // System.out.println(id);
         Product product = pService.findById(id);
 
         byte[] photoFile = product.getPicture();

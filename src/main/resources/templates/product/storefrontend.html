@@ -122,15 +122,26 @@
                   th:text="${product.product_id}"
                 ></p>
 
+                <button
+                  th:if="${product.volume} == ${product.stock}"
+                  class="add-to-cart btn btn-secondary disabled text-dark"
+                  style="background-color: #64748b"
+                >
+                  加入購物車
+                </button>
+
                 <a
+                  th:if="${product.volume} != ${product.stock}"
                   href="#"
                   th:data-name="${product.title}"
                   th:data-price="${product.price}"
                   th:data-img="@{'/public/downloadImage/'+${product.product_id}}"
                   th:data-id="${product.product_id}"
                   class="add-to-cart btn btn-primary"
-                  >加入購物車</a
                 >
+                  加入購物車
+                </a>
+
                 <span
                   th:if="${product.volume} > 1 and ${product.volume} != ${product.stock}"
                   style="color: red; font-weight: bold"
@@ -158,6 +169,11 @@
     // ************************************************
     // Shopping Cart API
     // ************************************************
+    function myFunction(stock) {
+      if (stock == 0) {
+        addcartbtn.style.display = "none";
+      }
+    }
 
     var shoppingCart = (function () {
       // =============================

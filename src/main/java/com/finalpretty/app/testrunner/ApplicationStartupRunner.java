@@ -294,6 +294,56 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a7.setPicture(article7);
                 articleRespository.save(a7);
 
+                Path text8 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                String content8 = Files.readString(text8);
+                byte[] article8 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                Article a8 = new Article();
+                a8.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                a8.setText(content8);
+                a8.setPicture(article8);
+                articleRespository.save(a8);
+
+                Path text9 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                String content9 = Files.readString(text9);
+                byte[] article9 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                Article a9 = new Article();
+                a9.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                a9.setText(content9);
+                a9.setPicture(article9);
+                articleRespository.save(a9);
+
+                Path text10 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                String content10 = Files.readString(text10);
+                byte[] article10 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                Article a10 = new Article();
+                a10.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                a10.setText(content10);
+                a10.setPicture(article10);
+                articleRespository.save(a10);
+
+                Path text11 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                String content11 = Files.readString(text11);
+                byte[] article11 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                Article a11 = new Article();
+                a11.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                a11.setText(content11);
+                a11.setPicture(article11);
+                articleRespository.save(a11);
+
+                Path text12 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                String content12 = Files.readString(text12);
+                byte[] article12 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                Article a12 = new Article();
+                a12.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                a12.setText(content12);
+                a12.setPicture(article12);
+                articleRespository.save(a12);
+
                 // 產品
                 Product product = new Product();
                 product.setTitle("雙速咖啡因雙層錠");

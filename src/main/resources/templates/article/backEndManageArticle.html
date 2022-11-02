@@ -35,7 +35,7 @@
       </div>
       <h1>所有文章</h1>
       <div class="container-lg" style="width: 800px" th:fragment="form">
-        <table style="border:2" cellpadding="2">
+        <table style="border: 2" cellpadding="2">
           <!-- width="70%" -->
           <tr>
             <th>編號</th>
@@ -50,7 +50,7 @@
           <tr th:each="article : ${list}">
             <td th:text="${article.article_id}"></td>
             <td th:text="${article.title}"></td>
-            <td th:text="${article.create_date}"></td>
+            <td th:text="${article.added}"></td>
             <td>
               <img
                 th:src="@{'/public/showArticleImage/'+${article.article_id}}"

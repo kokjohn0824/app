@@ -28,93 +28,119 @@
         margin-top: 115px;
       }
 
-      .resulthtml {
+      .card-text {
         overflow: hidden;
-        white-space: nowrap;
+        display: -webkit-box;
         text-overflow: ellipsis;
+        -webkit-line-clamp: 3; /*行數*/
+        -webkit-box-orient: vertical;
+        white-space: normal;
       }
     </style>
   </head>
 
   <body th:inline="text">
     <div th:replace="component/navbar :: navbar"></div>
-    <!-- <div style="width: 100%; top: 76px"></div> -->
-
-    <article>
-      <!-- 網站內文放這裡 -->
-      <div class="top">
-        <div class="container-lg">
-          <div class="row row-cols-1 row-cols-md-2 g-4">
-            <tr th:each="article : ${list}">
-              <div
-                class="card"
-                style="
-                  width: 18rem;
-                  margin: 10px;
-                  background-color: black;
-                  border: 1px solid white;
-                "
-              >
+    <div class="top">
+      <div class="container-lg" id="page">
+        <tr th:each="article : ${page}">
+          <div class="card mb-3" style="max-width: 100%">
+            <div class="row g-0">
+              <div class="col-md-4">
                 <img
                   th:src="@{'/public/showArticleImage/'+${article.article_id}}"
-                  class="card-img-top"
+                  class="img-fluid rounded-start"
                   alt="..."
                 />
-                <div class="card-body">
-                  <h5
-                    class="card-title"
-                    th:text="${article.title}"
-                    style="color: white"
-                  ></h5>
-                  <p
-                    id="cleanText"
-                    class="resulthtml"
-                    style="color: white; max-width: 230px"
-                    th:text="${article.text}"
-                  ></p>
-                  <a
-                    th:href="@{'/public/article/show?article_id='+${article.article_id}}"
-                    class="btn btn-light"
-                    >Read more</a
-                  >
-                  <!-- <article id=""
-          class="post-4233 post type-post status-publish format-standard has-post-thumbnail hentry category-all category-experience category-weight-loss category-nutrition generate-columns tablet-grid-50 mobile-grid-100 grid-parent grid-33"
-          itemtype="" itemscope="">
-          <div class="">
-            <div class="">
-              <a th:href="@{'/article/show?article_id='+${article.article_id}}">
-                <img th:src="@{'/showImage/'+${article.article_id}}" height="40px"
-                  class="attachment-full size-full wp-post-image" alt="" loading="lazy"
-                  itemprop="image">
-              </a>
-            </div>
-            <header class="entry-header" aria-label="內容">
-              <h2 class="entry-title" itemprop="headline"><a
-                th:href="@{'/article/show?article_id='+${article.article_id}}" rel="bookmark" th:text="${article.title}"></a></h2>
-              <div class="entry-meta">
-                <span class="posted-on"><time class="entry-date published"
-                  th:text="${article.create_date}"
-                    itemprop="datePublished">2022-03-16</time></span> <span class="byline"></a></span></span>
               </div>
-            </header>
-            <div class="entry-summary" itemprop="text">
-              <p th:text="${article.text}"></p>
-              <p class="read-more-container"><a title="" class="read-more button"
-                th:href="@{'/article/show?article_id='+${article.article_id}}"
-                  aria-label="/">Read more</a></p>
-            </div>
-          </div>
-        </article> -->
+              <div class="col-md-8" style="background-color: black">
+                <div class="card-body" style="background-color: black">
+                  <h5 class="card-title" style="color: white">
+                    [[${article.title}]]
+                  </h5>
+                  <p id="cleanText" class="card-text" style="color: white">
+                    [[${article.text}]]
+                  </p>
+                  <p class="card-text">
+                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                    <a
+                      th:href="@{'/public/article/show?article_id='+${article.article_id}}"
+                      class="btn btn-light"
+                      style="float: right; vertical-align: bottom"
+                      >Read more</a
+                    >
+                  </p>
                 </div>
               </div>
-            </tr>
+            </div>
           </div>
-        </div>
+        </tr>
       </div>
-    </article>
-
+    </div>
     <script>
-      //移除html tag
+      var pageNumber = 2;
+
+      function Page() {
+        var scrollint = $(window).scrollTop();
+
+        if (
+          $(window).height() + $(window).scrollTop() ==
+          $(document).height()
+        ) {
+          var requestOptions = {
+            method: "POST",
+            redirect: "follow",
+          };
+
+          fetch(
+            "http://localhost:8082/public/article/categories?p=" + pageNumber,
+            requestOptions
+          )
+            .then((response) => response.json())
+            .then((result) => {
+              var atc_data = "";
+              for (let i of result.content) {
+                i.text = i.text.replace(/<[^>]*>/g, "");
+                $("#page").append(atc_data);
+                atc_data += `<div class="card mb-3" style="max-width: 100%">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img
+                        src="/public/showArticleImage/${i.article_id}"
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-8" style="background-color: black">
+                      <div class="card-body" style="background-color: black">
+                        <h5 class="card-title" style="color: white">
+                          ${i.title}
+                        </h5>
+                        <p id="cleanText" class="card-text" style="color: white">
+                          ${i.text}</p>
+                        <p class="card-text">
+                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                          <a
+                            href="/public/article/show?article_id=${i.article_id}"
+                            class="btn btn-light"
+                            style="float: right; vertical-align: bottom"
+                            >Read more</a
+                          >
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+              }
+
+              pageNumber++;
+            })
+            .catch((error) => console.log("error", error));
+        }
+      }
+      $(window).scroll(function () {
+        Page();
+      });
       const cleanTextList = document.querySelectorAll("#cleanText");
       cleanTextList.forEach(
         (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))

@@ -69,8 +69,8 @@ public class Member {
 	private double muscleMass;
 
 	@Lob
-	@Column(name = "changePhoto")
-	private byte[] changePhoto;
+	@Column(name = "photo")
+	private byte[] photo;
 
 	@Column(name = "becomeVIP")
 	private Integer becomeVIP;

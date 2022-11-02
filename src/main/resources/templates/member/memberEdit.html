@@ -41,6 +41,13 @@
       <!-- <div>[[${member.member_id}]]</div> -->
       <div class="container-lg" style="width: 800px;" th:fragment="form">
         <form th:object="${member}" th:action="@{/member/edit}" method="post" enctype="multipart/form-data">
+
+          <div class="form-floating mb-3">
+            <input id="inputPhotoToLoad" class="form-control" type="file" placeholder="圖片" name="photo" />
+            <label for="photo" class="form-label"><b>圖片</b></label>
+            <img id="member_img" style="width: 300px; border-radius: 10px 10px 10px 10px; margin-left: 50px;" />
+          </div>
+
           <div class="form-floating mb-3">
             <input class="form-control" type="text" placeholder="暱稱" name="nickname" th:field="*{nickname}" />
             <label for="nickname" class="form-label"><b>暱稱</b></label>
@@ -128,6 +135,23 @@
   <footer>
     <div th:replace="component/footer"></div>
   </footer>
+
+  <script>
+    $("#inputPhotoToLoad").change(function () {
+      readURL(this);
+    });
+
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          $("#member_img").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+
 </body>
 
 </html>

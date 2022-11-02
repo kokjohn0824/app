@@ -13,10 +13,10 @@ import com.finalpretty.app.model.Member;
 
 public interface MemberRespository extends JpaRepository<Member, Integer> {
 
-    // 後台編輯的修改
+    // 後台 & 前台 編輯的修改
     @Transactional
     @Modifying
-    @Query(value = "update member set nickname=:nickname, gender=:gender, age=:age, height=:height, weight=:weight, bodyFat=:bodyFat, visceralFat=:visceralFat, muscleMass=:muscleMass, becomeVIP=:becomeVIP where member_id=:member_id", nativeQuery = true)
+    @Query(value = "update member set nickname=:nickname, gender=:gender, age=:age, height=:height, weight=:weight, bodyFat=:bodyFat, visceralFat=:visceralFat, muscleMass=:muscleMass, becomeVIP=:becomeVIP, photo=:photo where member_id=:member_id", nativeQuery = true)
     void updateById(@Param("member_id") Integer member_id,
             @Param("nickname") String nickname,
             @Param("gender") Integer gender,
@@ -26,7 +26,8 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
             @Param("bodyFat") double bodyFat,
             @Param("visceralFat") double visceralFat,
             @Param("muscleMass") double muscleMass,
-            @Param("becomeVIP") Integer becomeVIP);
+            @Param("becomeVIP") Integer becomeVIP,
+            @Param("photo") byte[] photo);
 
     // 前台找ID
     @Transactional

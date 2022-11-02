@@ -84,9 +84,8 @@
 
       function Page() {
         var scrollint = $(window).scrollTop();
-
         if (
-          $(window).height() + $(window).scrollTop() ==
+          $(window).height() + $(window).scrollTop() + 300 >=
           $(document).height()
         ) {
           var requestOptions = {

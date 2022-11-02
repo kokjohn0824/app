@@ -157,7 +157,7 @@ public class ArticleController {
 		articleR.findAlloOrderById().forEach((n) -> {
 			artilcelist.add(
 					new ArticleDTO(n.getArticle_id(), n.getTitle(), n.getText().substring(0, 15) + "...",
-							n.getAdded()));
+							n.getAdded(), n.getViews()));
 		});
 		return artilcelist;
 	}

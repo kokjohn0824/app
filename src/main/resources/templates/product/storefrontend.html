@@ -130,9 +130,9 @@
                   th:data-id="${product.product_id}"
                   class="add-to-cart btn btn-primary"
                   >加入購物車</a>                
-                <span th:if="${product.volume} > 1 and ${product.volume} != ${product.stock}"><i class="bi bi-fire"></i>
+                <span th:if="${product.volume} > 1 and ${product.volume} != ${product.stock}" style="color: red;font-weight: bold;"><i class="bi bi-fire"></i>
                   熱賣中</span>
-                  <span th:unless="${product.volume} != ${product.stock}"><i class="bi bi-cart-x"></i>
+                  <span th:unless="${product.volume} != ${product.stock}" style="color: rgb(12, 39, 139);font-weight: bold;"><i class="bi bi-cart-x"></i>
                     缺貨</span>
                     
 

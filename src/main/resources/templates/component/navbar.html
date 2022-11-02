@@ -200,7 +200,7 @@
               placeholder="Search"
               aria-label="Search"
             />
-            <button class="btn" type="submit">
+            <button id="navsearchbtn" class="btn">
               <!-- 搜尋icon -->
               <i style="color: white" class="bi bi-search"></i>
             </button>
@@ -214,7 +214,18 @@
   <script>
     //抓取搜尋匡
     const navsearchinput = document.getElementById("navsearchinput");
-    navsearchinput.addEventListener("input", () => {});
+    const navsearchbtn = document.getElementById("navsearchbtn");
+
+    navsearchbtn.addEventListener("click", (e) => {
+      postdata(
+        "http://localhost:8082/public/api/selectLike",
+        { searchInput: e.target.value },
+        (result) => {
+          console.log(result);
+          alert(result);
+        }
+      );
+    });
   </script>
 </div>
 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -223,13 +224,22 @@ public class ProductController {
 
 	@ResponseBody
 	@PostMapping("/public/api/selectLike")
-	public List<Product> selectLike(@RequestBody String productname) {
-		System.out.println("++++++++++++++++++++++++++++++++++");
-		System.out.println(productname);
-		System.out.println("++++++++++++++++++++++++++++++++++");
+	public List<Product> selectLike(@RequestBody Map<String, String> searchInput) {
+		// System.out.println("++++++++++++++++++++++++++++++++++");
+		// System.out.println(productname);
+		// System.out.println("++++++++++++++++++++++++++++++++++");
 
-		return pService.selectLike(productname);
+		return pService.selectLike(searchInput.get("searchInput"));
+	}
 
+	@ResponseBody
+	@GetMapping("/public/api/selectLike")
+	public List<Product> getselectLike(@RequestBody Map<String, String> searchInput) {
+		// System.out.println("++++++++++++++++++++++++++++++++++");
+		// System.out.println(productname);
+		// System.out.println("++++++++++++++++++++++++++++++++++");
+
+		return pService.selectLike(searchInput.get("searchInput"));
 	}
 
 }

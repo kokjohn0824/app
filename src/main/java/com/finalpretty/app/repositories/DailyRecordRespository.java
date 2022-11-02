@@ -14,17 +14,23 @@ import com.finalpretty.app.model.DailyRecord;
 
 public interface DailyRecordRespository extends JpaRepository<DailyRecord, Integer> {
 
-    @Transactional
-    @Modifying
-    @Query(value = "select * from daily_record where fk_member_id=:member_id and Date_time=:today", nativeQuery = true)
-    List<DailyRecord> selectRecord(
-            @Param("member_id") Integer member_id,
-            @Param("today") String today);
+        @Transactional
+        @Modifying
+        @Query(value = "select * from daily_record where fk_member_id=:member_id and Date_time=:today", nativeQuery = true)
+        List<DailyRecord> selectRecord(
+                        @Param("member_id") Integer member_id,
+                        @Param("today") String today);
 
-    @Query(value = "select * from daily_record where Date_time=:date_time", nativeQuery = true)
-    Optional<DailyRecord> findByDate(@Param("date_time") String date_time);
+        @Transactional
+        @Modifying
+        @Query(value = "select * from daily_record where fk_member_id=:member_id ORDER BY daily_record_id DESC", nativeQuery = true)
+        List<DailyRecord> selectAllRecord(
+                        @Param("member_id") Integer member_id);
 
-    @Query(value = "select * from daily_record where fk_member_id = :member_id and date_time between :addDate and :dateEnd", nativeQuery = true)
-    List<DailyRecord> chartBmi(@Param("member_id") Integer member_id, @Param("addDate") String addDate,
-            @Param("dateEnd") String dateEnd);
+        @Query(value = "select * from daily_record where Date_time=:date_time", nativeQuery = true)
+        Optional<DailyRecord> findByDate(@Param("date_time") String date_time);
+
+        @Query(value = "select * from daily_record where fk_member_id = :member_id and date_time between :addDate and :dateEnd", nativeQuery = true)
+        List<DailyRecord> chartBmi(@Param("member_id") Integer member_id, @Param("addDate") String addDate,
+                        @Param("dateEnd") String dateEnd);
 }

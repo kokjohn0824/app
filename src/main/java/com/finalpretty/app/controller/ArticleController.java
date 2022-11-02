@@ -86,7 +86,7 @@ public class ArticleController {
 			e.printStackTrace();
 		}
 		articleR.save(article);
-		return "/article/backEndAddArticlePage";
+		return "redirect:/article/manage";
 	}
 
 	// 修改文章
@@ -101,19 +101,22 @@ public class ArticleController {
 	public String editArticlePost(@RequestParam(name = "article_id") Integer article_id,
 			@RequestParam(name = "title") String title,
 			@RequestParam(name = "text") String text,
-			@RequestParam(name = "picture") MultipartFile picture,
+			@RequestParam(name = "file") MultipartFile file,
 			Model model) {
-		Article article = new Article();
+
+		byte[] picture = null;
 		try {
-			byte[] picture2 = picture.getBytes();
-			article.setPicture(picture2);
-			article.setTitle(title);
-			article.setText(text);
-			articleR.updateById(article_id, title, text, picture2);
+			if (file.getBytes().length == 0) {
+				picture = articleR.findById(article_id).get().getPicture();
+			} else {
+				picture = file.getBytes();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/article/backEndManageArticle";
+		articleR.updateById(article_id, title, text, picture);
+
+		return "redirect:/article/manage";
 	}
 
 	// =============================================================================================

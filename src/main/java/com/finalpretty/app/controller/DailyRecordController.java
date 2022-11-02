@@ -71,10 +71,12 @@ public class DailyRecordController {
         Date date = new Date();
         String today = dateFormat.format(date);
 
-        Member member = memberR.findById(member_id).get();
-        Set<DailyRecord> daily_record = member.getDaily_records();
-        List<DailyRecord> list = new ArrayList<DailyRecord>();
-        list.addAll(daily_record);
+        // Member member = memberR.findById(member_id).get();
+        // Set<DailyRecord> daily_record = member.getDaily_records();
+        // List<DailyRecord> list = new ArrayList<DailyRecord>();
+        // list.addAll(daily_record);
+
+        List<DailyRecord> list = dailyRecordR.selectAllRecord(member_id);
 
         List<DailyRecord> dailyRecord = dailyRecordR.selectRecord(member_id, today);
         System.out.println(dailyRecord);

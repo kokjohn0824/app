@@ -126,7 +126,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                                 .readAllBytes(Paths.get(
                                                 "src/main/resources/static/img/food/rice.jpg"));
                 Food food1 = new Food();
-                food1.setFoodname("rice");
+                food1.setFoodname("白飯");
                 food1.setCalorie(116);
                 food1.setPicture(foodP1);
                 foodRespository.save(food1);
@@ -168,45 +168,6 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 sports3.setPicture(sportsP3);
                 sportsRespository.save(sports3);
 
-                // // 插入日記
-                // DailyRecord dailyRecord1 = new DailyRecord();
-                // dailyRecord1.setWeight(50);
-                // dailyRecord1.setBodyFat(15);
-                // dailyRecord1.setDrinkingWater(1000);
-                // dailyRecord1.setMembers(null);
-
-                // DailyRecord dailyRecord2 = new DailyRecord();
-                // dailyRecord2.setWeight(50);
-                // dailyRecord2.setBodyFat(15);
-                // dailyRecord2.setDrinkingWater(1000);
-                // dailyRecord2.setMembers(null);
-
-                // // 日記食物細節
-                // Food_daily food_daily1 = new Food_daily();
-                // food_daily1.setSide(1);
-                // food_daily1.setFood(food1);
-                // food_daily1.setDaily_record(dailyRecord1);
-                // foodDailyRespository.save(food_daily1);
-
-                // Food_daily food_daily2 = new Food_daily();
-                // food_daily2.setSide(2);
-                // food_daily2.setFood(food2);
-                // food_daily2.setDaily_record(dailyRecord2);
-                // foodDailyRespository.save(food_daily2);
-
-                // // 日記運動細節
-                // Sports_daily sports_daily1 = new Sports_daily();
-                // sports_daily1.setTime(1);
-                // sports_daily1.setSports(sports1);
-                // sports_daily1.setDaily_record(dailyRecord1);
-                // sportsDailyRespository.save(sports_daily1);
-
-                // Sports_daily sports_daily2 = new Sports_daily();
-                // sports_daily2.setTime(2);
-                // sports_daily2.setSports(sports2);
-                // sports_daily2.setDaily_record(dailyRecord2);
-                // sportsDailyRespository.save(sports_daily2);
-
                 // 插入影片
                 byte[] video1 = Files
                                 .readAllBytes(Paths.get(
@@ -216,9 +177,45 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 v1.setType("胸肌");
                 v1.setBody_parts("胸大肌");
                 v1.setPicture(video1);
-                v1.setViews(0);
+                v1.setViews(20);
                 v1.setUrl("3db97465e2684771a6bce945645c9d00.mp4");
                 videoRespository.save(v1);
+
+                byte[] video2 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/public/video/d5f75ee44930473e9360136299d7317b.jpg"));
+                Video v2 = new Video();
+                v2.setTitle("跪姿俯臥撐");
+                v2.setType("胸肌");
+                v2.setBody_parts("胸大肌");
+                v2.setPicture(video2);
+                v2.setViews(11);
+                v2.setUrl("36c5e32861a140b5bc7a684ee9bf1513.mp4");
+                videoRespository.save(v2);
+
+                byte[] video3 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/public/video/9506ca59e44e4001a0c6d0c0121259ec.jpg"));
+                Video v3 = new Video();
+                v3.setTitle("四足寬距撐");
+                v3.setType("胸肌");
+                v3.setBody_parts("胸大肌");
+                v3.setPicture(video3);
+                v3.setViews(7);
+                v3.setUrl("b66dfe7e7bab44689ecc5aad72720dd2.mp4");
+                videoRespository.save(v3);
+
+                byte[] video4 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/public/video/b5987410a1ee4fd4b4e5429b9c47f61b.jpg"));
+                Video v4 = new Video();
+                v4.setTitle("跪姿寬距撐");
+                v4.setType("胸肌");
+                v4.setBody_parts("胸大肌");
+                v4.setPicture(video4);
+                v4.setViews(12);
+                v4.setUrl("6d6072350d15430982c564b28927dcbd.mp4");
+                videoRespository.save(v4);
 
                 // 插入文章
                 Path text1 = Paths.get("src/main/resources/static/img/article/article1.txt");
@@ -240,6 +237,56 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a2.setText(content2);
                 a2.setPicture(article2);
                 articleRespository.save(a2);
+
+                Path text3 = Paths.get("src/main/resources/static/img/article/article3.txt");
+                String content3 = Files.readString(text3);
+                byte[] article3 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article3.png"));
+                Article a3 = new Article();
+                a3.setTitle("便祕不硬擠，順暢四技巧！");
+                a3.setText(content3);
+                a3.setPicture(article3);
+                articleRespository.save(a3);
+
+                Path text4 = Paths.get("src/main/resources/static/img/article/article4.txt");
+                String content4 = Files.readString(text4);
+                byte[] article4 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article4.png"));
+                Article a4 = new Article();
+                a4.setTitle("消水腫的秘密武器食物篇");
+                a4.setText(content4);
+                a4.setPicture(article4);
+                articleRespository.save(a4);
+
+                Path text5 = Paths.get("src/main/resources/static/img/article/article5.txt");
+                String content5 = Files.readString(text5);
+                byte[] article5 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article5.png"));
+                Article a5 = new Article();
+                a5.setTitle("舒緩經痛不發胖的好食材");
+                a5.setText(content5);
+                a5.setPicture(article5);
+                articleRespository.save(a5);
+
+                Path text6 = Paths.get("src/main/resources/static/img/article/article6.txt");
+                String content6 = Files.readString(text6);
+                byte[] article6 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article6.png"));
+                Article a6 = new Article();
+                a6.setTitle("瘦身不受胸 美胸十全大補帖");
+                a6.setText(content6);
+                a6.setPicture(article6);
+                articleRespository.save(a6);
+
+                Path text7 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                String content7 = Files.readString(text7);
+                byte[] article7 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                Article a7 = new Article();
+                a7.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                a7.setText(content7);
+                a7.setPicture(article7);
+                articleRespository.save(a7);
 
                 // 產品
                 Product product = new Product();
@@ -311,7 +358,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product6.setTitle("DHC濃縮薑黃");
                 product6.setType("保健食品");
                 product6.setPrice(356);
-                product6.setStock(50);
+                product6.setStock(0);
                 product6.setText("台灣DHC直供．品質保證");
                 product6.setOnsale(1);
                 product6.setVolume(0);
@@ -335,11 +382,11 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 pDao.save(product7);
 
                 Product product8 = new Product();
-                product8.setTitle("Hyperice 無線震動按摩槍");
+                product8.setTitle("易利氣磁力項圈");
                 product8.setType("運動用品");
-                product8.setPrice(6999);
-                product8.setStock(50);
-                product8.setText("NBA/PGA/MLB官方指定運動恢復合作夥伴");
+                product8.setPrice(611);
+                product8.setStock(0);
+                product8.setText("日本銷售逾1千萬條");
                 product8.setOnsale(1);
                 product8.setVolume(0);
                 String saveFiledir8 = System.getProperty("user.dir") +
@@ -347,6 +394,105 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 File saveFilePath8 = new File(saveFiledir8);
                 product8.setPicture(Files.readAllBytes(saveFilePath8.toPath()));
                 pDao.save(product8);
+
+                Product product9 = new Product();
+                product9.setTitle("Adidas Strength 吊鉤式舉重助力帶");
+                product9.setType("運動用品");
+                product9.setPrice(790);
+                product9.setStock(2);
+                product9.setText("適合瑜珈、皮拉提斯、體適能球操等運動");
+                product9.setOnsale(1);
+                product9.setVolume(0);
+                String saveFiledir9 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p9.jpg";
+                File saveFilePath9 = new File(saveFiledir9);
+                product9.setPicture(Files.readAllBytes(saveFilePath9.toPath()));
+                pDao.save(product9);
+
+                Product product10 = new Product();
+                product10.setTitle("智能計數呼拉圈");
+                product10.setType("運動用品");
+                product10.setPrice(590);
+                product10.setStock(1);
+                product10.setText("高效燃燒脂肪,可邊旋轉邊按摩,深層刺激燃燒脂肪");
+                product10.setOnsale(1);
+                product10.setVolume(0);
+                String saveFiledir10 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p10.jpg";
+                File saveFilePath10 = new File(saveFiledir10);
+                product10.setPicture(Files.readAllBytes(saveFilePath10.toPath()));
+                pDao.save(product10);
+
+                Product product11 = new Product();
+                product11.setTitle("刺蝟造型震動按摩枕");
+                product11.setType("運動用品");
+                product11.setPrice(930);
+                product11.setStock(10);
+                product11.setText("蓬鬆好笑的刺蝟造型,每天的好夥伴送禮也很棒");
+                product11.setOnsale(1);
+                product11.setVolume(0);
+                String saveFiledir11 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p11.jpg";
+                File saveFilePath11 = new File(saveFiledir11);
+                product11.setPicture(Files.readAllBytes(saveFilePath11.toPath()));
+                pDao.save(product11);
+
+                Product product12 = new Product();
+                product12.setTitle("兩用小腿背部按摩拉筋板");
+                product12.setType("運動用品");
+                product12.setPrice(490);
+                product12.setStock(3);
+                product12.setText("網路最夯的按摩神器");
+                product12.setOnsale(1);
+                product12.setVolume(0);
+                String saveFiledir12 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p12.jpg";
+                File saveFilePath12 = new File(saveFiledir12);
+                product12.setPicture(Files.readAllBytes(saveFilePath12.toPath()));
+                pDao.save(product12);
+
+                Product product13 = new Product();
+                product13.setTitle("【桂格】養氣人蔘滋補液60ml");
+                product13.setType("運動用品");
+                product13.setPrice(399);
+                product13.setStock(5);
+                product13.setText("有助於降低血清 GOT、GPT 值");
+                product13.setOnsale(1);
+                product13.setVolume(0);
+                String saveFiledir13 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p13.jpg";
+                File saveFilePath13 = new File(saveFiledir13);
+                product13.setPicture(Files.readAllBytes(saveFilePath13.toPath()));
+                pDao.save(product13);
+
+                Product product14 = new Product();
+                product14.setTitle("【葡萄王】樟芝王(100粒/瓶)");
+                product14.setType("運動食品");
+                product14.setPrice(1197);
+                product14.setStock(0);
+                product14.setText("◆樟芝多醣9%補精力有活力 ◆技術創新 榮獲國家七項專利");
+                product14.setOnsale(1);
+                product14.setVolume(0);
+                String saveFiledir14 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p14.jpg";
+                File saveFilePath14 = new File(saveFiledir14);
+                product14.setPicture(Files.readAllBytes(saveFilePath14.toPath()));
+                pDao.save(product14);
+
+                Product product15 = new Product();
+                product15.setTitle("【達摩本草】法國西印度櫻桃植萃天然維他命C");
+                product15.setType("運動食品");
+                product15.setPrice(290);
+                product15.setStock(2);
+                product15.setText("無化學合成，西印度櫻桃植萃");
+                product15.setOnsale(1);
+                product15.setVolume(0);
+                String saveFiledir15 = System.getProperty("user.dir") +
+                                "/src/main/resources/static/img/product/p15.jpg";
+                File saveFilePath15 = new File(saveFiledir15);
+                product15.setPicture(Files.readAllBytes(saveFilePath15.toPath()));
+                pDao.save(product15);
+
         }
 
 }

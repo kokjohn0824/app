@@ -41,42 +41,44 @@
 
   <body th:inline="text">
     <div th:replace="component/navbar :: navbar"></div>
-    <div class="top">
-      <div class="container-lg" id="page">
-        <tr th:each="article : ${page}">
-          <div class="card mb-3" style="max-width: 100%">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img
-                  th:src="@{'/public/showArticleImage/'+${article.article_id}}"
-                  class="img-fluid rounded-start"
-                  alt="..."
-                />
-              </div>
-              <div class="col-md-8" style="background-color: black">
-                <div class="card-body" style="background-color: black">
-                  <h5 class="card-title" style="color: white">
-                    [[${article.title}]]
-                  </h5>
-                  <p id="cleanText" class="card-text" style="color: white">
-                    [[${article.text}]]
-                  </p>
-                  <p class="card-text">
-                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                    <a
-                      th:href="@{'/public/article/show?article_id='+${article.article_id}}"
-                      class="btn btn-light"
-                      style="float: right; vertical-align: bottom"
-                      >Read more</a
-                    >
-                  </p>
+    <article>
+      <div class="top">
+        <div class="container-lg" id="page">
+          <tr th:each="article : ${page}">
+            <div class="card mb-3" style="max-width: 100%">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img
+                    th:src="@{'/public/showArticleImage/'+${article.article_id}}"
+                    class="img-fluid rounded-start"
+                    alt="..."
+                  />
+                </div>
+                <div class="col-md-8" style="background-color: black">
+                  <div class="card-body" style="background-color: black">
+                    <h5 class="card-title" style="color: white">
+                      [[${article.title}]]
+                    </h5>
+                    <p id="cleanText" class="card-text" style="color: white">
+                      [[${article.text}]]
+                    </p>
+                    <p class="card-text">
+                      <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                      <a
+                        th:href="@{'/public/article/show?article_id='+${article.article_id}}"
+                        class="btn btn-light"
+                        style="float: right; vertical-align: bottom"
+                        >Read more</a
+                      >
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </tr>
+          </tr>
+        </div>
       </div>
-    </div>
+    </article>
     <script>
       var pageNumber = 2;
 

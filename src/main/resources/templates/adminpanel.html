@@ -571,6 +571,7 @@
 
     //按鈕觸發呈現table 商品管理部分
     //將json陣列轉為 table 商品管理部分
+    //FIXME:資料修改沒有即時呈現在table 上
     const jsonToHTMLbyQ = (querySelector, json) => {
       if (json.length == 0) {
         document.querySelector(querySelector).innerHTML = "";
@@ -678,7 +679,6 @@
 
             $("button[name='checkboxone']").click(
               (updateQuery = (e) => {
-                console.log("好痛苦");
                 var product_id = $(e.target).attr("id");
                 var requestOptions = {
                   method: "GET",
@@ -736,10 +736,10 @@
                   .then((result) => {
                     console.log(result);
                     if (result) {
-                      alert("更新成功");
+                      console.info("更新成功");
                       product();
                     } else {
-                      alert("更新失敗");
+                      console.err("更新失敗");
                       product();
                     }
                   })

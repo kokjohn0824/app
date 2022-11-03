@@ -85,7 +85,7 @@
       function Page() {
         var scrollint = $(window).scrollTop();
         if (
-          $(window).height() + $(window).scrollTop() + 300 >=
+          $(window).height() + $(window).scrollTop() ==
           $(document).height()
         ) {
           var requestOptions = {
@@ -100,9 +100,10 @@
             .then((response) => response.json())
             .then((result) => {
               var atc_data = "";
+              console.log(result);
               for (let i of result.content) {
                 i.text = i.text.replace(/<[^>]*>/g, "");
-                $("#page").append(atc_data);
+
                 atc_data += `<div class="card mb-3" style="max-width: 100%">
                   <div class="row g-0">
                     <div class="col-md-4">
@@ -133,13 +134,14 @@
                   </div>
                 </div>`;
               }
-
+              $("#page").append(atc_data);
               pageNumber++;
             })
             .catch((error) => console.log("error", error));
         }
       }
       $(window).scroll(function () {
+        console.log("++++++++");
         Page();
       });
       const cleanTextList = document.querySelectorAll("#cleanText");

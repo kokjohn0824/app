@@ -28,6 +28,7 @@ import com.finalpretty.app.Response.ArticleResponse;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
+import com.finalpretty.app.model.Video;
 import com.finalpretty.app.product.service.ArticleService;
 import com.finalpretty.app.repositories.ArticleRespository;
 import com.finalpretty.app.repositories.MemberRespository;
@@ -146,10 +147,6 @@ public class ArticleController {
 	public Page<Article> articleCategoriesByPage(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
 			Model m) {
 		Page<Article> page = articleS.findByPage(pageNumber);
-
-		// ArticleResponse ar = new ArticleResponse();
-		// ar.setArticle_id(article_id);
-		// ar.setMember_id(member_id);
 		return page;
 	}
 
@@ -229,11 +226,33 @@ public class ArticleController {
 			Member memberFromJpa = memberR.findById(member_id).get();
 			Article article = articleR.findById(article_id).get();
 			Set<Article> ss = memberFromJpa.getArticles();
+
 			ss.remove(article);
 			articleR.save(article);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	// 測試用
+	@GetMapping("/public/article/findLike")
+	public String FindLike(Model m) {
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Member member = ((Users) o).getFkMember();
+		Integer member_id = member.getMember_id();
+		Member memberFromJpa = memberR.findById(member_id).get();
+
+		Set<Article> aa = memberFromJpa.getArticles();
+		List<Article> article = new ArrayList<Article>();
+		article.addAll(aa);
+
+		Set<Video> vv = memberFromJpa.getVideos();
+		List<Video> video = new ArrayList<Video>();
+		video.addAll(vv);
+
+		m.addAttribute("article", article);
+		m.addAttribute("video", video);
+		return "/article/test";
 	}
 
 	// 取消按讚文章

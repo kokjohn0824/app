@@ -17,7 +17,7 @@ public interface ArticleRespository extends JpaRepository<Article, Integer> {
     @Query(value = "update article set title=:title, text=:text,type=:type, picture=:picture where article_id=:article_id", nativeQuery = true)
     void updateById(@Param("article_id") Integer article_id,
             @Param("title") String title,
-            @Param("text") String type,
+            @Param("type") String type,
             @Param("text") String text,
             @Param("picture") byte[] picture);
 

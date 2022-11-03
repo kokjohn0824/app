@@ -29,7 +29,11 @@ public class CalculatorController {
 	public List<DailyRecordDto> chartBmi(@PathVariable("member_id") Integer member_id,
 			@PathVariable("addDate") String addDate,
 			@PathVariable("dateEnd") String dateEnd) {
+		addDate = addDate.replace('-', '/');
+		dateEnd = dateEnd.replace('-', '/');
 		List<DailyRecord> dRecord = drecordDao.chartBmi(member_id, addDate, dateEnd);
+		System.out.println(addDate);
+		System.out.println(dateEnd);
 		List<DailyRecordDto> recordDtolist = new ArrayList<>();
 		DailyRecordDto recordDto;
 		if (dRecord == null) {

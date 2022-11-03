@@ -89,12 +89,15 @@ function MyCustomUploadAdapterPlugin( editor ) {
     };
 }
 
-ClassicEditor
-    .create( document.querySelector( '#editor' ), {
-        extraPlugins: [ MyCustomUploadAdapterPlugin ],
+// ClassicEditor
+//     .create( document.querySelector( '#editor' ), {
+//         extraPlugins: [ MyCustomUploadAdapterPlugin ],
 
-        // ...
-    } )
-    .catch( error => {
-        console.log( error );
-    } );
+//         // ...
+//     } )
+//     .catch( error => {
+//         console.log( error );
+//     } );
+
+
+    

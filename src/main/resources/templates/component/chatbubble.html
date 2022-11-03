@@ -13,15 +13,14 @@
       background-color: black;
       border-radius: 500px;
       color: white;
-      padding: 16px 20px;
       border: none;
       cursor: pointer;
       opacity: 0.8;
       position: fixed;
       bottom: 23px;
       right: 20px;
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
     }
 
     /* The popup chat - hidden by default */
@@ -67,7 +66,6 @@
     }
 
     .msg {
-      background: #3a384c;
       max-width: 80%;
       padding: 20px;
       border-radius: 10px;
@@ -76,15 +74,20 @@
     }
 
     .selfmessage {
-      color: #0891b2;
+      background: #2dd4bf;
+      color: #1f2937;
+      margin-left: aut;
     }
 
     .othermessage {
-      color: blue;
+      background: #1f2937;
+      color: #f1f1f1;
     }
   </style>
   <!-- 聊天按鈕 -->
-  <button class="open-button" onclick="openForm()">客服</button>
+  <button class="open-button" onclick="openForm()">
+    <img th:src="@{/img/icon/chat.svg}" alt="" />
+  </button>
 
   <!-- 彈出視窗 -->
   <div class="chat-popup" id="myForm">

@@ -240,4 +240,12 @@ public class VideoController {
         return null;
     }
 
+    // 模糊搜尋(標題、分類、主要訓練部位)
+    @ResponseBody
+    @GetMapping("/public/video/fuzzySearch")
+    public List<Video> fuzzySearchArticle(@RequestParam(name = "likeTest") String likeTest) {
+        List<Video> list = videoR.fuzzySerch("%" + likeTest + "%");
+        return list;
+    }
+
 }

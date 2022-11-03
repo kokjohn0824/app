@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -236,9 +238,9 @@ public class ArticleController {
 
 	// 模糊搜尋(標題、分類、內文、時間)
 	@ResponseBody
-	@GetMapping("/public/article/fuzzySearch")
-	public List<Article> fuzzySearchArticle(@RequestParam(name = "likeTest") String likeTest) {
-		List<Article> list = articleR.fuzzySerch("%" + likeTest + "%");
+	@PostMapping("/public/api/article/fuzzySearch")
+	public List<Article> fuzzySearchArticle(@RequestBody Map<String, String> likeTest) {
+		List<Article> list = articleR.fuzzySerch("%" + likeTest.get("likeTest") + "%");
 		return list;
 	}
 

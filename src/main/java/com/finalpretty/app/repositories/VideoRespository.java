@@ -29,4 +29,10 @@ public interface VideoRespository extends JpaRepository<Video, Integer> {
     @Query(value = "select * from video order by video_id desc", nativeQuery = true)
     List<Video> findAlloOrderById();
 
+    @Query(value = "select * from video where "
+            + "title like :likeTest "
+            + "or type like :likeTest "
+            + "or body_parts like :likeTest ", nativeQuery = true)
+    List<Video> fuzzySerch(@Param("likeTest") String likeTest);
+
 }

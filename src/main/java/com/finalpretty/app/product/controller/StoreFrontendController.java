@@ -1,6 +1,7 @@
 package com.finalpretty.app.product.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -76,9 +79,10 @@ public class StoreFrontendController {
         return "/product/storefrontend";
     }
 
-    // 模糊搜尋()
-    @GetMapping("/public/likeTest")
-    public List<Product> fuzzySearch(@RequestParam(name = "userName") String likeTest) {
+    // 模糊搜尋
+    @ResponseBody
+    @PostMapping("/public/product/fuzzySearch")
+    public List<Product> fuzzySearchArticle(@RequestBody String likeTest) {
         List<Product> list = pService.fuzzySearch(likeTest);
         return list;
     }

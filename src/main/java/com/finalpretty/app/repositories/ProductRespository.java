@@ -52,10 +52,10 @@ public interface ProductRespository extends JpaRepository<Product, Integer> {
 	@Query(value = "update product set volume= :volume where product_id = :product_id", nativeQuery = true)
 	void updateVolume(@Param("volume") Integer volume, @Param("product_id") Integer product_id);
 
-	@Query(value = "select * from Product where "
-			+ "product_name like :word "
-			+ "or product_type like :word "
-			+ "or product_price like :word ", nativeQuery = true)
-	List<Product> fuzzySerch(String word);
+	@Query(value = "select * from product where "
+			+ "title like :likeTest "
+			+ "or type like :likeTest "
+			+ "or text like :likeTest ", nativeQuery = true)
+	List<Product> fuzzySearch(@Param("likeTest") String likeTest);
 
 }

@@ -1,5 +1,10 @@
 <div th:fragment="toast">
-  <button type="button" class="btn btn-primary cart" id="liveToastBtn">
+  <button
+    type="button"
+    class="btn btn-primary btn-addToCart"
+    id="liveToastBtn"
+    data-productname="桂格"
+  >
     Show live toast
   </button>
 
@@ -36,8 +41,8 @@
     };
 
     document.querySelectorAll(".btn-addToCart").forEach((e) => {
-      let productName = e.target.dataset.productName;
-      let message = `已將${productName}加到購物車中`;
+      let productname = e.dataset.productname;
+      let message = `已將${productname}加到購物車中`;
       addToastMessage(e, message);
     });
   </script>

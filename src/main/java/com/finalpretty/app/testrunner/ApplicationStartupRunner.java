@@ -234,7 +234,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article1 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article1.png"));
                 Article a1 = new Article();
-                a1.setTitle("女孩必看！生理週期的飲食方針");
+                a1.setTitle("7女孩必看！生理週期的飲食方針");
                 a1.setText(content1);
                 a1.setPicture(article1);
                 a1.setViews(0);
@@ -245,7 +245,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article2 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article2.png"));
                 Article a2 = new Article();
-                a2.setTitle("手腳冰冷分三類！中醫食補法溫熱手腳");
+                a2.setTitle("6手腳冰冷分三類！中醫食補法溫熱手腳");
                 a2.setText(content2);
                 a2.setPicture(article2);
                 a2.setViews(0);
@@ -256,7 +256,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article3 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article3.png"));
                 Article a3 = new Article();
-                a3.setTitle("便祕不硬擠，順暢四技巧！");
+                a3.setTitle("5便祕不硬擠，順暢四技巧！");
                 a3.setText(content3);
                 a3.setPicture(article3);
                 a3.setViews(0);
@@ -267,7 +267,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article4 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article4.png"));
                 Article a4 = new Article();
-                a4.setTitle("消水腫的秘密武器食物篇");
+                a4.setTitle("4消水腫的秘密武器食物篇");
                 a4.setText(content4);
                 a4.setPicture(article4);
                 a4.setViews(0);
@@ -278,7 +278,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article5 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article5.png"));
                 Article a5 = new Article();
-                a5.setTitle("舒緩經痛不發胖的好食材");
+                a5.setTitle("3舒緩經痛不發胖的好食材");
                 a5.setText(content5);
                 a5.setPicture(article5);
                 a5.setViews(0);
@@ -289,7 +289,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article6 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article6.png"));
                 Article a6 = new Article();
-                a6.setTitle("瘦身不受胸 美胸十全大補帖");
+                a6.setTitle("2瘦身不受胸 美胸十全大補帖");
                 a6.setText(content6);
                 a6.setPicture(article6);
                 a6.setViews(0);
@@ -300,66 +300,69 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article7 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
                 Article a7 = new Article();
-                a7.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                a7.setTitle("1吃不吃天人交戰？蛋糕免發胖守則");
                 a7.setText(content7);
                 a7.setPicture(article7);
                 a7.setViews(0);
                 articleRespository.save(a7);
 
-                Path text8 = Paths.get("src/main/resources/static/img/article/article7.txt");
-                String content8 = Files.readString(text8);
-                byte[] article8 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
-                Article a8 = new Article();
-                a8.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
-                a8.setText(content8);
-                a8.setPicture(article8);
-                a8.setViews(0);
-                articleRespository.save(a8);
+                // Path text8 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                // String content8 = Files.readString(text8);
+                // byte[] article8 = Files
+                // .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                // Article a8 = new Article();
+                // a8.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                // a8.setText(content8);
+                // a8.setPicture(article8);
+                // a8.setViews(0);
+                // articleRespository.save(a8);
 
-                Path text9 = Paths.get("src/main/resources/static/img/article/article7.txt");
-                String content9 = Files.readString(text9);
-                byte[] article9 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
-                Article a9 = new Article();
-                a9.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
-                a9.setText(content9);
-                a9.setPicture(article9);
-                a9.setViews(0);
-                articleRespository.save(a9);
+                // Path text9 = Paths.get("src/main/resources/static/img/article/article7.txt");
+                // String content9 = Files.readString(text9);
+                // byte[] article9 = Files
+                // .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                // Article a9 = new Article();
+                // a9.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                // a9.setText(content9);
+                // a9.setPicture(article9);
+                // a9.setViews(0);
+                // articleRespository.save(a9);
 
-                Path text10 = Paths.get("src/main/resources/static/img/article/article7.txt");
-                String content10 = Files.readString(text10);
-                byte[] article10 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
-                Article a10 = new Article();
-                a10.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
-                a10.setText(content10);
-                a10.setPicture(article10);
-                a10.setViews(0);
-                articleRespository.save(a10);
+                // Path text10 =
+                // Paths.get("src/main/resources/static/img/article/article7.txt");
+                // String content10 = Files.readString(text10);
+                // byte[] article10 = Files
+                // .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                // Article a10 = new Article();
+                // a10.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                // a10.setText(content10);
+                // a10.setPicture(article10);
+                // a10.setViews(0);
+                // articleRespository.save(a10);
 
-                Path text11 = Paths.get("src/main/resources/static/img/article/article7.txt");
-                String content11 = Files.readString(text11);
-                byte[] article11 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
-                Article a11 = new Article();
-                a11.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
-                a11.setText(content11);
-                a11.setPicture(article11);
-                a11.setViews(0);
-                articleRespository.save(a11);
+                // Path text11 =
+                // Paths.get("src/main/resources/static/img/article/article7.txt");
+                // String content11 = Files.readString(text11);
+                // byte[] article11 = Files
+                // .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                // Article a11 = new Article();
+                // a11.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                // a11.setText(content11);
+                // a11.setPicture(article11);
+                // a11.setViews(0);
+                // articleRespository.save(a11);
 
-                Path text12 = Paths.get("src/main/resources/static/img/article/article7.txt");
-                String content12 = Files.readString(text12);
-                byte[] article12 = Files
-                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
-                Article a12 = new Article();
-                a12.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
-                a12.setText(content12);
-                a12.setPicture(article12);
-                a12.setViews(0);
-                articleRespository.save(a12);
+                // Path text12 =
+                // Paths.get("src/main/resources/static/img/article/article7.txt");
+                // String content12 = Files.readString(text12);
+                // byte[] article12 = Files
+                // .readAllBytes(Paths.get("src/main/resources/static/img/article/article7.png"));
+                // Article a12 = new Article();
+                // a12.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
+                // a12.setText(content12);
+                // a12.setPicture(article12);
+                // a12.setViews(0);
+                // articleRespository.save(a12);
 
                 // 產品
                 Product product = new Product();

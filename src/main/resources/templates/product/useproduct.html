@@ -328,6 +328,22 @@
       });
 
       function displayCart() {
+        console.log(sessionStorage["shoppingCart"].length);
+        document.querySelector("#nextbtn").disabled = false;
+        document.getElementById("nextbtn").style.display = "block";
+        if (sessionStorage["shoppingCart"].length == 2) {
+          document.querySelector("#nextbtn").disabled = true;
+          document.getElementById("nextbtn").style.display = "none";
+        }
+
+        document.querySelector("#cleanbtn").disabled = false;
+        document.getElementById("cleanbtn").style.display = "block";
+        if (sessionStorage["shoppingCart"].length == 2) {
+          console.log("in");
+          document.querySelector("#cleanbtn").disabled = true;
+          document.getElementById("cleanbtn").style.display = "none";
+        }
+
         var cartArray = shoppingCart.listCart();
         var output = "";
 

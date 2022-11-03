@@ -46,7 +46,7 @@
                         <input id="inputPhotoToLoad" class="form-control" type="file" placeholder="圖片" name="photo" />
                         <label for="photo" class="form-label"><b>圖片</b></label>
                         <img id="member_img"
-                            style="width: 300px; border-radius: 10px 10px 10px 10px; margin-left: 50px;" />
+                            style="width: 150px; border-radius: 10px 10px 10px 10px; margin-left: 50px;" />
                     </div>
 
                     <div class="form-floating mb-3">
@@ -107,7 +107,8 @@
                                     <label class="custom-control-label" for="yes">是</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="no" name="becomeVIP" value="0" class="custom-control-input">
+                                    <input type="radio" id="no" name="becomeVIP" value="0" class="custom-control-input"
+                                        checked>
                                     <label class="custom-control-label" for="no">否</label>
                                 </div>
                             </div>
@@ -118,7 +119,7 @@
                         <label for="becomeVIP" class="form-label"><b>VIP</b></label>
                     </div> -->
                     <button type="reset" class="btn btn-secondary">重置</button>
-                    <button type="submit" class="signupbtn btn btn-primary">儲存</button>
+                    <button type="submit" class="signupbtn btn btn-warning">儲存</button>
                     <!-- <a th:href="@{/}">
                         <button type="submit" class="signupbtn btn btn-primary">回到首頁</button></a> -->
                 </form>

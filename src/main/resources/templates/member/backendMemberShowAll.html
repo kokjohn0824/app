@@ -56,7 +56,8 @@
 				<tr th:each="member : ${list}">
 					<td th:text="${member.member_id}"></td>
 					<td>
-						<img th:src="@{'/public/showMemberImage/'+${member.member_id}}" height="40px" />
+						<img class="rounded-circle" th:src="@{'/public/showMemberImage/'+${member.member_id}}"
+							height="60px" />
 					</td>
 					<td th:text="${member.nickname}"></td>
 					<td>

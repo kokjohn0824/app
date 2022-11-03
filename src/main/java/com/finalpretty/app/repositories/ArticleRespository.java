@@ -29,4 +29,12 @@ public interface ArticleRespository extends JpaRepository<Article, Integer> {
     @Query(value = "select * from article where title like :searchinput or [text] like :searchinput", nativeQuery = true)
     List<Article> selectLike(String searchinput);
 
+    @Query(value = "select * from article where "
+            + "title like :likeTest "
+            + "or type like :likeTest "
+            + "or convert(nvarchar,added, 112) like :likeTest "
+            + "or convert(nvarchar,added, 102) like :likeTest "
+            + "or convert(nvarchar,added, 111) like :likeTest "
+            + "or text like :likeTest ", nativeQuery = true)
+    List<Article> fuzzySerch(@Param("likeTest") String likeTest);
 }

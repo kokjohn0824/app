@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="card-title">收藏文章</h1>
+    <tr th:each="article : ${article}">
+      <a
+        th:href="@{'/public/article/show?article_id='+${article.article_id}}"
+        class="btn btn-light"
+        ><p>[[${article.title}]]</p></a
+      >
+    </tr>
+    <h1 class="card-title">收藏影片</h1>
+    <tr th:each="video : ${video}">
+      <a
+        th:href="@{'/public/video/show?video_id='+${video.video_id}}"
+        class="btn btn-light"
+        ><p>[[${video.title}]]</p></a
+      >
+    </tr>
+  </body>
+</html>

@@ -36,78 +36,126 @@
 
         <div th:replace="component/navbar :: navbar"></div>
 
-        <div class="container-lg" style="width: 50%; margin: 20px auto">
+        <h1 style="color:white; padding: 0 450px;">會員資料</h1>
 
-            <h1 style="color:white">會員資料</h1>
-            <!-- <div>[[${member.member_id}]]</div> -->
-            <div class="container-lg" style="width: 800px;" th:fragment="form">
+        <div th:fragment="form">
+            <div class="d-flex justify-content-center">
+
                 <form th:object="${member}" th:action="@{/member/inputshow}" method="post"
                     enctype="multipart/form-data">
 
-                    <div class="form-floating mb-3">
-                        <img th:src="@{'/public/showMemberImage/'+${member.member_id}}" height="100px" />
+                    <div class="form-floating mb-3 text-center">
+                        <img class="img-thumbnail" th:src="@{'/public/showMemberImage/'+${member.member_id}}" />
                     </div>
-
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="暱稱" name="nickname" th:field="*{nickname}"
-                            disabled />
-                        <label for="nickname" class="form-label"><b>暱稱</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>暱稱: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;">[[*{nickname}]]</span>
+                        </label>
                     </div>
-                    <label style="color:white">
-                        <span th:if="${member.gender==1}">男</span>
-                        <span th:if="${member.gender==0}">女</span>
-                    </label>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="性別" name="gender" th:field="*{gender}"
-                            disabled />
-                        <label for="gender" class="form-label"><b>性別</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>性別: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;" th:if="${member.gender==1}">我是男生</span>
+                            <span class="border border-warning border border-3 rounded-pill" style="padding: 5px;"
+                                th:if="${member.gender==0}">我是女生</span>
+                        </label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="年齡" name="age" th:field="*{age}"
-                            disabled />
-                        <label for="age" class="form-label"><b>年齡</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>年齡: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;">[[*{age}]]</span>
+                        </label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="身高" name="height" th:field="*{height}"
-                            disabled />
-                        <label for="height" class="form-label"><b>身高</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>身高: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;">[[*{height}]]</span>
+                        </label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="體重" name="weight" th:field="*{weight}"
-                            disabled />
-                        <label for="weight" class="form-label"><b>體重</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>體重: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;">[[*{weight}]]</span>
+                        </label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="體脂肪" name="bodyFat" th:field="*{bodyFat}"
-                            disabled />
-                        <label for="bodyFat" class="form-label"><b>體脂肪</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>體脂肪: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;">[[*{bodyFat}]]</span>
+                        </label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="內臟脂肪" name="visceralFat"
-                            th:field="*{visceralFat}" disabled />
-                        <label for="visceralFat" class="form-label"><b>內臟脂肪</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>內臟脂肪: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;">[[*{visceralFat}]]</span>
+                        </label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="肌肉量" name="muscleMass"
-                            th:field="*{muscleMass}" disabled />
-                        <label for="muscleMass" class="form-label"><b>肌肉量</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>肌肉量: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;">[[*{muscleMass}]]</span>
+                        </label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" type="text" placeholder="VIP" name="becomeVIP"
-                            th:field="*{becomeVIP}" disabled />
-                        <label for="becomeVIP" class="form-label"><b>VIP</b></label>
+                    <br />
+                    <div>
+                        <label class="" style="color:white">
+                            <h5>VIP: </h5>
+                        </label>
+                        <label style="color:white">
+                            <span class="border border-warning border-3 rounded-pill"
+                                style="color: white; padding: 5px;" th:if="${member.gender==1}">是</span>
+                            <span class="border border-warning border border-3 rounded-pill" style="padding: 5px;"
+                                th:if="${member.gender==0}">否</span>
+                        </label>
                     </div>
                     <div>
                         <input th:field="*{member_id}" type="hidden">
                     </div>
-
-                    <a th:href="@{/}">
-                        <button type="button" class="signupbtn btn btn-primary">回到首頁</button></a>
+                    <br />
+                    <div class="col-12">
+                        <a th:href="@{/}">
+                            <button type="button" class="signupbtn btn btn-warning">回到首頁</button></a>
+                    </div>
+                    <br />
 
                     <!-- 可以新增頁面跳轉功能 -->
                 </form>
             </div>
         </div>
+
 
 
     </article>

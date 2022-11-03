@@ -1,7 +1,9 @@
 package com.finalpretty.app.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
+import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.MemberRespository;
 import com.finalpretty.app.security.UsersRepository;
 
@@ -265,6 +269,18 @@ public class MemberManageController {
 			Optional<Member> m1 = memberR.findById(member_id);
 			// 存入並抓取member資料
 			m.addAttribute("member", m1.get());
+
+			// 收藏文章和影片
+			Member memberFromJpa = memberR.findById(member_id).get();
+			Set<Article> aa = memberFromJpa.getArticles();
+			List<Article> article = new ArrayList<Article>();
+			article.addAll(aa);
+			Set<Video> vv = memberFromJpa.getVideos();
+			List<Video> video = new ArrayList<Video>();
+			video.addAll(vv);
+			m.addAttribute("article", article);
+			m.addAttribute("video", video);
+
 			// 去抓會員資料
 			return "/member/memberPage";
 		} catch (Exception e) {

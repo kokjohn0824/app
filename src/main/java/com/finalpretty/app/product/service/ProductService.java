@@ -73,4 +73,13 @@ public class ProductService {
 		}
 	}
 
+	public List<Product> fuzzySearch(String word) {
+		List<Product> list = pDao.fuzzySerch("%" + word + "%");
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list;
+		}
+	}
+
 }

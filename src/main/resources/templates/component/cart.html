@@ -1,13 +1,31 @@
 <div th:fragment="cart">
-  <div
-    class="fixed-bottom top-50 d-flex justify-content-end"
-    style="height: 80px"
-  >
-    <a class="mr-3" data-toggle="modal" data-target="#cart">
-      <img th:src="@{/img/icon/cart.svg}" alt="" width="50px"
-    /></a>
-  </div>
+  <style>
+    #par {
+      height: 80px;
+      width: 80px;
+      font-size: 40px;
+      overflow: hidden;
+      justify-content: center;
+      padding: auto;
+      border: solid 2px;
+      border-radius: 500px;
+      color: #fff;
+      background-color: rgb(81, 144, 62);
+    }
 
+    #par:hover {
+      color: #fff;
+      background-color: rgb(153, 184, 147);
+    }
+  </style>
+
+  <!-- ------------------------ -->
+  <div class="fixed-bottom top-50 d-flex justify-content-end">
+    <button id="par" class="mr-3" data-toggle="modal" data-target="#cart">
+      <i class="bi bi-bag"></i>
+    </button>
+  </div>
+  <!-- ---------------------------------------------- -->
   <div
     class="modal fade"
     id="cart"

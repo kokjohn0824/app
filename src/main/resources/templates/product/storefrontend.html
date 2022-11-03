@@ -62,6 +62,10 @@
         color: rgb(54, 143, 109);
         font-size: large;
       }
+
+      /* a.mr-3:hover {
+        background-color: #00438a;
+      } */
     </style>
   </head>
 
@@ -70,6 +74,8 @@
     <div th:replace="component/chatbubble"></div>
 
     <article>
+      <div></div>
+
       <div>
         <ul class="d-flex justify-content-center" style="list-style: none">
           商品分類：　
@@ -137,9 +143,7 @@
                   th:data-price="${product.price}"
                   th:data-img="@{'/public/downloadImage/'+${product.product_id}}"
                   th:data-id="${product.product_id}"
-                  class="add-to-cart btn btn-secondary text-dark"
-                  style="background-color: #64748b"
-                  >加入購物車</a
+                  class="add-to-cart btn btn-primary"
                 >
                   加入購物車
                 </a>
@@ -192,12 +196,10 @@
         this.img = img;
       }
 
-        // Save cart
-        function saveCart() {
-          sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
-        }
-        
-        
+      // Save cart
+      function saveCart() {
+        sessionStorage.setItem("shoppingCart", JSON.stringify(cart));
+      }
 
       // Load cart
       function loadCart() {

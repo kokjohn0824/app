@@ -4,15 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
@@ -53,7 +56,8 @@ public class MemberManageController {
 			@RequestParam(name = "bodyFat", required = false) Double bodyFat,
 			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
 			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
-			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP) {
+			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			@RequestParam(name = "photo", required = false) MultipartFile photo) {
 		Member member = new Member();
 		try {
 			member.setNickname(nickname);
@@ -65,6 +69,7 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
+			member.setPhoto(photo.getBytes());
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -80,6 +85,16 @@ public class MemberManageController {
 		List<Member> list = memberR.findAll();
 		m.addAttribute("list", list);
 		return "/member/backendMemberShowAll";
+	}
+
+	// 顯示全部會員的圖片
+	@GetMapping("/public/showMemberImage/{id}")
+	public ResponseEntity<byte[]> showMemberImage(@PathVariable Integer id) {
+		Member member = memberR.findById(id).get();
+		byte[] photoFile = member.getPhoto();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_PNG);
+		return new ResponseEntity<byte[]>(photoFile, headers, HttpStatus.OK);
 	}
 
 	// 刪除會員
@@ -108,6 +123,7 @@ public class MemberManageController {
 			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
 			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
 			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			@RequestParam(name = "photo", required = false) MultipartFile photo,
 			Model m) {
 		Member member = new Member();
 
@@ -122,7 +138,7 @@ public class MemberManageController {
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
 			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
-					visceralFat, muscleMass, becomeVIP);
+					visceralFat, muscleMass, becomeVIP, photo.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -154,7 +170,8 @@ public class MemberManageController {
 			@RequestParam(name = "bodyFat", required = false) Double bodyFat,
 			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
 			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
-			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP) {
+			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			@RequestParam(name = "photo", required = false) MultipartFile photo) {
 		Member member = new Member();
 		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Integer user_id = ((Users) o).getId();
@@ -168,6 +185,7 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
+			member.setPhoto(photo.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -306,6 +324,7 @@ public class MemberManageController {
 			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
 			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
 			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			@RequestParam(name = "photo", required = false) MultipartFile photo,
 			Model m) {
 		Member member = new Member();
 
@@ -319,8 +338,9 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
+			member.setPhoto(photo.getBytes());
 			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
-					visceralFat, muscleMass, becomeVIP);
+					visceralFat, muscleMass, becomeVIP, photo.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

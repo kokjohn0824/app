@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.product.service.ProductService;
@@ -35,6 +37,14 @@ public class StoreFrontendController {
         return "/product/cartcheck";
     }
 
+    // 模糊搜尋(名稱、種類、價格、狀態)
+    @ResponseBody
+    @GetMapping("/products/likeTest")
+    public List<Product> fuzzySearch(@RequestParam(name = "likeTest") String likeTest) {
+        List<Product> list = pService.fuzzySearch(likeTest);
+        return list;
+    }
+
     // 找食品
     @GetMapping("/public/eatproduct")
     public String selectByEatProduct(Model model) {
@@ -54,7 +64,7 @@ public class StoreFrontendController {
         List<Product> list = pService.selectByUseProduct();
 
         for (Product li : list) {
-            System.out.println(li.getPicture());
+            // System.out.println(li.getPicture());
         }
         model.addAttribute("productlistuse", list);
 
@@ -76,7 +86,7 @@ public class StoreFrontendController {
 
     @GetMapping("/public/downloadImage/{id}")
     public ResponseEntity<byte[]> downloadImage(@PathVariable Integer id) {
-        System.out.println(id);
+        // System.out.println(id);
         Product product = pService.findById(id);
 
         byte[] photoFile = product.getPicture();

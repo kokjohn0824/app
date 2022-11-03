@@ -81,12 +81,15 @@ public class ArticleController {
 	public String addArticle(
 			@RequestParam(name = "title") String title,
 			@RequestParam(name = "text") String text,
+			@RequestParam(name = "type") String type,
 			@RequestParam(name = "file") MultipartFile file) {
 		Article article = new Article();
 		try {
 			article.setTitle(title);
 			article.setText(text);
+			article.setType(type);
 			article.setPicture(file.getBytes());
+			article.setViews(0);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -106,6 +109,7 @@ public class ArticleController {
 	public String editArticlePost(@RequestParam(name = "article_id") Integer article_id,
 			@RequestParam(name = "title") String title,
 			@RequestParam(name = "text") String text,
+			@RequestParam(name = "type") String type,
 			@RequestParam(name = "file") MultipartFile file,
 			Model model) {
 
@@ -119,7 +123,7 @@ public class ArticleController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		articleR.updateById(article_id, title, text, picture);
+		articleR.updateById(article_id, title, text, type, picture);
 
 		return "redirect:/article/manage";
 	}
@@ -157,7 +161,7 @@ public class ArticleController {
 		articleR.findAlloOrderById().forEach((n) -> {
 			artilcelist.add(
 					new ArticleDTO(n.getArticle_id(), n.getTitle(), n.getText().substring(0, 15) + "...",
-							n.getAdded()));
+							n.getAdded(), n.getViews()));
 		});
 		return artilcelist;
 	}
@@ -170,6 +174,11 @@ public class ArticleController {
 		Optional<Article> optional = articleR.findById(article_id);
 		Article article = optional.get();
 		Set<Member> members = article.getMembers();
+
+		Integer views = article.getViews();
+		views++;
+		article.setViews(views);
+		articleR.save(article);
 
 		if (o instanceof Users) {
 			member = ((Users) o).getFkMember();
@@ -221,6 +230,7 @@ public class ArticleController {
 			Article article = articleR.findById(article_id).get();
 			Set<Article> ss = memberFromJpa.getArticles();
 			ss.remove(article);
+			articleR.save(article);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

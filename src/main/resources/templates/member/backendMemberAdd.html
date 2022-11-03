@@ -35,21 +35,15 @@
 				<h1>新增會員</h1>
 				<div class="container-lg" style="text-align:center" th:fragment="form">
 					<form th:action="@{/backendMember/add}" method="post" enctype="multipart/form-data">
-						<!-- <div class="form-floating mb-3">
-	            					<input class="form-control" type="file" placeholder="請加入圖片" name="picture" />
-	          					</div> -->
-						<!-- <div class="form-floating mb-3">
-	            					<input class="form-control" type="text" placeholder="帳號" name="title" required />
-	            					<label for="title" class="form-label"><b>帳號</b></label>
-	          					</div> -->
-						<!-- <div class="form-floating mb-3">
-	          						<input class="form-control" type="text" placeholder="密碼" name="title" required />
-	            					<label for="title" class="form-label"><b>密碼</b></label>
-	          					</div> -->
-						<!-- <div class="form-floating mb-3">
-	          						<input class="form-control" type="text" placeholder="編號" name="title" required />
-	            					<label for="title" class="form-label"><b>編號</b></label>
-	          					</div> -->
+
+						<div class="form-floating mb-3">
+							<input id="inputPhotoToLoad" class="form-control" type="file" placeholder="圖片"
+								name="photo" />
+							<label for="photo" class="form-label"><b>圖片</b></label>
+							<img id="member_img"
+								style="width: 300px; border-radius: 10px 10px 10px 10px; margin-left: 50px;" />
+						</div>
+
 						<div class="form-floating mb-3">
 							<input class="form-control" type="text" placeholder="暱稱" name="nickname" />
 							<label for="nickname" class="form-label"><b>暱稱</b></label>
@@ -131,7 +125,21 @@
 		</div>
 	</div>
 
+	<script>
+		$("#inputPhotoToLoad").change(function () {
+			readURL(this);
+		});
 
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$("#member_img").attr("src", e.target.result);
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
 
 </body>
 

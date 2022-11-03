@@ -39,6 +39,7 @@
 			<table border="2" width="70%" cellpadding="2">
 				<tr>
 					<th>編號</th>
+					<th>照片</th>
 					<th>暱稱</th>
 					<th>性別</th>
 					<th>年齡</th>
@@ -54,6 +55,9 @@
 
 				<tr th:each="member : ${list}">
 					<td th:text="${member.member_id}"></td>
+					<td>
+						<img th:src="@{'/public/showMemberImage/'+${member.member_id}}" height="40px" />
+					</td>
 					<td th:text="${member.nickname}"></td>
 					<td>
 						<span th:if="${member.gender==1}">男</span>

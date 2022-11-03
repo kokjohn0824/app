@@ -84,6 +84,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 logger.info("測試程式碼開始...");
                 logger.info("請注意，run()內的程式碼報錯時將結束springboot");
                 // 塞入測試資料
+                byte[] head1 = Files.readAllBytes(Paths.get("src/main/resources/static/img/member/head1.png"));
                 Member m1 = new Member();
                 m1.setGender(1);
                 m1.setAge(18);
@@ -93,9 +94,11 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 m1.setVisceralFat(7.1);
                 m1.setMuscleMass(20.4);
                 m1.setBecomeVIP(1);
-                m1.setNickname("tset");
+                m1.setNickname("one");
+                m1.setPhoto(head1);
                 memberRespository.save(m1);
 
+                byte[] head2 = Files.readAllBytes(Paths.get("src/main/resources/static/img/member/head2.png"));
                 Member m2 = new Member();
                 m2.setGender(0);
                 m2.setAge(16);
@@ -105,6 +108,8 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 m2.setVisceralFat(8.1);
                 m2.setMuscleMass(10.4);
                 m2.setBecomeVIP(0);
+                m2.setNickname("two");
+                m2.setPhoto(head2);
 
                 // 插入帳號
                 String encodedPassword;
@@ -232,6 +237,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a1.setTitle("女孩必看！生理週期的飲食方針");
                 a1.setText(content1);
                 a1.setPicture(article1);
+                a1.setViews(0);
                 articleRespository.save(a1);
 
                 Path text2 = Paths.get("src/main/resources/static/img/article/article2.txt");
@@ -242,6 +248,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a2.setTitle("手腳冰冷分三類！中醫食補法溫熱手腳");
                 a2.setText(content2);
                 a2.setPicture(article2);
+                a2.setViews(0);
                 articleRespository.save(a2);
 
                 Path text3 = Paths.get("src/main/resources/static/img/article/article3.txt");
@@ -252,6 +259,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a3.setTitle("便祕不硬擠，順暢四技巧！");
                 a3.setText(content3);
                 a3.setPicture(article3);
+                a3.setViews(0);
                 articleRespository.save(a3);
 
                 Path text4 = Paths.get("src/main/resources/static/img/article/article4.txt");
@@ -262,6 +270,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a4.setTitle("消水腫的秘密武器食物篇");
                 a4.setText(content4);
                 a4.setPicture(article4);
+                a4.setViews(0);
                 articleRespository.save(a4);
 
                 Path text5 = Paths.get("src/main/resources/static/img/article/article5.txt");
@@ -272,6 +281,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a5.setTitle("舒緩經痛不發胖的好食材");
                 a5.setText(content5);
                 a5.setPicture(article5);
+                a5.setViews(0);
                 articleRespository.save(a5);
 
                 Path text6 = Paths.get("src/main/resources/static/img/article/article6.txt");
@@ -282,6 +292,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a6.setTitle("瘦身不受胸 美胸十全大補帖");
                 a6.setText(content6);
                 a6.setPicture(article6);
+                a6.setViews(0);
                 articleRespository.save(a6);
 
                 Path text7 = Paths.get("src/main/resources/static/img/article/article7.txt");
@@ -292,6 +303,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a7.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
                 a7.setText(content7);
                 a7.setPicture(article7);
+                a7.setViews(0);
                 articleRespository.save(a7);
 
                 Path text8 = Paths.get("src/main/resources/static/img/article/article7.txt");
@@ -302,6 +314,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a8.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
                 a8.setText(content8);
                 a8.setPicture(article8);
+                a8.setViews(0);
                 articleRespository.save(a8);
 
                 Path text9 = Paths.get("src/main/resources/static/img/article/article7.txt");
@@ -312,6 +325,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a9.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
                 a9.setText(content9);
                 a9.setPicture(article9);
+                a9.setViews(0);
                 articleRespository.save(a9);
 
                 Path text10 = Paths.get("src/main/resources/static/img/article/article7.txt");
@@ -322,6 +336,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a10.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
                 a10.setText(content10);
                 a10.setPicture(article10);
+                a10.setViews(0);
                 articleRespository.save(a10);
 
                 Path text11 = Paths.get("src/main/resources/static/img/article/article7.txt");
@@ -332,6 +347,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a11.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
                 a11.setText(content11);
                 a11.setPicture(article11);
+                a11.setViews(0);
                 articleRespository.save(a11);
 
                 Path text12 = Paths.get("src/main/resources/static/img/article/article7.txt");
@@ -342,6 +358,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a12.setTitle("吃不吃天人交戰？蛋糕免發胖守則");
                 a12.setText(content12);
                 a12.setPicture(article12);
+                a12.setViews(0);
                 articleRespository.save(a12);
 
                 // 產品
@@ -527,7 +544,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product14.setPrice(1197);
                 product14.setStock(0);
                 product14.setText("◆樟芝多醣9%補精力有活力 ◆技術創新 榮獲國家七項專利");
-                product14.setOnsale(1);
+                product14.setOnsale(0);
                 product14.setVolume(0);
                 String saveFiledir14 = System.getProperty("user.dir") +
                                 "/src/main/resources/static/img/product/p14.jpg";
@@ -541,7 +558,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product15.setPrice(290);
                 product15.setStock(2);
                 product15.setText("無化學合成，西印度櫻桃植萃");
-                product15.setOnsale(1);
+                product15.setOnsale(0);
                 product15.setVolume(0);
                 String saveFiledir15 = System.getProperty("user.dir") +
                                 "/src/main/resources/static/img/product/p15.jpg";

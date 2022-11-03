@@ -21,5 +21,7 @@ public class ArticleDTO {
     @JsonProperty("內文")
     private String text;
     @JsonProperty("日期")
-    private Date create_date;
+    private Date added;
+    @JsonProperty("觀看數")
+    private Integer views;
 }

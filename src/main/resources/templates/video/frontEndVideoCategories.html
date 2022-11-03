@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video Categories</title>
-  <div th:replace="jsmodules"></div>
-  <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
-  <style>
-     body {
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Categories</title>
+    <div th:replace="jsmodules"></div>
+    <link rel="stylesheet" th:href="@{/css/videoCategories.css}" />
+    <style>
+      body {
         background-color: black;
         background-size: 100vw;
         min-height: 100vh;
@@ -24,63 +23,166 @@
       article {
         flex: 1;
       }
-  </style>
-</head>
+    </style>
+  </head>
 
-<body>
-  <div th:replace="component/navbar :: navbar"></div>
-  
-  <article>
-    <br />
-  <div class="container-lg">
-    <div data-hicms-tmpl="index3_course_action">
-      <div id="header" class="but1" onclick="location.href='/public/video/type/胸肌';"
-        style="background-image: url('/img/body_parts/chest.png')">
-        胸肌
+  <body>
+    <div th:replace="component/navbar :: navbar"></div>
+
+    <article>
+      <br />
+      <div class="container-lg">
+        <!-- ------------------------------------------------------------------------------- -->
+        <div class="d-flex" style="width: 800px; margin: 0 auto">
+          <input
+            id="fuzzySearch"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            style="width: 800px"
+          />
+          <div class="dropdown">
+            <button
+              id="fuzzySearchbtn"
+              class="btn"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i style="color: white" class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+        <br />
+        <!-- ------------------------------------------------------------------------------- -->
+        <div data-hicms-tmpl="index3_course_action" id="page">
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/public/video/type/胸肌';"
+            style="background-image: url('/img/body_parts/chest.png')"
+          >
+            胸肌
+          </div>
+
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/public/video/type/背肌';"
+            style="background-image: url('/img/body_parts/back.png')"
+          >
+            背肌
+          </div>
+
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/public/video/type/腿肌';"
+            style="background-image: url('/img/body_parts/leg.png')"
+          >
+            腿肌
+          </div>
+
+          <div
+            id="header"
+            class="but1"
+            onclick="location.href='/public/video/type/肩膀';"
+            style="background-image: url('/img/body_parts/shoulder.png')"
+          >
+            肩膀
+          </div>
+          <p></p>
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/public/video/type/腹部';"
+            style="background-image: url('/img/body_parts/abs.png')"
+          >
+            腹部
+          </div>
+
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/public/video/type/手臂';"
+            style="background-image: url('/img/body_parts/arm.png')"
+          >
+            手臂
+          </div>
+
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/public/video/type/有氧';"
+            style="background-image: url('/img/body_parts/aerobics.png')"
+          >
+            有氧
+          </div>
+
+          <div
+            id="header"
+            class="but2"
+            onclick="location.href='/public/video/type/伸展';"
+            style="background-image: url('/img/body_parts/stretch.png')"
+          >
+            伸展
+          </div>
+        </div>
       </div>
+    </article>
+    <script>
+      //模糊搜尋
+      const fuzzySearch = document.getElementById("fuzzySearch");
+      const fuzzySearchbtn = document.getElementById("fuzzySearchbtn");
+      const fuzzySearchend = document.getElementById("page");
 
-      <div id="header" class="but1" onclick="location.href='/public/video/type/背肌';"
-        style="background-image: url('/img/body_parts/back.png')">
-        背肌
-      </div>
-
-      <div id="header" class="but1" onclick="location.href='/public/video/type/腿肌';"
-        style="background-image: url('/img/body_parts/leg.png')">
-        腿肌
-      </div>
-
-      <div id="header" class="but1" onclick="location.href='/public/video/type/肩膀';"
-        style="background-image: url('/img/body_parts/shoulder.png')">
-        肩膀
-      </div>
-      <p></p>
-      <div id="header" class="but2" onclick="location.href='/public/video/type/腹部';"
-        style="background-image: url('/img/body_parts/abs.png')">
-        腹部
-      </div>
-
-      <div id="header" class="but2" onclick="location.href='/public/video/type/手臂';"
-        style="background-image: url('/img/body_parts/arm.png')">
-        手臂
-      </div>
-
-      <div id="header" class="but2" onclick="location.href='/public/video/type/有氧';"
-        style="background-image: url('/img/body_parts/aerobics.png')">
-        有氧
-      </div>
-
-      <div id="header" class="but2" onclick="location.href='/public/video/type/伸展';"
-        style="background-image: url('/img/body_parts/stretch.png')">
-        伸展
-      </div>
-    </div>
-  </div>
-  </div>
-  </article>
-  <footer>
-    <div th:replace="component/footer"></div>
-
-  </footer>
-</body>
-
+      fuzzySearchbtn.addEventListener("click", (e) => {
+        // scrollint.removeEventListener("scroll", Page);
+        pa.unbind();
+        postdata(
+          "http://localhost:8082/public/api/article/fuzzySearch",
+          { likeTest: `${fuzzySearch.value}` },
+          (result) => {
+            console.log(result);
+            fuzzySearchend.innerHTML = "";
+            result.forEach((el) => {
+              el.text = el.text.replace(/<[^>]*>/g, "");
+              fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img
+                        src="/public/showArticleImage/${el.article_id}"
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-8" style="background-color: black">
+                      <div class="card-body" style="background-color: black">
+                        <h5 class="card-title" style="color: white">
+                          ${el.title}
+                        </h5>
+                        <p id="cleanText" class="card-text" style="color: white">
+                          ${el.text}</p>
+                        <p class="card-text">
+                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                          <a
+                            href="/public/article/show?article_id=${el.article_id}"
+                            class="btn btn-light"
+                            style="float: right; vertical-align: bottom"
+                            >Read more</a
+                          >
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+            });
+          }
+        );
+      });
+    </script>
+    <footer>
+      <div th:replace="component/footer"></div>
+    </footer>
+  </body>
 </html>

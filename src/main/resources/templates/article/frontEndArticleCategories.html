@@ -23,10 +23,6 @@
       article {
         flex: 1;
       }
-      .top {
-        width: 100%;
-        margin-top: 115px;
-      }
 
       .card-text {
         overflow: hidden;
@@ -43,6 +39,32 @@
     <div th:replace="component/navbar :: navbar"></div>
     <article>
       <div class="top">
+        <!-- ------------------------------------------------------------------------------- -->
+        <br />
+        <div class="d-flex" style="width: 800px; margin: 0 auto">
+          <input
+            id="fuzzySearch"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            style="width: 800px"
+          />
+          <div class="dropdown">
+            <button
+              id="fuzzySearchbtn"
+              class="btn"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i style="color: white" class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+        <br />
+
+        <!-- ------------------------------------------------------------------------------- -->
+
         <div class="container-lg" id="page">
           <tr th:each="article : ${page}">
             <div class="card mb-3" style="max-width: 100%">
@@ -80,8 +102,8 @@
       </div>
     </article>
     <script>
+      //Ajax 其他文章延遲載入
       var pageNumber = 2;
-
       function Page() {
         var scrollint = $(window).scrollTop();
         if (
@@ -140,14 +162,65 @@
             .catch((error) => console.log("error", error));
         }
       }
-      $(window).scroll(function () {
-        console.log("++++++++");
+      const pa = $(window).scroll(function () {
         Page();
       });
+
+      //消除內文標籤
       const cleanTextList = document.querySelectorAll("#cleanText");
       cleanTextList.forEach(
         (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
       );
+
+      //模糊搜尋
+      const fuzzySearch = document.getElementById("fuzzySearch");
+      const fuzzySearchbtn = document.getElementById("fuzzySearchbtn");
+      const fuzzySearchend = document.getElementById("page");
+
+      fuzzySearchbtn.addEventListener("click", (e) => {
+        // scrollint.removeEventListener("scroll", Page);
+        pa.unbind();
+        postdata(
+          "http://localhost:8082/public/api/article/fuzzySearch",
+          { likeTest: `${fuzzySearch.value}` },
+          (result) => {
+            console.log(result);
+            fuzzySearchend.innerHTML = "";
+            result.forEach((el) => {
+              el.text = el.text.replace(/<[^>]*>/g, "");
+              fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img
+                        src="/public/showArticleImage/${el.article_id}"
+                        class="img-fluid rounded-start"
+                        alt="..."
+                      />
+                    </div>
+                    <div class="col-md-8" style="background-color: black">
+                      <div class="card-body" style="background-color: black">
+                        <h5 class="card-title" style="color: white">
+                          ${el.title}
+                        </h5>
+                        <p id="cleanText" class="card-text" style="color: white">
+                          ${el.text}</p>
+                        <p class="card-text">
+                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                          <a
+                            href="/public/article/show?article_id=${el.article_id}"
+                            class="btn btn-light"
+                            style="float: right; vertical-align: bottom"
+                            >Read more</a
+                          >
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+            });
+          }
+        );
+      });
     </script>
 
     <footer>

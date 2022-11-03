@@ -12,6 +12,16 @@
         width: 100%;
         margin-top: 115px;
       }
+
+      body {
+        background-color: black;
+      }
+      span {
+        color: #fff;
+      }
+      h2 {
+        color: #fff;
+      }
     </style>
   </head>
 
@@ -21,40 +31,44 @@
       <div class="container-lg">
         <div class="row row-cols-1 row-cols-md-2 g-4">
           <tr th:each="video : ${list}">
-              <div class="card" style="width: 18rem;margin: 10px;">
-                <a
-                  th:href="@{'/public/video/show?video_id='+${video.video_id}}"
-                >
-                  <img
-                    th:src="@{'/public/showVideoImage/'+${video.video_id}}"
-                    class="card-img-top"
-                    alt="..."
-                    loading="lazy"
-                    itemprop="image"
-                  />
-                </a>
-                <div class="card-body">
-                  <h2
-                    class="entry-title"
-                    itemprop="headline"
-                    th:text="${video.title}"
-                  ></h2>
-                  <p class="card-text">
-                    <span class="card-text">訓練肌群:</span
-                    ><span
+            <div
+              class="card"
+              style="
+                width: 18rem;
+                margin: 10px;
+                background-color: black;
+                border-style: solid;
+                border-color: white;
+              "
+            >
+              <a th:href="@{'/public/video/show?video_id='+${video.video_id}}">
+                <img
+                  th:src="@{'/public/showVideoImage/'+${video.video_id}}"
+                  class="card-img-top"
+                  alt="..."
+                  loading="lazy"
+                  itemprop="image"
+                />
+              </a>
+              <div class="card-body">
+                <h2
+                  class="entry-title"
+                  itemprop="headline"
+                  th:text="${video.title}"
+                ></h2>
+                <p class="card-text">
+                  <span class="card-text">訓練肌群:</span
+                  ><span class="card-text" th:text="${video.body_parts}"></span>
+                  <span class="card-text" style="float: right"
+                    >觀看數:<span
                       class="card-text"
-                      th:text="${video.body_parts}"
-                    ></span>
-                    <span class="card-text" style="float: right"
-                      >觀看數:<span
-                        class="card-text"
-                        style="float: right"
-                        th:text="${video.views}"
-                      ></span
-                    ></span>
-                  </p>
-                </div>
+                      style="float: right"
+                      th:text="${video.views}"
+                    ></span
+                  ></span>
+                </p>
               </div>
+            </div>
           </tr>
         </div>
       </div>

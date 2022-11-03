@@ -12,29 +12,29 @@ import com.finalpretty.app.model.Article;
 
 public interface ArticleRespository extends JpaRepository<Article, Integer> {
 
-    @Transactional
-    @Modifying
-    @Query(value = "update article set title=:title, text=:text,type=:type, picture=:picture where article_id=:article_id", nativeQuery = true)
-    void updateById(@Param("article_id") Integer article_id,
-            @Param("title") String title,
-            @Param("text") String type,
-            @Param("text") String text,
-            @Param("picture") byte[] picture);
+        @Transactional
+        @Modifying
+        @Query(value = "update article set title=:title, text=:text,type=:type, picture=:picture where article_id=:article_id", nativeQuery = true)
+        void updateById(@Param("article_id") Integer article_id,
+                        @Param("title") String title,
+                        @Param("text") String type,
+                        @Param("text") String text,
+                        @Param("picture") byte[] picture);
 
-    @Transactional
-    @Modifying
-    @Query(value = "select * from article order by article_id desc", nativeQuery = true)
-    List<Article> findAlloOrderById();
+        @Transactional
+        @Modifying
+        @Query(value = "select * from article order by article_id desc", nativeQuery = true)
+        List<Article> findAlloOrderById();
 
-    @Query(value = "select * from article where title like :searchinput or [text] like :searchinput", nativeQuery = true)
-    List<Article> selectLike(String searchinput);
+        @Query(value = "select * from article where title like :searchinput or [text] like :searchinput", nativeQuery = true)
+        List<Article> selectLike(String searchinput);
 
-    @Query(value = "select * from article where "
-            + "title like :likeTest "
-            + "or type like :likeTest "
-            + "or convert(nvarchar,added, 112) like :likeTest "
-            + "or convert(nvarchar,added, 102) like :likeTest "
-            + "or convert(nvarchar,added, 111) like :likeTest "
-            + "or text like :likeTest ", nativeQuery = true)
-    List<Article> fuzzySerch(@Param("likeTest") String likeTest);
+        @Query(value = "select * from article where "
+                        + "title like :likeTest "
+                        + "or type like :likeTest "
+                        + "or convert(nvarchar,added, 112) like :likeTest "
+                        + "or convert(nvarchar,added, 102) like :likeTest "
+                        + "or convert(nvarchar,added, 111) like :likeTest "
+                        + "or text like :likeTest order by article_id desc", nativeQuery = true)
+        List<Article> fuzzySerch(@Param("likeTest") String likeTest);
 }

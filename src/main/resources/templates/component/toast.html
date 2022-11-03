@@ -1,33 +1,42 @@
 <div th:fragment="toast">
-  <div class="toast-container position-static">
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <img src="..." class="rounded me-2" alt="..." />
-        <strong class="me-auto">Bootstrap</strong>
-        <small class="text-muted">just now</small>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="toast"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="toast-body">See? Just like this.</div>
-    </div>
+  <button type="button" class="btn btn-primary cart" id="liveToastBtn">
+    Show live toast
+  </button>
 
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <img src="..." class="rounded me-2" alt="..." />
-        <strong class="me-auto">Bootstrap</strong>
-        <small class="text-muted">2 seconds ago</small>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="toast"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="toast-body">Heads up, toasts will stack automatically</div>
-    </div>
-  </div>
+  <div
+    id="toastContainer"
+    class="toast-container position-fixed bottom-0 end-0 p-3"
+  ></div>
+  <script>
+    const toastTrigger = document.getElementById("liveToastBtn");
+    const toastContainer = document.getElementById("toastContainer");
+    const toastdiv = (message) => {
+      let div = document.createElement("div");
+      div.innerHTML = `<div id="liveToast" class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">
+           ${message}
+                </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        </div>`;
+      return div;
+    };
+
+    const addToastMessage = (element, message) => {
+      element.addEventListener("click", (e) => {
+        if (toastContainer.firstElementChild) {
+          toastContainer.removeChild(toastContainer.firstElementChild);
+        }
+        toastContainer.append(toastdiv(message));
+        let toastLiveExample = document.getElementById("liveToast");
+        let toast = new bootstrap.Toast(toastLiveExample);
+        toast.show();
+      });
+    };
+
+    document.querySelectorAll(".btn-addToCart").forEach((e) => {
+      addToastMessage(e);
+    });
+  </script>
 </div>

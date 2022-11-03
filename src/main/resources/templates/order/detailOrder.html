@@ -21,7 +21,7 @@
       $.ajax(settings).done(function (response) {
         console.log(response);
         var str =
-          "<table><tr><th>商品名稱</th><th>商品數量</th><th>商品金額</th></tr>";
+          "<table class='table' ><tr><th scope='col'>商品名稱</th><th>商品數量</th><th>商品金額</th></tr>";
         for (let i of response) {
           str += "<tr><td>" + i.product_name + "</td>";
           str += "<td>" + i.count + "</td>";

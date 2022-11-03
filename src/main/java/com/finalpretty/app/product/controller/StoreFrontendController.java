@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.model.Product;
 import com.finalpretty.app.product.service.ProductService;
@@ -33,6 +35,14 @@ public class StoreFrontendController {
     @GetMapping("/cartCheck")
     public String cartCheck() {
         return "/product/cartcheck";
+    }
+
+    // 模糊搜尋(名稱、種類、價格、狀態)
+    @ResponseBody
+    @GetMapping("/products/likeTest")
+    public List<Product> fuzzySearch(@RequestParam(name = "likeTest") String likeTest) {
+        List<Product> list = pService.fuzzySearch(likeTest);
+        return list;
     }
 
     // 找食品

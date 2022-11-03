@@ -3,6 +3,7 @@ package com.finalpretty.app.registration;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ import com.finalpretty.app.security.UsersServices;
 
 import lombok.AllArgsConstructor;
 
-@RestController
+@Controller
 @RequestMapping(path = "public/api/registration")
 @AllArgsConstructor
 public class RegistrationController {

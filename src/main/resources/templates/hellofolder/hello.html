@@ -32,10 +32,29 @@
     <article>
       <!-- 網站內文放這裡 -->
       <h1 class="tw-text-yellow-200">hihihi</h1>
+      <textarea name="" id="editor" cols="30" rows="10">
+        hihi
+         </textarea
+      >
     </article>
 
     <footer>
       <div th:replace="component/footer"></div>
     </footer>
   </body>
+  <script th:src="@{/js/hello.js}"></script>
+
+  <script>
+    ClassicEditor.create(document.querySelector("#editor"), {
+      extraPlugins: [MyCustomUploadAdapterPlugin],
+
+      // ...
+    })
+      .then((editor) => {
+        editor.setData("hihihihihi");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  </script>
 </html>

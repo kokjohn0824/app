@@ -123,6 +123,7 @@ public class MemberManageController {
 			@RequestParam(name = "visceralFat", required = false) Double visceralFat,
 			@RequestParam(name = "muscleMass", required = false) Double muscleMass,
 			@RequestParam(name = "becomeVIP", required = false) Integer becomeVIP,
+			@RequestParam(name = "photo", required = false) MultipartFile photo,
 			Model m) {
 		Member member = new Member();
 
@@ -137,7 +138,7 @@ public class MemberManageController {
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
 			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
-					visceralFat, muscleMass, becomeVIP);
+					visceralFat, muscleMass, becomeVIP, photo.getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

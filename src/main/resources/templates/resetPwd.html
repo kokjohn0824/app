@@ -98,13 +98,10 @@
           >
             <div class="d-flex justify-content-around m-2">
               <h2>修改密碼</h2>
+              <div th:text="${token}"></div>
             </div>
             <div id="loginContent" class="tabcontent">
-              <form
-                class="px-4 py-3 my-5"
-                method="post"
-                action="/perform_login"
-              >
+              <form class="px-4 py-3 my-5" method="post">
                 <div class="form-group p-3">
                   <input
                     type="password"

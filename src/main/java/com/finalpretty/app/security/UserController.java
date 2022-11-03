@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +31,11 @@ public class UserController {
     }
 
     @RequestMapping("/user/confirmresetpwd")
-    public String confirmresetpwd(@RequestParam String token) {
+    public String confirmresetpwd(@RequestParam String token, Model m) {
         if (!usersServices.confirmresetpwd(token)) {
             return "404";
         } else {
+            m.addAttribute("token", token);
             return "resetPwd";
         }
     }

@@ -195,104 +195,123 @@
               class="tabcontent"
               style="position: relative; overflow: hidden"
             >
-              <div class="w-100 px-5 d-flex justify-content-center">
-                <form class="" method="post" id="registerForm">
-                  <div class="form-floating mb-3">
-                    <input
-                      id="accountInput"
-                      class="form-control"
-                      type="text"
-                      placeholder="請輸入帳號"
-                      name="account"
-                      required
-                    />
-                    <label for="account" class="form-label"><b>帳號</b></label>
-                    <small id="accountHelpBlock" class="form-text text-muted">
-                    </small>
+              <div
+                class="w-100 h-100 px-5 pt-1 pb-5 d-flex justify-content-center"
+              >
+                <form
+                  class="d-flex flex-column justify-content-between w-100"
+                  method="post"
+                  id="registerForm"
+                >
+                  <div class="up">
+                    <div class="form-floating mb-3">
+                      <input
+                        id="accountInput"
+                        class="form-control"
+                        type="text"
+                        placeholder="請輸入帳號"
+                        name="account"
+                        required
+                      />
+                      <label for="account" class="form-label"
+                        ><b>帳號</b></label
+                      >
+                      <small id="accountHelpBlock" class="form-text text-muted">
+                      </small>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        id="emailInput"
+                        class="form-control"
+                        type="email"
+                        placeholder="Enter Email"
+                        name="email"
+                        required
+                      />
+                      <label for="email" class="form-label"
+                        ><b>Email 信箱</b></label
+                      >
+                      <small id="emailHelpBlock" class="form-text"> </small>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        id="passwordInput"
+                        class="form-control"
+                        type="password"
+                        placeholder="Enter Password"
+                        name="password"
+                        required
+                      />
+                      <label for="psw" class="form-label"><b>密碼</b></label>
+                      <a
+                        tabindex="0"
+                        role="button"
+                        id="passwordHelpBlock"
+                        class="form-text text-muted"
+                        data-bs-toggle="popover"
+                        data-bs-trigger="focus"
+                        data-bs-html="true"
+                        data-bs-placement="left"
+                        data-bs-content="1. 至少有一個數字<br>2. 至少有一個小寫英文字母<br>3. 至少有一個大寫英文字母<br>4. 字串長度在 6 ~ 30 個字母之間"
+                      >
+                      </a>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        id="repeatPwdInput"
+                        class="form-control"
+                        type="password"
+                        placeholder="Repeat Password"
+                        name="psw-repeat"
+                        required
+                      />
+                      <label for="psw-repeat" class="form-label"
+                        ><b>密碼確認</b></label
+                      >
+                      <small
+                        id="repeatPwdHelpBlock"
+                        class="form-text text-muted"
+                      >
+                      </small>
+                    </div>
+                    <div
+                      class="d-flex justify-content-center"
+                      style="width: 100%"
+                    ></div>
                   </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      id="emailInput"
-                      class="form-control"
-                      type="email"
-                      placeholder="Enter Email"
-                      name="email"
-                      required
-                    />
-                    <label for="email" class="form-label"
-                      ><b>Email 信箱</b></label
+                  <div class="down">
+                    <div
+                      class="d-flex justify-content-around"
+                      style="width: 100%; position: sticky"
                     >
-                    <small id="emailHelpBlock" class="form-text"> </small>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      id="passwordInput"
-                      class="form-control"
-                      type="password"
-                      placeholder="Enter Password"
-                      name="password"
-                      required
-                    />
-                    <label for="psw" class="form-label"><b>密碼</b></label>
-                    <a
-                      tabindex="0"
-                      role="button"
-                      id="passwordHelpBlock"
-                      class="form-text text-muted"
-                      data-bs-toggle="popover"
-                      data-bs-trigger="focus"
-                      data-bs-html="true"
-                      data-bs-placement="left"
-                      data-bs-content="1. 至少有一個數字<br>2. 至少有一個小寫英文字母<br>3. 至少有一個大寫英文字母<br>4. 字串長度在 6 ~ 30 個字母之間"
-                    >
-                    </a>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      id="repeatPwdInput"
-                      class="form-control"
-                      type="password"
-                      placeholder="Repeat Password"
-                      name="psw-repeat"
-                      required
-                    />
-                    <label for="psw-repeat" class="form-label"
-                      ><b>密碼確認</b></label
-                    >
-                    <small id="repeatPwdHelpBlock" class="form-text text-muted">
-                    </small>
-                  </div>
-                  <div
-                    class="d-flex justify-content-center"
-                    style="width: 100%"
-                  ></div>
-                  <div
-                    class="d-flex justify-content-around"
-                    style="width: 100%; position: sticky"
-                  >
-                    <!-- FIXME:修改按下按鈕後清空helper block 文字 -->
-                    <button type="reset" class="btn btn-light w-50">
-                      清空
-                    </button>
-                    <button id="submitBtn" class="btn btn-dark w-50">
-                      註冊
-                    </button>
-                  </div>
-                  <div class="m-1">
-                    <!-- TODO:加入表單上傳判定 -->
-                    <input
-                      type="checkbox"
-                      name="privacyCheck"
-                      id="privacyCheck"
-                    />
-                    <!-- TODO:新增隱私權保護政策 以及定型化契約條款 -->
-                    我已閱讀並同意<a href="#" onclick="alert('施工中')">
-                      《隱私權保護政策》
-                    </a>
-                    及
-                    <a href="#" onclick="alert('施工中')">
-                      《定型化契約條款》
-                    </a>
+                      <!-- FIXME:修改按下按鈕後清空helper block 文字 -->
+                      <button type="reset" class="btn btn-light w-50">
+                        清空
+                      </button>
+                      <button id="submitBtn" class="btn btn-dark w-50">
+                        註冊
+                      </button>
+                    </div>
+                    <div class="m-1">
+                      <!-- TODO:加入表單上傳判定 -->
+                      <input
+                        type="checkbox"
+                        name="privacyCheck"
+                        id="privacyCheck"
+                      />
+                      <span style="font-size: smaller">
+                        我已閱讀並同意<br /><a
+                          href="#"
+                          onclick="alert('施工中')"
+                        >
+                          《隱私權保護政策》
+                        </a>
+                        及
+                        <a href="#" onclick="alert('施工中')">
+                          《定型化契約條款》
+                        </a>
+                      </span>
+                    </div>
                   </div>
                 </form>
               </div>

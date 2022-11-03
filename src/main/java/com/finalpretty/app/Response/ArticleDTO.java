@@ -24,4 +24,7 @@ public class ArticleDTO {
     private Date added;
     @JsonProperty("觀看數")
     private Integer views;
+
+    @JsonProperty("影片分類")
+    private String type;
 }

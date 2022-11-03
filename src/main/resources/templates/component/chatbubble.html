@@ -11,7 +11,7 @@
     /* Button used to open the chat form - fixed at the bottom of the page */
     .open-button {
       background-color: black;
-      border-radius: 80px;
+      border-radius: 500px;
       color: white;
       padding: 16px 20px;
       border: none;
@@ -19,8 +19,9 @@
       opacity: 0.8;
       position: fixed;
       bottom: 23px;
-      right: 28px;
+      right: 20px;
       width: 80px;
+      height: 80px;
     }
 
     /* The popup chat - hidden by default */
@@ -103,9 +104,7 @@
         th:text="訪客"
       ></span>
 
-      <button class="btn" onclick="closeForm()">
-        <img th:src="@{img/icon/close.svg}" alt="" />
-      </button>
+      <button class="btn" onclick="closeForm()" style="color: black">X</button>
     </div>
     <div
       class="chatbox"

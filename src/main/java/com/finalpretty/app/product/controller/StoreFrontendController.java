@@ -37,14 +37,6 @@ public class StoreFrontendController {
         return "/product/cartcheck";
     }
 
-    // 模糊搜尋(名稱、種類、價格、狀態)
-    @ResponseBody
-    @GetMapping("/products/likeTest")
-    public List<Product> fuzzySearch(@RequestParam(name = "likeTest") String likeTest) {
-        List<Product> list = pService.fuzzySearch(likeTest);
-        return list;
-    }
-
     // 找食品
     @GetMapping("/public/eatproduct")
     public String selectByEatProduct(Model model) {
@@ -82,6 +74,13 @@ public class StoreFrontendController {
         model.addAttribute("productlist", list);
 
         return "/product/storefrontend";
+    }
+
+    // 模糊搜尋()
+    @GetMapping("/public/likeTest")
+    public List<Product> fuzzySearch(@RequestParam(name = "userName") String likeTest) {
+        List<Product> list = pService.fuzzySearch(likeTest);
+        return list;
     }
 
     @GetMapping("/public/downloadImage/{id}")

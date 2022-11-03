@@ -18,19 +18,19 @@
     <div th:replace="component/chatbubble"></div>
     <div th:replace="component/backendNavbar :: backendNavbar"></div>
     <div id="cons">
-      <table>
+      <table class="table">
         <thead>
           <tr>
-            <th>訂單編號</th>
-            <th>訂購者</th>
-            <th>電話</th>
-            <th>運送方式</th>
-            <th>支付方式</th>
-            <th>訂單金額</th>
-            <th>地址</th>
-            <th>訂單成立時間</th>
-            <th>付款狀態</th>
-            <th>訂單明細</th>
+            <th scope="col">訂單編號</th>
+            <th scope="col">訂購者</th>
+            <th scope="col">電話</th>
+            <th scope="col">運送方式</th>
+            <th scope="col">支付方式</th>
+            <th scope="col">訂單金額</th>
+            <th scope="col">地址</th>
+            <th scope="col">訂單成立時間</th>
+            <th scope="col">付款狀態</th>
+            <th scope="col">訂單明細</th>
           </tr>
         </thead>
         <tbody id="tb"></tbody>

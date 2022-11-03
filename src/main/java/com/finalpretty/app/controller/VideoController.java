@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -102,12 +104,31 @@ public class VideoController {
         return "redirect:/video/manage";
     }
 
-    // 修改影片
-    @GetMapping("/video/edit")
-    public String editVideo(@RequestParam(name = "video_id") Integer id, Model model) {
-        Optional<Video> v1 = videoR.findById(id);
-        model.addAttribute("video", v1.orElse(null));
-        return "video/backEndEditVideo";
+    // 修改影片(已改Ajax)
+    @ResponseBody
+    @PostMapping("/admin/api/video/edit")
+    public Boolean editVideo(
+            @RequestParam(name = "video_id") Integer video_id,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "type") String type,
+            @RequestParam(name = "body_parts") String body_parts,
+            @RequestParam(name = "file") MultipartFile file) {
+
+        byte[] picture = null;
+        try {
+            if (file.getBytes().length == 0) {
+                // picture = pService.findById(product.getProduct_id()).getPicture();
+                picture = videoR.findById(video_id).get().getPicture();
+            } else {
+                picture = file.getBytes();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        videoR.updateById(video_id, title, type, body_parts, picture);
+
+        return true;
     }
 
     @PostMapping("/video/edit")
@@ -242,9 +263,9 @@ public class VideoController {
 
     // 模糊搜尋(標題、分類、主要訓練部位)
     @ResponseBody
-    @GetMapping("/public/video/fuzzySearch")
-    public List<Video> fuzzySearchArticle(@RequestParam(name = "likeTest") String likeTest) {
-        List<Video> list = videoR.fuzzySerch("%" + likeTest + "%");
+    @GetMapping("/public/api/video/fuzzySearch")
+    public List<Video> fuzzySearchArticle(@RequestBody Map<String, String> likeTest) {
+        List<Video> list = videoR.fuzzySerch("%" + likeTest.get("likeTest") + "%");
         return list;
     }
 

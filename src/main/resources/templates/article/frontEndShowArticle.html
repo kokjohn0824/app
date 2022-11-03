@@ -109,6 +109,7 @@
         <p id="resulthtml" th:text="${article.text}"></p>
       </div>
     </div>
+    <script th:src="@{/js/ajax.js}"></script>
     <script>
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;

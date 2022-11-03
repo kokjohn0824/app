@@ -234,94 +234,12 @@ public class ArticleController {
 		}
 	}
 
-	// 測試用
-	@GetMapping("/public/article/findLike")
-	public String FindLike(Model m) {
-		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Member member = ((Users) o).getFkMember();
-		Integer member_id = member.getMember_id();
-		Member memberFromJpa = memberR.findById(member_id).get();
-
-		Set<Article> aa = memberFromJpa.getArticles();
-		List<Article> article = new ArrayList<Article>();
-		article.addAll(aa);
-
-		Set<Video> vv = memberFromJpa.getVideos();
-		List<Video> video = new ArrayList<Video>();
-		video.addAll(vv);
-
-		m.addAttribute("article", article);
-		m.addAttribute("video", video);
-		return "/article/test";
+	// 模糊搜尋(標題、分類、內文、時間)
+	@ResponseBody
+	@GetMapping("/public/article/fuzzySearch")
+	public List<Article> fuzzySearchArticle(@RequestParam(name = "likeTest") String likeTest) {
+		List<Article> list = articleR.fuzzySerch("%" + likeTest + "%");
+		return list;
 	}
-
-	// 取消按讚文章
-	// @ResponseBody
-	// @GetMapping("/public/article/findlike/{member_id}/{article_id}")
-	// public boolean findLikeArticle(
-	// @PathVariable(name = "article_id") Integer article_id,
-	// @PathVariable(name = "member_id") Integer member_id) {
-	// System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-	// System.out.println(article_id);
-	// System.out.println(member_id);
-	// System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++");
-	// Member member = memberR.findById(member_id).get();
-	// Set<Article> ss = member.getArticles();
-	// if (ss != null) {
-	// return true;
-	// } else {
-	// return false;
-	// }
-	// }
-
-	// =============================================================================================
-
-	// @PostMapping("/article/post")
-	// public String postMsg(@ModelAttribute(name = "article") Article article,
-	// Model model) {
-
-	// articleR.save(article);
-
-	// Article a1 = new Article();
-
-	// model.addAttribute("article", a1);
-
-	// List<Article> allArticle = articleR.findAll();
-
-	// model.addAttribute("allArticle", allArticle);
-
-	// return "addArticlePage";
-	// }
-
-	// @GetMapping("/article/page")
-	// public String showMessages(@RequestParam(name = "p", defaultValue = "1")
-	// Integer pageNumber, Model model) {
-	// Page<Article> page = articleR.findByPage(pageNumber);
-	// model.addAttribute("page", page);
-	//
-	// return "messages/showArticle";
-	// }
-
-	// @ResponseBody
-	// @PostMapping("/article/api/post")
-	// public List<Article> postMessagsApi(@RequestBody ArticleRespository articleR)
-	// {
-	// String userInput = articleR.getInputText();
-	//
-	// // ...
-	//
-	// Messages newMsg = new Messages();
-	// newMsg.setText(userInput);
-	//
-	// articleR.insert(newMsg);
-	//
-	// Page<Article> page = articleR.findByPage(1);
-	// return page.getContent();
-	// }
-
-	// @GetMapping("/article/ajax")
-	// public String getAjaxPage() {
-	// return "article/ajax-article";
-	// }
 
 }

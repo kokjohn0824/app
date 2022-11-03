@@ -1,0 +1,61 @@
+<h2 id="clock"></h2>
+<script>
+  let clock = document.getElementById("clock");
+  const monthNamesZh = [
+    "一月",
+    "二月",
+    "三月",
+    "四月",
+    "五月",
+    "六月",
+    "七月",
+    "八月",
+    "九月",
+    "十月",
+    "十一月",
+    "十二月",
+  ];
+  const dayNamesZh = [
+    "星期日",
+    "星期一",
+    "星期二",
+    "星期三",
+    "星期四",
+    "星期五",
+    "星期六",
+  ];
+
+  const getclocktime = () => {
+    let d = new Date();
+    let s = d.getSeconds();
+    let m = d.getMinutes();
+    let h = d.getHours();
+    let D = d.getDay();
+    let date = d.getDate();
+    let M = d.getMonth();
+    let year = d.getFullYear();
+    let session = "AM";
+
+    if (h == 0) {
+      h = 12;
+    }
+
+    if (h > 12) {
+      h = h - 12;
+      session = "PM";
+    }
+
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+
+    return `${year}年 ${monthNamesZh[M]}${date}日${dayNamesZh[D]} ${h}:${m} ${session}`;
+  };
+
+  const setclock = () => {
+    clock.innerHTML = `${getclocktime()}`;
+  };
+  setclock();
+  setInterval(() => {
+    setclock();
+  }, 1000);
+</script>

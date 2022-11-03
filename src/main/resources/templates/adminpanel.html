@@ -289,7 +289,7 @@
       <div class="main-container flex-grow-1">
         <nav class="topnav d-flex justify-content-between p-2 my-3 mx-5">
           <div class="greetings px-1">
-            <h2 id="clock"></h2>
+            <h2 th:replace="@{component/clock}"></h2>
           </div>
           <div
             class="rightsideicons d-flex justify-content-between shadow-material"
@@ -478,7 +478,6 @@
     ("use strict");
     //抓取元素
     //設定頁面改變所需要之變數
-    let clock = document.getElementById("clock");
     let tabletitle = document.getElementById("tabletitle");
     let showAllurl = "http://localhost:8082/public/api/article/categories";
     //綁定table view 的變數
@@ -486,50 +485,6 @@
     let initialTableData;
 
     //設定小時鐘
-    const monthNamesZh = [
-      "一月",
-      "二月",
-      "三月",
-      "四月",
-      "五月",
-      "六月",
-      "七月",
-      "八月",
-      "九月",
-      "十月",
-      "十一月",
-      "十二月",
-    ];
-    const dayNamesZh = [
-      "星期日",
-      "星期一",
-      "星期二",
-      "星期三",
-      "星期四",
-      "星期五",
-      "星期六",
-    ];
-
-    const getclocktime = () => {
-      let d = new Date();
-      let s = d.getSeconds();
-      let m = d.getMinutes();
-      let h = d.getHours();
-      let D = d.getDay();
-      let date = d.getDate();
-      let M = d.getMonth();
-      let year = d.getFullYear();
-
-      return `${year}年 ${monthNamesZh[M]}${date}日${dayNamesZh[D]} ${h}:${m}`;
-    };
-
-    const setclock = () => {
-      clock.innerHTML = `${getclocktime()}`;
-    };
-    setclock();
-    setInterval(() => {
-      setclock();
-    }, 1000);
 
     // //將json陣列轉為 table
     // const jsonToHTMLbyQ = (querySelector, json) => {

@@ -36,7 +36,9 @@
     };
 
     document.querySelectorAll(".btn-addToCart").forEach((e) => {
-      addToastMessage(e);
+      let productName = e.target.dataset.productName;
+      let message = `已將${productName}加到購物車中`;
+      addToastMessage(e, message);
     });
   </script>
 </div>

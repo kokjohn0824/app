@@ -274,4 +274,18 @@ public class ArticleController {
 		return list;
 	}
 
+	// 依熱門排序
+	@ResponseBody
+	@PostMapping("/public/api/article/hotSearch")
+	public List<Article> hotArticle() {
+		List<Article> list = articleR.hotSerch();
+		return list;
+	}
+
+	@ResponseBody
+	@PostMapping("/public/api/article/typeSearch")
+	public List<Article> typeSearchArticle(@RequestParam(name = "type") String type) {
+		List<Article> list = articleR.typeSerch(type);
+		return list;
+	}
 }

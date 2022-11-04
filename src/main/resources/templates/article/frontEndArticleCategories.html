@@ -62,7 +62,11 @@
           </div>
         </div>
         <br />
-
+        <button id="hotSearchbtn">熱門文章</button>
+        <button class="typeSearchbtn" data-title="減重知識">減重知識</button>
+        <button class="typeSearchbtn" data-title="運動教學">運動教學</button>
+        <button class="typeSearchbtn" data-title="飲食營養">飲食營養</button>
+        <button class="typeSearchbtn" data-title="心得分享">心得分享</button>
         <!-- ------------------------------------------------------------------------------- -->
 
         <div class="container-lg" id="page">
@@ -85,7 +89,12 @@
                       [[${article.text}]]
                     </p>
                     <p class="card-text">
-                      <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                      <!-- class="text-muted" -->
+                      <small style="color: white"
+                        >觀看數：<small id="views"
+                          >[[${article.views}]]</small
+                        ></small
+                      >
                       <a
                         th:href="@{'/public/article/show?article_id='+${article.article_id}}"
                         class="btn btn-light"
@@ -102,6 +111,7 @@
       </div>
     </article>
     <script>
+      var myHeaders = new Headers();
       //Ajax 其他文章延遲載入
       var pageNumber = 2;
       function Page() {
@@ -122,39 +132,40 @@
             .then((response) => response.json())
             .then((result) => {
               var atc_data = "";
-              console.log(result);
               for (let i of result.content) {
                 i.text = i.text.replace(/<[^>]*>/g, "");
 
                 atc_data += `<div class="card mb-3" style="max-width: 100%">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img
-                        src="/public/showArticleImage/${i.article_id}"
-                        class="img-fluid rounded-start"
-                        alt="..."
-                      />
-                    </div>
-                    <div class="col-md-8" style="background-color: black">
-                      <div class="card-body" style="background-color: black">
-                        <h5 class="card-title" style="color: white">
-                          ${i.title}
-                        </h5>
-                        <p id="cleanText" class="card-text" style="color: white">
-                          ${i.text}</p>
-                        <p class="card-text">
-                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                          <a
-                            href="/public/article/show?article_id=${i.article_id}"
-                            class="btn btn-light"
-                            style="float: right; vertical-align: bottom"
-                            >Read more</a
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img
+                            src="/public/showArticleImage/${i.article_id}"
+                            class="img-fluid rounded-start"
+                            alt="..."
+                          />
+                        </div>
+                        <div class="col-md-8" style="background-color: black">
+                          <div class="card-body" style="background-color: black">
+                            <h5 class="card-title" style="color: white">
+                              ${i.title}
+                            </h5>
+                            <p id="cleanText" class="card-text" style="color: white">
+                              ${i.text}</p>
+                            <p class="card-text">
+                              <P style="color: white"
+                            >觀看數：<span>${i.views}</span></P
                           >
-                        </p>
+                              <a
+                                href="/public/article/show?article_id=${i.article_id}"
+                                class="btn btn-light"
+                                style="float: right; vertical-align: bottom"
+                                >Read more</a
+                              >
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>`;
+                    </div>`;
               }
               $("#page").append(atc_data);
               pageNumber++;
@@ -178,49 +189,173 @@
       const fuzzySearchend = document.getElementById("page");
 
       fuzzySearchbtn.addEventListener("click", (e) => {
-        // scrollint.removeEventListener("scroll", Page);
         pa.unbind();
         postdata(
           "http://localhost:8082/public/api/article/fuzzySearch",
           { likeTest: `${fuzzySearch.value}` },
           (result) => {
-            console.log(result);
             fuzzySearchend.innerHTML = "";
             result.forEach((el) => {
               el.text = el.text.replace(/<[^>]*>/g, "");
               fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img
-                        src="/public/showArticleImage/${el.article_id}"
-                        class="img-fluid rounded-start"
-                        alt="..."
-                      />
-                    </div>
-                    <div class="col-md-8" style="background-color: black">
-                      <div class="card-body" style="background-color: black">
-                        <h5 class="card-title" style="color: white">
-                          ${el.title}
-                        </h5>
-                        <p id="cleanText" class="card-text" style="color: white">
-                          ${el.text}</p>
-                        <p class="card-text">
-                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                          <a
-                            href="/public/article/show?article_id=${el.article_id}"
-                            class="btn btn-light"
-                            style="float: right; vertical-align: bottom"
-                            >Read more</a
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img
+                            src="/public/showArticleImage/${el.article_id}"
+                            class="img-fluid rounded-start"
+                            alt="..."
+                          />
+                        </div>
+                        <div class="col-md-8" style="background-color: black">
+                          <div class="card-body" style="background-color: black">
+                            <h5 class="card-title" style="color: white">
+                              ${el.title}
+                            </h5>
+                            <p id="cleanText" class="card-text" style="color: white">
+                              ${el.text}</p>
+                            <p class="card-text">
+                              <P style="color: white"
+                            >觀看數：<span>${el.views}</span></P
                           >
-                        </p>
+                              <a
+                                href="/public/article/show?article_id=${el.article_id}"
+                                class="btn btn-light"
+                                style="float: right; vertical-align: bottom"
+                                >Read more</a
+                              >
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>`;
+                    </div>`;
             });
           }
         );
       });
+
+      //熱門搜尋
+      const hotSearchbtn = document.getElementById("hotSearchbtn");
+
+      hotSearchbtn.addEventListener("click", (e) => {
+        pa.unbind();
+        var raw = "";
+
+        var requestOptions = {
+          method: "POST",
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch(
+          "http://localhost:8082/public/api/article/hotSearch",
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            fuzzySearchend.innerHTML = "";
+            result.forEach((el) => {
+              el.text = el.text.replace(/<[^>]*>/g, "");
+              fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img
+                            src="/public/showArticleImage/${el.article_id}"
+                            class="img-fluid rounded-start"
+                            alt="..."
+                          />
+                        </div>
+                        <div class="col-md-8" style="background-color: black">
+                          <div class="card-body" style="background-color: black">
+                            <h5 class="card-title" style="color: white">
+                              ${el.title}
+                            </h5>
+                            <p id="cleanText" class="card-text" style="color: white">
+                              ${el.text}</p>
+                            <p class="card-text">
+                              <P style="color: white"
+                            >觀看數：<span>${el.views}</span></P
+                          >
+                              <a
+                                href="/public/article/show?article_id=${el.article_id}"
+                                class="btn btn-light"
+                                style="float: right; vertical-align: bottom"
+                                >Read more</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+            });
+          })
+          .catch((error) => console.log("error", error));
+      });
+
+      const typeSearchbtn = document.querySelectorAll(".typeSearchbtn");
+
+      typeSearchbtn.forEach((e) => {
+        e.addEventListener("click", (e) => {
+          pa.unbind();
+          var type = e.target.dataset.title;
+          console.log(type);
+          var requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            redirect: "follow",
+          };
+          fetch(
+            "http://localhost:8082/public/api/article/typeSearch?type=" + type,
+            requestOptions
+          )
+            .then((response) => response.json())
+            .then((result) => {
+              console.log(result);
+              fuzzySearchend.innerHTML = "";
+              result.forEach((el) => {
+                el.text = el.text.replace(/<[^>]*>/g, "");
+                fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img
+                            src="/public/showArticleImage/${el.article_id}"
+                            class="img-fluid rounded-start"
+                            alt="..."
+                          />
+                        </div>
+                        <div class="col-md-8" style="background-color: black">
+                          <div class="card-body" style="background-color: black">
+                            <h5 class="card-title" style="color: white">
+                              ${el.title}
+                            </h5>
+                            <p id="cleanText" class="card-text" style="color: white">
+                              ${el.text}</p>
+                            <p class="card-text">
+                              <P style="color: white"
+                            >觀看數：<span>${el.views}</span></P
+                          >
+                              <a
+                                href="/public/article/show?article_id=${el.article_id}"
+                                class="btn btn-light"
+                                style="float: right; vertical-align: bottom"
+                                >Read more</a
+                              >
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+              });
+            })
+            .catch((error) => console.log("error", error));
+        });
+      });
+
+      // var views = document.getElementById("views").value;
+      // console.log(views);
+      // function fire() {
+      //   if (views >= 4) {
+      //   }
+      // }
     </script>
 
     <footer>

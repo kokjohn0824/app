@@ -23,6 +23,12 @@
       article {
         flex: 1;
       }
+      span {
+        color: #fff;
+      }
+      h2 {
+        color: #fff;
+      }
     </style>
   </head>
 
@@ -55,77 +61,79 @@
         </div>
         <br />
         <!-- ------------------------------------------------------------------------------- -->
-        <div data-hicms-tmpl="index3_course_action" id="page">
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/胸肌';"
-            style="background-image: url('/img/body_parts/chest.png')"
-          >
-            胸肌
-          </div>
+        <div id="page">
+          <div data-hicms-tmpl="index3_course_action">
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/胸肌';"
+              style="background-image: url('/img/body_parts/chest.png')"
+            >
+              胸肌
+            </div>
 
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/背肌';"
-            style="background-image: url('/img/body_parts/back.png')"
-          >
-            背肌
-          </div>
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/背肌';"
+              style="background-image: url('/img/body_parts/back.png')"
+            >
+              背肌
+            </div>
 
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/腿肌';"
-            style="background-image: url('/img/body_parts/leg.png')"
-          >
-            腿肌
-          </div>
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/腿肌';"
+              style="background-image: url('/img/body_parts/leg.png')"
+            >
+              腿肌
+            </div>
 
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/肩膀';"
-            style="background-image: url('/img/body_parts/shoulder.png')"
-          >
-            肩膀
-          </div>
-          <p></p>
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/腹部';"
-            style="background-image: url('/img/body_parts/abs.png')"
-          >
-            腹部
-          </div>
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/肩膀';"
+              style="background-image: url('/img/body_parts/shoulder.png')"
+            >
+              肩膀
+            </div>
+            <p></p>
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/腹部';"
+              style="background-image: url('/img/body_parts/abs.png')"
+            >
+              腹部
+            </div>
 
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/手臂';"
-            style="background-image: url('/img/body_parts/arm.png')"
-          >
-            手臂
-          </div>
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/手臂';"
+              style="background-image: url('/img/body_parts/arm.png')"
+            >
+              手臂
+            </div>
 
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/有氧';"
-            style="background-image: url('/img/body_parts/aerobics.png')"
-          >
-            有氧
-          </div>
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/有氧';"
+              style="background-image: url('/img/body_parts/aerobics.png')"
+            >
+              有氧
+            </div>
 
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/伸展';"
-            style="background-image: url('/img/body_parts/stretch.png')"
-          >
-            伸展
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/伸展';"
+              style="background-image: url('/img/body_parts/stretch.png')"
+            >
+              伸展
+            </div>
           </div>
         </div>
       </div>
@@ -142,8 +150,9 @@
           { likeTest: `${fuzzySearch.value}` },
           (result) => {
             fuzzySearchend.innerHTML = "";
-            for (let i of result.content) {
-              atc_data += `<tr>
+            fuzzySearchend.innerHTML += `<div class="row row-cols-1 row-cols-md-2 g-4">`;
+            result.forEach((el) => {
+              fuzzySearchend.innerHTML += `<tr>
             <div
               class="card"
               style="
@@ -154,9 +163,9 @@
                 border-color: white;
               "
             >
-              <a href="/public/video/show?video_id=${i.video_id}">
+              <a href="/public/video/show?video_id=${el.video_id}">
                 <img
-                  src="/public/showVideoImage/${i.video_id}"
+                  src="/public/showVideoImage/${el.video_id}"
                   class="card-img-top"
                   alt="..."
                   loading="lazy"
@@ -167,23 +176,22 @@
                 <h2
                   class="entry-title"
                   itemprop="headline"
-                  text="${i.title}"
-                ></h2>
+                >${el.title}</h2>
                 <p class="card-text">
                   <span class="card-text">訓練肌群:</span
-                  ><span class="card-text" text="${i.body_parts}"></span>
+                  ><span class="card-text">${el.body_parts}</span>
                   <span class="card-text" style="float: right"
                     >觀看數:<span
                       class="card-text"
                       style="float: right"
-                      text="${i.views}"
-                    ></span
+                    >${el.views}</span
                   ></span>
                 </p>
               </div>
             </div>
           </tr>`;
-            }
+            });
+            fuzzySearchend.innerHTML += `</div>`;
           }
         );
       });

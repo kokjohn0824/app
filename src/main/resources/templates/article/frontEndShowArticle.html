@@ -37,6 +37,11 @@
               <div class="gb-grid-column gb-grid-column-b93830e5">
                 <div class="gb-container gb-container-b93830e5">
                   <div class="gb-inside-container">
+                    <h1
+                      class="gb-headline gb-headline-feb297cc gb-headline-text"
+                    >
+                      <a th:text="${article.title}"></a>
+                    </h1>
                     <div class="gb-container gb-container-6f6ee9ad">
                       <div class="gb-inside-container">
                         <div class="gb-grid-wrapper gb-grid-wrapper-573f4cf8">
@@ -47,9 +52,15 @@
                                   class="gb-headline gb-headline-eab7ffd4 gb-headline-text"
                                 >
                                   <time
+                                    th:text="${#dates.format(article.added, 'yyyy-MM-dd')}"
                                     class="entry-date updated-date"
-                                    th:text="${article.added}"
-                                  ></time>
+                                  ></time
+                                  ><br />
+                                  <p class="entry-date updated-date"></p>
+                                    觀看數：<span
+                                      th:text="${article.views}"
+                                    ></span>
+                                  </p>
                                 </div>
                               </div>
                             </div>
@@ -88,11 +99,6 @@
                         </div>
                       </div>
                     </div>
-                    <h1
-                      class="gb-headline gb-headline-feb297cc gb-headline-text"
-                    >
-                      <a th:text="${article.title}"></a>
-                    </h1>
                   </div>
                 </div>
               </div>
@@ -111,6 +117,11 @@
     </div>
     <script th:src="@{/js/ajax.js}"></script>
     <script>
+      // const added1 = $('time[name="added"]').text();
+      // // const added = added1.toLocaleDateString();
+      // var da = new Date().format("yyyy-MM-dd hh:mm:ss");
+      // console.log(da);
+
       const resulthtml = document.querySelector("#resulthtml");
       resulthtml.innerHTML = resulthtml.innerText;
 

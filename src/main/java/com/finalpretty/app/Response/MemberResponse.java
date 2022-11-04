@@ -1,29 +1,34 @@
 package com.finalpretty.app.Response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class MemberResponse {
 
-    private Integer member_id;
+    private Integer member_id; // 會員ID
 
-    private String nickname;
+    private String nickname; // 暱稱
 
-    private Integer gender;
+    private Integer gender; // 性別
 
-    private Integer age;
+    private Integer age; // 年齡
 
-    private double height;
+    private double height; // 身高
 
-    private double weight;
+    private double weight; // 體重
 
-    private double bodyFat;
+    private double bodyFat; // 體脂
 
-    private double visceralFat;
+    private double visceralFat; // 內臟脂肪
 
-    private double muscleMass;
+    private double muscleMass; // 肌肉量
 
-    private byte[] photo;
-
-    private Integer becomeVIP;
-
-    private String create_date;
+    private Integer becomeVIP; // VIP 可改
 
 }

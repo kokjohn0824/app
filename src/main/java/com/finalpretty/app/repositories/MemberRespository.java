@@ -35,6 +35,11 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
     @Query(value = "select * from member where member_id=:member_id", nativeQuery = true)
     List<Member> findListById(@Param("member_id") Integer member_id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update member set becomeVIP =:becomeVIP where member_id =:member_id", nativeQuery = true)
+    void updateVipById(@Param("becomeVIP") Integer becomeVIP, @Param("member_id") Integer member_id);
+
     // 後台所有會員分頁
     // @Query("select u from Member u")
     // Page<Member> findList(Pageable pageable);

@@ -117,7 +117,10 @@ const jsonToHTMLbyQ = (querySelector, json) => {
                   $(e.target).attr("id"),
                 (result) => {
                   if (result == true) {
+                    alert("已刪除")
                     article();
+                  }else{
+                    alert("文章有人收藏不能刪")
                   }
                 }
               );
@@ -507,3 +510,126 @@ const jsonToHTMLbyQ = (querySelector, json) => {
     //     })
     //   );
       ///////會員管理//////////////////
+
+
+   ///////影片管理//////////////////
+    //將json陣列轉為 table
+    // const jsonToHTMLbyQ = (querySelector, json) => {
+    //     if (json.length == 0) {
+    //       document.querySelector(querySelector).innerHTML = "";
+    //       return;
+    //     }
+    //     //define table head
+    //     let title = `<thead><tr>${Object.keys(json[0])
+    //       .map((el) => `<th><strong>${el}</strong></th>`)
+    //       .join("")}<th>影片封面</th><th>操作</th></tr></thead>`;
+    //     // define table body
+    //     let trs = json.map(
+    //       (el) =>
+    //         `${Object.values(el)
+    //           .map((td, index) => {
+    //             if (index == 5) {
+    //               return `<td class="data"><video
+    //                       style="width: 250px; border-radius: 20px"
+    //                       controls="controls"
+    //                       preload="auto"
+    //                       autoplay="true"
+    //                       loop="loop"
+    //                       justify-content="center"
+    //                     >
+    //                       <source src="/public/video/${td}" type="video/mp4" />
+    //                     </video></td><td class="data"><img style="width:120px; height:70px" src="/public/showVideoImage/${el.ID}"></td>`;
+    //             } else {
+    //               return `<td class="data">${td}</td>`;
+    //             }
+    //           })
+    //           .join("")}<td><button id="${el.ID}" data-bs-toggle="modal"
+    //             data-bs-target="#exampleModal"
+    //             data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
+    //           <button id="${el.ID}" class="delete btn-icon-delete"></button></td>`
+    //     );
+    //     let tbody = `<tbody>${trs
+    //       .map((el) => `<tr>${el}</tr>`)
+    //       .join("")}</tbody>`;
+    //     let table = `<table class="table table-hover">${title}${tbody}</table>`;
+    //     document.querySelector(querySelector).innerHTML = table;
+    //   };
+  
+    //   //按鈕觸發呈現table
+    //   document.getElementById("showtable").addEventListener(
+    //     "click",
+    //     (video = () => {
+    //       document.querySelector("#table").style.opacity = 0;
+    //       setTimeout(() => {
+    //         getdata(showAllurl, (result) => {
+    //           //make a copy of data
+    //           [...initialTableData] = [...result];
+    //           jsonToHTMLbyQ("#table", result);
+    //           document.querySelector("#table").style.opacity = 1;
+  
+    //           $(".btn-icon-delete").click((e) => {
+    //             if (confirm("確定刪除嗎") == true) {
+    //               getdata(
+    //                 `http://localhost:8082/admin/api/video/delete/${$(
+    //                   e.target
+    //                 ).attr("id")}`,
+    //                 (result) => {
+    //                   if (result == true) {
+    //                     alert("影片中有用戶按讚故不能刪除");
+    //                     video();
+    //                   } else {
+    //                     alert("已刪除");
+    //                     video();
+    //                   }
+    //                 }
+    //               );
+    //             }
+    //           });
+  
+    //           $(".btn-icon-edit").click((e) => {
+    //             getdata(
+    //               `http://localhost:8082/admin/api/queryUpdateViedo/${$(
+    //                 e.target
+    //               ).attr("id")}`,
+    //               (result) => {
+    //                 $("#recipient-title").val(result.標題);
+    //                 $("#preview_img").attr(
+    //                   "src",
+    //                   `/public/showVideoImage/${result.ID}`
+    //                 );
+    //                 $("#video_id").val(result.ID);
+    //               }
+    //             );
+    //           });
+  
+    //           $("#editvideo").click((e) => {
+    //             e.preventDefault();
+    //             var datas = new FormData();
+    //             datas.append("video_id", $("#video_id").val());
+    //             datas.append("title", $("#recipient-title").val());
+    //             datas.append(
+    //               "type",
+    //               $("select[name='type'] option:selected").text()
+    //             );
+    //             datas.append(
+    //               "body_parts",
+    //               $("select[name='body_parts'] option:selected").text()
+    //             );
+    //             datas.append("file", $("#inputFileToLoad")[0].files[0]);
+    //             postdatas(
+    //               "http://localhost:8082/admin/api/video/edit",
+    //               datas,
+    //               (result) => {
+    //                 if (result == true) {
+    //                   alert("已更新");
+    //                   video();
+    //                 }
+    //               }
+    //             );
+    //           });
+    //         });
+    //       }, 300);
+    //     })
+    //   );
+  
+   ///////影片管理//////////////////

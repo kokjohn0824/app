@@ -8,7 +8,7 @@ const articleshow = () => {
     getdata(showAllurl, (result) => {
       //make a copy of data
       [...initialTableData] = [...result];
-      jsonToHTMLbyQ("#table", result);
+      jsonToHTMLbyQforarticle("#table", result);
       document.querySelector("#table").style.opacity = 1;
 
       ima;
@@ -87,7 +87,7 @@ const articleshow = () => {
 };
 
 ///////文章管理//////////////////
-const jsonToHTMLbyQ = (querySelector, json) => {
+const jsonToHTMLbyQforarticle = (querySelector, json) => {
   if (json.length == 0) {
     document.querySelector(querySelector).innerHTML = "";
     return;

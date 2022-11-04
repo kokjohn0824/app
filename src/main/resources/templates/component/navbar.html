@@ -1,4 +1,10 @@
 <div th:fragment="navbar">
+  <style>
+    .filter {
+      backdrop-filter: blur(15px) brightness(75%) saturate(70%);
+      opacity: 0.75;
+    }
+  </style>
   <div class="fixed-top">
     <nav class="shadow-lg navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -228,7 +234,7 @@
       </div>
     </nav>
   </div>
-  <div style="margin-top: 72px"></div>
+  <!-- <div style="margin-top: 72px"></div> -->
   <script th:src="@{/js/ajax.js}"></script>
   <script>
     //抓取搜尋匡

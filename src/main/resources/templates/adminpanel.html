@@ -216,6 +216,7 @@
   <body>
     <!-- 商品選取照片預覽 -->
     <script defer th:src="@{/js/hello.js}"></script>
+    <script defer th:src="@{/js/panel.js}"></script>
     <script>
       function loadImageFileAsURL() {
         let filesSelected = document.getElementById("inputFileToLoad").files;
@@ -255,6 +256,7 @@
                   href="#"
                   data-url="http://localhost:8082/public/api/article/categories"
                   data-title="文章管理"
+                  data-tabletype="article"
                   >文章管理</a
                 >
               </li>
@@ -347,7 +349,7 @@
         </div>
         <div class="mx-5 width-100 bg-white shadow-material rounded-3 p-3">
           <div class="m-1 d-flex justify-content-end">
-            <button class="button-48" id="showtable">
+            <button class="button-48" id="showtable" data-tabletype="article">
               <span style="font-size: large">顯示所有資料</span>
             </button>
             <button id="exportCSV" class="button-48">
@@ -763,6 +765,7 @@
   <script>
     ("use strict");
     //抓取元素
+    const showtable = document.getElementById("showtable");
     //設定頁面改變所需要之變數
     let tabletitle = document.getElementById("tabletitle");
     let showAllurl = "http://localhost:8082/public/api/article/categories";
@@ -826,42 +829,42 @@
 
     //影片管理
     //將json陣列轉為 table
-    const jsonToHTMLbyQ = (querySelector, json) => {
-      if (json.length == 0) {
-        document.querySelector(querySelector).innerHTML = "";
-        return;
-      }
-      //define table head
-      let title = `<thead><tr>${Object.keys(json[0])
-        .map((el) => `<th><strong>${el}</strong></th>`)
-        .join("")}<th>操作</th></tr></thead>`;
-      // define table body
-      let trs = json.map(
-        (el) =>
-          `${Object.values(el)
-            .map((td) => `<td class="data">${td}</td>`)
-            .join("")}<td><button class="save btn-icon-edit"></button>
-            <button class="delete btn-icon-delete"></button></td>`
-      );
-      let tbody = `<tbody>${trs
-        .map((el) => `<tr>${el}</tr>`)
-        .join("")}</tbody>`;
-      let table = `<table class="table table-hover">${title}${tbody}</table>`;
-      document.querySelector(querySelector).innerHTML = table;
-    };
+    // const jsonToHTMLbyQ = (querySelector, json) => {
+    //   if (json.length == 0) {
+    //     document.querySelector(querySelector).innerHTML = "";
+    //     return;
+    //   }
+    //   //define table head
+    //   let title = `<thead><tr>${Object.keys(json[0])
+    //     .map((el) => `<th><strong>${el}</strong></th>`)
+    //     .join("")}<th>操作</th></tr></thead>`;
+    //   // define table body
+    //   let trs = json.map(
+    //     (el) =>
+    //       `${Object.values(el)
+    //         .map((td) => `<td class="data">${td}</td>`)
+    //         .join("")}<td><button class="save btn-icon-edit"></button>
+    //         <button class="delete btn-icon-delete"></button></td>`
+    //   );
+    //   let tbody = `<tbody>${trs
+    //     .map((el) => `<tr>${el}</tr>`)
+    //     .join("")}</tbody>`;
+    //   let table = `<table class="table table-hover">${title}${tbody}</table>`;
+    //   document.querySelector(querySelector).innerHTML = table;
+    // };
 
-    //按鈕觸發呈現table
-    document.getElementById("showtable").addEventListener("click", () => {
-      document.querySelector("#table").style.opacity = 0;
-      setTimeout(() => {
-        getdata(showAllurl, (result) => {
-          //make a copy of data
-          [...initialTableData] = [...result];
-          jsonToHTMLbyQ("#table", result);
-          document.querySelector("#table").style.opacity = 1;
-        });
-      }, 300);
-    });
+    // //按鈕觸發呈現table
+    // document.getElementById("showtable").addEventListener("click", () => {
+    //   document.querySelector("#table").style.opacity = 0;
+    //   setTimeout(() => {
+    //     getdata(showAllurl, (result) => {
+    //       //make a copy of data
+    //       [...initialTableData] = [...result];
+    //       jsonToHTMLbyQ("#table", result);
+    //       document.querySelector("#table").style.opacity = 1;
+    //     });
+    //   }, 300);
+    // });
 
     //將輸入文字存成檔案
     function saveTextAsFile(_fileName, _text) {
@@ -951,6 +954,7 @@
         tabletitle.innerText = f.target.dataset.title;
         showAllurl = f.target.dataset.url;
         addurl = f.target.dataset.addurl;
+        showtable.dataset.tabletype = f.target.dataset.tabletype;
       });
     }
   </script>

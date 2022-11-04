@@ -37,6 +37,7 @@
 
   <body th:inline="text">
     <div th:replace="component/navbar :: navbar"></div>
+    <div th:replace="component/chatbubble"></div>
     <article>
       <div class="top">
         <!-- ------------------------------------------------------------------------------- -->
@@ -62,51 +63,93 @@
           </div>
         </div>
         <br />
-        <button id="hotSearchbtn">熱門文章</button>
-        <button class="typeSearchbtn" data-title="減重知識">減重知識</button>
-        <button class="typeSearchbtn" data-title="運動教學">運動教學</button>
-        <button class="typeSearchbtn" data-title="飲食營養">飲食營養</button>
-        <button class="typeSearchbtn" data-title="心得分享">心得分享</button>
-        <!-- ------------------------------------------------------------------------------- -->
+        <div class="container-lg">
+          <div
+            class="btn-group"
+            role="group"
+            aria-label="Basic mixed styles example"
+            style="float: right"
+          >
+            <button
+              id="hotSearchbtn"
+              class="btn btn-danger"
+              style="float: right"
+            >
+              🔥熱門文章
+            </button>
+            <button
+              class="typeSearchbtn btn"
+              style="float: right; background-color: #f1d302"
+              data-title="減重知識"
+            >
+              減重知識
+            </button>
+            <button
+              class="typeSearchbtn btn btn-success"
+              style="float: right"
+              data-title="運動教學"
+            >
+              運動教學
+            </button>
+            <button
+              class="typeSearchbtn btn"
+              style="float: right; background-color: #235789; color: white"
+              data-title="飲食營養"
+            >
+              飲食營養
+            </button>
+            <button
+              class="typeSearchbtn btn"
+              #BEEF9E
+              style="float: right; background-color: #fdfffc"
+              data-title="心得分享"
+            >
+              心得分享
+            </button>
+          </div>
+          <br />
+          <br />
 
-        <div class="container-lg" id="page">
-          <tr th:each="article : ${page}">
-            <div class="card mb-3" style="max-width: 100%">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img
-                    th:src="@{'/public/showArticleImage/'+${article.article_id}}"
-                    class="img-fluid rounded-start"
-                    alt="..."
-                  />
-                </div>
-                <div class="col-md-8" style="background-color: black">
-                  <div class="card-body" style="background-color: black">
-                    <h5 class="card-title" style="color: white">
-                      [[${article.title}]]
-                    </h5>
-                    <p id="cleanText" class="card-text" style="color: white">
-                      [[${article.text}]]
-                    </p>
-                    <p class="card-text">
-                      <!-- class="text-muted" -->
-                      <small style="color: white"
-                        >觀看數：<small id="views"
-                          >[[${article.views}]]</small
-                        ></small
-                      >
-                      <a
-                        th:href="@{'/public/article/show?article_id='+${article.article_id}}"
-                        class="btn btn-light"
-                        style="float: right; vertical-align: bottom"
-                        >Read more</a
-                      >
-                    </p>
+          <!-- ------------------------------------------------------------------------------- -->
+
+          <div id="page">
+            <tr th:each="article : ${page}">
+              <div class="card mb-3" style="max-width: 100%">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      th:src="@{'/public/showArticleImage/'+${article.article_id}}"
+                      class="img-fluid rounded-start"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="col-md-8" style="background-color: black">
+                    <div class="card-body" style="background-color: black">
+                      <h5 class="card-title" style="color: white">
+                        [[${article.title}]]
+                      </h5>
+                      <p id="cleanText" class="card-text" style="color: white">
+                        [[${article.text}]]
+                      </p>
+                      <p class="card-text">
+                        <span style="color: white"
+                          >觀看數：<span id="views"
+                            >[[${article.views}]]</span
+                          ></span
+                        >
+                        <a
+                          th:href="@{'/public/article/show?article_id='+${article.article_id}}"
+                          class="btn btn-light"
+                          style="float: right; vertical-align: bottom"
+                          >Read more</a
+                        >
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </tr>
+            </tr>
+          </div>
         </div>
       </div>
     </article>
@@ -180,7 +223,7 @@
       //消除內文標籤
       const cleanTextList = document.querySelectorAll("#cleanText");
       cleanTextList.forEach(
-        (e) => (e.innerText = e.innerText.replace(/<[^>]*>/g, ""))
+        (e) => (e.innerHTML = e.innerText.replace(/<[^>]*>/g, ""))
       );
 
       //模糊搜尋

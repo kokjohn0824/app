@@ -21,17 +21,21 @@
       right: 20px;
       width: 60px;
       height: 60px;
+      transition: 0.3s;
+    }
+
+    .open-button:hover {
+      background-color: #2dd4bf;
     }
 
     /* The popup chat - hidden by default */
     .chat-popup {
-      padding: 0%;
       display: none;
+      padding: 0;
       position: fixed;
       bottom: 0;
-      right: 15px;
+      right: 100px;
       z-index: 9;
-      transition: 1s;
       width: 100%;
       max-width: 350px;
       border-radius: 20px;
@@ -74,13 +78,13 @@
         rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     }
 
-    .selfmessage {
+    .othermessage {
       border-radius: 1.125rem 1.125rem 1.125rem 0;
       background: #2dd4bf;
       color: #1f2937;
     }
 
-    .othermessage {
+    .selfmessage {
       border-radius: 1.125rem 1.125rem 0 1.125rem;
       right: 0;
       background: #1f2937;
@@ -95,7 +99,7 @@
   <button
     id="openbtn"
     class="open-button"
-    onclick="openForm()"
+    onclick="toggleForm()"
     data-bs-toggle="tooltip"
     data-bs-placement="top"
     title="客服聊天視窗"
@@ -156,11 +160,31 @@
 
   <script defer th:src="@{/js/websocket.js}"></script>
   <script>
-    const myForm = document.querySelector("#myForm");
+    const myForm = document.getElementById("myForm");
     const input = document.querySelector("#content");
     const openbtn = document.getElementById("openbtn");
+    const greetingmessage = `您好~ 請問有什麼我能為您服務的嗎?`;
+    let chathasnotopened = true;
+    let ischatopen = false;
+    function toggleForm() {
+      if (ischatopen == false) {
+        openForm();
+        ischatopen = true;
+      } else {
+        closeForm();
+        ischatopen = false;
+      }
+    }
+
     function openForm() {
       myForm.style.display = "block";
+      //新增預設歡迎訊息
+      if (chathasnotopened) {
+        $("#information").append(
+          `<div class="chat"><div class="msg othermessage">${greetingmessage}</div></div>`
+        );
+        chathasnotopened = false;
+      }
     }
 
     function closeForm() {

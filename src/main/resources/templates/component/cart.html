@@ -1,16 +1,17 @@
 <div th:fragment="cart">
   <style>
     #par {
-      height: 80px;
-      width: 80px;
-      font-size: 40px;
-      overflow: hidden;
+      display: flex;
+      height: 60px;
+      width: 60px;
+      border: none;
+      border-radius: 60px;
+      font-size: 30px;
+      align-items: center;
       justify-content: center;
-      padding: auto;
-      border: solid 2px;
-      border-radius: 500px;
       color: #fff;
       background-color: rgb(69, 123, 52);
+      transition: 0.3s;
     }
 
     #par:hover {
@@ -27,7 +28,7 @@
     data-toggle="modal"
     data-target="#cart"
   >
-    <i class="bi bi-bag"></i>
+    <div class="bi bi-bag"></div>
   </button>
 
   <!-- ---------------------------------------------- -->

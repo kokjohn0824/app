@@ -16,9 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.finalpretty.app.Response.MemberResponse;
+import com.finalpretty.app.Response.UsersResponse;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
@@ -361,6 +365,49 @@ public class MemberManageController {
 			e.printStackTrace();
 		}
 		return "redirect:/member/page";
+	}
+
+	@GetMapping("/admin/api/listUsers")
+	@ResponseBody
+	public List<UsersResponse> getAllProduct() {
+		List<UsersResponse> l = new ArrayList<>();
+		userR.findAll().forEach((e) -> {
+			l.add(new UsersResponse(e.getId(), e.getUserRole(), e.getAccount(), e.getEmail(), e.getLocked()));
+		});
+		return l;
+	}
+
+	@ResponseBody
+	@PostMapping("/admin/api/updateLocked/")
+	public Boolean updateLocked(@RequestBody UsersResponse users) {
+		if (users.getLocked() == false) {
+			userR.updateLocked(true, users.getUsers_id());
+			return true;
+		} else {
+			userR.updateLocked(false, users.getUsers_id());
+			return false;
+		}
+	}
+
+	@ResponseBody
+	@GetMapping("/admin/api/queryUpdateMember/{users_id}")
+	public MemberResponse queryUpdateMember(@PathVariable("users_id") Integer users_id) {
+		Optional<Users> user = userR.findById(users_id);
+		Optional<Member> member = memberR.findById(user.get().getFkMember().getMember_id());
+		Member mem = member.get();
+		MemberResponse memberDto = new MemberResponse(mem.getMember_id(), mem.getNickname(), mem.getGender(),
+				mem.getAge(), mem.getHeight(), mem.getWeight(), mem.getBodyFat(), mem.getVisceralFat(),
+				mem.getMuscleMass(),
+				mem.getBecomeVIP());
+		return memberDto;
+	}
+
+	@ResponseBody
+	@PostMapping("/admin/api/updateVipById/")
+	public Boolean updateViById(@RequestParam("becomeVIP") Integer becomeVIP,
+			@RequestParam("member_id") Integer member_id) {
+		memberR.updateVipById(becomeVIP, member_id);
+		return true;
 	}
 
 }

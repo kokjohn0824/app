@@ -263,13 +263,20 @@
                 <a
                   class="adminlink"
                   href="#"
-                  data-url="http://localhost:8082/public/api/video/manage"
+                  data-url="http://localhost:8082/admin/api/video/manage"
                   data-title="影片管理"
                   >影片管理</a
                 >
               </li>
               <li class="my-2 d-flex">
-                <img th:src="@{/img/icon/Users.svg}" /><a href="#">會員管理</a>
+                <img th:src="@{/img/icon/Users.svg}" />
+                <a
+                  class="adminlink"
+                  href="#"
+                  data-url="http://localhost:8082/admin/api/listUsers"
+                  data-title="會員管理"
+                  >會員管理</a
+                >
               </li>
               <li class="my-2 d-flex">
                 <img th:src="@{/img/icon/Pencil.svg}" /><a href="#">貼文管理</a>
@@ -475,7 +482,7 @@
       </div>
     </div> -->
 
-    <div
+    <!-- <div
       class="modal fade"
       id="exampleModal"
       tabindex="-1"
@@ -558,6 +565,198 @@
           </form>
         </div>
       </div>
+    </div> -->
+
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">會員資料</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="myForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-nickname" class="col-form-label"
+                  >暱稱:</label
+                >
+                <input
+                  name="nickname"
+                  type="text"
+                  class="form-control"
+                  id="recipient-nickname"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-gender" class="col-form-label"
+                  >性別:</label
+                ><label for="recipient-man" class="col-form-label">男:</label
+                ><input
+                  name="gender"
+                  id="recipient-man"
+                  type="radio"
+                  value="1"
+                />
+                <label for="recipient-female" class="col-form-label">女:</label
+                ><input
+                  name="gender"
+                  id="recipient-female"
+                  type="radio"
+                  value="0"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-age" class="col-form-label">年齡:</label
+                ><input
+                  id="recipient-age"
+                  name="age"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-height" class="col-form-label"
+                  >身高:</label
+                ><input
+                  id="recipient-height"
+                  name="height"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-weight" class="col-form-label"
+                  >體重:</label
+                ><input
+                  id="recipient-weight"
+                  name="weight"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-bodyFat" class="col-form-label"
+                  >體脂肪:</label
+                ><input
+                  id="recipient-bodyFat"
+                  name="bodyFat"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-visceralFat" class="col-form-label"
+                  >內臟脂肪:</label
+                ><input
+                  id="recipient-visceralFat"
+                  name="visceralFat"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-muscleMass" class="col-form-label"
+                  >肌肉量:</label
+                ><input
+                  id="recipient-muscleMass"
+                  name="muscleMass"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-becomeVIP" class="col-form-label"
+                  >VIP:</label
+                ><label for="recipient-man" class="col-form-label">是:</label
+                ><input
+                  name="becomeVIP"
+                  id="recipient-on"
+                  type="radio"
+                  value="1"
+                />
+                <label for="recipient-becomeVIP" class="col-form-label"
+                  >否:</label
+                ><input
+                  name="becomeVIP"
+                  id="recipient-off"
+                  type="radio"
+                  value="0"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputFileToLoad" class="col-form-label"
+                  >會員圖片:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  src="#"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+                <input id="member_id" name="member_id" value="" hidden />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="editmember" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+      <input
+        id="userID"
+        th:value="${#authentication.getPrincipal().getId()}"
+        hidden
+      />
     </div>
   </body>
   <script th:src="@{/js/ajax.js}"></script>
@@ -624,6 +823,8 @@
         reader.readAsDataURL(input.files[0]);
       }
     }
+
+    //影片管理
     //將json陣列轉為 table
     const jsonToHTMLbyQ = (querySelector, json) => {
       if (json.length == 0) {
@@ -633,29 +834,14 @@
       //define table head
       let title = `<thead><tr>${Object.keys(json[0])
         .map((el) => `<th><strong>${el}</strong></th>`)
-        .join("")}<th>圖片</th><th>操作</th></tr></thead>`;
+        .join("")}<th>操作</th></tr></thead>`;
       // define table body
       let trs = json.map(
         (el) =>
           `${Object.values(el)
-            .map((td, index) => {
-              if (index == 2) {
-                td = el.內文.replace(/<[^>]*>/g, "");
-                td = td.substring(0, 20) + "...";
-                return `<td class="data">${td}</td>`;
-              } else if (index == 5) {
-                return `<td class="data">${td}</td><td><img style="width:120px; height:70px" src="/public/showArticleImage/${el.ID}"></td>`;
-              } else {
-                return `<td class="data">${td}</td>`;
-              }
-            })
-            .join("")}<td><button id="${el.ID}"
-              name="editarticle"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
-            <button id="${el.ID}" class="delete btn-icon-delete"></button></td>`
+            .map((td) => `<td class="data">${td}</td>`)
+            .join("")}<td><button class="save btn-icon-edit"></button>
+            <button class="delete btn-icon-delete"></button></td>`
       );
       let tbody = `<tbody>${trs
         .map((el) => `<tr>${el}</tr>`)
@@ -665,89 +851,17 @@
     };
 
     //按鈕觸發呈現table
-    document.getElementById("showtable").addEventListener(
-      "click",
-      (article = () => {
-        document.querySelector("#table").style.opacity = 0;
-        setTimeout(() => {
-          getdata(showAllurl, (result) => {
-            //make a copy of data
-            [...initialTableData] = [...result];
-            jsonToHTMLbyQ("#table", result);
-            document.querySelector("#table").style.opacity = 1;
-            ima;
-            let editorcontent;
-            const textareacontainer =
-              document.getElementById("textareacontainer");
-            $("button[name='editarticle']").click((e) => {
-              textareacontainer.innerHTML = "";
-              textareacontainer.innerHTML = `<label for="message-editor" class="col-form-label"
-                  >文章內文:</label
-                ><textarea id="editor"></textarea>`;
-              getdata(
-                "http://localhost:8082/article/edit?article_id=" +
-                  $(e.target).attr("id"),
-                (result) => {
-                  console.log(result);
-                  $("#article-title").attr("value", result.標題);
-
-                  ClassicEditor.create(document.querySelector("#editor"), {
-                    extraPlugins: [MyCustomUploadAdapterPlugin],
-                  })
-                    .then((editor) => {
-                      editorcontent = editor;
-                      editor.setData(result.內文);
-                    })
-                    .catch((error) => {
-                      console.log(error);
-                    });
-                  $("#preview_img").attr(
-                    "src",
-                    `/public/showArticleImage/${result.ID}`
-                  );
-                  $("#article_id").attr("value", result.ID);
-                }
-              );
-            });
-
-            $("#editar").click((e) => {
-              e.preventDefault();
-              var datas = new FormData();
-              datas.append("article_id", $("#article_id").val());
-              datas.append("title", $("#article-title").val());
-              datas.append("text", editorcontent.getData());
-              console.log($("#article_id").val());
-              datas.append("type", $("#type option:selected").val());
-              datas.append("file", $("#inputFileToLoad")[0].files[0]);
-              postdatas(
-                "http://localhost:8082/admin/api/article/edit",
-                datas,
-                (result) => {
-                  if (result == true) {
-                    alert("更新成功");
-                    article();
-                  }
-                }
-              );
-            });
-
-            $(".btn-icon-delete").click((e) => {
-              if (confirm("確定刪除嗎?") == true) {
-                getdata(
-                  "http://localhost:8082/admin/api/article/delete?article_id=" +
-                    $(e.target).attr("id"),
-                  (result) => {
-                    if (result == true) {
-                      article();
-                    }
-                  }
-                );
-              }
-            });
-          });
-        }, 300);
-      })
-    );
+    document.getElementById("showtable").addEventListener("click", () => {
+      document.querySelector("#table").style.opacity = 0;
+      setTimeout(() => {
+        getdata(showAllurl, (result) => {
+          //make a copy of data
+          [...initialTableData] = [...result];
+          jsonToHTMLbyQ("#table", result);
+          document.querySelector("#table").style.opacity = 1;
+        });
+      }, 300);
+    });
 
     //將輸入文字存成檔案
     function saveTextAsFile(_fileName, _text) {

@@ -24,6 +24,18 @@
       article {
         flex: 1;
       }
+
+      .mb-3 {
+        width: 100%;
+        display: table-cell; /* ★ */
+        vertical-align: middle; /* ★ */
+
+        margin-bottom: 20px;
+      }
+
+      article {
+        margin: 0px auto;
+      }
     </style>
   </head>
 
@@ -106,7 +118,7 @@
                   class="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
-                  Close
+                  關閉
                 </button>
               </div>
             </div>
@@ -159,7 +171,7 @@
                 i.order_id +
                 "'>明細</button></td></tr>";
               str +=
-                "<td><input type='text' value='" +
+                "<td style='display:none'><input type='text' value='" +
                 i.fk_member_id +
                 "' hidden/></td></tr>";
             }

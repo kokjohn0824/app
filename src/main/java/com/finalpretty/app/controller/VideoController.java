@@ -51,7 +51,7 @@ public class VideoController {
     // }
 
     // 查詢(已改Ajax)
-    @GetMapping("/public/api/video/manage")
+    @GetMapping("/admin/api/video/manage")
     @ResponseBody
     public List<VideoDTO> getAllvideos() {
 

@@ -263,7 +263,7 @@
                 <a
                   class="adminlink"
                   href="#"
-                  data-url="http://localhost:8082/public/api/video/manage"
+                  data-url="http://localhost:8082/admin/api/video/manage"
                   data-title="影片管理"
                   >影片管理</a
                 >
@@ -823,6 +823,45 @@
         reader.readAsDataURL(input.files[0]);
       }
     }
+
+    //影片管理
+    //將json陣列轉為 table
+    const jsonToHTMLbyQ = (querySelector, json) => {
+      if (json.length == 0) {
+        document.querySelector(querySelector).innerHTML = "";
+        return;
+      }
+      //define table head
+      let title = `<thead><tr>${Object.keys(json[0])
+        .map((el) => `<th><strong>${el}</strong></th>`)
+        .join("")}<th>操作</th></tr></thead>`;
+      // define table body
+      let trs = json.map(
+        (el) =>
+          `${Object.values(el)
+            .map((td) => `<td class="data">${td}</td>`)
+            .join("")}<td><button class="save btn-icon-edit"></button>
+            <button class="delete btn-icon-delete"></button></td>`
+      );
+      let tbody = `<tbody>${trs
+        .map((el) => `<tr>${el}</tr>`)
+        .join("")}</tbody>`;
+      let table = `<table class="table table-hover">${title}${tbody}</table>`;
+      document.querySelector(querySelector).innerHTML = table;
+    };
+
+    //按鈕觸發呈現table
+    document.getElementById("showtable").addEventListener("click", () => {
+      document.querySelector("#table").style.opacity = 0;
+      setTimeout(() => {
+        getdata(showAllurl, (result) => {
+          //make a copy of data
+          [...initialTableData] = [...result];
+          jsonToHTMLbyQ("#table", result);
+          document.querySelector("#table").style.opacity = 1;
+        });
+      }, 300);
+    });
 
     //將輸入文字存成檔案
     function saveTextAsFile(_fileName, _text) {

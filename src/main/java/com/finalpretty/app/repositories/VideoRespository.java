@@ -35,7 +35,4 @@ public interface VideoRespository extends JpaRepository<Video, Integer> {
                         + "or body_parts like :likeTest ", nativeQuery = true)
         List<Video> fuzzySerch(@Param("likeTest") String likeTest);
 
-        @Query(value = "select * from video_like where fk_video_id = :video_id", nativeQuery = true)
-        List<video_like> findByFkVideoId(@Param("video_id") Integer video_id);
-
 }

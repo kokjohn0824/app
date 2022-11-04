@@ -1,217 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ArticleCategories</title>
-    <div th:replace="jsmodules"></div>
-    <style>
-      body {
-        background-color: white;
-        background-size: 100vw;
-        min-height: 100vh;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-      }
-      footer {
-        min-height: 100px;
-        background: PapayaWhip;
-      }
-      article {
-        flex: 1;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div th:replace="component/navbar :: navbar"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArticleCategories</title>
+  <div th:replace="jsmodules"></div>
+  <style>
+    body {
+      background-color: white;
+      background-size: 100vw;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
 
-    <article>
-      <!-- 網站內文放這裡 -->
-      <div class="col-lg-8 mx-auto p-3 py-md-5">
-        <div class="d-flex align-items-center pb-3 mb-5 border-bottom">
-          <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
-            <a class="btn btn-primary" href="/dailyRecord/add">新增今天日記</a>
-          </span>
-          <span id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
-            <a class="btn btn-primary" href="/todayDailyRecord/edit"
-              >修改今天日記</a
-            >
-          </span>
-          <div>
-            <label for="date1">起始日期:</label>
-            <input id="date1" type="date" />
-            <label for="date2">結束日期</label>
-            <input id="date2" type="date" />
-          </div>
+    footer {
+      min-height: 100px;
+      background: PapayaWhip;
+    }
 
-          <button
-            class="btn btn-dark"
-            th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-            id="chartset"
-            style="float: right"
-          >
-            體重bmi數據
-          </button>
+    article {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div th:replace="component/navbar :: navbar"></div>
+  <div th:replace="component/chatbubble"></div>
+
+  <article>
+    <!-- 網站內文放這裡 -->
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+
+      <div class="d-flex align-items-center pb-3 mb-5 border-bottom">
+        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
+          <a class="btn btn-primary" href="/dailyRecord/add">新增今天日記</a>
+        </span>
+        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
+          <a class="btn btn-primary" href="/todayDailyRecord/edit">修改今天日記</a>
+        </span>
+        <div>
+          <label for="date1">起始日期:</label>
+          <input id="date1" type="date" />
+          <label for="date2">結束日期</label>
+          <input id="date2" type="date" />
         </div>
-        <main>
-          <h1>所有日記</h1>
-          <!-- cellpadding="2" -->
-          <table class="fs-5 col-md-8">
-            <tr>
-              <th>日期</th>
-              <th>編輯</th>
-              <th>刪除</th>
-            </tr>
 
-            <tr th:each="daily : ${list}">
-              <td th:text="${daily.date_time}"></td>
-              <td>
-                <a
-                  th:href="@{'/dailyRecord/edit?date_time='+${daily.date_time}}"
-                  ><button type="submit" value="edite" class="btn btn-dark">
-                    修改
-                  </button></a
-                >
-              </td>
-              <td>
-                <a
-                  th:onclick="return confirm('確定刪除嗎?')"
-                  th:href="@{'/dailyRecord/delete?daily_record_id='+${daily.daily_record_id}}"
-                  ><button type="submit" value="delete" class="btn btn-danger">
-                    刪除
-                  </button></a
-                >
-              </td>
-            </tr>
-          </table>
-        </main>
+        <button class="btn btn-dark" id="chartset" style="float: right"
+          th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}">
+          體重bmi數據
+        </button>
       </div>
 
-      <div id="chart" class="container">
-        <div class="row pt-5">
-          <canvas id="canvas-2" class="col-sm-12"></canvas>
-        </div>
+      <main>
+        <h1>所有日記</h1>
+        <!-- cellpadding="2" -->
+        <table class="fs-5 col-md-8">
+          <tr>
+            <th>日期</th>
+            <th>編輯</th>
+            <th>刪除</th>
+          </tr>
+
+          <tr th:each="daily : ${list}">
+            <td th:text="${daily.date_time}"></td>
+            <td>
+              <a th:href="@{'/dailyRecord/edit?date_time='+${daily.date_time}}">
+                <button type="submit" value="edite" class="btn btn-dark">修改</button>
+              </a>
+            </td>
+            <td>
+              <a th:onclick="return confirm('確定刪除嗎?')"
+                th:href="@{'/dailyRecord/delete?daily_record_id='+${daily.daily_record_id}}">
+                <button type="submit" value="delete" class="btn btn-danger">刪除</button>
+              </a>
+            </td>
+          </tr>
+        </table>
+      </main>
+    </div>
+
+    <div id="chart" class="container">
+      <div class="row pt-5">
+        <canvas id="canvas-2" class="col-sm-12"></canvas>
       </div>
-    </article>
+    </div>
+  </article>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
-      integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script>
-      var btm = document.getElementById("chartset");
-      btm.addEventListener("click", (e) => click(e));
-      function click(e) {
-        var date1 = $("#date1").val();
-        var date2 = $("#date2").val();
-        if (date1 == "" || date2 == "") {
-          alert("請選取日期");
-          console.log(date2);
-        } else if (date1 > date2) {
-          alert("起始日期不可晚於結束日期");
-        } else if (date2 > date1 && date1 != "" && date2 != "") {
-          var myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+    integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    var btm = document.getElementById("chartset");
+    btm.addEventListener("click", (e) => click(e));
+    function click(e) {
+      var date1 = $("#date1").val();
+      var date2 = $("#date2").val();
+      if (date1 == "" || date2 == "") {
+        alert("請選取日期");
+        console.log(date2);
+      } else if (date1 > date2) {
+        alert("起始日期不可晚於結束日期");
+      } else if (date2 > date1 && date1 != "" && date2 != "") {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-          var requestOptions = {
-            method: "GET",
-            headers: myHeaders,
-            redirect: "follow",
-          };
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
 
-          fetch(
-            "http://localhost:8082/public/api/chartBmi/" +
-              $(e.target).attr("name") +
-              "/" +
-              date1 +
-              "/" +
-              date2,
-            requestOptions
-          )
-            .then((response) => response.json())
-            .then((result) => {
-              console.log(result);
-              if (result == "") {
-                alert("您沒有此區間的資料");
-              } else {
-                var num = 0;
-                for (let i in result) {
-                  num++;
-                }
-                if (num <= 30 && num > 0) {
-                  var wei = [];
-                  var bmi = [];
-                  var bodyfat = [];
-                  var date = [];
-                  var weirage = 0;
-                  var bmirage = 0;
-                  var bodyfatrage = 0;
-                  var index = 0;
-                  for (let i of result) {
-                    wei[index] = i.weight;
-                    weirage += i.weight;
-                    bmi[index] = i.bmi;
-                    bmirage += i.bmi;
-                    bodyfat[index] = i.bodyFat;
-                    bodyfatrage += i.bodyFat;
-                    date[index] = i.date_time;
-                    index++;
-                  }
-                  weirage = (weirage / index).toFixed(2);
-                  bmirage = (bmirage / index).toFixed(2);
-                  bodyfatrage = (bodyfatrage / index).toFixed(2);
-                  var ctx2 = document.getElementById("canvas-2");
-
-                  var myChart2 = new Chart(ctx2, {
-                    type: "line", //設定為柱狀圖
-                    data: {
-                      labels: date, // X軸名稱
-                      datasets: [
-                        // datasets是陣列，每個陣列代表一個資料類型
-                        {
-                          label: "平均BMI:" + bmirage, // Y軸的名稱
-                          data: bmi, // Y軸的值
-                          backgroundColor: "rgba(31,119,180,0.2)",
-                          borderColor: "#1f77b4",
-                          fill: true,
-                          lineTension: 0,
-                        },
-                        {
-                          label: "平均體重:" + weirage, // Y軸的名稱
-                          data: wei, // Y軸的值
-                          backgroundColor: "rgba(255,127,14,0.2)",
-                          borderColor: "#ff7f0e",
-                          fill: true,
-                          lineTension: 0,
-                        },
-                        {
-                          label: "平均體脂:" + bodyfatrage, // Y軸的名稱
-                          data: bodyfat, // Y軸的值
-
-                          fill: true,
-                          backgroundColor: "rgba(255,0,0,0.2)",
-                          borderColor: "red",
-                          lineTension: 0,
-                        },
-                      ],
-                    },
-                  });
-                } else if (num > 30) {
-                  alert("日期區間不能大於30天");
-                }
+        fetch(
+          "http://localhost:8082/public/api/chartBmi/" +
+          $(e.target).attr("name") +
+          "/" +
+          date1 +
+          "/" +
+          date2,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => {
+            console.log(result);
+            if (result == "") {
+              alert("您沒有此區間的資料");
+            } else {
+              var num = 0;
+              for (let i in result) {
+                num++;
               }
-            })
-            .catch((error) => console.log("error", error));
-        }
+              if (num <= 30 && num > 0) {
+                var wei = [];
+                var bmi = [];
+                var bodyfat = [];
+                var date = [];
+                var weirage = 0;
+                var bmirage = 0;
+                var bodyfatrage = 0;
+                var index = 0;
+                for (let i of result) {
+                  wei[index] = i.weight;
+                  weirage += i.weight;
+                  bmi[index] = i.bmi;
+                  bmirage += i.bmi;
+                  bodyfat[index] = i.bodyFat;
+                  bodyfatrage += i.bodyFat;
+                  date[index] = i.date_time;
+                  index++;
+                }
+                weirage = (weirage / index).toFixed(2);
+                bmirage = (bmirage / index).toFixed(2);
+                bodyfatrage = (bodyfatrage / index).toFixed(2);
+                var ctx2 = document.getElementById("canvas-2");
+
+                var myChart2 = new Chart(ctx2, {
+                  type: "line", //設定為柱狀圖
+                  data: {
+                    labels: date, // X軸名稱
+                    datasets: [
+                      // datasets是陣列，每個陣列代表一個資料類型
+                      {
+                        label: "平均BMI:" + bmirage, // Y軸的名稱
+                        data: bmi, // Y軸的值
+                        backgroundColor: "rgba(31,119,180,0.2)",
+                        borderColor: "#1f77b4",
+                        fill: true,
+                        lineTension: 0,
+                      },
+                      {
+                        label: "平均體重:" + weirage, // Y軸的名稱
+                        data: wei, // Y軸的值
+                        backgroundColor: "rgba(255,127,14,0.2)",
+                        borderColor: "#ff7f0e",
+                        fill: true,
+                        lineTension: 0,
+                      },
+                      {
+                        label: "平均體脂:" + bodyfatrage, // Y軸的名稱
+                        data: bodyfat, // Y軸的值
+
+                        fill: true,
+                        backgroundColor: "rgba(255,0,0,0.2)",
+                        borderColor: "red",
+                        lineTension: 0,
+                      },
+                    ],
+                  },
+                });
+              } else if (num > 30) {
+                alert("日期區間不能大於30天");
+              }
+            }
+          })
+          .catch((error) => console.log("error", error));
       }
-    </script>
-    <footer>
-      <div th:replace="component/footer"></div>
-    </footer>
-  </body>
+    }
+  </script>
+  <footer>
+    <div th:replace="component/footer"></div>
+  </footer>
+</body>
+
 </html>

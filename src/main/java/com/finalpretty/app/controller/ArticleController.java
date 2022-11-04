@@ -73,10 +73,11 @@ public class ArticleController {
 	}
 
 	// 刪除文章(by id)
-	@GetMapping("/article/delete")
-	public String deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
+	@ResponseBody
+	@GetMapping("/admin/api/article/delete")
+	public Boolean deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
 		articleR.deleteById(article_id);
-		return "redirect:/article/manage";
+		return true;
 	}
 
 	// 新增文章
@@ -101,11 +102,14 @@ public class ArticleController {
 	}
 
 	// 修改文章
+	@ResponseBody
 	@GetMapping("/article/edit")
-	public String editArticle(@RequestParam(name = "article_id") Integer id, Model model) {
+	public ArticleDTO editArticle(@RequestParam(name = "article_id") Integer id) {
 		Optional<Article> a1 = articleR.findById(id);
-		model.addAttribute("article", a1.orElse(null));
-		return "/article/backEndEditArticle";
+		ArticleDTO articleDto = new ArticleDTO(a1.get().getArticle_id(), a1.get().getTitle(), a1.get().getText(),
+				a1.get().getAdded(), a1.get().getViews(), a1.get().getType());
+
+		return articleDto;
 	}
 
 	@PostMapping("/article/edit")
@@ -129,6 +133,31 @@ public class ArticleController {
 		articleR.updateById(article_id, title, text, type, picture);
 
 		return "redirect:/article/manage";
+	}
+
+	// 修改文章 api
+	@ResponseBody
+	@PostMapping("/admin/api/article/edit")
+	public Boolean apieditArticlePost(@RequestParam(name = "article_id") Integer article_id,
+			@RequestParam(name = "title") String title,
+			@RequestParam(name = "text") String text,
+			@RequestParam(name = "type") String type,
+			@RequestParam(name = "file", required = false) MultipartFile file,
+			Model model) {
+
+		byte[] picture = null;
+		try {
+			if (file == null) {
+				picture = articleR.findById(article_id).get().getPicture();
+			} else {
+				picture = file.getBytes();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		articleR.updateById(article_id, title, type, text, picture);
+
+		return true;
 	}
 
 	// =============================================================================================
@@ -158,9 +187,10 @@ public class ArticleController {
 
 		List<ArticleDTO> artilcelist = new ArrayList<>();
 		articleR.findAlloOrderById().forEach((n) -> {
+			// .substring(0, 15) + "..."
 			artilcelist.add(
-					new ArticleDTO(n.getArticle_id(), n.getTitle(), n.getText().substring(0, 15) + "...",
-							n.getAdded(), n.getViews()));
+					new ArticleDTO(n.getArticle_id(), n.getTitle(), n.getText(),
+							n.getAdded(), n.getViews(), n.getType()));
 		});
 		return artilcelist;
 	}

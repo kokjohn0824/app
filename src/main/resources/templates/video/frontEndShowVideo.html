@@ -73,31 +73,6 @@
         <p>觀看數:<span id="" th:text="${video.views}"></span></p>
       </div>
     </div>
-    <!-- <h2 class="entry-title" itemprop="headline">
-      <a rel="bookmark" th:text="${video.title}"></a>
-    </h2>
-    <span class="posted-on">
-      <time
-        class="entry-date published"
-        th:text=""
-        itemprop="datePublished"
-      ></time
-    ></span>
-    <a href="/">
-      <img
-        th:src=""
-        height="40px"
-        class="attachment-full size-full wp-post-image"
-        alt=""
-        loading="lazy"
-        itemprop="image"
-      />
-    </a>
-    <p id="resulthtml" th:text=""></p>
-    <script>
-      const resulthtml = document.querySelector("#resulthtml");
-      resulthtml.innerHTML = resulthtml.innerText;
-    </script> -->
 
     <script>
       $("img[name='cleanAll']").click(function (e) {
@@ -119,8 +94,6 @@
 
       $("img[name='cleanAll']").dblclick(function (e) {
         var video = $("#video").val();
-        // console.log(member);
-        // console.log(article);
         var settings = {
           url: "http://localhost:8082/video/delike/" + video,
           method: "POST",

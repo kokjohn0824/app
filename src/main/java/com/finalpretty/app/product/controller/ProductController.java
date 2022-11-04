@@ -153,13 +153,13 @@ public class ProductController {
 			@RequestParam(name = "title") String title, @RequestParam(name = "type") String type,
 			@RequestParam(name = "price") Integer price, @RequestParam(name = "stock") Integer stock,
 			@RequestParam(name = "text") String text, @RequestParam(name = "onsale") Integer onsale,
-			@RequestParam(name = "file") MultipartFile file) {
+			@RequestParam(name = "file", required = false) MultipartFile file) {
 
-		// System.out.println("名稱" + product.getTitle());
-		// System.out.println("種類" + product.getType());
-		// System.out.println("id" + product.getProduct_id());
-		// System.out.println("價錢" + product.getPrice());
-		// System.out.println("簡介" + product.getText());
+		System.out.println("名稱" + title);
+		System.out.println("種類" + type);
+		System.out.println("id" + product_id);
+		System.out.println("價錢" + price);
+		System.out.println("簡介" + text);
 
 		// String title = product.getTitle();
 		// Integer price = product.getPrice();

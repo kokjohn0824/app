@@ -23,6 +23,12 @@
       article {
         flex: 1;
       }
+      span {
+        color: #fff;
+      }
+      h2 {
+        color: #fff;
+      }
     </style>
   </head>
 
@@ -55,77 +61,79 @@
         </div>
         <br />
         <!-- ------------------------------------------------------------------------------- -->
-        <div data-hicms-tmpl="index3_course_action" id="page">
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/胸肌';"
-            style="background-image: url('/img/body_parts/chest.png')"
-          >
-            胸肌
-          </div>
+        <div id="page">
+          <div data-hicms-tmpl="index3_course_action">
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/胸肌';"
+              style="background-image: url('/img/body_parts/chest.png')"
+            >
+              胸肌
+            </div>
 
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/背肌';"
-            style="background-image: url('/img/body_parts/back.png')"
-          >
-            背肌
-          </div>
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/背肌';"
+              style="background-image: url('/img/body_parts/back.png')"
+            >
+              背肌
+            </div>
 
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/腿肌';"
-            style="background-image: url('/img/body_parts/leg.png')"
-          >
-            腿肌
-          </div>
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/腿肌';"
+              style="background-image: url('/img/body_parts/leg.png')"
+            >
+              腿肌
+            </div>
 
-          <div
-            id="header"
-            class="but1"
-            onclick="location.href='/public/video/type/肩膀';"
-            style="background-image: url('/img/body_parts/shoulder.png')"
-          >
-            肩膀
-          </div>
-          <p></p>
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/腹部';"
-            style="background-image: url('/img/body_parts/abs.png')"
-          >
-            腹部
-          </div>
+            <div
+              id="header"
+              class="but1"
+              onclick="location.href='/public/video/type/肩膀';"
+              style="background-image: url('/img/body_parts/shoulder.png')"
+            >
+              肩膀
+            </div>
+            <p></p>
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/腹部';"
+              style="background-image: url('/img/body_parts/abs.png')"
+            >
+              腹部
+            </div>
 
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/手臂';"
-            style="background-image: url('/img/body_parts/arm.png')"
-          >
-            手臂
-          </div>
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/手臂';"
+              style="background-image: url('/img/body_parts/arm.png')"
+            >
+              手臂
+            </div>
 
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/有氧';"
-            style="background-image: url('/img/body_parts/aerobics.png')"
-          >
-            有氧
-          </div>
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/有氧';"
+              style="background-image: url('/img/body_parts/aerobics.png')"
+            >
+              有氧
+            </div>
 
-          <div
-            id="header"
-            class="but2"
-            onclick="location.href='/public/video/type/伸展';"
-            style="background-image: url('/img/body_parts/stretch.png')"
-          >
-            伸展
+            <div
+              id="header"
+              class="but2"
+              onclick="location.href='/public/video/type/伸展';"
+              style="background-image: url('/img/body_parts/stretch.png')"
+            >
+              伸展
+            </div>
           </div>
         </div>
       </div>
@@ -137,46 +145,56 @@
       const fuzzySearchend = document.getElementById("page");
 
       fuzzySearchbtn.addEventListener("click", (e) => {
-        // scrollint.removeEventListener("scroll", Page);
-        pa.unbind();
         postdata(
-          "http://localhost:8082/public/api/article/fuzzySearch",
+          "http://localhost:8082/public/api/video/fuzzySearch",
           { likeTest: `${fuzzySearch.value}` },
           (result) => {
-            console.log(result);
             fuzzySearchend.innerHTML = "";
+            var str;
+
+            str += `<div class="row row-cols-1 row-cols-md-2 g-4">`;
             result.forEach((el) => {
-              el.text = el.text.replace(/<[^>]*>/g, "");
-              fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img
-                        src="/public/showArticleImage/${el.article_id}"
-                        class="img-fluid rounded-start"
-                        alt="..."
-                      />
-                    </div>
-                    <div class="col-md-8" style="background-color: black">
-                      <div class="card-body" style="background-color: black">
-                        <h5 class="card-title" style="color: white">
-                          ${el.title}
-                        </h5>
-                        <p id="cleanText" class="card-text" style="color: white">
-                          ${el.text}</p>
-                        <p class="card-text">
-                          <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                          <a
-                            href="/public/article/show?article_id=${el.article_id}"
-                            class="btn btn-light"
-                            style="float: right; vertical-align: bottom"
-                            >Read more</a
-                          >
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>`;
+              str += `<tr>
+            <div
+              class="card"
+              style="
+                width: 18rem;
+                margin: 10px;
+                background-color: black;
+                border-style: solid;
+                border-color: white;
+              "
+            >
+              <a href="/public/video/show?video_id=${el.video_id}">
+                <img
+                  src="/public/showVideoImage/${el.video_id}"
+                  class="card-img-top"
+                  alt="..."
+                  loading="lazy"
+                  itemprop="image"
+                />
+              </a>
+              <div class="card-body">
+                <h2
+                  class="entry-title"
+                  itemprop="headline"
+                >${el.title}</h2>
+                <p class="card-text">
+                  <span class="card-text">訓練肌群:</span
+                  ><span class="card-text">${el.body_parts}</span>
+                  <span class="card-text" style="float: right"
+                    >觀看數:<span
+                      class="card-text"
+                      style="float: right"
+                    >${el.views}</span
+                  ></span>
+                </p>
+              </div>
+            </div>
+          </tr>`;
             });
+            str += `</div>`;
+            fuzzySearchend.innerHTML = str;
           }
         );
       });

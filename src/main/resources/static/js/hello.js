@@ -92,3 +92,16 @@ function MyCustomUploadAdapterPlugin(editor) {
     return new MyUploadAdapter(loader);
   };
 }
+
+// ClassicEditor
+//     .create( document.querySelector( '#editor' ), {
+//         extraPlugins: [ MyCustomUploadAdapterPlugin ],
+
+//         // ...
+//     } )
+//     .catch( error => {
+//         console.log( error );
+//     } );
+
+
+    

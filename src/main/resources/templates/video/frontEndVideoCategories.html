@@ -150,9 +150,11 @@
           { likeTest: `${fuzzySearch.value}` },
           (result) => {
             fuzzySearchend.innerHTML = "";
-            fuzzySearchend.innerHTML += `<div class="row row-cols-1 row-cols-md-2 g-4">`;
+            var str;
+
+            str += `<div class="row row-cols-1 row-cols-md-2 g-4">`;
             result.forEach((el) => {
-              fuzzySearchend.innerHTML += `<tr>
+              str += `<tr>
             <div
               class="card"
               style="
@@ -191,7 +193,8 @@
             </div>
           </tr>`;
             });
-            fuzzySearchend.innerHTML += `</div>`;
+            str += `</div>`;
+            fuzzySearchend.innerHTML = str;
           }
         );
       });

@@ -12,6 +12,7 @@
 
   <body>
     <div th:replace="component/navbar :: navbar"></div>
+    <div th:replace="component/chatbubble"></div>
     <input id="article" th:field="${article.article_id}" type="hidden" />
     <!-- --------------------------------------------------------- -->
     <div class="gb-container gb-container-76538e7c">
@@ -56,7 +57,7 @@
                                     class="entry-date updated-date"
                                   ></time
                                   ><br />
-                                  <p class="entry-date updated-date"></p>
+                                  <p class="entry-date updated-date">
                                     觀看數：<span
                                       th:text="${article.views}"
                                     ></span>

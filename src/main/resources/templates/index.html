@@ -7,7 +7,7 @@
     <div th:replace="jsmodules"></div>
     <style>
       body {
-        background: url(/img/wallpaper2.webp) no-repeat;
+        /* background: url(/img/wallpaper2.webp) no-repeat; */
         background-color: black;
         background-size: 100vw;
         min-height: 100vh;
@@ -30,29 +30,17 @@
     <div th:replace="component/chatbubble"></div>
     <article>
       <!-- 網站內文放這裡 -->
+
+      <div th:replace="component/indexlogo"></div>
       <div th:replace="component/carousel"></div>
+      <div th:replace="component/articlecards.html"></div>
+      <div th:replace="component/loginprocess.html"></div>
       <div
-        class="w-100 bg-light text-dark d-flex flex-column justify-content-center"
-        style="height: 400px"
-      >
-        <div class="d-flex h-25 justify-content-center">
-          <a class="" th:href="@{/login}">文章輪播</a>
-        </div>
-      </div>
-      <div
-        class="w-100 bg-gradient text-dark d-flex flex-column justify-content-center"
+        class="w-100 text-dark d-flex flex-column justify-content-center"
         style="height: 400px"
       >
         <div class="d-flex h-25 justify-content-center">
           <a class="" th:href="@{/login}">顧客見證</a>
-        </div>
-      </div>
-      <div
-        class="w-100 bg-light text-dark d-flex flex-column justify-content-center"
-        style="height: 400px"
-      >
-        <div class="d-flex h-25 justify-content-center">
-          <a class="" th:href="@{/login}">加入我們</a>
         </div>
       </div>
     </article>

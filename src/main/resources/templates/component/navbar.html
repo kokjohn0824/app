@@ -1,12 +1,13 @@
 <div th:fragment="navbar">
   <style>
-    .filter {
-      backdrop-filter: blur(15px) brightness(75%) saturate(70%);
-      opacity: 0.75;
+    #navbar {
+      transition: 1s;
     }
   </style>
-  <div class="fixed-top">
-    <nav class="shadow-lg navbar navbar-expand-lg navbar-dark bg-dark">
+  <div id="navbar" class="fixed-top">
+    <nav
+      class="shadow-lg navbar navbar-expand-lg navbar-dark bg-black opacity-75"
+    >
       <div class="container-fluid">
         <button
           class="navbar-toggler"
@@ -238,6 +239,7 @@
   <script th:src="@{/js/ajax.js}"></script>
   <script>
     //抓取搜尋匡
+    const navbar = document.getElementById("navbar");
     const navsearchinput = document.getElementById("navsearchinput");
     const navsearchbtn = document.getElementById("navsearchbtn");
     const productSearchresult = document.getElementById("productSearchresult");
@@ -252,8 +254,8 @@
 
       //載入loading icon
       productSearchresult.innerHTML = `<div class="spinner-border" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>`;
+      <span class="visually-hidden">Loading...</span>
+    </div>`;
       postdata(
         "http://localhost:8082/public/api/nav/product",
         { searchInput: `${navsearchinput.value}` },
@@ -261,10 +263,10 @@
           productSearchresult.innerHTML = "";
           result.forEach((el) => {
             productSearchresult.innerHTML += `<li>
-                <a class="" href="http://localhost:8082/public/storefrontend">
-                  ${el.title}
-                </a>
-              </li>`;
+                    <a class="" href="http://localhost:8082/public/storefrontend">
+                      ${el.title}
+                    </a>
+                  </li>`;
           });
         }
       );
@@ -275,14 +277,38 @@
           articleSearchresult.innerHTML = "";
           result.forEach((el) => {
             articleSearchresult.innerHTML += `<li>
-                <a class="" href="http://localhost:8082/public/storefrontend">
-                  ${el.title}
-                </a>
-              </li>`;
+                    <a class="" href="http://localhost:8082/public/storefrontend">
+                      ${el.title}
+                    </a>
+                  </li>`;
           });
         }
       );
     });
+
+    //捲動隱藏
+    let scrollBefore = 0;
+
+    window.addEventListener("scroll", function (e) {
+      const scrolled = window.scrollY;
+      if (scrolled <= 80) return;
+      if (scrollBefore > scrolled) {
+        // console.log("ScrollUP");
+        scrollBefore = scrolled;
+        shownavbar();
+      } else {
+        scrollBefore = scrolled;
+        // console.log("ScrollDOWN");
+        hidenavbar();
+      }
+    });
+
+    const hidenavbar = () => {
+      navbar.style.top = "-76px";
+    };
+    const shownavbar = () => {
+      navbar.style.top = "0";
+    };
   </script>
 </div>
 

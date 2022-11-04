@@ -1,0 +1,69 @@
+<style>
+  .articlecard {
+    background-image: linear-gradient(to top, #312e8154, 1%, black);
+    transition: box-shadow 0.3s, bottom 1s ease-in-out;
+    bottom: -400px;
+  }
+
+  .articlecard:hover {
+    background-image: linear-gradient(to top, #312e8154, 80%, black);
+    box-shadow: #8b5cf6 0px 0px 30px 4px;
+  }
+</style>
+<div
+  id="articlecards"
+  class="w-100 bg-black d-flex justify-content-center p-5 position-relative overflow-hidden gap-4"
+  style="height: 400px"
+>
+  <div
+    class="articlecard bg-black w-25 border-1 rounded d-flex justify-content-center"
+    style="width: 350px; height: 350px; border: #1e293b solid 1px"
+  >
+    <div class="d-flex flex-column justify-content-around">
+      <h2 class="text-light">多樣化的文章</h2>
+      <div class="d-flex justify-content-end me-2">
+        <span>查看熱門文章</span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="articlecard bg-black w-25 border-1 rounded d-flex justify-content-center"
+    style="width: 350px; height: 350px; border: #1e293b solid 1px"
+  >
+    <div class="d-flex flex-column justify-content-around">
+      <h2 class="text-light">精準的熱量計算</h2>
+      <div class="d-flex justify-content-end me-2">
+        <span>點擊使用計算機</span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="articlecard bg-black w-25 border-1 rounded d-flex justify-content-center"
+    style="width: 350px; height: 350px; border: #1e293b solid 1px"
+  >
+    <div class="d-flex flex-column justify-content-around">
+      <h2 class="text-light">精心挑選的商品</h2>
+      <div class="d-flex justify-content-end me-2">
+        <span>點擊前往商城</span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="articlecard bg-black w-25 border-1 rounded d-flex justify-content-center"
+    style="width: 350px; height: 350px; border: #1e293b solid 1px"
+  >
+    <div class="d-flex flex-column justify-content-around">
+      <h2 class="text-light">豐富的健身影片</h2>
+      <div class="d-flex justify-content-end me-2">
+        <span>立即前往觀看 >></span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.getElementById("articlecards").addEventListener("mouseover", () => {
+    document.querySelectorAll(".articlecard").forEach((e) => {
+      e.style.bottom = "20px";
+    });
+  });
+</script>

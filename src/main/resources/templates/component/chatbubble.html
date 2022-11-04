@@ -10,6 +10,7 @@
 
     /* Button used to open the chat form - fixed at the bottom of the page */
     .open-button {
+      z-index: 100;
       background-color: black;
       border-radius: 500px;
       color: white;
@@ -110,7 +111,14 @@
   <!-- 彈出視窗 -->
   <div class="chat-popup" id="myForm">
     <div class="d-flex justify-content-between bg-white rounded-top shadow-sm">
-      <h3 class="m-3">聊天室</h3>
+      <div class="mx-3 my-1">
+        <img
+          th:src="@{/img/final-pretty-logo-round.png}"
+          alt=""
+          width="40px"
+          height="40px"
+        /><span class="m-3">客服服務聊天室</span>
+      </div>
 
       <span
         id="authusername"

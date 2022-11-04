@@ -1,0 +1,48 @@
+<style>
+  .regispan {
+    color: aliceblue;
+    animation: changecolor 6s infinite;
+  }
+
+  .verispan {
+    color: aliceblue;
+    animation: changecolor 6s infinite;
+    animation-delay: 2s;
+  }
+  .usespan {
+    color: aliceblue;
+    animation: changecolor 6s infinite;
+    animation-delay: 4s;
+  }
+
+  @keyframes changecolor {
+    0% {
+      color: orange;
+    }
+    33% {
+      color: aliceblue;
+    }
+    66% {
+      color: aliceblue;
+    }
+    100% {
+      color: orange;
+    }
+  }
+</style>
+<div
+  class="w-100 text-dark d-flex justify-content-center"
+  style="height: 400px"
+>
+  <div class="my-auto">
+    <h1 class="display-1">
+      <strong class="">
+        <span class="regispan">註冊帳號</span>、<span class="verispan"
+          >驗證</span
+        >、<span class="usespan">開始使用</span>
+      </strong>
+    </h1>
+    <h3>就是如此簡單</h3>
+    <button>哈哈</button>
+  </div>
+</div>

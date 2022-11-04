@@ -25,27 +25,22 @@
 
     /* The popup chat - hidden by default */
     .chat-popup {
+      padding: 0%;
       display: none;
       position: fixed;
       bottom: 0;
       right: 15px;
-      border: 3px solid #f1f1f1;
       z-index: 9;
       transition: 1s;
-
       width: 100%;
-      max-width: 450px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: #292739 0 10px 20px;
+      max-width: 350px;
+      border-radius: 20px;
+      background: #f1f5f9;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     }
 
     /* Add styles to the form container */
-    .form-container {
-      width: 500px;
-      padding: 10px;
-      background-color: white;
-    }
 
     .chatbox {
       padding: 40px 20px;
@@ -61,37 +56,56 @@
     }
 
     .chat {
-      display: flex;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+      width: 100%;
       gap: 15px;
     }
 
     .msg {
-      max-width: 80%;
-      padding: 20px;
+      position: absolute;
+      max-width: 50%;
+      word-wrap: break-word;
+      padding: 0.5rem;
       border-radius: 10px;
-      position: relative;
       font-size: 13px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     }
 
     .selfmessage {
+      border-radius: 1.125rem 1.125rem 1.125rem 0;
       background: #2dd4bf;
       color: #1f2937;
-      margin-left: aut;
     }
 
     .othermessage {
+      border-radius: 1.125rem 1.125rem 0 1.125rem;
+      right: 0;
       background: #1f2937;
       color: #f1f1f1;
     }
+
+    input:focus {
+      outline: none;
+    }
   </style>
   <!-- 聊天按鈕 -->
-  <button class="open-button" onclick="openForm()">
+  <button
+    id="openbtn"
+    class="open-button"
+    onclick="openForm()"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    title="客服聊天視窗"
+  >
     <img th:src="@{/img/icon/chat.svg}" alt="" />
   </button>
 
   <!-- 彈出視窗 -->
   <div class="chat-popup" id="myForm">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between bg-white rounded-top shadow-sm">
       <h3 class="m-3">聊天室</h3>
 
       <span
@@ -99,26 +113,30 @@
         sec:authorize="isAuthenticated()"
         class="navbar-brand"
         th:text="${#authentication.getPrincipal().getNickname()}"
+        hidden
       ></span>
       <span
         id="authusername"
         sec:authorize="isAnonymous()"
         class="navbar-brand"
         th:text="訪客"
+        hidden
       ></span>
 
-      <button class="btn" onclick="closeForm()" style="color: black">X</button>
+      <button class="btn" onclick="closeForm()" style="color: black">
+        <img th:src="@{/img/icon/close.svg}" alt="" />
+      </button>
     </div>
     <div
       class="chatbox"
       id="information"
       style="height: 400px; overflow: scroll"
     ></div>
-    <div class="messageinputbox">
-      <div class="input-group">
+    <div class="messageinputbox w-100 bg-white border-top">
+      <div class="d-flex bg-white rounded justify-content-between">
         <input
           type="text"
-          class="form-control"
+          class="border-0 flex-grow-1 mx-2"
           id="content"
           placeholder="想說點什麼..."
           name="msg"
@@ -126,11 +144,11 @@
         />
         <button
           id="sharedbtn"
-          class="btn btn-info"
+          class="btn"
           onclick="handleClick();"
           type="button"
         >
-          送出
+          <img th:src="@{/img/icon/send.svg}" alt="" />
         </button>
       </div>
     </div>
@@ -140,7 +158,7 @@
   <script>
     const myForm = document.querySelector("#myForm");
     const input = document.querySelector("#content");
-
+    const openbtn = document.getElementById("openbtn");
     function openForm() {
       myForm.style.display = "block";
     }

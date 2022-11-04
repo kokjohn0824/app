@@ -6,4 +6,6 @@ public interface EmailSender {
     void verificationEmailsend(String to, String token);
 
     String resetPwdEmailsend(String emailinput, String resetPwdToken);
+
+    String orderEmailSend(String emailinput, String nickname);
 }

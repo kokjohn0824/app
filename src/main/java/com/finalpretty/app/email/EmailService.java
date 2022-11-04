@@ -111,4 +111,26 @@ public class EmailService implements EmailSender {
             return e.getMessage();
         }
     }
+
+    @Override
+    public String orderEmailSend(String emailinput, String nickname) {
+        EmailBean emailBean = new EmailBean();
+        emailBean.setTo(emailinput);
+        // 設定信件標題
+        emailBean.setSubject("請付錢");
+        Context thymeleafContext = new Context();
+        Map<String, Object> templateModel = new HashMap<>();
+        templateModel.put("nickname", nickname);
+        thymeleafContext.setVariables(templateModel);
+        String htmlBody = thymeleafTemplateEngine.process("/email/resetPwdLinkEmail.html", thymeleafContext);
+        emailBean.setContent(htmlBody);
+
+        try {
+            send(emailBean);
+            return "success";
+        } catch (IllegalStateException e) {
+            return e.getMessage();
+        }
+
+    }
 }

@@ -24,4 +24,6 @@ public class VideoDTO {
     private String body_parts;
     @JsonProperty("觀看數")
     private Integer views;
+    @JsonProperty("影片")
+    private String video;
 }

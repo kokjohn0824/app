@@ -281,7 +281,13 @@
                 >
               </li>
               <li class="my-2 d-flex">
-                <img th:src="@{/img/icon/Pencil.svg}" /><a href="#">貼文管理</a>
+                <img th:src="@{/img/icon/Pencil.svg}" /><a
+                  class="adminlink"
+                  href="#"
+                  data-title="訂單管理"
+                  data-url="http://localhost:8082/admin/api/orderAll"
+                  >訂單管理</a
+                >
               </li>
               <li class="my-2 d-flex">
                 <img th:src="@{/img/icon/shop.svg}" /><a
@@ -569,7 +575,7 @@
       </div>
     </div> -->
 
-    <div
+    <!-- <div
       class="modal fade"
       id="exampleModal"
       tabindex="-1"
@@ -751,6 +757,182 @@
           </form>
         </div>
       </div>
+    </div> -->
+
+    <!-- <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">會員資料</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="myForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-title" class="col-form-label"
+                  >標題:</label
+                >
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  id="recipient-title"
+                  value=""
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="recipient-age" class="col-form-label">分類:</label
+                ><select name="type">
+                  <option>胸肌</option>
+                  <option>背肌</option>
+                  <option>腿肌</option>
+                  <option>肩膀</option>
+                  <option>腹部</option>
+                  <option>手臂</option>
+                  <option>有氧</option>
+                  <option>伸展</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="recipient-height" class="col-form-label"
+                  >主要部位:</label
+                ><select name="body_parts">
+                  <optgroup label="胸肌">
+                    <option>胸大肌</option>
+                  </optgroup>
+                  <optgroup label="背肌">
+                    <option>背闊肌</option>
+                    <option>中背部</option>
+                    <option>下背部</option>
+                  </optgroup>
+                  <optgroup label="腿肌">
+                    <option>股四頭肌</option>
+                    <option>股二頭肌</option>
+                    <option>臀部肌群</option>
+                    <option>小腿肌群</option>
+                  </optgroup>
+                  <optgroup label="肩膀">
+                    <option>斜方肌</option>
+                    <option>肩部</option>
+                  </optgroup>
+                  <optgroup label="腹部">
+                    <option>腹肌</option>
+                    <option>髂腰肌</option>
+                  </optgroup>
+                  <optgroup label="手臂">
+                    <option>肱二頭肌</option>
+                    <option>肱三頭肌</option>
+                    <option>前臂</option>
+                  </optgroup>
+                  <optgroup label="有氧">
+                    <option>不限部位</option>
+                  </optgroup>
+                  <optgroup label="伸展">
+                    <option>不限部位</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="inputFileToLoad" class="col-form-label"
+                  >影片封面:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  src="#"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+                <input id="video_id" name="video_id" value="" hidden />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="editvideo" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">會員資料</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">商品名稱</th>
+                      <th scope="col">商品數量</th>
+                      <th scope="col">商品金額</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tb2"></tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div sec:authorize="isAuthenticated()">
@@ -827,44 +1009,91 @@
       }
     }
 
-    //影片管理
+    //訂單管理
     //將json陣列轉為 table
-    // const jsonToHTMLbyQ = (querySelector, json) => {
-    //   if (json.length == 0) {
-    //     document.querySelector(querySelector).innerHTML = "";
-    //     return;
-    //   }
-    //   //define table head
-    //   let title = `<thead><tr>${Object.keys(json[0])
-    //     .map((el) => `<th><strong>${el}</strong></th>`)
-    //     .join("")}<th>操作</th></tr></thead>`;
-    //   // define table body
-    //   let trs = json.map(
-    //     (el) =>
-    //       `${Object.values(el)
-    //         .map((td) => `<td class="data">${td}</td>`)
-    //         .join("")}<td><button class="save btn-icon-edit"></button>
-    //         <button class="delete btn-icon-delete"></button></td>`
-    //   );
-    //   let tbody = `<tbody>${trs
-    //     .map((el) => `<tr>${el}</tr>`)
-    //     .join("")}</tbody>`;
-    //   let table = `<table class="table table-hover">${title}${tbody}</table>`;
-    //   document.querySelector(querySelector).innerHTML = table;
-    // };
+    const jsonToHTMLbyQ = (querySelector, json) => {
+      if (json.length == 0) {
+        document.querySelector(querySelector).innerHTML = "";
+        return;
+      }
+      //define table head
+      let title = `<thead><tr>${Object.keys(json[0])
+        .map((el, index) => {
+          if (index <= 9 && index >= 0) {
+            return `<th><strong>${el}</strong></th>`;
+          }
+        })
+        .join("")}<th>操作</th></tr></thead>`;
+      // define table body
+      let trs = json.map(
+        (el) =>
+          `${Object.values(el)
+            .map((td, index) => {
+              if (index == 4) {
+                if (td == 1) {
+                  return `<td class="data">宅配</td>`;
+                } else if (td == 0) {
+                  return `<td class="data">超商自取</td>`;
+                }
+              } else if (index == 5) {
+                if (td == 2) {
+                  return `<td class="data">信用卡支付</td>`;
+                } else if (td == 1) {
+                  return `<td class="data">現金支付</td>`;
+                }
+              } else if (index == 7) {
+                if (td == 1) {
+                  return `<td class="data"><span style="color:green">已付款</span</td>`;
+                } else if (td == null) {
+                  return `<td class="data"><span style="color:red">尚未付款</span</td>`;
+                }
+              } else if (index == 10) {
+                return `<td class="data"><button id="${el.order_id}" data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              data-bs-whatever="@getbootstrap" class="btn btn-primary">顯示明細</button></td>`;
+              } else {
+                return `<td class="data">${td}</td>`;
+              }
+            })
+            .join("")}`
+      );
+      let tbody = `<tbody>${trs
+        .map((el) => `<tr>${el}</tr>`)
+        .join("")}</tbody>`;
+      let table = `<table class="table table-hover">${title}${tbody}</table>`;
+      document.querySelector(querySelector).innerHTML = table;
+    };
 
-    // //按鈕觸發呈現table
-    // document.getElementById("showtable").addEventListener("click", () => {
-    //   document.querySelector("#table").style.opacity = 0;
-    //   setTimeout(() => {
-    //     getdata(showAllurl, (result) => {
-    //       //make a copy of data
-    //       [...initialTableData] = [...result];
-    //       jsonToHTMLbyQ("#table", result);
-    //       document.querySelector("#table").style.opacity = 1;
-    //     });
-    //   }, 300);
-    // });
+    //按鈕觸發呈現table
+    document.getElementById("showtable").addEventListener("click", () => {
+      document.querySelector("#table").style.opacity = 0;
+      setTimeout(() => {
+        getdata(showAllurl, (result) => {
+          //make a copy of data
+          [...initialTableData] = [...result];
+          jsonToHTMLbyQ("#table", result);
+          document.querySelector("#table").style.opacity = 1;
+
+          $(".btn-primary").click((e) => {
+            getdata(
+              `http://localhost:8082/public/findByFKOrderId/${$(e.target).attr(
+                "id"
+              )}`,
+              (result) => {
+                var string;
+                console.log(result);
+                for (let i of result) {
+                  string += "<tr><td>" + i.product_name + "</td>";
+                  string += "<td>" + i.count + "</td>";
+                  string += "<td>" + i.total + "</td></tr>";
+                }
+                $("#tb2").html(string);
+              }
+            );
+          });
+        });
+      }, 300);
+    });
 
     //將輸入文字存成檔案
     function saveTextAsFile(_fileName, _text) {

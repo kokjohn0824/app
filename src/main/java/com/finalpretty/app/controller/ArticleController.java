@@ -76,8 +76,18 @@ public class ArticleController {
 	@ResponseBody
 	@GetMapping("/admin/api/article/delete")
 	public Boolean deleteArticle(@RequestParam(name = "article_id") Integer article_id) {
-		articleR.deleteById(article_id);
-		return true;
+		Article article = articleR.findById(article_id).get();
+		Set<Member> like = article.getMembers();
+
+		List<Member> mem = new ArrayList<>();
+		mem.addAll(like);
+		if (mem.isEmpty()) {
+			articleR.deleteById(article_id);
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	// 新增文章

@@ -43,13 +43,14 @@ public class VideoController {
 
     // 後台
     // 顯示全部影片
-    @GetMapping("/video/manage")
-    public String manageVideoPage(Model m) {
-        List<Video> list = videoR.findAll();
-        m.addAttribute("list", list);
-        return "/video/backEndManageVideo";
-    }
+    // @GetMapping("/video/manage")
+    // public String manageVideoPage(Model m) {
+    // List<Video> list = videoR.findAll();
+    // m.addAttribute("list", list);
+    // return "/video/backEndManageVideo";
+    // }
 
+    // 查詢(已改Ajax)
     @GetMapping("/public/api/video/manage")
     @ResponseBody
     public List<VideoDTO> getAllvideos() {
@@ -63,10 +64,10 @@ public class VideoController {
     }
 
     // 前往新增影片
-    @GetMapping("/video/add")
-    public String addArticle() {
-        return "/video/backEndAddVideoPage";
-    }
+    // @GetMapping("/video/add")
+    // public String addArticle() {
+    // return "/video/backEndAddVideoPage";
+    // }
 
     // 新增影片
     @PostMapping("/video/add")
@@ -97,11 +98,19 @@ public class VideoController {
         return "redirect:/video/manage";
     }
 
-    // 刪除影片(by id)
-    @GetMapping("/video/delete")
-    public String deleteVideo(@RequestParam(name = "video_id") Integer video_id) {
-        videoR.deleteById(video_id);
-        return "redirect:/video/manage";
+    // 刪除影片(by id)(已改Ajax)
+    @ResponseBody
+    @GetMapping("/admin/api/video/delete")
+    public Boolean deleteVideo(@RequestParam(name = "video_id") Integer video_id) {
+        Video video = videoR.findById(video_id).get();
+        Set<Member> like = video.getMembers();
+        Boolean bool = like.contains(video);
+        if (bool == false) {
+            videoR.deleteById(video_id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // 修改影片(已改Ajax)

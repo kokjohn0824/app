@@ -1,216 +1,199 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <div th:replace="jsmodules"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>個人訂單</title>
-    <style>
-      body {
-        background-color: white;
-        background-size: 100vw;
-        min-height: 100vh;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-      }
-      footer {
-        min-height: 100px;
-        background: PapayaWhip;
-      }
-      article {
-        flex: 1;
-      }
+  <div th:replace="jsmodules"></div>
 
-      .mb-3 {
-        width: 100%;
-        display: table-cell; /* ★ */
-        vertical-align: middle; /* ★ */
+  <title>個人訂單</title>
+  <style>
+    body {
+      background-color: white;
+      background-size: 100vw;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
 
-        margin-bottom: 20px;
-      }
+    footer {
+      min-height: 100px;
+      background: PapayaWhip;
+    }
 
-      article {
-        margin: 0px auto;
-      }
-    </style>
-  </head>
+    article {
+      flex: 1;
+    }
 
-  <body>
-    <div th:replace="component/navbar :: navbar"></div>
+    .mb-3 {
+      width: 100%;
+      display: table-cell;
+      /* ★ */
+      vertical-align: middle;
+      /* ★ */
 
-    <article>
-      <!-- 網站內文放這裡 -->
+      margin-bottom: 20px;
+    }
 
-      <div style="margin-top: 100px">
-        <button
-          name="checkone"
-          type="button"
-          class="btn btn-primary"
-          id="order"
-        >
-          查看訂單
-        </button>
+    article {
+      margin: 0px auto;
+    }
+  </style>
+</head>
 
-        <div class="mb-3">
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">訂單編號</th>
-                <th scope="col">配送方式</th>
-                <th scope="col">付款方式</th>
-                <th scope="col">訂單總金額</th>
-                <th scope="col">地址</th>
-                <th scope="col">訂單成立時間</th>
-                <th scope="col">付款狀態</th>
-                <th scope="col">訂單明細</th>
-              </tr>
-            </thead>
-            <tbody id="tb1"></tbody>
-          </table>
-          <input
-            id="in"
-            th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}"
-            hidden
-          />
-        </div>
+<body>
+  <div th:replace="component/navbar :: navbar"></div>
+  <div th:replace="component/chatbubble"></div>
 
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">明細</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="mb-3">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">商品名稱</th>
-                          <th scope="col">商品數量</th>
-                          <th scope="col">商品金額</th>
-                        </tr>
-                      </thead>
-                      <tbody id="tb2"></tbody>
-                    </table>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  關閉
-                </button>
-              </div>
+  <article>
+    <!-- 網站內文放這裡 -->
+
+    <div style="margin-top: 100px">
+      <button name="checkone" type="button" class="btn btn-primary" id="order">
+        查看訂單
+      </button>
+
+      <div class="mb-3">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">訂單編號</th>
+              <th scope="col">配送方式</th>
+              <th scope="col">付款方式</th>
+              <th scope="col">訂單總金額</th>
+              <th scope="col">地址</th>
+              <th scope="col">訂單成立時間</th>
+              <th scope="col">付款狀態</th>
+              <th scope="col">訂單明細</th>
+            </tr>
+          </thead>
+          <tbody id="tb1"></tbody>
+        </table>
+        <input id="in" th:value="${#authentication.getPrincipal().getFkMember().getMember_id()}" hidden />
+      </div>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">明細</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">商品名稱</th>
+                        <th scope="col">商品數量</th>
+                        <th scope="col">商品金額</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tb2"></tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                關閉
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </article>
+    </div>
+  </article>
 
-    <script>
-      var requestOptions = {
-        method: "GET",
-        redirect: "follow",
-      };
+  <script>
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-      var member_id = $("#in").attr("value");
-      fetch(
-        "http://localhost:8082/public/findMemberOrder/" + member_id,
-        requestOptions
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          var btn = $("#order");
-          btn.click(function () {
-            var str;
-            for (let i of result) {
-              str += "<tr><td>" + i.order_num + "</td>";
-              if (i.ship == 1) {
-                str += "<td>自取</td>";
-              } else if (i.ship == 0) {
-                str += "<td>宅配</td>";
-              }
-
-              if (i.paid == 1) {
-                str += "<td>現金</td>";
-              } else if (i.paid == 2) {
-                str += "<td>信用卡</td>";
-              }
-
-              str += "<td>" + i.total + "</td>";
-              str += "<td>" + i.address + "</td>";
-              str += "<td>" + i.create_date + "</td>";
-              if (i.payment == 1) {
-                str += "<td style='color:green'>已付款</td>";
-              } else if (i.payment == null) {
-                str += "<td style='color:red'>尚未付款</td>";
-              }
-              str +=
-                "<td><button name='check' type='button' class='btn btn-primary'" +
-                " data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@fat' id='" +
-                i.order_id +
-                "'>明細</button></td></tr>";
-              str +=
-                "<td style='display:none'><input type='text' value='" +
-                i.fk_member_id +
-                "' hidden/></td></tr>";
+    var member_id = $("#in").attr("value");
+    fetch(
+      "http://localhost:8082/public/findMemberOrder/" + member_id,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        var btn = $("#order");
+        btn.click(function () {
+          var str;
+          for (let i of result) {
+            str += "<tr><td>" + i.order_num + "</td>";
+            if (i.ship == 1) {
+              str += "<td>自取</td>";
+            } else if (i.ship == 0) {
+              str += "<td>宅配</td>";
             }
-            $("#tb1").html(str);
-            var check = document.getElementsByName("check");
 
-            for (let on of check) {
-              on.addEventListener("click", (e) => {
-                click(e);
-              });
+            if (i.paid == 1) {
+              str += "<td>現金</td>";
+            } else if (i.paid == 2) {
+              str += "<td>信用卡</td>";
             }
-          });
-        })
-        .catch((error) => console.log("error", error));
 
-      function click(e) {
-        console.log("$(e.target).attr(id)");
-
-        var settings = {
-          url:
-            "http://localhost:8082/public/findByFKOrderId/" +
-            $(e.target).attr("id"),
-          method: "GET",
-          timeout: 0,
-        };
-        $.ajax(settings).done(function (response) {
-          var string;
-          console.log(response);
-          for (let i of response) {
-            string += "<tr><td>" + i.product_name + "</td>";
-            string += "<td>" + i.count + "</td>";
-            string += "<td>" + i.total + "</td></tr>";
+            str += "<td>" + i.total + "</td>";
+            str += "<td>" + i.address + "</td>";
+            str += "<td>" + i.create_date + "</td>";
+            if (i.payment == 1) {
+              str += "<td style='color:green'>已付款</td>";
+            } else if (i.payment == null) {
+              str += "<td style='color:red'>尚未付款</td>";
+            }
+            str +=
+              "<td><button name='check' type='button' class='btn btn-primary'" +
+              " data-bs-toggle='modal' data-bs-target='#exampleModal' data-bs-whatever='@fat' id='" +
+              i.order_id +
+              "'>明細</button></td></tr>";
+            str +=
+              "<td style='display:none'><input type='text' value='" +
+              i.fk_member_id +
+              "' hidden/></td></tr>";
           }
-          $("#tb2").html(string);
+          $("#tb1").html(str);
+          var check = document.getElementsByName("check");
+
+          for (let on of check) {
+            on.addEventListener("click", (e) => {
+              click(e);
+            });
+          }
         });
-      }
-    </script>
-    <footer>
-      <div th:replace="component/footer"></div>
-    </footer>
-  </body>
+      })
+      .catch((error) => console.log("error", error));
+
+    function click(e) {
+      console.log("$(e.target).attr(id)");
+
+      var settings = {
+        url:
+          "http://localhost:8082/public/findByFKOrderId/" +
+          $(e.target).attr("id"),
+        method: "GET",
+        timeout: 0,
+      };
+      $.ajax(settings).done(function (response) {
+        var string;
+        console.log(response);
+        for (let i of response) {
+          string += "<tr><td>" + i.product_name + "</td>";
+          string += "<td>" + i.count + "</td>";
+          string += "<td>" + i.total + "</td></tr>";
+        }
+        $("#tb2").html(string);
+      });
+    }
+  </script>
+  <footer>
+    <div th:replace="component/footer"></div>
+  </footer>
+</body>
+
 </html>

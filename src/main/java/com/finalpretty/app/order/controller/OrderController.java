@@ -39,7 +39,7 @@ public class OrderController {
     private OrderRespository oDao;
 
     // @GetMapping("/admin/orderAll")
-    @GetMapping("/public/orderAll")
+    @GetMapping("/admin/api/orderAll")
     public @ResponseBody List<OrderDto> orderAll() {
         return oService.orderAll();
     }

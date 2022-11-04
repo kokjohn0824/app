@@ -58,7 +58,8 @@ public class VideoController {
         List<VideoDTO> videolist = new ArrayList<>();
         videoR.findAlloOrderById().forEach((n) -> {
             videolist.add(
-                    new VideoDTO(n.getVideo_id(), n.getTitle(), n.getType(), n.getBody_parts(), n.getViews()));
+                    new VideoDTO(n.getVideo_id(), n.getTitle(), n.getType(), n.getBody_parts(), n.getViews(),
+                            n.getUrl()));
         });
         return videolist;
     }
@@ -100,17 +101,26 @@ public class VideoController {
 
     // 刪除影片(by id)(已改Ajax)
     @ResponseBody
-    @GetMapping("/admin/api/video/delete")
-    public Boolean deleteVideo(@RequestParam(name = "video_id") Integer video_id) {
+    @GetMapping("/admin/api/video/delete/{video_id}")
+    public Boolean deleteVideo(@PathVariable(name = "video_id") Integer video_id) {
         Video video = videoR.findById(video_id).get();
         Set<Member> like = video.getMembers();
-        Boolean bool = like.contains(video);
-        if (bool == false) {
+        List<Member> mem = new ArrayList<>();
+        mem.addAll(like);
+        if (mem.isEmpty()) {
             videoR.deleteById(video_id);
-            return true;
-        } else {
             return false;
+        } else {
+            return true;
         }
+    }
+
+    @ResponseBody
+    @GetMapping("/admin/api/queryUpdateViedo/{video_id}")
+    public VideoDTO queryUpdateViedo(@PathVariable("video_id") Integer video_id) {
+        Video video = videoR.findById(video_id).get();
+        return new VideoDTO(video.getVideo_id(), video.getTitle(), video.getType(), video.getBody_parts(),
+                video.getViews(), video.getUrl());
     }
 
     // 修改影片(已改Ajax)
@@ -121,11 +131,11 @@ public class VideoController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "type") String type,
             @RequestParam(name = "body_parts") String body_parts,
-            @RequestParam(name = "file") MultipartFile file) {
+            @RequestParam(name = "file", required = false) MultipartFile file) {
 
         byte[] picture = null;
         try {
-            if (file.getBytes().length == 0) {
+            if (file == null) {
                 // picture = pService.findById(product.getProduct_id()).getPicture();
                 picture = videoR.findById(video_id).get().getPicture();
             } else {

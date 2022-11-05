@@ -5,11 +5,10 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ArticleCategories</title>
   <div th:replace="jsmodules"></div>
   <style>
     body {
-      background-color: white;
+      background-color: black;
       background-size: 100vw;
       min-height: 100vh;
       margin: 0;
@@ -34,61 +33,67 @@
 
   <article>
     <!-- 網站內文放這裡 -->
-    <div class="col-lg-8 mx-auto p-3 py-md-5">
-
-      <div class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
-          <a class="btn btn-primary" href="/dailyRecord/add">新增今天日記</a>
-        </span>
-        <span id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
-          <a class="btn btn-primary" href="/todayDailyRecord/edit">修改今天日記</a>
-        </span>
-        <div>
-          <label for="date1">起始日期:</label>
-          <input id="date1" type="date" />
-          <label for="date2">結束日期</label>
-          <input id="date2" type="date" />
+    <div class="col-lg-8 mx-auto mt-5 mb-5">
+      <!-- 按鈕--新增今天日記 & 修改今天日記  -->
+      <div class="d-flex">
+        <sapn id="sapn" th:name="${bool}" th:if="${bool} eq 'true'">
+          <a class="btn btn-warning btn-lg border border-white border-5 fw-bold" href="/dailyRecord/add">點我新增今天日記</a>
+        </sapn>
+        <sapn id="sapn" th:name="${bool}" th:if="${bool} eq 'false'">
+          <a class="btn btn-warning btn-lg border border-white border-5 fw-bold"
+            href="/todayDailyRecord/edit">點我修改今天日記</a>
+        </sapn>
+      </div>
+      <br />
+      <div class="border border-success border-5 rounded-3">
+        <!-- 選擇日期與數據按鈕 -->
+        <div class="d-flex justify-content-center p-3 rounded-3 mb-2" style="background-color: white ; color: black; ">
+          <label class="fs-3" for="date1">起始日期:</label>&nbsp&nbsp
+          <input class="rounded-pill" id="date1" type="date" />&nbsp&nbsp&nbsp&nbsp&nbsp
+          <label class="fs-3" for="date2">結束日期:</label>&nbsp&nbsp
+          <input class="rounded-pill" id="date2" type="date" />&nbsp&nbsp&nbsp&nbsp&nbsp
+          <button class="btn btn-dark border border-warning border-3  text-white" id="chartset"
+            th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}">
+            身體數據曲線圖
+          </button>
         </div>
 
-        <button class="btn btn-dark" id="chartset" style="float: right"
-          th:name="${#authentication.getPrincipal().getFkMember().getMember_id()}">
-          體重bmi數據
-        </button>
-      </div>
+        <div class="p-3 rounded-3 bg-warning text-white text-center">
+          <main>
+            <h1>所有日記</h1>
+            <!-- cellpadding="2" -->
+            <table class="d-flex justify-content-center fs-5">
+              <tr>
+                <th>日期</th>
+                <th>編輯</th>
+                <th>刪除</th>
+              </tr>
 
-      <main>
-        <h1>所有日記</h1>
-        <!-- cellpadding="2" -->
-        <table class="fs-5 col-md-8">
-          <tr>
-            <th>日期</th>
-            <th>編輯</th>
-            <th>刪除</th>
-          </tr>
-
-          <tr th:each="daily : ${list}">
-            <td th:text="${daily.date_time}"></td>
-            <td>
-              <a th:href="@{'/dailyRecord/edit?date_time='+${daily.date_time}}">
-                <button type="submit" value="edite" class="btn btn-dark">修改</button>
-              </a>
-            </td>
-            <td>
-              <a th:onclick="return confirm('確定刪除嗎?')"
-                th:href="@{'/dailyRecord/delete?daily_record_id='+${daily.daily_record_id}}">
-                <button type="submit" value="delete" class="btn btn-danger">刪除</button>
-              </a>
-            </td>
-          </tr>
-        </table>
-      </main>
-    </div>
-
-    <div id="chart" class="container">
-      <div class="row pt-5">
-        <canvas id="canvas-2" class="col-sm-12"></canvas>
+              <tr th:each="daily : ${list}">
+                <td th:text="${daily.date_time}"></td>
+                <td>
+                  <a th:href="@{'/dailyRecord/edit?date_time='+${daily.date_time}}">
+                    <button type="submit" value="edite" class="btn btn-dark">修改</button>
+                  </a>
+                </td>
+                <td>
+                  <a th:onclick="return confirm('確定刪除嗎?')"
+                    th:href="@{'/dailyRecord/delete?daily_record_id='+${daily.daily_record_id}}">
+                    <button type="submit" value="delete" class="btn btn-danger">刪除</button>
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </main>
+        </div>
+        <!-- 曲線圖 -->
+        <div id="chart" class="p-3">
+          <canvas id="canvas-2"></canvas>
+        </div>
       </div>
     </div>
+
+
   </article>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"

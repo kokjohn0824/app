@@ -33,37 +33,43 @@
   <div th:replace="component/chatbubble"></div>
 
   <article>
-    <!-- 網站內文放這裡 -->
-    <div th:replace="component/navbar :: navbar"></div>
-    <div class="col-lg-8 mx-auto p-3 py-md-5">
-      <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <a class="d-flex align-items-center text-dark text-decoration-none" href="/dailyRecord/all">
-          <span class="fs-4">取消修改</span>
+    <!-- 全部的頁面 -->
+    <div class="col-lg-8 mx-auto mt-5 mb-5">
+      <!-- 取消修改按鈕 -->
+      <div class="d-flex">
+        <a class="btn btn-warning btn-lg border border-white border-5 fw-bold" href="/dailyRecord/all">
+          取消修改
         </a>
-      </header>
+      </div>
+
       <main>
-        <div class="container-lg" style="width: 800px" th:fragment="form">
-          <form th:object="${daily_record}" th:action="@{/dailyRecord/add}" method="post" enctype="multipart/form-data">
-            <div>
-              <p class="fs-5 col-md-8">
-                體重:<input type="number" name="weight" th:field="*{weight}" /><br />
-                體脂:<input type="number" name="bodyFat" th:field="*{bodyFat}" /><br />
-                飲水:<input type="number" name="drinkingWater" th:field="*{drinkingWater}" /><br />
-                <input id="daily_record_id" th:field="*{daily_record_id}" type="hidden" />
-              </p>
-              <div class="mb-5">
-                <button type="reset" class="btn btn-secondary">重置</button>
-                <button type="submit" class="signupbtn btn btn-primary">送出</button>
+        <!-- 顯示輸入數值 & 新增食物 & 新增運動整個區塊 -->
+        <div class="mt-4 border border-white border-5 rounded-3 p-3" th:fragment="form">
+          <!-- 顯示輸入數值區塊 -->
+          <div class="d-flex justify-content-center border border-warning border-4 rounded-3 p-3">
+            <form th:object="${daily_record}" th:action="@{/dailyRecord/add}" method="post"
+              enctype="multipart/form-data">
+              <div>
+                <p class="fs-5 col-md-8 text-white">
+                  體重:<input type="number" name="weight" th:field="*{weight}" /><br />
+                  體脂:<input type="number" name="bodyFat" th:field="*{bodyFat}" /><br />
+                  飲水:<input type="number" name="drinkingWater" th:field="*{drinkingWater}" /><br />
+                  <input id="daily_record_id" th:field="*{daily_record_id}" type="hidden" />
+                </p>
               </div>
-              <br />
-            </div>
-          </form>
-          <hr class="col-3 col-md-2 mb-5" />
-          <div class="row g-5">
-            <div class="col-md-6">
+              <div class="d-flex justify-content-center">
+                <button type="reset" class="btn btn-secondary">重置</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+                <button type="submit" class="btn btn-primary">送出</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- 新增食物 & 新增運動整個區塊 -->
+          <div class="d-flex justify-content-center border border-warning border-4 rounded-3 p-3 mt-3">
+            <!-- 新增食物區塊 -->
+            <div class="d-flex justify-content-center col-md-6 text-black bg-white border border-dark rounded-5 p-2">
               <button id="" name="checkboxone" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#food" data-bs-whatever="@getbootstrap">
-                新增食物
+                data-bs-target="#food" data-bs-whatever="@getbootstrap">新增食物
               </button>
               <div>
                 <table class="mytable" id="list_table_json">
@@ -90,11 +96,10 @@
                 </table>
               </div>
             </div>
-            <!-- ---------------------------------------------------------------------------- -->
-            <div class="col-md-6">
+            <!-- 新增運動區塊 -->
+            <div class="d-flex justify-content-center col-md-6 text-black bg-white border border-dark rounded-5 p-2">
               <button id="" name="checkboxone" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#sports" data-bs-whatever="@getbootstrap">
-                新增運動
+                data-bs-target="#sports" data-bs-whatever="@getbootstrap">新增運動
               </button>
               <div>
                 <table class="mytable" id="list_table_json">

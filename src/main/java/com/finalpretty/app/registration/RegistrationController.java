@@ -46,9 +46,9 @@ public class RegistrationController {
     public String confirm(@RequestParam("token") String token) {
         try {
             registrationService.confirmToken(token);
-            return "success";
+            return "/member/memberInputPage";
         } catch (Exception e) {
-            return "fail";
+            return "404";
         }
 
     }

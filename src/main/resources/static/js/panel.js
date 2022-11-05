@@ -68,21 +68,19 @@ const articleshow = () => {
         );
       });
 
-          //刪除文章
-          $(".btn-icon-delete").click((e) => {
-            if (confirm("確定刪除嗎?") == true) {
-              getdata(
-                "http://localhost:8082/admin/api/article/delete?article_id=" +
-                  $(e.target).attr("id"),
-                (result) => {
-                  if (result == true) {
-                    alert("已刪除")
-                    article();
-                  }else{
-                    alert("文章有人收藏不能刪")
-                  }
-                }
-              );
+      //刪除文章
+      $(".btn-icon-delete").click((e) => {
+        if (confirm("確定刪除嗎?") == true) {
+          getdata(
+            "http://localhost:8082/admin/api/article/delete?article_id=" +
+              $(e.target).attr("id"),
+            (result) => {
+              if (result == true) {
+                alert("已刪除");
+                article();
+              } else {
+                alert("文章有人收藏不能刪");
+              }
             }
           );
         }
@@ -358,285 +356,281 @@ showtable.addEventListener("click", (e) => {
 //   );
 ///////商品管理//////////////////
 
+///////會員管理//////////////////
+//將json陣列轉為 table
+// const jsonToHTMLbyQ = (querySelector, json) => {
+//     if (json.length == 0) {
+//       document.querySelector(querySelector).innerHTML = "";
+//       return;
+//     }
+//     //define table head
+//     let title = `<thead><tr>${Object.keys(json[0])
+//       .map((el) => `<th><strong>${el}</strong></th>`)
+//       .join("")}<th>操作</th></tr></thead>`;
+//     // define table body
+//     let trs = json.map(
+//       (el) =>
+//         `${Object.values(el)
+//           .map((td, index) => {
+//             if (index == 4) {
+//               if (td == false) {
+//                 return `<td class="data"><input id="${el.users_id}" name="locked" value="${td}" hidden /><span id="${el.users_id}" name="locked" style="color:green">合法帳戶</span></td>`;
+//               } else {
+//                 return `<td class="data"><input id="${el.users_id}" name="locked" value="${td}" hidden /><span id="${el.users_id}" name="locked" style="color:red">停權帳戶</span></td>`;
+//               }
+//             } else {
+//               return `<td class="data">${td}</td>`;
+//             }
+//           })
+//           .join("")}<td><button id="${el.users_id}" name="editMember"
+//             type="button"
+//             data-bs-toggle="modal"
+//             data-bs-target="#exampleModal"
+//             data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
+//           </td><td><button id="${
+//             el.users_id
+//           }" name="locked" class="btn btn-success">復權</button></td>`
+//     );
+//     let tbody = `<tbody>${trs
+//       .map((el) => `<tr>${el}</tr>`)
+//       .join("")}</tbody>`;
+//     let table = `<table class="table table-hover">${title}${tbody}</table>`;
+//     document.querySelector(querySelector).innerHTML = table;
+//   };
 
+//   //按鈕觸發呈現table
+//   document.getElementById("showtable").addEventListener(
+//     "click",
+//     (user = () => {
+//       document.querySelector("#table").style.opacity = 0;
+//       setTimeout(() => {
+//         getdata(showAllurl, (result) => {
+//           //make a copy of data
+//           [...initialTableData] = [...result];
+//           jsonToHTMLbyQ("#table", result);
+//           $(`button[id="${$("#userID").val()}"]`).hide();
+//           $("input[name='locked']").each((index, ele) => {
+//             var id = $(ele).attr("id");
+//             if ($(ele).val() == "false") {
+//               $(`button[id="${id}"][name="locked"]`)
+//                 .attr("class", "btn btn-danger")
+//                 .text("停權");
+//             } else if ($(ele).val() == "true") {
+//               $(`button[id="${id}"][name="locked"]`)
+//                 .attr("class", "btn btn-success")
+//                 .text("復權");
+//             }
+//           });
 
+//           $("button[name='locked']").click((e) => {
+//             var locked;
+//             var users_id = $(e.target).attr("id");
+//             var input = $(`input[id='${users_id}']`).val();
+//             if (input == "false") {
+//               locked = false;
+//             } else if (input == "true") {
+//               locked = true;
+//             }
+//             var jsn = { users_id: users_id, locked: locked };
+//             postdata(
+//               "http://localhost:8082/admin/api/updateLocked/",
+//               jsn,
+//               (result) => {
+//                 console.log(result);
+//                 if (result == true) {
+//                   $(e.target).attr("class", "btn btn-success").text("復權");
+//                   $(`input[id='${users_id}']`).attr("value", "true");
+//                   $(`span[id="${users_id}"]`)
+//                     .attr("style", "color:red")
+//                     .text("停權帳戶");
+//                 } else {
+//                   $(e.target).attr("class", "btn btn-danger").text("停權");
+//                   $(`input[id='${users_id}']`).attr("value", "false");
+//                   $(`span[id="${users_id}"]`)
+//                     .attr("style", "color:green")
+//                     .text("合法帳戶");
+//                 }
+//               }
+//             );
+//           });
 
-   ///////會員管理//////////////////
-    //將json陣列轉為 table
-    // const jsonToHTMLbyQ = (querySelector, json) => {
-    //     if (json.length == 0) {
-    //       document.querySelector(querySelector).innerHTML = "";
-    //       return;
-    //     }
-    //     //define table head
-    //     let title = `<thead><tr>${Object.keys(json[0])
-    //       .map((el) => `<th><strong>${el}</strong></th>`)
-    //       .join("")}<th>操作</th></tr></thead>`;
-    //     // define table body
-    //     let trs = json.map(
-    //       (el) =>
-    //         `${Object.values(el)
-    //           .map((td, index) => {
-    //             if (index == 4) {
-    //               if (td == false) {
-    //                 return `<td class="data"><input id="${el.users_id}" name="locked" value="${td}" hidden /><span id="${el.users_id}" name="locked" style="color:green">合法帳戶</span></td>`;
-    //               } else {
-    //                 return `<td class="data"><input id="${el.users_id}" name="locked" value="${td}" hidden /><span id="${el.users_id}" name="locked" style="color:red">停權帳戶</span></td>`;
-    //               }
-    //             } else {
-    //               return `<td class="data">${td}</td>`;
-    //             }
-    //           })
-    //           .join("")}<td><button id="${el.users_id}" name="editMember"
-    //             type="button"
-    //             data-bs-toggle="modal"
-    //             data-bs-target="#exampleModal"
-    //             data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
-    //           </td><td><button id="${
-    //             el.users_id
-    //           }" name="locked" class="btn btn-success">復權</button></td>`
-    //     );
-    //     let tbody = `<tbody>${trs
-    //       .map((el) => `<tr>${el}</tr>`)
-    //       .join("")}</tbody>`;
-    //     let table = `<table class="table table-hover">${title}${tbody}</table>`;
-    //     document.querySelector(querySelector).innerHTML = table;
-    //   };
-  
-    //   //按鈕觸發呈現table
-    //   document.getElementById("showtable").addEventListener(
-    //     "click",
-    //     (user = () => {
-    //       document.querySelector("#table").style.opacity = 0;
-    //       setTimeout(() => {
-    //         getdata(showAllurl, (result) => {
-    //           //make a copy of data
-    //           [...initialTableData] = [...result];
-    //           jsonToHTMLbyQ("#table", result);
-    //           $(`button[id="${$("#userID").val()}"]`).hide();
-    //           $("input[name='locked']").each((index, ele) => {
-    //             var id = $(ele).attr("id");
-    //             if ($(ele).val() == "false") {
-    //               $(`button[id="${id}"][name="locked"]`)
-    //                 .attr("class", "btn btn-danger")
-    //                 .text("停權");
-    //             } else if ($(ele).val() == "true") {
-    //               $(`button[id="${id}"][name="locked"]`)
-    //                 .attr("class", "btn btn-success")
-    //                 .text("復權");
-    //             }
-    //           });
-  
-    //           $("button[name='locked']").click((e) => {
-    //             var locked;
-    //             var users_id = $(e.target).attr("id");
-    //             var input = $(`input[id='${users_id}']`).val();
-    //             if (input == "false") {
-    //               locked = false;
-    //             } else if (input == "true") {
-    //               locked = true;
-    //             }
-    //             var jsn = { users_id: users_id, locked: locked };
-    //             postdata(
-    //               "http://localhost:8082/admin/api/updateLocked/",
-    //               jsn,
-    //               (result) => {
-    //                 console.log(result);
-    //                 if (result == true) {
-    //                   $(e.target).attr("class", "btn btn-success").text("復權");
-    //                   $(`input[id='${users_id}']`).attr("value", "true");
-    //                   $(`span[id="${users_id}"]`)
-    //                     .attr("style", "color:red")
-    //                     .text("停權帳戶");
-    //                 } else {
-    //                   $(e.target).attr("class", "btn btn-danger").text("停權");
-    //                   $(`input[id='${users_id}']`).attr("value", "false");
-    //                   $(`span[id="${users_id}"]`)
-    //                     .attr("style", "color:green")
-    //                     .text("合法帳戶");
-    //                 }
-    //               }
-    //             );
-    //           });
-  
-    //           $("button[name='editMember']").click((e) => {
-    //             ima;
-    //             getdata(
-    //               `http://localhost:8082/admin/api/queryUpdateMember/${$(
-    //                 e.target
-    //               ).attr("id")}`,
-    //               (result) => {
-    //                 $("#recipient-nickname").val(result.nickname);
-    //                 if (result.gender == 1) {
-    //                   $("#recipient-man").attr("checked", true);
-    //                 } else {
-    //                   $("#recipient-female").attr("checked", true);
-    //                 }
-    //                 $("#recipient-age").val(result.age);
-    //                 $("#recipient-height").val(result.height);
-    //                 $("#recipient-weight").val(result.weight);
-    //                 $("#recipient-bodyFat").val(result.bodyFat);
-    //                 $("#recipient-visceralFat").val(result.visceralFat);
-    //                 $("#recipient-muscleMass").val(result.muscleMass);
-    //                 if (result.becomeVIP == 1) {
-    //                   $("#recipient-on").attr("checked", true);
-    //                 } else {
-    //                   $("#recipient-off").attr("checked", true);
-    //                 }
-    //                 $("#preview_img").attr(
-    //                   "src",
-    //                   `/public/showMemberImage/${result.member_id}`
-    //                 );
-    //                 $("#member_id").val(result.member_id);
-    //               }
-    //             );
-    //           });
-  
-    //           $("#editmember").click((e) => {
-    //             e.preventDefault();
-    //             var datas = new FormData();
-    //             datas.append(
-    //               "becomeVIP",
-    //               $("input[name='becomeVIP']:checked").val() == 1 ? 1 : 0
-    //             );
-    //             datas.append("member_id", $("#member_id").val());
-    //             postdatas(
-    //               `http://localhost:8082/admin/api/updateVipById/`,
-    //               datas,
-    //               (result) => {
-    //                 if (result == true) {
-    //                   user();
-    //                 }
-    //               }
-    //             );
-    //           });
-    //         });
-    //         document.querySelector("#table").style.opacity = 1;
-    //       }),
-    //         300;
-    //     })
-    //   );
-      ///////會員管理//////////////////
+//           $("button[name='editMember']").click((e) => {
+//             ima;
+//             getdata(
+//               `http://localhost:8082/admin/api/queryUpdateMember/${$(
+//                 e.target
+//               ).attr("id")}`,
+//               (result) => {
+//                 $("#recipient-nickname").val(result.nickname);
+//                 if (result.gender == 1) {
+//                   $("#recipient-man").attr("checked", true);
+//                 } else {
+//                   $("#recipient-female").attr("checked", true);
+//                 }
+//                 $("#recipient-age").val(result.age);
+//                 $("#recipient-height").val(result.height);
+//                 $("#recipient-weight").val(result.weight);
+//                 $("#recipient-bodyFat").val(result.bodyFat);
+//                 $("#recipient-visceralFat").val(result.visceralFat);
+//                 $("#recipient-muscleMass").val(result.muscleMass);
+//                 if (result.becomeVIP == 1) {
+//                   $("#recipient-on").attr("checked", true);
+//                 } else {
+//                   $("#recipient-off").attr("checked", true);
+//                 }
+//                 $("#preview_img").attr(
+//                   "src",
+//                   `/public/showMemberImage/${result.member_id}`
+//                 );
+//                 $("#member_id").val(result.member_id);
+//               }
+//             );
+//           });
 
+//           $("#editmember").click((e) => {
+//             e.preventDefault();
+//             var datas = new FormData();
+//             datas.append(
+//               "becomeVIP",
+//               $("input[name='becomeVIP']:checked").val() == 1 ? 1 : 0
+//             );
+//             datas.append("member_id", $("#member_id").val());
+//             postdatas(
+//               `http://localhost:8082/admin/api/updateVipById/`,
+//               datas,
+//               (result) => {
+//                 if (result == true) {
+//                   user();
+//                 }
+//               }
+//             );
+//           });
+//         });
+//         document.querySelector("#table").style.opacity = 1;
+//       }),
+//         300;
+//     })
+//   );
+///////會員管理//////////////////
 
-   ///////影片管理//////////////////
-    //將json陣列轉為 table
-    // const jsonToHTMLbyQ = (querySelector, json) => {
-    //     if (json.length == 0) {
-    //       document.querySelector(querySelector).innerHTML = "";
-    //       return;
-    //     }
-    //     //define table head
-    //     let title = `<thead><tr>${Object.keys(json[0])
-    //       .map((el) => `<th><strong>${el}</strong></th>`)
-    //       .join("")}<th>影片封面</th><th>操作</th></tr></thead>`;
-    //     // define table body
-    //     let trs = json.map(
-    //       (el) =>
-    //         `${Object.values(el)
-    //           .map((td, index) => {
-    //             if (index == 5) {
-    //               return `<td class="data"><video
-    //                       style="width: 250px; border-radius: 20px"
-    //                       controls="controls"
-    //                       preload="auto"
-    //                       autoplay="true"
-    //                       loop="loop"
-    //                       justify-content="center"
-    //                     >
-    //                       <source src="/public/video/${td}" type="video/mp4" />
-    //                     </video></td><td class="data"><img style="width:120px; height:70px" src="/public/showVideoImage/${el.ID}"></td>`;
-    //             } else {
-    //               return `<td class="data">${td}</td>`;
-    //             }
-    //           })
-    //           .join("")}<td><button id="${el.ID}" data-bs-toggle="modal"
-    //             data-bs-target="#exampleModal"
-    //             data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
-    //           <button id="${el.ID}" class="delete btn-icon-delete"></button></td>`
-    //     );
-    //     let tbody = `<tbody>${trs
-    //       .map((el) => `<tr>${el}</tr>`)
-    //       .join("")}</tbody>`;
-    //     let table = `<table class="table table-hover">${title}${tbody}</table>`;
-    //     document.querySelector(querySelector).innerHTML = table;
-    //   };
-  
-    //   //按鈕觸發呈現table
-    //   document.getElementById("showtable").addEventListener(
-    //     "click",
-    //     (video = () => {
-    //       document.querySelector("#table").style.opacity = 0;
-    //       setTimeout(() => {
-    //         getdata(showAllurl, (result) => {
-    //           //make a copy of data
-    //           [...initialTableData] = [...result];
-    //           jsonToHTMLbyQ("#table", result);
-    //           document.querySelector("#table").style.opacity = 1;
-  
-    //           $(".btn-icon-delete").click((e) => {
-    //             if (confirm("確定刪除嗎") == true) {
-    //               getdata(
-    //                 `http://localhost:8082/admin/api/video/delete/${$(
-    //                   e.target
-    //                 ).attr("id")}`,
-    //                 (result) => {
-    //                   if (result == true) {
-    //                     alert("影片中有用戶按讚故不能刪除");
-    //                     video();
-    //                   } else {
-    //                     alert("已刪除");
-    //                     video();
-    //                   }
-    //                 }
-    //               );
-    //             }
-    //           });
-  
-    //           $(".btn-icon-edit").click((e) => {
-    //             getdata(
-    //               `http://localhost:8082/admin/api/queryUpdateViedo/${$(
-    //                 e.target
-    //               ).attr("id")}`,
-    //               (result) => {
-    //                 $("#recipient-title").val(result.標題);
-    //                 $("#preview_img").attr(
-    //                   "src",
-    //                   `/public/showVideoImage/${result.ID}`
-    //                 );
-    //                 $("#video_id").val(result.ID);
-    //               }
-    //             );
-    //           });
-  
-    //           $("#editvideo").click((e) => {
-    //             e.preventDefault();
-    //             var datas = new FormData();
-    //             datas.append("video_id", $("#video_id").val());
-    //             datas.append("title", $("#recipient-title").val());
-    //             datas.append(
-    //               "type",
-    //               $("select[name='type'] option:selected").text()
-    //             );
-    //             datas.append(
-    //               "body_parts",
-    //               $("select[name='body_parts'] option:selected").text()
-    //             );
-    //             datas.append("file", $("#inputFileToLoad")[0].files[0]);
-    //             postdatas(
-    //               "http://localhost:8082/admin/api/video/edit",
-    //               datas,
-    //               (result) => {
-    //                 if (result == true) {
-    //                   alert("已更新");
-    //                   video();
-    //                 }
-    //               }
-    //             );
-    //           });
-    //         });
-    //       }, 300);
-    //     })
-    //   );
-  
-   ///////影片管理//////////////////
+///////影片管理//////////////////
+//將json陣列轉為 table
+// const jsonToHTMLbyQ = (querySelector, json) => {
+//     if (json.length == 0) {
+//       document.querySelector(querySelector).innerHTML = "";
+//       return;
+//     }
+//     //define table head
+//     let title = `<thead><tr>${Object.keys(json[0])
+//       .map((el) => `<th><strong>${el}</strong></th>`)
+//       .join("")}<th>影片封面</th><th>操作</th></tr></thead>`;
+//     // define table body
+//     let trs = json.map(
+//       (el) =>
+//         `${Object.values(el)
+//           .map((td, index) => {
+//             if (index == 5) {
+//               return `<td class="data"><video
+//                       style="width: 250px; border-radius: 20px"
+//                       controls="controls"
+//                       preload="auto"
+//                       autoplay="true"
+//                       loop="loop"
+//                       justify-content="center"
+//                     >
+//                       <source src="/public/video/${td}" type="video/mp4" />
+//                     </video></td><td class="data"><img style="width:120px; height:70px" src="/public/showVideoImage/${el.ID}"></td>`;
+//             } else {
+//               return `<td class="data">${td}</td>`;
+//             }
+//           })
+//           .join("")}<td><button id="${el.ID}" data-bs-toggle="modal"
+//             data-bs-target="#exampleModal"
+//             data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
+//           <button id="${el.ID}" class="delete btn-icon-delete"></button></td>`
+//     );
+//     let tbody = `<tbody>${trs
+//       .map((el) => `<tr>${el}</tr>`)
+//       .join("")}</tbody>`;
+//     let table = `<table class="table table-hover">${title}${tbody}</table>`;
+//     document.querySelector(querySelector).innerHTML = table;
+//   };
+
+//   //按鈕觸發呈現table
+//   document.getElementById("showtable").addEventListener(
+//     "click",
+//     (video = () => {
+//       document.querySelector("#table").style.opacity = 0;
+//       setTimeout(() => {
+//         getdata(showAllurl, (result) => {
+//           //make a copy of data
+//           [...initialTableData] = [...result];
+//           jsonToHTMLbyQ("#table", result);
+//           document.querySelector("#table").style.opacity = 1;
+
+//           $(".btn-icon-delete").click((e) => {
+//             if (confirm("確定刪除嗎") == true) {
+//               getdata(
+//                 `http://localhost:8082/admin/api/video/delete/${$(
+//                   e.target
+//                 ).attr("id")}`,
+//                 (result) => {
+//                   if (result == true) {
+//                     alert("影片中有用戶按讚故不能刪除");
+//                     video();
+//                   } else {
+//                     alert("已刪除");
+//                     video();
+//                   }
+//                 }
+//               );
+//             }
+//           });
+
+//           $(".btn-icon-edit").click((e) => {
+//             getdata(
+//               `http://localhost:8082/admin/api/queryUpdateViedo/${$(
+//                 e.target
+//               ).attr("id")}`,
+//               (result) => {
+//                 $("#recipient-title").val(result.標題);
+//                 $("#preview_img").attr(
+//                   "src",
+//                   `/public/showVideoImage/${result.ID}`
+//                 );
+//                 $("#video_id").val(result.ID);
+//               }
+//             );
+//           });
+
+//           $("#editvideo").click((e) => {
+//             e.preventDefault();
+//             var datas = new FormData();
+//             datas.append("video_id", $("#video_id").val());
+//             datas.append("title", $("#recipient-title").val());
+//             datas.append(
+//               "type",
+//               $("select[name='type'] option:selected").text()
+//             );
+//             datas.append(
+//               "body_parts",
+//               $("select[name='body_parts'] option:selected").text()
+//             );
+//             datas.append("file", $("#inputFileToLoad")[0].files[0]);
+//             postdatas(
+//               "http://localhost:8082/admin/api/video/edit",
+//               datas,
+//               (result) => {
+//                 if (result == true) {
+//                   alert("已更新");
+//                   video();
+//                 }
+//               }
+//             );
+//           });
+//         });
+//       }, 300);
+//     })
+//   );
+
+///////影片管理//////////////////

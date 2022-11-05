@@ -11,13 +11,27 @@
     <script defer th:src="@{/js/login.js}"></script>
     <style>
       body {
-        background-color: black;
-        background-size: 100vw;
         min-height: 100vh;
         margin: 0;
         display: flex;
         flex-direction: column;
+        background: linear-gradient(-45deg, black, #1e293b, #111827, black);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
       }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
       footer {
         min-height: 100px;
         background: PapayaWhip;
@@ -71,14 +85,7 @@
   <body>
     <div th:replace="component/navbar"></div>
     <article>
-      <div
-        class="d-flex"
-        style="
-          height: 100vh;
-          background: url(/img/wallpaper2.webp);
-          background-size: 100%;
-        "
-      >
+      <div class="d-flex" style="height: 100vh">
         <!-- 黃金比例格子 -->
         <div
           class="d-flex justify-content-center"

@@ -54,11 +54,15 @@ public class ProductController {
 	}
 
 	// 新增商品
-	@PostMapping("/admin/addProduct")
-	public String addProduct(@RequestParam(name = "title") String title, @RequestParam(name = "type") String type,
-			@RequestParam(name = "price") Integer price, @RequestParam(name = "stock") Integer stock,
-			@RequestParam(name = "text") String text, @RequestParam(name = "onsale") Integer onsale,
-			@RequestParam(name = "file") MultipartFile file, Model m) {
+	@ResponseBody
+	@PostMapping("/admin/api/addProduct")
+	public Boolean addProduct(@RequestParam(name = "title", required = false) String title,
+			@RequestParam(name = "type", required = false) String type,
+			@RequestParam(name = "price", required = false) Integer price,
+			@RequestParam(name = "stock", required = false) Integer stock,
+			@RequestParam(name = "text", required = false) String text,
+			@RequestParam(name = "onsale", required = false) Integer onsale,
+			@RequestParam(name = "file", required = false) MultipartFile file, Model m) {
 
 		Product product = new Product();
 
@@ -68,6 +72,7 @@ public class ProductController {
 			product.setType(type);
 			product.setPrice(price);
 			product.setStock(stock);
+			product.setVolume(0);
 			if (text == null || ("").equals(text)) {
 				product.setText("此產品暫無簡介");
 			} else {
@@ -78,7 +83,7 @@ public class ProductController {
 			} else {
 				product.setOnsale(onsale);
 			}
-			if (file.getBytes().length == 0) {
+			if (file == null) {
 				// product.setPicture(pService.findDefault(1).getPhoto());
 				String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/lv1.png";
 				File saveFilePath = new File(saveFiledir);
@@ -93,7 +98,7 @@ public class ProductController {
 		}
 		pService.insert(product);
 
-		return "redirect:/admin/listProduct";
+		return true;
 
 	}
 
@@ -167,10 +172,11 @@ public class ProductController {
 		// String type = product.getType();
 		onsale = 0;
 		System.out.println("++++++++++++++++++++++++++");
+		System.out.println(file);
 		// String text = product.getText();
 		byte[] picture = null;
 		try {
-			if (file.getBytes().length == 0) {
+			if (file == null) {
 				// picture = pService.findById(product.getProduct_id()).getPicture();
 				picture = pService.findById(product_id).getPicture();
 			} else {

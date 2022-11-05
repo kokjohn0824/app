@@ -217,22 +217,7 @@
     <!-- 商品選取照片預覽 -->
     <script defer th:src="@{/js/hello.js}"></script>
     <script defer th:src="@{/js/panel.js}"></script>
-    <script>
-      function loadImageFileAsURL() {
-        let filesSelected = document.getElementById("inputFileToLoad").files;
-        if (filesSelected.length > 0) {
-          let fileToLoad = filesSelected[0];
 
-          let fileReader = new FileReader();
-
-          fileReader.onload = function (fileLoadedEvent) {
-            fileDataURL = fileLoadedEvent.target.result;
-          };
-
-          fileReader.readAsDataURL(fileToLoad);
-        }
-      }
-    </script>
     <!-- 商品選取照片預覽 -->
     <div class="d-flex">
       <div class="left-panel-container">
@@ -257,6 +242,7 @@
                   data-url="http://localhost:8082/public/api/article/categories"
                   data-title="文章管理"
                   data-tabletype="article"
+                  data-addtype="addarticle"
                   >文章管理</a
                 >
               </li>
@@ -267,6 +253,8 @@
                   href="#"
                   data-url="http://localhost:8082/admin/api/video/manage"
                   data-title="影片管理"
+                  data-tabletype="video"
+                  data-addtype="addvideo"
                   >影片管理</a
                 >
               </li>
@@ -277,6 +265,7 @@
                   href="#"
                   data-url="http://localhost:8082/admin/api/listUsers"
                   data-title="會員管理"
+                  data-tabletype="member"
                   >會員管理</a
                 >
               </li>
@@ -285,6 +274,7 @@
                   class="adminlink"
                   href="#"
                   data-title="訂單管理"
+                  data-tabletype="order"
                   data-url="http://localhost:8082/admin/api/orderAll"
                   >訂單管理</a
                 >
@@ -294,6 +284,8 @@
                   class="adminlink"
                   href="#"
                   data-title="商城管理"
+                  data-tabletype="product"
+                  data-addtype="addproduct"
                   data-url="http://localhost:8082/admin/api/listProduct"
                   >商城管理</a
                 >
@@ -355,6 +347,16 @@
         </div>
         <div class="mx-5 width-100 bg-white shadow-material rounded-3 p-3">
           <div class="m-1 d-flex justify-content-end">
+            <button
+              class="button-48"
+              id="addshow"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              data-bs-whatever="@getbootstrap"
+              data-addtype="addarticle"
+            >
+              <span style="font-size: large">新增資料</span>
+            </button>
             <button class="button-48" id="showtable" data-tabletype="article">
               <span style="font-size: large">顯示所有資料</span>
             </button>
@@ -769,7 +771,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">會員資料</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Video修改/h5>
             <button
               type="button"
               class="btn-close"
@@ -888,7 +890,7 @@
       </div>
     </div> -->
 
-    <div
+    <!-- <div
       class="modal fade"
       id="exampleModal"
       tabindex="-1"
@@ -898,7 +900,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">會員資料</h5>
+            <h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
             <button
               type="button"
               class="btn-close"
@@ -933,6 +935,18 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content"></div>
+      </div>
     </div>
 
     <div sec:authorize="isAuthenticated()">
@@ -947,6 +961,7 @@
   <script>
     ("use strict");
     //抓取元素
+    const addTypeAll = document.getElementById("addshow");
     const showtable = document.getElementById("showtable");
     //設定頁面改變所需要之變數
     let tabletitle = document.getElementById("tabletitle");
@@ -994,106 +1009,6 @@
     //     });
     //   }, 300);
     // });
-
-    var inputFileToLoad = $("#inputFileToLoad");
-    const ima = inputFileToLoad.change(function () {
-      readURL(this);
-    });
-    function readURL(input) {
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          $("#preview_img").attr("src", e.target.result);
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    //訂單管理
-    //將json陣列轉為 table
-    const jsonToHTMLbyQ = (querySelector, json) => {
-      if (json.length == 0) {
-        document.querySelector(querySelector).innerHTML = "";
-        return;
-      }
-      //define table head
-      let title = `<thead><tr>${Object.keys(json[0])
-        .map((el, index) => {
-          if (index <= 9 && index >= 0) {
-            return `<th><strong>${el}</strong></th>`;
-          }
-        })
-        .join("")}<th>操作</th></tr></thead>`;
-      // define table body
-      let trs = json.map(
-        (el) =>
-          `${Object.values(el)
-            .map((td, index) => {
-              if (index == 4) {
-                if (td == 1) {
-                  return `<td class="data">宅配</td>`;
-                } else if (td == 0) {
-                  return `<td class="data">超商自取</td>`;
-                }
-              } else if (index == 5) {
-                if (td == 2) {
-                  return `<td class="data">信用卡支付</td>`;
-                } else if (td == 1) {
-                  return `<td class="data">現金支付</td>`;
-                }
-              } else if (index == 7) {
-                if (td == 1) {
-                  return `<td class="data"><span style="color:green">已付款</span</td>`;
-                } else if (td == null) {
-                  return `<td class="data"><span style="color:red">尚未付款</span</td>`;
-                }
-              } else if (index == 10) {
-                return `<td class="data"><button id="${el.order_id}" data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              data-bs-whatever="@getbootstrap" class="btn btn-primary">顯示明細</button></td>`;
-              } else {
-                return `<td class="data">${td}</td>`;
-              }
-            })
-            .join("")}`
-      );
-      let tbody = `<tbody>${trs
-        .map((el) => `<tr>${el}</tr>`)
-        .join("")}</tbody>`;
-      let table = `<table class="table table-hover">${title}${tbody}</table>`;
-      document.querySelector(querySelector).innerHTML = table;
-    };
-
-    //按鈕觸發呈現table
-    document.getElementById("showtable").addEventListener("click", () => {
-      document.querySelector("#table").style.opacity = 0;
-      setTimeout(() => {
-        getdata(showAllurl, (result) => {
-          //make a copy of data
-          [...initialTableData] = [...result];
-          jsonToHTMLbyQ("#table", result);
-          document.querySelector("#table").style.opacity = 1;
-
-          $(".btn-primary").click((e) => {
-            getdata(
-              `http://localhost:8082/public/findByFKOrderId/${$(e.target).attr(
-                "id"
-              )}`,
-              (result) => {
-                var string;
-                console.log(result);
-                for (let i of result) {
-                  string += "<tr><td>" + i.product_name + "</td>";
-                  string += "<td>" + i.count + "</td>";
-                  string += "<td>" + i.total + "</td></tr>";
-                }
-                $("#tb2").html(string);
-              }
-            );
-          });
-        });
-      }, 300);
-    });
 
     //將輸入文字存成檔案
     function saveTextAsFile(_fileName, _text) {
@@ -1182,7 +1097,7 @@
       e.addEventListener("click", (f) => {
         tabletitle.innerText = f.target.dataset.title;
         showAllurl = f.target.dataset.url;
-        addurl = f.target.dataset.addurl;
+        addTypeAll.dataset.addtype = f.target.dataset.addtype;
         showtable.dataset.tabletype = f.target.dataset.tabletype;
       });
     }

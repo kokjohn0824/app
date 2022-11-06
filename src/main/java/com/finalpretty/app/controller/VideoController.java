@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -65,10 +66,10 @@ public class VideoController {
     }
 
     // 前往新增影片
-    // @GetMapping("/video/add")
-    // public String addArticle() {
-    // return "/video/backEndAddVideoPage";
-    // }
+    @GetMapping("/video/add")
+    public String addArticle() {
+        return "/video/backEndAddVideoPage";
+    }
 
     // 新增影片
     @PostMapping("/video/add")
@@ -97,6 +98,30 @@ public class VideoController {
 
         System.out.println();
         return "redirect:/video/manage";
+    }
+
+    @ResponseBody
+    @PostMapping("admin/api/addApiVideo")
+    public Boolean addApiVideo(@RequestParam(name = "myFiles", required = false) MultipartFile mf,
+            @RequestParam(name = "picture", required = false) MultipartFile picture,
+            @RequestParam(name = "title") String title,
+            @RequestParam(name = "type") String type,
+            @RequestParam(name = "body_parts") String body_parts) throws IllegalStateException, IOException {
+        String fileName = mf.getOriginalFilename();
+        String saveFileDir = System.getProperty("user.dir") + "/src/main/resources/static/public/video";
+        File saveFilePath = new File(saveFileDir, fileName);
+        mf.transferTo(saveFilePath);
+        Video video = new Video();
+        video.setPicture(picture.getBytes());
+        video.setTitle(title);
+        video.setType(type);
+        video.setBody_parts(body_parts);
+        video.setUrl(fileName);
+        video.setViews(0);
+        videoR.save(video);
+
+        System.out.println();
+        return true;
     }
 
     // 刪除影片(by id)(已改Ajax)

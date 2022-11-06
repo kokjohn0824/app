@@ -1,23 +1,12 @@
 <div th:fragment="navbar">
   <style>
     #navbar {
-      transition: 1s;
+      transition: top 1s;
     }
   </style>
   <div id="navbar" class="fixed-top">
     <nav class="shadow-lg navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"> </span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <img
             style="height: 56px; position: relative; margin: 0px"
@@ -59,40 +48,6 @@
                 >購物商城</a
               >
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                th:href="@{/}"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                會員中心
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" th:href="@{/member/page}"
-                    >個人資料</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/dailyRecord/all}"
-                    >日記管理</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/memberOrder}"
-                    >查看訂單</a
-                  >
-                </li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/}">密碼修改</a>
-                </li>
-              </ul>
-            </li>
             <!-- 將開發用連結放在這裡 -->
             <li class="nav-item dropdown">
               <a
@@ -125,12 +80,83 @@
               </ul>
             </li>
           </ul>
-          <div sec:authorize="isAuthenticated()">
+          <div class="d-flex mx-5">
+            <input
+              id="navsearchinput"
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <div class="dropdown">
+              <button
+                id="navsearchbtn"
+                class="btn"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i style="color: white" class="bi bi-search"></i>
+              </button>
+              <!-- TODO:下拉式搜尋結果ＣＳＳ -->
+              <div
+                id="dropdownmenu"
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navsearchbtn"
+                style="width: 500px; top: 52px"
+              >
+                <span class="">搜尋結果</span>
+                <ul id="articleSearchresult" class="text-light"></ul>
+                <hr />
+                <ul id="videoSearchresult" class="text-light"></ul>
+                <hr />
+                <ul id="productSearchresult" class="text-light"></ul>
+              </div>
+            </div>
+          </div>
+          <div sec:authorize="isAuthenticated()" class="d-flex">
             <!-- 顯示用戶暱稱 -->
             <span
               class="navbar-brand"
               th:text="${#authentication.getPrincipal().getNickname()}"
             ></span>
+            <div class="dropdown p-1">
+              <a
+                class=""
+                th:href="@{/}"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img
+                  th:src="@{/public/showMemberImage/}+${#authentication.getPrincipal().getFkMember().getMember_id()}"
+                  alt=""
+                  width="40px"
+                />
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" style="top: 67px">
+                <li>
+                  <a class="dropdown-item" th:href="@{/member/page}"
+                    >個人資料</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/dailyRecord/all}"
+                    >日記管理</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/memberOrder}"
+                    >查看訂單</a
+                  >
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" th:href="@{/}">密碼修改</a>
+                </li>
+              </ul>
+            </div>
             <a
               class="navbar-brand"
               th:href="@{/perform_logout}"
@@ -151,8 +177,8 @@
               <i class="bi bi-people-fill"></i> 登入
             </a>
             <div
-              class="dropdown-menu"
-              style="width: 400px; left: -200px; top: 40px"
+              class="dropdown-menu dropdown-menu-end"
+              style="width: 400px; top: 76px"
             >
               <form class="px-4 py-3" method="post" action="/perform_login">
                 <div class="form-group p-2">
@@ -196,39 +222,6 @@
             </div>
           </div>
           <!-- end of dropsown button -->
-          <div class="d-flex">
-            <input
-              id="navsearchinput"
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <div class="dropdown">
-              <button
-                id="navsearchbtn"
-                class="btn"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i style="color: white" class="bi bi-search"></i>
-              </button>
-              <!-- TODO:下拉式搜尋結果ＣＳＳ -->
-              <div
-                id="dropdownmenu"
-                class="dropdown-menu dropdown-menu-end"
-                aria-labelledby="navsearchbtn"
-                style="width: 500px; top: 52px"
-              >
-                <span class="">搜尋結果</span>
-                <ul id="articleSearchresult" class="text-light"></ul>
-                <hr />
-                <ul id="videoSearchresult" class="text-light"></ul>
-                <hr />
-                <ul id="productSearchresult" class="text-light"></ul>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </nav>

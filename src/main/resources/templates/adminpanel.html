@@ -243,6 +243,7 @@
                   data-title="文章管理"
                   data-tabletype="article"
                   data-addtype="addarticle"
+                  data-searchtype="articlesearch"
                   >文章管理</a
                 >
               </li>
@@ -255,6 +256,7 @@
                   data-title="影片管理"
                   data-tabletype="video"
                   data-addtype="addvideo"
+                  data-searchtype="videosearch"
                   >影片管理</a
                 >
               </li>
@@ -266,6 +268,8 @@
                   data-url="http://localhost:8082/admin/api/listUsers"
                   data-title="會員管理"
                   data-tabletype="member"
+                  data-addtype="addmember"
+                  data-searchtype="membersearch"
                   >會員管理</a
                 >
               </li>
@@ -275,6 +279,8 @@
                   href="#"
                   data-title="訂單管理"
                   data-tabletype="order"
+                  data-addtype="addorder"
+                  data-searchtype="ordersearch"
                   data-url="http://localhost:8082/admin/api/orderAll"
                   >訂單管理</a
                 >
@@ -286,6 +292,7 @@
                   data-title="商城管理"
                   data-tabletype="product"
                   data-addtype="addproduct"
+                  data-searchtype="productsearch"
                   data-url="http://localhost:8082/admin/api/listProduct"
                   >商城管理</a
                 >
@@ -363,7 +370,12 @@
             <button id="exportCSV" class="button-48">
               <span style="font-size: large">匯出成csv檔</span></button
             ><button class="button-48">
-              <span id="filterbtn" style="font-size: large">過濾條件</span>
+              <span
+                id="filterbtn"
+                style="font-size: large"
+                data-searchtype="articlesearch"
+                >過濾條件</span
+              >
             </button>
           </div>
           <div id="table" class="tableview"></div>
@@ -963,6 +975,7 @@
     //抓取元素
     const addTypeAll = document.getElementById("addshow");
     const showtable = document.getElementById("showtable");
+    const searchinput = document.getElementById("searchinput");
     //設定頁面改變所需要之變數
     let tabletitle = document.getElementById("tabletitle");
     let showAllurl = "http://localhost:8082/public/api/article/categories";
@@ -1079,19 +1092,6 @@
       return resArr;
     };
 
-    document.getElementById("searchinput").addEventListener("change", () => {
-      if (!document.getElementById("searchinput").value) {
-        jsonToHTMLbyQ("#table", initialTableData);
-        return;
-      }
-
-      let result = selectMatchItem(
-        tableData,
-        document.getElementById("searchinput").value
-      );
-      jsonToHTMLbyQ("#table", result ? result : []);
-    });
-
     //切換頁面功能
     for (let e of document.getElementsByClassName("adminlink")) {
       e.addEventListener("click", (f) => {
@@ -1099,6 +1099,18 @@
         showAllurl = f.target.dataset.url;
         addTypeAll.dataset.addtype = f.target.dataset.addtype;
         showtable.dataset.tabletype = f.target.dataset.tabletype;
+        searchinput.dataset.searchtype = f.target.dataset.searchtype;
+        switch (f.target.dataset.addtype) {
+          case "addmember":
+            $("#addshow").hide();
+            break;
+          case "addorder":
+            $("#addshow").hide();
+            break;
+          default:
+            $("#addshow").show();
+            break;
+        }
       });
     }
   </script>

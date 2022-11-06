@@ -1,6 +1,9 @@
 package com.finalpretty.app.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -109,6 +112,35 @@ public class ArticleController {
 		}
 		articleR.save(article);
 		return "redirect:/article/manage";
+	}
+
+	// 新增文章
+	@ResponseBody
+	@PostMapping("admin/api/addApiArticle/")
+	public Boolean addApiArticle(
+			@RequestParam(name = "title") String title,
+			@RequestParam(name = "text") String text,
+			@RequestParam(name = "type") String type,
+			@RequestParam(name = "file", required = false) MultipartFile file) {
+		Article article = new Article();
+		try {
+			article.setTitle(title);
+			article.setText(text);
+			article.setType(type);
+			if (file == null) {
+				String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/lv1.png";
+				File saveFilePath = new File(saveFiledir);
+
+				article.setPicture(Files.readAllBytes(saveFilePath.toPath()));
+			} else {
+				article.setPicture(file.getBytes());
+			}
+			article.setViews(0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		articleR.save(article);
+		return true;
 	}
 
 	// 修改文章

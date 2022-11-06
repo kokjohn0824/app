@@ -1,6 +1,7 @@
 package com.finalpretty.app.email;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -15,6 +16,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+
+import com.finalpretty.app.Response.OrderDetailDto;
+import com.finalpretty.app.Response.OrderDto;
 
 import lombok.AllArgsConstructor;
 
@@ -113,16 +117,21 @@ public class EmailService implements EmailSender {
     }
 
     @Override
-    public String orderEmailSend(String emailinput, String nickname) {
+    public String orderEmailSend(String emailinput, OrderDto order, List<OrderDetailDto> detail) {
         EmailBean emailBean = new EmailBean();
         emailBean.setTo(emailinput);
         // 設定信件標題
-        emailBean.setSubject("請付錢");
+        emailBean.setSubject("您此筆訂單尚未付款");
         Context thymeleafContext = new Context();
         Map<String, Object> templateModel = new HashMap<>();
-        templateModel.put("nickname", nickname);
+        templateModel.put("order", order);
+        templateModel.put("detail", detail);
+        System.out.println("++++++++++++++eqweqwe");
+        System.out.println(order.getOrder_id());
+        String ecpay = "http://localhost:8082/public/ecpay/test/" + order.getOrder_id();
+        templateModel.put("ecpay", ecpay);
         thymeleafContext.setVariables(templateModel);
-        String htmlBody = thymeleafTemplateEngine.process("/email/resetPwdLinkEmail.html", thymeleafContext);
+        String htmlBody = thymeleafTemplateEngine.process("/email/resetOrderPayment.html", thymeleafContext);
         emailBean.setContent(htmlBody);
 
         try {
@@ -132,5 +141,47 @@ public class EmailService implements EmailSender {
             return e.getMessage();
         }
 
+    }
+
+    @Override
+    public String userEmailSend(String emailinput) {
+        EmailBean emailBean = new EmailBean();
+        emailBean.setTo(emailinput);
+        // 設定信件標題
+        emailBean.setSubject("您的帳號因部分因素已被停權請洽客服");
+        Context thymeleafContext = new Context();
+        Map<String, Object> templateModel = new HashMap<>();
+        // templateModel.put("nickname", nickname);
+        thymeleafContext.setVariables(templateModel);
+        String htmlBody = thymeleafTemplateEngine.process("/email/resetUsers.html", thymeleafContext);
+        emailBean.setContent(htmlBody);
+
+        try {
+            send(emailBean);
+            return "success";
+        } catch (IllegalStateException e) {
+            return e.getMessage();
+        }
+    }
+
+    @Override
+    public String userOnEmailSend(String emailinput) {
+        EmailBean emailBean = new EmailBean();
+        emailBean.setTo(emailinput);
+        // 設定信件標題
+        emailBean.setSubject("您的帳號已復權");
+        Context thymeleafContext = new Context();
+        Map<String, Object> templateModel = new HashMap<>();
+        // templateModel.put("nickname", nickname);
+        thymeleafContext.setVariables(templateModel);
+        String htmlBody = thymeleafTemplateEngine.process("/email/resetOnUsers.html", thymeleafContext);
+        emailBean.setContent(htmlBody);
+
+        try {
+            send(emailBean);
+            return "success";
+        } catch (IllegalStateException e) {
+            return e.getMessage();
+        }
     }
 }

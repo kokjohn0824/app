@@ -14,17 +14,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.finalpretty.app.Response.OrderDetailDto;
 import com.finalpretty.app.Response.OrderDto;
 import com.finalpretty.app.ecpay.payment.integration.AllInOne;
 import com.finalpretty.app.ecpay.payment.integration.domain.AioCheckOutALL;
+import com.finalpretty.app.email.EmailService;
 import com.finalpretty.app.model.Order;
+import com.finalpretty.app.model.Users;
 import com.finalpretty.app.order.service.OrderDetailService;
 import com.finalpretty.app.order.service.OrderService;
 import com.finalpretty.app.repositories.OrderRespository;
 import com.finalpretty.app.request.MemberOrderDto;
+
+import lombok.experimental.PackagePrivate;
 
 @Controller
 public class OrderController {
@@ -37,6 +42,9 @@ public class OrderController {
 
     @Autowired
     private OrderRespository oDao;
+
+    @Autowired
+    private EmailService eService;
 
     // @GetMapping("/admin/orderAll")
     @GetMapping("/admin/api/orderAll")
@@ -112,7 +120,7 @@ public class OrderController {
         return "/order/success";
     }
 
-    @GetMapping("/ecpay/test/{order_id}")
+    @GetMapping("/public/ecpay/test/{order_id}")
     @ResponseBody
     public String testEcpay(@PathVariable("order_id") Integer order_id) {
 
@@ -122,8 +130,10 @@ public class OrderController {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date date = new Date();
             AioCheckOutALL obj = new AioCheckOutALL();
+            int num = (int) (Math.random() * (90 - 20 + 1)) + 20;
+
             // FIXME:測試訂單應該要隨機生成字串
-            obj.setMerchantTradeNo("testNo" + Long.toString(order.get().getOrder_num()));
+            obj.setMerchantTradeNo("test" + num + Long.toString(order.get().getOrder_num()));
             obj.setMerchantTradeDate(dateFormat.format(date));
             obj.setTotalAmount(Integer.toString(order.get().getTotal()));
             obj.setTradeDesc("test Description");
@@ -140,4 +150,24 @@ public class OrderController {
             return null;
         }
     }
+
+    @ResponseBody
+    @GetMapping("/admin/api/orderEmailSend/{order_id}")
+    public String orderEmailSend(@PathVariable("order_id") Integer order_id) {
+        Optional<Order> order = oDao.findById(order_id);
+        OrderDto orderDto = new OrderDto();
+        List<OrderDetailDto> detailDto = new ArrayList<>();
+        orderDto.setOrder_id(order.get().getOrder_id());
+        orderDto.setOrder_num(order.get().getOrder_num());
+        orderDto.setNickname(order.get().getMember().getNickname());
+        orderDto.setPhone(order.get().getPhone());
+        orderDto.setCreate_date(order.get().getCreate_date());
+        orderDto.setTotal(order.get().getTotal());
+        detailDto = detailService.findByFKOrderId(order_id);
+        String email = order.get().getMember().getUsers().getEmail();
+
+        return eService.orderEmailSend(email, orderDto, detailDto);
+
+    }
+
 }

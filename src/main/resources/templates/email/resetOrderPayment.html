@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>您有訂單尚未付款</title>
+  </head>
+  <body>
+    <div
+      style="
+        border-style: solid;
+        border-width: thin;
+        border-color: #dadce0;
+        border-radius: 8px;
+        padding: 40px 20px;
+      "
+      class="m_855821013577569661mdv2rw"
+    >
+      <div
+        style="
+          font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial,
+            sans-serif;
+          border-bottom: thin solid #dadce0;
+          color: rgba(0, 0, 0, 0.87);
+          line-height: 32px;
+          padding-bottom: 24px;
+          text-align: center;
+          word-break: break-word;
+        "
+      >
+        <div style="font-size: 24px">您有訂單尚未付款</div>
+        <table align="center" style="margin-top: 8px">
+          <tbody>
+            <tr style="line-height: normal">
+              <td align="right" style="padding-right: 8px"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        style="
+          font-family: Roboto-Regular, Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          color: rgba(0, 0, 0, 0.87);
+          line-height: 20px;
+          padding-top: 20px;
+          text-align: center;
+        "
+      >
+        <span th:text="${order.nickname}"></span
+        >您有訂單尚未付款<br />按下方連結前往綠界支付。
+        <table>
+          <thead>
+            <tr>
+              <th>訂購人</th>
+              <th>訂單編號</th>
+              <th>訂單地址</th>
+              <th>電話號碼</th>
+              <th>訂單總金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td th:text="${order.order_num}"></td>
+              <td th:text="${order.nickname}"></td>
+              <td th:text="${order.address}"></td>
+              <td th:text="${order.phone}"></td>
+              <td th:text="${order.total}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>品名</th>
+              <th>數量</th>
+              <th>金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="detailinfo : ${detail}">
+              <td th:text="${detailinfo.product_name}"></td>
+              <td th:text="${detailinfo.count}"></td>
+              <td th:text="${detailinfo.total}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding-top: 32px; text-align: center">
+          <a th:href="${ecpay}" style="background-color: #4184f3">
+            前往綠界支付
+          </a>
+          如左方按鈕點不進去請點及下方網址<br />
+          <a th:href="${ecpay}">網址</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

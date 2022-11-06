@@ -1,8 +1,104 @@
-<div
-  class="w-100 text-dark d-flex flex-column justify-content-center"
-  style="height: 400px"
->
-  <div class="d-flex h-25 justify-content-center">
-    <a class="" th:href="@{/login}">顧客見證</a>
-  </div>
+<style>
+  .slideshow {
+  }
+
+  .slidecards {
+    width: 25%;
+    height: 200px;
+    border-radius: 4px;
+    background-color: black;
+    background-image: linear-gradient(to top, #312e8154, 1%, black);
+    box-shadow: #8b5cf6 0px 0px 10px 4px;
+  }
+
+  .slidecards h1 {
+    color: #f9fafb;
+  }
+  .slidecards span {
+    color: #e5e7eb;
+  }
+  .font-gradient {
+    background: linear-gradient(to right, #f97316, #facc15);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+<div class="d-flex justify-content-center font-gradient">
+  <h1 class="display-1 text-white">多名使用者的五星好評</h1>
 </div>
+<div class="slideshow js-slideshow my-5">
+  <div th:remove="all">
+    <div
+      th:fragment="slidecards(title, from)"
+      class="slidecards m-4 d-flex flex-column justify-content-around"
+    >
+      <div class="m-4 d-flex justify-content-start">
+        <h1 th:text="${title}">標題</h1>
+      </div>
+      <div class="d-flex justify-content-end m-3">
+        <span th:text="${from}">台北 黃先生</span>
+      </div>
+    </div>
+  </div>
+  <div th:replace=":: slidecards('從未有過的體驗！', '台北 黃先生')"></div>
+  <div th:replace=":: slidecards('愛不釋手！','高雄 陳先生')"></div>
+  <div th:replace=":: slidecards('太好用了！','台東 林小姐')"></div>
+  <div th:replace=":: slidecards('愛不釋手！','高雄 陳先生')"></div>
+  <div th:replace=":: slidecards('我的健身習慣從此改變','新竹 朱小姐')"></div>
+</div>
+
+<script>
+  // change speed
+  let tickerSpeed = 1;
+
+  let flickity = null;
+  let isPaused = false;
+  const slideshowEl = document.querySelector(".js-slideshow");
+  //   Functions
+  const update = () => {
+    if (isPaused) return;
+    if (flickity.slides) {
+      flickity.x = (flickity.x - tickerSpeed) % flickity.slideableWidth;
+      flickity.selectedIndex = flickity.dragEndRestingSelect();
+      flickity.updateSelectedSlide();
+      flickity.settle(flickity.x);
+    }
+    window.requestAnimationFrame(update);
+  };
+
+  const pause = () => {
+    isPaused = true;
+  };
+
+  const play = () => {
+    if (isPaused) {
+      isPaused = false;
+      window.requestAnimationFrame(update);
+    }
+  };
+
+  //   Create Flickity
+  flickity = new Flickity(slideshowEl, {
+    autoPlay: false,
+    prevNextButtons: false,
+    pageDots: false,
+    draggable: true,
+    wrapAround: true,
+    selectedAttraction: 0.015,
+    friction: 0.25,
+  });
+  flickity.x = 0;
+
+  //   Add Event Listeners
+  slideshowEl.addEventListener("mouseenter", pause, false);
+  slideshowEl.addEventListener("focusin", pause, false);
+  slideshowEl.addEventListener("mouseleave", play, false);
+  slideshowEl.addEventListener("focusout", play, false);
+
+  flickity.on("dragStart", () => {
+    isPaused = true;
+  });
+
+  //   Start Ticker
+  update();
+</script>

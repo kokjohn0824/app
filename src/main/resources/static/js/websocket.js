@@ -81,6 +81,9 @@ function disconnect() {
 function handleClick() {
   // 抓取發送內容
   let sendContent = $("#content").val();
+  if (!sendContent) {
+    return;
+  }
 
   // 設定要傳送的內容
   let message = `{ "destination": "${SUBSCRIBE}", "sender": "${username}", "content" : "${sendContent}"}`;

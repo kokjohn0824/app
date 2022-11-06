@@ -1,6 +1,6 @@
 <style>
   /* CSS */
-  .logobtnright {
+  .logobtnleft {
     font-size: 20px;
     padding: 0.6em 2em;
     border: none;
@@ -16,7 +16,7 @@
     touch-action: manipulation;
   }
 
-  .logobtnright:before {
+  .logobtnleft:before {
     content: "";
     border: none;
     outline: none;
@@ -58,7 +58,7 @@
     }
   }
 
-  .logobtnright:after {
+  .logobtnleft:after {
     border: none;
     outline: none;
     background: black;
@@ -72,7 +72,7 @@
     /* border-radius: 15px; */
   }
 
-  .logobtnright:hover {
+  .logobtnleft:hover {
     background: white;
   }
 
@@ -102,6 +102,8 @@
     /* background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb); */
     background-color: #8b5cf6;
     /* color: #525252; */
+    color: #ffffff;
+
     box-shadow: #8b5cf6 0px 0px 20px 1px;
   }
 
@@ -115,7 +117,7 @@
     class="joinbutton d-flex position-absolute justify-content-center w-100"
     style="bottom: 15%"
   >
-    <button class="logobtnright mx-5">加入我們</button>
+    <button class="logobtnleft mx-5">加入我們</button>
     <a class="button-64 mx-5" th:href="@{/login?tab=register}">
       <span>立即註冊</span>
     </a>

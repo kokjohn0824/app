@@ -100,6 +100,7 @@ public class Users implements UserDetails {
         this.email = email;
         this.password = password;
         this.UserRole = userRole;
+        this.fkMember = new Member();
 
     }
 

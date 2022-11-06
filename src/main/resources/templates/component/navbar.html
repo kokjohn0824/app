@@ -146,40 +146,43 @@
                     th:src="@{/public/showMemberImage/}+${#authentication.getPrincipal().getFkMember().getMember_id()}"
                     alt=""
                     width="40px"
+                    th:onerror="this.src='/img/icon/adminlogo.svg'"
                   />
                 </a>
+                <ul class="dropdown-menu dropdown-menu-end" style="top: 67px">
+                  <li>
+                    <a class="dropdown-item" th:href="@{/member/page}"
+                      >個人資料</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/dailyRecord/all}"
+                      >日記管理</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/memberOrder}"
+                      >查看訂單</a
+                    >
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li
+                    th:if="${#authentication.getPrincipal().getUserRole().toString()} == 'ADMIN'"
+                  >
+                    <a class="dropdown-item" th:href="@{/admin/panel}"
+                      >進入後台</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/perform_logout}"
+                      >登出</a
+                    >
+                  </li>
+                </ul>
               </div>
-              <ul class="dropdown-menu dropdown-menu-end" style="top: 67px">
-                <li>
-                  <a class="dropdown-item" th:href="@{/member/page}"
-                    >個人資料</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/dailyRecord/all}"
-                    >日記管理</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/memberOrder}"
-                    >查看訂單</a
-                  >
-                </li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <a class="dropdown-item" th:href="@{/}">密碼修改</a>
-                </li>
-              </ul>
             </div>
-            <a
-              class="navbar-brand"
-              th:href="@{/perform_logout}"
-              style="font-size: 18px"
-            >
-              <i class="bi bi-arrow-bar-left"></i> 登出
-            </a>
           </div>
           <!-- dropsown button -->
           <div class="nav-item dropdown" sec:authorize="!isAuthenticated()">

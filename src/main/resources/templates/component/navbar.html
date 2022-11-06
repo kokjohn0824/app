@@ -131,20 +131,24 @@
               class="navbar-brand"
               th:text="${#authentication.getPrincipal().getNickname()}"
             ></span>
-            <div class="dropdown p-1">
-              <a
-                class=""
-                th:href="@{/}"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img
-                  th:src="@{/public/showMemberImage/}+${#authentication.getPrincipal().getFkMember().getMember_id()}"
-                  alt=""
-                  width="40px"
-                />
-              </a>
+            <div
+              th:if="${#authentication.getPrincipal().getFkMember()} != null"
+            >
+              <div class="dropdown p-1">
+                <a
+                  class=""
+                  th:href="@{/}"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img
+                    th:src="@{/public/showMemberImage/}+${#authentication.getPrincipal().getFkMember().getMember_id()}"
+                    alt=""
+                    width="40px"
+                  />
+                </a>
+              </div>
               <ul class="dropdown-menu dropdown-menu-end" style="top: 67px">
                 <li>
                   <a class="dropdown-item" th:href="@{/member/page}"

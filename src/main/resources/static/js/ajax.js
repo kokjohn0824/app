@@ -31,6 +31,22 @@ const getdata = (url, callbackfunction) => {
 };
 console.log("ajax!");
 
+
+const getdatas = (url, callbackfunction) => {
+  let requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+
+  fetch(url, requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      tableData = result;
+      callbackfunction(result);
+    })
+    .catch((error) => console.error("error", error));
+};
+
 const postdatas = (url, registerdata, callbackfunction) => {
   let myHeaders = new Headers();
   // myHeaders.append("Content-Type", "multipart/form-data");

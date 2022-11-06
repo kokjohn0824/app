@@ -39,84 +39,85 @@ const articleshow = () => {
       [...initialTableData] = [...result];
       jsonToHTMLbyQforarticle("#table", result);
       document.querySelector("#table").style.opacity = 1;
-      $(".modal-content").html(`<div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">文章修改</h5>
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-      ></button>
-    </div>
-    <form id="myForm">
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="recipient-title" class="col-form-label"
-            >文章標題:</label
-          >
-          <input
-            name="title"
-            type="text"
-            class="form-control"
-            id="article-title"
-            value=""
-            required
-          />
-        </div>
-        <div class="mb-3">
-          文章種類:<select id="type">
-            <option>減重知識</option>
-            <option>運動教學</option>
-            <option>飲食營養</option>
-            <option>心得分享</option>
-          </select>
-        </div>
-        <div id="textareacontainer" class="mb-3"></div>
-        <div class="mb-3">
-          <label for="inputFileToLoad" class="col-form-label"
-            >文章圖片:</label
-          >
-          <input
-            id="inputFileToLoad"
-            type="file"
-            name="file"
-            onchange="loadImageFileAsURL()"
-            class="file-upload-default"
-          />
-        </div>
-        <div class="mb-3">
-          <img
-            id="preview_img"
-            src="#"
-            style="
-              height: 300px;
-              width: 300px;
-              border-radius: 60px 60px 60px 60px;
-              margin-left: 30px;
-            "
-          />
-          <input id="article_id" name="article_id" value="" hidden />
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-bs-dismiss="modal"
-        >
-          Close
-        </button>
-        <button id="editar" type="submit" class="btn btn-primary">
-          Send
-        </button>
-      </div>
-    </form>`);
+
       imag();
       let editorcontent;
-      const textareacontainer = document.getElementById("textareacontainer");
 
       //修改文章搜尋
       $("button[name='editarticle']").click((e) => {
+        $(".modal-content").html(`<div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">文章修改</h5>
+              <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              ></button>
+            </div>
+            <form id="myForm">
+              <div class="modal-body">
+              <div class="mb-3">
+              <label for="recipient-title" class="col-form-label"
+              >文章標題:</label
+              >
+              <input
+              name="title"
+              type="text"
+                    class="form-control"
+                    id="article-title"
+                    value=""
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                文章種類:<select id="type">
+                <option>減重知識</option>
+                <option>運動教學</option>
+                    <option>飲食營養</option>
+                    <option>心得分享</option>
+                  </select>
+                  </div>
+                  <div id="textareacontainer" class="mb-3"></div>
+                  <div class="mb-3">
+                  <label for="inputFileToLoad" class="col-form-label"
+                  >文章圖片:</label
+                  >
+                  <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                  />
+                  </div>
+                  <div class="mb-3">
+                  <img
+                  id="preview_img"
+                  src="#"
+                  style="
+                  height: 300px;
+                  width: 300px;
+                  border-radius: 60px 60px 60px 60px;
+                  margin-left: 30px;
+                  "
+                  />
+                  <input id="article_id" name="article_id" value="" hidden />
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                  <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  >
+                  Close
+                  </button>
+                  <button id="editar" type="submit" class="btn btn-primary">
+                  Send
+                  </button>
+                  </div>
+                  </form>`);
+        const textareacontainer = document.getElementById("textareacontainer");
         textareacontainer.innerHTML = "";
         textareacontainer.innerHTML = `<label for="message-editor" class="col-form-label"
             >文章內文:</label
@@ -144,29 +145,29 @@ const articleshow = () => {
             $("#article_id").attr("value", result.ID);
           }
         );
-      });
-      //修改文章
-      $("#editar").click((e) => {
-        e.preventDefault();
-        var datas = new FormData();
-        datas.append("article_id", $("#article_id").val());
-        datas.append("title", $("#article-title").val());
-        datas.append("text", editorcontent.getData());
-        datas.append("type", $("#type option:selected").val());
-        datas.append("file", $("#inputFileToLoad")[0].files[0]);
-        $(".modal-content").html("");
-        postdatas(
-          "http://localhost:8082/admin/api/article/edit",
-          datas,
-          (result) => {
-            if (result == true) {
-              // $("#exampleModal").attr("class","modal fade").attr("style", "display:none;").attr("aria-hidden", "true").remomveAttr("aria-modal").remomveAttr("dialog");
-              // $("#exampleModal").off("btnDOM");
-              articleshow();
-              alert("更新成功");
+
+        //修改文章
+        $("#editar").click((e) => {
+          e.preventDefault();
+          imag();
+          var datas = new FormData();
+          datas.append("article_id", $("#article_id").val());
+          datas.append("title", $("#article-title").val());
+          datas.append("text", editorcontent.getData());
+          datas.append("type", $("#type option:selected").val());
+          datas.append("file", $("#inputFileToLoad")[0].files[0]);
+          $(".modal-content").html("");
+          postdatas(
+            "http://localhost:8082/admin/api/article/edit",
+            datas,
+            (result) => {
+              if (result == true) {
+                articleshow();
+                alert("更新成功");
+              }
             }
-          }
-        );
+          );
+        });
       });
 
       //刪除文章
@@ -228,6 +229,210 @@ const jsonToHTMLbyQforarticle = (querySelector, json) => {
   document.querySelector(querySelector).innerHTML = table;
 };
 
+const addarticle = (e) => {
+  $(".modal-content").html(`<div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">新增文章</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form id="myForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="article-title" class="col-form-label"
+                >文章標題:</label
+              >
+              <input
+                name="title"
+                type="text"
+                class="form-control"
+                id="article-title"
+                value=""
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <div id="textareacontainer" class="mb-3"></div>
+            </div>
+            <div class="mb-3">
+              文章分類:<select id="type">
+              <option>減重知識</option>
+              <option>運動教學</option>
+              <option>飲食營養</option>
+              <option>心得分享</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="inputFileToLoad" class="col-form-label"
+                >文章封面:</label
+              >
+              <input
+                id="inputFileToLoad"
+                type="file"
+                name="file"
+                onchange="loadImageFileAsURL()"
+                placeholder="請選擇圖片"
+                class="file-upload-default"
+              />
+            </div>
+            <div class="mb-3">
+              <img
+                id="preview_img"
+                src=""
+                style="
+                  height: 300px;
+                  width: 300px;
+                  border-radius: 60px 60px 60px 60px;
+                  margin-left: 30px;
+                "
+              />
+              <input id="onsale" name="onsale" value="" hidden />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="add" type="submit" class="btn btn-primary">
+              Send
+            </button>
+          </div>
+        </form>`);
+  imag();
+  const textareacontainer = document.getElementById("textareacontainer");
+  textareacontainer.innerHTML = "";
+  textareacontainer.innerHTML = `<label for="message-editor" class="col-form-label"
+            >文章內文:</label
+          ><textarea id="editor"></textarea>`;
+
+  ClassicEditor.create(document.querySelector("#editor"), {
+    extraPlugins: [MyCustomUploadAdapterPlugin],
+  })
+    .then((editor) => {
+      editorcontent = editor;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  $("#add").click((e) => {
+    e.preventDefault();
+    var datas = new FormData();
+    datas.append("title", $("#article-title").val());
+    datas.append("text", editorcontent.getData());
+    datas.append("type", $("#type option:selected").val());
+    datas.append("file", $("#inputFileToLoad")[0].files[0]);
+    $(".modal-content").html("");
+
+    postdatas(
+      "http://localhost:8082/admin/api/addApiArticle/",
+      datas,
+      (result) => {
+        if (result == true) {
+          articleshow();
+          alert("新增成功");
+        } else {
+          articleshow();
+          alert("新增失敗");
+        }
+      }
+    );
+  });
+};
+
+// 模糊搜尋觸發
+
+searchinput.addEventListener("change", () => {
+  switch (searchinput.dataset.searchtype) {
+    case "articlesearch":
+      articlesearch();
+      break;
+    case "productsearch":
+      productsearch();
+      break;
+    case "membersearch":
+      membersearch();
+      break;
+    case "videosearch":
+      videosearch();
+      break;
+    case "ordersearch":
+      ordersearch();
+      break;
+  }
+});
+
+const articlesearch = () => {
+  if (!document.getElementById("searchinput").value) {
+    jsonToHTMLbyQforarticle("#table", initialTableData);
+    return;
+  }
+
+  let result = selectMatchItem(
+    tableData,
+    document.getElementById("searchinput").value
+  );
+  jsonToHTMLbyQforarticle("#table", result ? result : []);
+};
+
+const productsearch = () => {
+  if (!document.getElementById("searchinput").value) {
+    jsonToHTMLbyProduct("#table", initialTableData);
+    return;
+  }
+
+  let result = selectMatchItem(
+    tableData,
+    document.getElementById("searchinput").value
+  );
+  jsonToHTMLbyProduct("#table", result ? result : []);
+};
+
+const membersearch = () => {
+  if (!document.getElementById("searchinput").value) {
+    jsonToHTMLbyMember("#table", initialTableData);
+    return;
+  }
+
+  let result = selectMatchItem(
+    tableData,
+    document.getElementById("searchinput").value
+  );
+  jsonToHTMLbyMember("#table", result ? result : []);
+};
+
+const videosearch = () => {
+  if (!document.getElementById("searchinput").value) {
+    jsonToHTMLbyVideo("#table", initialTableData);
+    return;
+  }
+
+  let result = selectMatchItem(
+    tableData,
+    document.getElementById("searchinput").value
+  );
+  jsonToHTMLbyVideo("#table", result ? result : []);
+};
+
+const ordersearch = () => {
+  if (!document.getElementById("searchinput").value) {
+    jsonToHTMLbyOrder("#table", initialTableData);
+    return;
+  }
+
+  let result = selectMatchItem(
+    tableData,
+    document.getElementById("searchinput").value
+  );
+  jsonToHTMLbyOrder("#table", result ? result : []);
+};
 //按鈕觸發呈現table
 showtable.addEventListener("click", (e) => {
   switch (showtable.dataset.tabletype) {
@@ -252,8 +457,10 @@ showtable.addEventListener("click", (e) => {
 addTypeAll.addEventListener("click", (e) => {
   switch (addTypeAll.dataset.addtype) {
     case "addarticle":
+      addarticle();
       break;
     case "addvideo":
+      addvideo();
       break;
     case "addproduct":
       addproduct();
@@ -684,7 +891,6 @@ const addproduct = () => {
   imag();
   $("#add").on("click", (e) => {
     e.preventDefault();
-
     var datas = new FormData();
     datas.append("title", $("#recipient-title").val());
     datas.append("price", $("#recipient-price").val());
@@ -703,6 +909,7 @@ const addproduct = () => {
     fetch("http://localhost:8082/admin/api/addProduct", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        // console.log(result);
         if (result == true) {
           productshow();
           alert("新增成功");
@@ -711,10 +918,9 @@ const addproduct = () => {
           alert("新增失敗");
         }
       })
-      .catch((error) => console.error("error", error));
+      .catch((error) => console.log("error", error));
   });
 };
-///////商品管理//////////////////
 
 ///////會員管理//////////////////
 //將json陣列轉為 table
@@ -749,7 +955,7 @@ const jsonToHTMLbyMember = (querySelector, json) => {
             data-bs-whatever="@getbootstrap" class="save btn-icon-edit"></button>
           </td><td><button id="${
             el.users_id
-          }" name="locked" class="btn btn-success">復權</button></td>`
+          }" name="locked" class="btn btn-danger">停權</button></td>`
   );
   let tbody = `<tbody>${trs.map((el) => `<tr>${el}</tr>`).join("")}</tbody>`;
   let table = `<table class="table table-hover">${title}${tbody}</table>`;
@@ -964,6 +1170,7 @@ const usershow = () => {
           "http://localhost:8082/admin/api/updateLocked/",
           jsn,
           (result) => {
+            console.log(result);
             if (result == true) {
               $(e.target).attr("class", "btn btn-success").text("復權");
               $(`input[id='${users_id}']`).attr("value", "true");
@@ -979,6 +1186,35 @@ const usershow = () => {
             }
           }
         );
+
+        if (locked == false) {
+          alert("正在發送email請稍候");
+          getdatas(
+            `http://localhost:8082/admin/api/userEmailSend/${users_id}`,
+            (result) => {
+              console.log(result);
+              if (result == "success") {
+                alert("email發送成功");
+              } else {
+                alert("發送失敗");
+              }
+              ``;
+            }
+          );
+        } else if (locked == true) {
+          alert("正在發送email請稍候");
+          getdatas(
+            `http://localhost:8082/admin/api/userOnEmailSend/${users_id}`,
+            (result) => {
+              console.log(result);
+              if (result == "success") {
+                alert("email發送成功");
+              } else {
+                alert("發送失敗");
+              }
+            }
+          );
+        }
       });
 
       $("button[name='editMember']").click((e) => {
@@ -1028,7 +1264,7 @@ const usershow = () => {
           (result) => {
             if (result == true) {
               alert("已更新");
-              user();
+              usershow();
             }
           }
         );
@@ -1036,7 +1272,6 @@ const usershow = () => {
     });
   }, 300);
 };
-///////會員管理//////////////////
 
 ///////影片管理//////////////////
 //將json陣列轉為 table
@@ -1089,7 +1324,28 @@ const videoshow = () => {
       jsonToHTMLbyVideo("#table", result);
       document.querySelector("#table").style.opacity = 1;
 
-      $(".modal-content").html(`<div class="modal-header">
+      imag();
+      $(".btn-icon-delete").click((e) => {
+        if (confirm("確定刪除嗎") == true) {
+          getdata(
+            `http://localhost:8082/admin/api/video/delete/${$(e.target).attr(
+              "id"
+            )}`,
+            (result) => {
+              if (result == true) {
+                alert("影片中有用戶按讚故不能刪除");
+                video();
+              } else {
+                alert("已刪除");
+                video();
+              }
+            }
+          );
+        }
+      });
+
+      $(".btn-icon-edit").click((e) => {
+        $(".modal-content").html(`<div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Video修改/h5>
           <button
             type="button"
@@ -1205,27 +1461,7 @@ const videoshow = () => {
             </button>
           </div>
         </form>`);
-      imag();
-      $(".btn-icon-delete").click((e) => {
-        if (confirm("確定刪除嗎") == true) {
-          getdata(
-            `http://localhost:8082/admin/api/video/delete/${$(e.target).attr(
-              "id"
-            )}`,
-            (result) => {
-              if (result == true) {
-                alert("影片中有用戶按讚故不能刪除");
-                video();
-              } else {
-                alert("已刪除");
-                video();
-              }
-            }
-          );
-        }
-      });
-
-      $(".btn-icon-edit").click((e) => {
+        imag();
         getdata(
           `http://localhost:8082/admin/api/queryUpdateViedo/${$(e.target).attr(
             "id"
@@ -1239,30 +1475,30 @@ const videoshow = () => {
             $("#video_id").val(result.ID);
           }
         );
-      });
 
-      $("#editvideo").click((e) => {
-        e.preventDefault();
-        var datas = new FormData();
-        datas.append("video_id", $("#video_id").val());
-        datas.append("title", $("#recipient-title").val());
-        datas.append("type", $("select[name='type'] option:selected").text());
-        datas.append(
-          "body_parts",
-          $("select[name='body_parts'] option:selected").text()
-        );
-        datas.append("file", $("#inputFileToLoad")[0].files[0]);
-        $(".modal-content").html("");
-        postdatas(
-          "http://localhost:8082/admin/api/video/edit",
-          datas,
-          (result) => {
-            if (result == true) {
-              alert("已更新");
-              video();
+        $("#editvideo").click((e) => {
+          e.preventDefault();
+          var datas = new FormData();
+          datas.append("video_id", $("#video_id").val());
+          datas.append("title", $("#recipient-title").val());
+          datas.append("type", $("select[name='type'] option:selected").text());
+          datas.append(
+            "body_parts",
+            $("select[name='body_parts'] option:selected").text()
+          );
+          datas.append("file", $("#inputFileToLoad")[0].files[0]);
+          $(".modal-content").html("");
+          postdatas(
+            "http://localhost:8082/admin/api/video/edit",
+            datas,
+            (result) => {
+              if (result == true) {
+                alert("已更新");
+                videoshow();
+              }
             }
-          }
-        );
+          );
+        });
       });
     });
   }, 300);
@@ -1300,18 +1536,19 @@ const jsonToHTMLbyOrder = (querySelector, json) => {
             if (td == 2) {
               return `<td class="data">信用卡支付</td>`;
             } else if (td == 1) {
-              return `<td class="data">現金支付</td>`;
+              return `<td id="${el.order_id}" name="cash" class="data">現金支付</td>`;
             }
           } else if (index == 7) {
             if (td == 1) {
-              return `<td class="data"><span style="color:green">已付款</span</td>`;
+              return `<td class="data"><span id="${el.order_id}" name="paytrue" style="color:green">已付款</span</td>`;
             } else if (td == null) {
               return `<td class="data"><span style="color:red">尚未付款</span</td>`;
             }
           } else if (index == 10) {
             return `<td class="data"><button id="${el.order_id}" data-bs-toggle="modal"
               data-bs-target="#exampleModal"
-              data-bs-whatever="@getbootstrap" class="btn btn-primary">顯示明細</button></td>`;
+              data-bs-whatever="@getbootstrap" class="btn btn-primary">顯示明細</button><button name="payment" id="${el.order_id}" class="btn btn-danger">
+              尚未支付</button></td>`;
           } else {
             return `<td class="data">${td}</td>`;
           }
@@ -1332,6 +1569,16 @@ const ordershow = () => {
       [...initialTableData] = [...result];
       jsonToHTMLbyOrder("#table", result);
       document.querySelector("#table").style.opacity = 1;
+
+      $("td[name='cash']").each((index, ele) => {
+        var id = $(ele).attr("id");
+        $(`button[id="${id}"][name="payment"]`).attr("hidden", true);
+      });
+
+      $("span[name='paytrue']").each((index, ele) => {
+        var id = $(ele).attr("id");
+        $(`button[id="${id}"][name="payment"]`).attr("hidden", true);
+      });
 
       $(".modal-content").html(`<div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
@@ -1375,12 +1622,28 @@ const ordershow = () => {
           )}`,
           (result) => {
             var string;
+            console.log(result);
             for (let i of result) {
               string += "<tr><td>" + i.product_name + "</td>";
               string += "<td>" + i.count + "</td>";
               string += "<td>" + i.total + "</td></tr>";
             }
             $("#tb2").html(string);
+          }
+        );
+      });
+
+      $("button[name='payment']").click((e) => {
+        alert("正在發送email請稍候");
+        getdatas(
+          "http://localhost:8082/admin/api/orderEmailSend/" +
+            $(e.target).attr("id"),
+          (result) => {
+            if (result == "success") {
+              alert("email發送成功");
+            } else {
+              alert("發送失敗");
+            }
           }
         );
       });

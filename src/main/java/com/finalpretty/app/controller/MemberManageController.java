@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.Response.MemberResponse;
 import com.finalpretty.app.Response.UsersResponse;
+import com.finalpretty.app.email.EmailService;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Users;
@@ -38,6 +39,9 @@ public class MemberManageController {
 
 	@Autowired
 	private UsersRepository userR;
+
+	@Autowired
+	private EmailService eService;
 
 	// ----------後台-------------------------------------------------------------
 
@@ -410,4 +414,17 @@ public class MemberManageController {
 		return true;
 	}
 
+	@ResponseBody
+	@GetMapping("/admin/api/userEmailSend/{users_id}")
+	public String userEmailSend(@PathVariable("users_id") Integer users_id) {
+		Optional<Users> user = userR.findById(users_id);
+		return eService.userEmailSend(user.get().getEmail());
+	}
+
+	@ResponseBody
+	@GetMapping("/admin/api/userOnEmailSend/{users_id}")
+	public String userOnEmailSend(@PathVariable("users_id") Integer users_id) {
+		Optional<Users> user = userR.findById(users_id);
+		return eService.userOnEmailSend(user.get().getEmail());
+	}
 }

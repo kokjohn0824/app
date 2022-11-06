@@ -1,0 +1,565 @@
+<!-- <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">商品修改</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="myForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-title" class="col-form-label"
+                  >商品名稱:</label
+                >
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  id="recipient-title"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-price" class="col-form-label"
+                  >商品價格:</label
+                >
+                <input
+                  name="price"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                  id="recipient-price"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-stock" class="col-form-label"
+                  >商品庫存:</label
+                >
+                <input
+                  name="stock"
+                  type="number"
+                  class="form-control"
+                  id="recipient-stock"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label"
+                  >商品簡介:</label
+                >
+                <textarea
+                  name="text"
+                  class="form-control"
+                  id="recipient-text"
+                  required
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                商品種類:<select id="type">
+                  <option>運動食品</option>
+                  <option>運動用品</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="inputFileToLoad" class="col-form-label"
+                  >商品圖片:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  th:src="@{#}"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+                <input id="onsale" name="onsale" value="" hidden />
+                <input id="product_id" name="product_id" value="" hidden />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="send" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+<!-- <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">文章修改</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="myForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-title" class="col-form-label"
+                  >文章標題:</label
+                >
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  id="article-title"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                文章種類:<select id="type">
+                  <option>減重知識</option>
+                  <option>運動教學</option>
+                  <option>飲食營養</option>
+                  <option>心得分享</option>
+                </select>
+              </div>
+              <div id="textareacontainer" class="mb-3"></div>
+              <div class="mb-3">
+                <label for="inputFileToLoad" class="col-form-label"
+                  >文章圖片:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  src="#"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+                <input id="article_id" name="article_id" value="" hidden />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="editar" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+<!-- <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">會員資料</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="myForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-nickname" class="col-form-label"
+                  >暱稱:</label
+                >
+                <input
+                  name="nickname"
+                  type="text"
+                  class="form-control"
+                  id="recipient-nickname"
+                  value=""
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-gender" class="col-form-label"
+                  >性別:</label
+                ><label for="recipient-man" class="col-form-label">男:</label
+                ><input
+                  name="gender"
+                  id="recipient-man"
+                  type="radio"
+                  value="1"
+                />
+                <label for="recipient-female" class="col-form-label">女:</label
+                ><input
+                  name="gender"
+                  id="recipient-female"
+                  type="radio"
+                  value="0"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-age" class="col-form-label">年齡:</label
+                ><input
+                  id="recipient-age"
+                  name="age"
+                  type="number"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-height" class="col-form-label"
+                  >身高:</label
+                ><input
+                  id="recipient-height"
+                  name="height"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-weight" class="col-form-label"
+                  >體重:</label
+                ><input
+                  id="recipient-weight"
+                  name="weight"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-bodyFat" class="col-form-label"
+                  >體脂肪:</label
+                ><input
+                  id="recipient-bodyFat"
+                  name="bodyFat"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-visceralFat" class="col-form-label"
+                  >內臟脂肪:</label
+                ><input
+                  id="recipient-visceralFat"
+                  name="visceralFat"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-muscleMass" class="col-form-label"
+                  >肌肉量:</label
+                ><input
+                  id="recipient-muscleMass"
+                  name="muscleMass"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  class="form-control"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="recipient-becomeVIP" class="col-form-label"
+                  >VIP:</label
+                ><label for="recipient-man" class="col-form-label">是:</label
+                ><input
+                  name="becomeVIP"
+                  id="recipient-on"
+                  type="radio"
+                  value="1"
+                />
+                <label for="recipient-becomeVIP" class="col-form-label"
+                  >否:</label
+                ><input
+                  name="becomeVIP"
+                  id="recipient-off"
+                  type="radio"
+                  value="0"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="inputFileToLoad" class="col-form-label"
+                  >會員圖片:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  src="#"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+                <input id="member_id" name="member_id" value="" hidden />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="editmember" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+<!-- <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Video修改/h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="myForm">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="recipient-title" class="col-form-label"
+                  >標題:</label
+                >
+                <input
+                  name="title"
+                  type="text"
+                  class="form-control"
+                  id="recipient-title"
+                  value=""
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="recipient-age" class="col-form-label">分類:</label
+                ><select name="type">
+                  <option>胸肌</option>
+                  <option>背肌</option>
+                  <option>腿肌</option>
+                  <option>肩膀</option>
+                  <option>腹部</option>
+                  <option>手臂</option>
+                  <option>有氧</option>
+                  <option>伸展</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="recipient-height" class="col-form-label"
+                  >主要部位:</label
+                ><select name="body_parts">
+                  <optgroup label="胸肌">
+                    <option>胸大肌</option>
+                  </optgroup>
+                  <optgroup label="背肌">
+                    <option>背闊肌</option>
+                    <option>中背部</option>
+                    <option>下背部</option>
+                  </optgroup>
+                  <optgroup label="腿肌">
+                    <option>股四頭肌</option>
+                    <option>股二頭肌</option>
+                    <option>臀部肌群</option>
+                    <option>小腿肌群</option>
+                  </optgroup>
+                  <optgroup label="肩膀">
+                    <option>斜方肌</option>
+                    <option>肩部</option>
+                  </optgroup>
+                  <optgroup label="腹部">
+                    <option>腹肌</option>
+                    <option>髂腰肌</option>
+                  </optgroup>
+                  <optgroup label="手臂">
+                    <option>肱二頭肌</option>
+                    <option>肱三頭肌</option>
+                    <option>前臂</option>
+                  </optgroup>
+                  <optgroup label="有氧">
+                    <option>不限部位</option>
+                  </optgroup>
+                  <optgroup label="伸展">
+                    <option>不限部位</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="inputFileToLoad" class="col-form-label"
+                  >影片封面:</label
+                >
+                <input
+                  id="inputFileToLoad"
+                  type="file"
+                  name="file"
+                  onchange="loadImageFileAsURL()"
+                  class="file-upload-default"
+                />
+              </div>
+              <div class="mb-3">
+                <img
+                  id="preview_img"
+                  src="#"
+                  style="
+                    height: 300px;
+                    width: 300px;
+                    border-radius: 60px 60px 60px 60px;
+                    margin-left: 30px;
+                  "
+                />
+                <input id="video_id" name="video_id" value="" hidden />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="editvideo" type="submit" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+
+<!-- <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">商品名稱</th>
+                      <th scope="col">商品數量</th>
+                      <th scope="col">商品金額</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tb2"></tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              關閉
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->

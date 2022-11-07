@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.finalpretty.app.model.Article;
+import com.finalpretty.app.model.DailyRecord;
 import com.finalpretty.app.model.Food;
 import com.finalpretty.app.model.Member;
 import com.finalpretty.app.model.Product;
@@ -20,6 +21,7 @@ import com.finalpretty.app.model.Sports;
 import com.finalpretty.app.model.Users;
 import com.finalpretty.app.model.Video;
 import com.finalpretty.app.repositories.ArticleRespository;
+import com.finalpretty.app.repositories.DailyRecordRespository;
 import com.finalpretty.app.repositories.FoodDailyRespository;
 import com.finalpretty.app.repositories.FoodRespository;
 import com.finalpretty.app.repositories.MemberRespository;
@@ -71,6 +73,9 @@ public class ApplicationStartupRunner implements CommandLineRunner {
         @Autowired
         private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+        @Autowired
+        private DailyRecordRespository dailyRecordRespository;
+
         protected final Log logger = LogFactory.getLog(getClass());
 
         /*
@@ -94,9 +99,9 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 m1.setVisceralFat(7.1);
                 m1.setMuscleMass(20.4);
                 m1.setBecomeVIP(1);
-                m1.setNickname("one");
+                m1.setNickname("哈囉大家好");
                 m1.setPhoto(head1);
-                memberRespository.save(m1);
+                // memberRespository.save(m1);
 
                 byte[] head2 = Files.readAllBytes(Paths.get("src/main/resources/static/img/member/head2.png"));
                 Member m2 = new Member();
@@ -121,6 +126,14 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 users.setFkMember(m2);
                 // memberRespository.save(m2);
                 usersRepository.save(users);
+
+                Users user3 = new Users("z", "z@gmail.com", "123", UserRole.USER);
+                user3.setNickname("哈囉大家好");
+                encodedPassword = bCryptPasswordEncoder.encode(user3.getPassword());
+                user3.setPassword((encodedPassword));
+                user3.setEnabled(true);
+                user3.setFkMember(m1);
+                usersRepository.save(user3);
 
                 // 新增admin帳號
                 Users admin = new Users("sa", "root@gmail.com", "123", UserRole.ADMIN);
@@ -589,6 +602,87 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 File saveFilePath15 = new File(saveFiledir15);
                 product15.setPicture(Files.readAllBytes(saveFilePath15.toPath()));
                 pDao.save(product15);
+
+                // 新增日記
+                DailyRecord d1030 = new DailyRecord();
+                d1030.setDate_time("2022/10/30");
+                d1030.setWeight(48);
+                d1030.setBodyFat(17);
+                d1030.setDrinkingWater(2300);
+                d1030.setMembers(m1);
+                dailyRecordRespository.save(d1030);
+
+                DailyRecord d1031 = new DailyRecord();
+                d1031.setDate_time("2022/10/31");
+                d1031.setWeight(47);
+                d1031.setBodyFat(16);
+                d1031.setDrinkingWater(1900);
+                d1031.setMembers(m1);
+                dailyRecordRespository.save(d1031);
+
+                DailyRecord d1101 = new DailyRecord();
+                d1101.setDate_time("2022/11/01");
+                d1101.setWeight(50);
+                d1101.setBodyFat(19);
+                d1101.setDrinkingWater(2300);
+                d1101.setMembers(m1);
+                dailyRecordRespository.save(d1101);
+
+                DailyRecord d1102 = new DailyRecord();
+                d1102.setDate_time("2022/11/02");
+                d1102.setWeight(53);
+                d1102.setBodyFat(20);
+                d1102.setDrinkingWater(2500);
+                d1102.setMembers(m1);
+                dailyRecordRespository.save(d1102);
+
+                DailyRecord d1103 = new DailyRecord();
+                d1103.setDate_time("2022/11/03");
+                d1103.setWeight(49);
+                d1103.setBodyFat(18);
+                d1103.setDrinkingWater(2000);
+                d1103.setMembers(m1);
+                dailyRecordRespository.save(d1103);
+
+                DailyRecord d1104 = new DailyRecord();
+                d1104.setDate_time("2022/11/04");
+                d1104.setWeight(43);
+                d1104.setBodyFat(14);
+                d1104.setDrinkingWater(1800);
+                d1104.setMembers(m1);
+                dailyRecordRespository.save(d1104);
+
+                DailyRecord d1105 = new DailyRecord();
+                d1105.setDate_time("2022/11/05");
+                d1105.setWeight(48);
+                d1105.setBodyFat(17);
+                d1105.setDrinkingWater(2000);
+                d1105.setMembers(m1);
+                dailyRecordRespository.save(d1105);
+
+                DailyRecord d1106 = new DailyRecord();
+                d1106.setDate_time("2022/11/06");
+                d1106.setWeight(50);
+                d1106.setBodyFat(12);
+                d1106.setDrinkingWater(1500);
+                d1106.setMembers(m1);
+                dailyRecordRespository.save(d1106);
+
+                DailyRecord d1107 = new DailyRecord();
+                d1107.setDate_time("2022/11/07");
+                d1107.setWeight(53);
+                d1107.setBodyFat(14);
+                d1107.setDrinkingWater(1000);
+                d1107.setMembers(m1);
+                dailyRecordRespository.save(d1107);
+
+                DailyRecord d1108 = new DailyRecord();
+                d1108.setDate_time("2022/11/08");
+                d1108.setWeight(52);
+                d1108.setBodyFat(13);
+                d1108.setDrinkingWater(2000);
+                d1108.setMembers(m1);
+                dailyRecordRespository.save(d1108);
 
         }
 

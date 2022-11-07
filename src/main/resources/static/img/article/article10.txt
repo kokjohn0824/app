@@ -1,94 +1,147 @@
-<p><span style="font-size: 12pt;">大家好這裡是Peeta葛格</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">今天要跟大家介紹的是腹肌，包括常見的迷思以及訓練，讓你夏天去海邊可以帥一波</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">那我們廢話不多說，就直接給他看下去</span></p>
+<p>大家好，這裡是Peeta葛格</p>
+								<p>今天這篇文章要跟大家講解，健身新手在不同階段的訓練課表應該要怎麼安排才能有效增肌</p>
+								<p>那我們廢話不多說，就直接給他看下去</p>
 								<p>&nbsp;</p>
-								<h2 style="font-size: 30px;"><span style="font-size: 18pt;"><strong>腹肌的常見迷思</strong></span></h2>
-								<p><span style="font-size: 14pt;"><strong>迷思一、腹肌是天生的不用特別練</strong></span></p>
-								<p><span style="font-size: 12pt;">有些人會說腹肌是天生就在那邊的，而且深蹲、硬舉等大動作本來就會用到腹肌，所以不用特別去練腹肌，關於這段說詞我必須說我的確有看過不練腹肌然後就腹肌很飽滿很漂亮的人，但是90%的人包括我自己，還是要把腹肌單獨抓出來練才會飽滿、分離度才會好看。</span></p>
+								<blockquote>
+									<p>高階程度者，請閱讀 【<span style="text-decoration: underline; color: #3366ff;"><a href="https://www.peeta.tw/workout/advance-training/" rel="bookmark" style="color: #3366ff;" title="高階者增肌課表">高階者增肌課表</a></span>】&nbsp; ；&nbsp; 中階程度者，請閱讀 【<span style="text-decoration: underline; color: #3366ff;"><a href="https://www.peeta.tw/all/intermediate-training/" rel="bookmark" style="color: #3366ff;" title="中階者增肌課表">中階者增肌課表</a></span>】</p>
+								</blockquote>
 								<p>&nbsp;</p>
-								<h3 class="has-medium-font-size"><strong><span style="font-size: 14pt;">迷思二、體脂12％以下腹肌才會出來</span></strong></h3>
-								<p><span style="font-size: 12pt;">這句話其實沒錯，因為體脂真的要夠低才會讓你腹肌浮出水面，但這其實很看基因，有些人體脂12%以上腹肌還是很明顯，可能是他腹肌特別大塊或是他脂肪就堆在別的地方。有些人體脂10%了還是沒腹肌，可能是他腹肌特別小塊或是他脂肪就是堆在腹部，那像我本身體脂要到8%才會找到六塊腹肌，而且我上面兩塊很小，所以認真說起來就是四塊。</span></p>
 								<p>&nbsp;</p>
-								<h3 class="has-medium-font-size"><strong><span style="font-size: 14pt;">迷思三、腹肌不對稱可以靠訓練改善</span></strong></h3>
-								<p><span style="font-size: 12pt;">我們不能把腹肌從六塊練成八塊，我們也不能把歪掉的腹肌練成對稱的，他長怎樣主要就是看你天生腱劃長怎樣，但不管是幾塊、不管多歪，我覺得腹肌露出來就是一個字 <strong>帥！</strong></span></p>
-								<p><span style="font-size: 12pt;">那麼，了解了以上三個最常見的問題，其實要有明顯、好看的腹肌就很簡單了。</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
+								<p><strong><span style="font-size: 18pt;">前言</span></strong></p>
+								<p>每個重訓的人都會有一個心中的偶像，而剛開始接觸重訓的新手都會有一個疑問，<span style="color: #b04343;"><strong>為什麼這些巨巨的訓練方式跟自己的差這麼多</strong>？</span></p>
+								<p>不是說深蹲臥推硬舉肩推是很重要的嗎？為什麼都沒有看他們在練這些？為什麼他們一天一個部位就練40組訓練？<a href="https://www.peeta.tw/workout/avoid-overtraining/"><span style="text-decoration: underline;">而你照著練兩個星期就過度訓練</span></a>？</p>
+								<p>這些問題最重要的一個原因，就是我們要找到適合自己階段的訓練方式，才會讓你身材進步飛快。</p>
 								<p>&nbsp;</p>
-								<h2 style="font-size: 24px;"><span style="font-size: 18pt;"><strong>要如何有好看的腹肌？</strong></span></h2>
 								<p>&nbsp;</p>
-								<p><span style="font-size: 14pt;"><strong>1. 飲食控制</strong></span></p>
-								<p><span style="font-size: 12pt;">腹肌是廚房做出來的，這句話大家都聽過。</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">因為體脂越低腹肌就越容易明顯跑出來。</span></p>
+								<h2><strong><span style="font-size: 18pt;">第一，剛接觸健身的新手該怎麼做？</span></strong></h2>
+								<p>在身為健身新手的你演化成健人之前，你對於健身什麼都不懂，<span style="text-decoration: underline;"><a href="https://www.peeta.tw/fitness/">進健身房</a></span>就是去做二頭彎舉跟動作不標準的胸推吧？</p>
+								<p>此時的你有幾個重點要注意：</p>
 								<p>&nbsp;</p>
-								<p><span style="font-size: 14pt;"><strong>2.訓練</strong></span></p>
-								<p><span style="font-size: 12pt;">腹肌長大的關鍵跟其他肌肉差不多，就是漸進性負重增加。</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">不管是訓練量、強度、感受度等等的增肌要領，就是要用在腹肌上讓他長大。</span></p>
-								<p>&nbsp;</p>
-								<p><span style="font-size: 14pt;"><strong>3.避免容易造成腹部脂肪堆積的因素</strong></span></p>
-								<p><span style="font-size: 12pt;">比如說胰島素阻抗、壓力過大讓皮質醇分泌過高、睡眠沒有顧好讓生長激素分泌失調、喝太多酒之類的。</span></p>
-								<p>&nbsp;</p>
-								<h2 style="font-size: 30px;"><span style="font-size: 18pt;"><strong>腹肌的訓練方法</strong></span></h2>
-								<p><span style="font-size: 12pt;">接下來要進入訓練的部分，當然不是每天都把他練爆，還是要分不同的訓練目的。</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
+								<p><span style="font-size: 14pt;"><strong>1. 投入最重要的六個主要動作</strong></span></p>
 								<ul>
-									<li><span style="font-size: 12pt;">首先是腹外斜就是oblique的部分，切割感，看起來就會比較好看。</span></li>
-									<li><span style="font-size: 12pt;">再來就是下腹的部分，雖然很多人說腹直肌就是一條肌肉，不能分上腹跟下腹練，但其實可以靠不同的角度去調整上下的刺激感。</span></li>
-									<li><span style="font-size: 12pt;">腹直肌的厚度，基本上就是讓腹肌看起來更飽滿。</span></li>
+									<li><span style="font-size: 12pt;"><strong>深蹲</strong></span></li>
+									<li><span style="font-size: 12pt;"><strong>硬舉</strong></span></li>
+									<li><span style="font-size: 12pt;"><strong>臥推</strong></span></li>
+									<li><span style="font-size: 12pt;"><strong>划船</strong></span></li>
+									<li><span style="font-size: 12pt;"><strong>肩推</strong></span></li>
+									<li><span style="font-size: 12pt;"><strong>下拉</strong></span></li>
 								</ul>
 								<p>&nbsp;</p>
-								<p><strong>大家可以依照下方的方式去排訓練課表</strong></p>
+								<p>這六個動作是不好學的，<span style="color: #b04343;"><strong>但是基本上只要這六個動作，就可以讓你身材演化的很順利</strong></span>，而且他們成長數值天花板很高</p>
+								<p>所以你不管在哪個階段都用得到他們，在練的同時你也可以觀察是否有肌肉不平衡的地方，剛好可以帶到我們第二個主線任務</p>
+								<p>&nbsp;</p>
+								<p><img alt="健身新手應多專注於訓練六大項" class="alignnone wp-image-1067" height="405" src="https://www.peeta.tw/wp-content/uploads/2018/08/man-2037255_1280-1024x648.jpg" width="640"></p>
+								<p>&nbsp;</p>
+								<p><span style="font-size: 14pt;"><strong>2. 找到肌肉不平衡的地方並且修正它</strong></span></p>
+								<p>比如說你有圓肩、骨盆前傾、駝背之類的，就是要去<span style="color: #b04343;"><strong>放鬆過緊繃的肌群</strong></span>，然後去<span style="color: #b04343;"><strong>強化過度被拉長或是無力的肌群</strong></span>，同時找正常的關節活動度</p>
+								<p>如果你不在這個階段修正好的話，下個階段開始加訓練強度的時候，你的關節就會很容易爆掉。</p>
+								<p>&nbsp;</p>
+								<blockquote>
+									<p>延伸閱讀：<a href="https://www.peeta.tw/workout/round-shoulder/">改善圓肩、駝背，肩關節鬆動術與放鬆</a> 、<a href="https://www.peeta.tw/experience/back-pain/">解決腰痠與肩頸痠痛，滾筒與花生球使用方式</a></p>
+								</blockquote>
+								<p>&nbsp;</p>
+								<p><span style="font-size: 14pt;"><strong>3. 強化核心</strong></span></p>
+								<p>大部分的人核心都挺弱的，把強化核心這個輔助技能點起來的話</p>
+								<p>對身為健身新手的你的主要六大動作以及之後的訓練都會有幫助</p>
+								<p>&nbsp;</p>
+								<p>&nbsp;</p>
+								<h2><strong><span style="font-size: 18pt;">健身新手的每日課表</span></strong></h2>
+								<p>這時健身新手的每日課表流程應該會是：</p>
+								<p><strong>1. 先放鬆伸展</strong></p>
+								<p><strong>2. 挑3個主要動作來練</strong></p>
 								<ul>
-									<li><span style="font-size: 12pt;">Day 1 腹外斜腹內斜的感受度</span></li>
-									<li><span style="font-size: 12pt;">Day 2 下腹的感受度</span></li>
-									<li><span style="font-size: 12pt;">Day 3 腹直肌的厚度</span></li>
+									<li><span style="font-size: 12pt;">一組12~15下做三到四組，然後節奏要慢，離心可以數三秒、等長一秒、向心兩秒，組間休息60~90秒鐘</span></li>
+									<li><span style="font-size: 12pt;">基本上就是用很輕的重量做高次數的訓練，然後重複去練習這些動作來提昇動作熟練度</span></li>
 								</ul>
-								<p><span style="font-size: 12pt;"></span></p>
+								<p><strong>3. 訓練核心以及過弱的肌群</strong></p>
 								<p>&nbsp;</p>
-								<p><span style="font-size: 12pt;">然後就是以上三天循環來練。</span></p>
 								<p>&nbsp;</p>
-								<h3><span style="font-size: 14pt;"><strong>Oblique 感受度訓練</strong></span></h3>
-								<p><strong>1. 先安排充血訓練，讓你感受到正確的出力方式。</strong></p>
-								<p><span style="font-size: 12pt;">屁股大概坐45度在椅子上面，然後把下半身抬起來同時上半身凹下去，想像縮短你骨盆到腋下的距離。</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
+								<p>以研究來看，<span style="color: #b04343;"><strong>對於新手來講，做好這些多關節訓練的增肌效果就很棒了</strong></span>，若是你在這個階段直接用巨巨們的超高訓練量超多單關節動作來做訓練，很有可能會直接過度訓練，甚至對關節造成太多傷害。</p>
+								<p>尤其我們的關節韌帶需要比肌肉更多的時間來適應訓練，所以這個階段請<span style="text-decoration: underline;"><a href="https://www.peeta.tw/workout/hypertrophy-volume/">不要硬衝訓練量也不用衝重量</a></span>，<span style="color: #b04343;"><strong>就乖乖把動作做好就好</strong></span></p>
+								<blockquote>
+									<p>研究來源：<a href="https://www.ncbi.nlm.nih.gov/pubmed/31188644">https://www.ncbi.nlm.nih.gov/pubmed/31188644</a></p>
+								</blockquote>
+								<p>&nbsp;</p>
+								<p><img alt="新手要多訓練核心肌群" class="alignnone wp-image-5803 size-full" height="426" sizes="(max-width: 640px) 100vw, 640px" src="https://www.peeta.tw/wp-content/uploads/2020/04/sport-1685896_640.jpg" srcset="https://www.peeta.tw/wp-content/uploads/2020/04/sport-1685896_640.jpg 640w, https://www.peeta.tw/wp-content/uploads/2020/04/sport-1685896_640-300x200.jpg 300w, https://www.peeta.tw/wp-content/uploads/2020/04/sport-1685896_640-600x399.jpg 600w" width="640"></p>
+								<p>&nbsp;</p>
+								<p>&nbsp;</p>
+								<h2><span style="font-size: 18pt;"><strong>新手們的第二階段</strong></span></h2>
+								<p>新手經過了大約3~6個月的訓練，應該已經開始體會到健身帶給你的幫助，你也開始慢慢接近心中的那個目標。</p>
+								<p>如果你在初心者階段有認真把六大技能學熟的話，這時主線任務很簡單：</p>
+								<p>&nbsp;</p>
+								<p><span style="font-size: 14pt;"><strong>第一、繼續把六大動作練好</strong></span></p>
+								<p><span style="color: #b04343;"><strong>漸進性的把訓練量跟強度增加</strong></span>，這邊的強度指的是重量，然後動作次數可以慢慢調低</p>
+								<p>在<span style="color: #b04343;"><strong>可以控制的範圍下慢慢增加強度</strong></span>，這樣練的話你的肌肉量會進步的更快</p>
+								<p>&nbsp;</p>
+								<p><strong><span style="font-size: 14pt;">第二、分配時間去訓練輔助動作</span></strong></p>
+								<p>多安排1~3個輔助動作<span style="color: #b04343;"><strong>去增加訓練量</strong></span>，也可以讓線條更明顯</p>
+								<p>但假如你想要轉職成力士的職業的話，那訓練方式就會不太一樣了</p>
+								<p>&nbsp;</p>
+								<p><img alt="健身新手到一定程度後，可以安排輔助動作的訓練" class="alignnone wp-image-5804 size-full" height="427" sizes="(max-width: 640px) 100vw, 640px" src="https://www.peeta.tw/wp-content/uploads/2020/04/sport-4765008_640.jpg" srcset="https://www.peeta.tw/wp-content/uploads/2020/04/sport-4765008_640.jpg 640w, https://www.peeta.tw/wp-content/uploads/2020/04/sport-4765008_640-300x200.jpg 300w, https://www.peeta.tw/wp-content/uploads/2020/04/sport-4765008_640-600x400.jpg 600w" width="640"></p>
+								<p>&nbsp;</p>
+								<h3><strong><span style="font-size: 18pt;">第二階段時，健身新手的每日課表</span></strong></h3>
+								<p><span style="font-size: 12pt;"><strong>1. 動態暖身</strong></span></p>
+								<p><span style="font-size: 12pt;"><strong>2. 肌肉充血訓練</strong></span></p>
+								<p><span style="font-size: 12pt;"><strong>2. 主要動作用較高強度的重量做完</strong></span></p>
+								<p>建議是一組大約6~10下的強度，挑1~3個輔助動作，一組大約8~12下的強度</p>
+								<p>一個部位一星期大約可以從15~20組開始，然後慢慢增加上去</p>
+								<p>有些人會很想要做更多的組數，但其實研究上來講訓練1~2年的人，一個部位一週練個20組就效果很棒了</p>
+								<p>&nbsp;</p>
+								<blockquote>
+									<p>當然你要練更多我也阻止不了你，就怕你過度訓練而已</p>
+								</blockquote>
+								<p>&nbsp;</p>
+								<p>&nbsp;</p>
+								<h2><strong><span style="font-size: 18pt;">新手第三階段：成為筋肉人</span></strong></h2>
+								<p>如果很認真練，然後有做到<a href="https://www.peeta.tw/workout/hypertrophy/"><span style="text-decoration: underline;">漸進性負重增加</span></a>的話，你的肌肉量應該會進步的很可觀</p>
+								<p>以FFMI來講的話，<span style="color: #b04343;"><strong>男性至少22</strong></span>，<span style="color: #b04343;"><strong>女性至少19</strong></span></p>
+								<p>這時就算不穿無袖的衣服，大家也會知道你有在重訓，<del>如果你剛好長得很帥很美，甚至可以有機會轉職成小網紅</del></p>
+								<blockquote>
+									<p>延伸閱讀：<a href="https://www.peeta.tw/workout/ffmi-calculator/">FFMI計算機，幫助你找到自身的肌肉等級</a></p>
+								</blockquote>
+								<p>&nbsp;</p>
+								<p>經過了長時間的訓練，除非你當初是轉職成力士的職業，不然負重上面會比較難再進步下去，但是此時<a href="https://www.peeta.tw/workout/hypertrophy-volume/"><span style="text-decoration: underline;">身體能承受的訓練量</span></a>已經進步許多，所以這時的主線任務主要是把訓練量繼續拉高，我們可以在<span style="color: #b04343;"><strong>輔助訓練中加入一些進階的技能來拉高訓練量</strong></span></p>
+								<p>&nbsp;</p>
 								<ul>
-									<li><span style="font-size: 12pt;">左右各做個12下為一組</span></li>
-									<li><span style="font-size: 12pt;">總共做個3~4組</span></li>
+									<li><span style="color: #b04343;"><strong>遞減組</strong></span></li>
+									<li><span style="color: #b04343;"><strong>複合組</strong></span></li>
+									<li><span style="color: #b04343;"><strong>巨大組</strong></span></li>
+									<li><span style="color: #b04343;"><strong>超級組</strong></span></li>
 								</ul>
 								<p>&nbsp;</p>
-								<p><strong>2.主要訓練</strong></p>
-								<p><span style="font-size: 12pt;">我自己會做懸吊側抬腿，先用你的雙手抓住單槓，肚子微凹讓你感受到整個腹肌已經在出力，屁股轉45度，接著手出力握緊單槓讓腋下夾緊的感覺，然後用力把屁股舉起來，想像用你的屁股去碰到手肘的感覺，一開始可以不用舉的特別高，主要就是抓到正確的出力感就好</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
+								<p>上方這四個都是很不錯的進階訓練技巧，這種訓練方式可以不會花太多時間來提高訓練量，也會<strong><span style="color: #b04343;">讓肌肉看起來更加的飽滿</span>，</strong>同時因為你的肌肉量已經足夠，所以粗度都不會差到哪裡</p>
+								<p>但是可以找出弱點或是平時較難刺激到的地方，用不同的角度來訓練以提升線條的細膩度，像我本身會特別加強中斜方，還有三頭外側、跟中後三角。</p>
+								<p>&nbsp;</p>
+								<h3><span style="font-size: 18pt;"><strong>第三階段的訓練課表：</strong></span></h3>
 								<ul>
-									<li><span style="font-size: 12pt;">做一組8下</span></li>
-									<li><span style="font-size: 12pt;">總共3~4組</span></li>
-								</ul>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">大部分的人一開始做這個動作會覺得，哇 手很有感覺，我會建議繼續練下去，之後就會習慣，然後就會變成腹部很有感。那假如手真的握不住可以試試看躺著做，抓著一個東西會比較好出力，看你是要抓著史密斯，抓著別人的腳還是任何東西都可以，作法一樣是想像縮短屁股到腋下的距離。</span></p>
-								<p>&nbsp;</p>
-								<h3><span style="font-size: 18pt;"><strong>下腹肌的感受度訓練</strong></span></h3>
-								<p><span style="font-size: 14pt;"><strong>1. 充血訓練</strong></span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">坐在椅子上之後一樣用你的雙手把椅子抓緊，然後把你的下半身捲起來，做這動作的時候上半身就盡量不要出太多力，這樣子可以感受比較多下腹在主動被刺激。</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 14pt;"><strong>2.懸吊台腿</strong></span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">這動作其實很多人都會做，但我以前怎麼做都是沒有感受，所以練起來沒什麼效，之後我抓到幾個訣竅，首先就是氣可以先吐掉讓肚子出力，然後把屁股整個捲起來，不要只抬腿而已，離心的時候不要整個放掉不然會晃來晃去。</span></p>
-								<ul>
-									<li>一組做個8~10下</li>
-									<li>總共做4組</li>
+									<li>建議是一組大約6~10下的強度</li>
+									<li>挑1~3個輔助動作一組大約8~12下的強度</li>
+									<li>使用複合組、超級組、巨大組之類的來增加訓練量</li>
+									<li>加上1~3個針對弱點的訓練大約一組12~15下</li>
 								</ul>
 								<p>&nbsp;</p>
-								<h3><span style="font-size: 18pt;"><strong>腹肌厚度的提升訓練</strong></span></h3>
-								<p><span style="font-size: 12pt;">一樣是坐著來訓練，這次腳會夾著啞鈴來提升負重，然後除了下半身捲起來之外，上半身也會跟著捲，讓整個人縮在一起，我們做4組10～12下。這個動作我覺得很棒，而且到處都可以做，只要你有椅子，有腳可以夾著的東西當重量，就可以做！對整體腹肌的漸進性進步會很有效。</span></p>
+								<p>練到這個階段其實已經沒有科學文獻可以教你怎麼練</p>
+								<p>因為科學研究比較難找到練很久的人，所以大部分的訓練都是靠經驗，一個星期訓練量要多少也是看個人修復能力</p>
+								<p>有人一星期一個部位可以練40組；不代表你一星期練到40組不會過度訓練</p>
+								<p>但我相信你練到這個階段應該很會觀察自己的狀態且脫離健身新手這個稱號了</p>
 								<p>&nbsp;</p>
-								<p><span style="font-size: 18pt;"><strong>額外補充：沖天炮</strong></span></p>
-								<p><span style="font-size: 12pt;">懸吊在單槓上面，手先出力抓緊握把，腹部先微微捲起來收緊，然後把屁股隨著腳抬起來，讓屁股給他捲起來，最後整個腳都衝到天花板上，這樣腹部可以收到最緊。最後大概都是做4組8下，非常有感覺很建議大家可以來練練看。如果你一樣是有握力的問題可以用握力帶，如果覺得還是太吃力就先躺著做，一樣是把腿衝到天花板上。</span></p>
+								<blockquote>
+									<p>延伸閱讀：<a href="https://www.peeta.tw/workout/hypertrophy/" rel="bookmark" title="增肌（肌肥大）重訓課表安排大全">增肌（肌肥大）重訓課表安排大全</a></p>
+								</blockquote>
 								<p>&nbsp;</p>
-								<h4 style="font-size: 30px;"><strong><span style="font-size: 18pt;">結論</span></strong></h4>
-								<p><span style="font-size: 12pt;">抓到各個部位的感受度之後，下個階段就可以開始增加強度跟訓練量，讓腹肌看起來更加厚實。</span></p>
-								<p><span style="font-size: 12pt;"></span></p>
-								<p><span style="font-size: 12pt;">之後如果有什麼新的棒的訓練技巧再分享給大家，最後就希望這篇文章對大家有幫助，我們就煆雌仔間，寫些打家，打家擺掰。</span></p>
+								<p><img alt="" class="alignnone wp-image-5522" height="439" sizes="(max-width: 640px) 100vw, 640px" src="https://www.peeta.tw/wp-content/uploads/2020/04/peeta-with-TJ-1024x702.jpg" srcset="https://www.peeta.tw/wp-content/uploads/2020/04/peeta-with-TJ-1024x702.jpg 1024w, https://www.peeta.tw/wp-content/uploads/2020/04/peeta-with-TJ-300x206.jpg 300w, https://www.peeta.tw/wp-content/uploads/2020/04/peeta-with-TJ-768x526.jpg 768w, https://www.peeta.tw/wp-content/uploads/2020/04/peeta-with-TJ-600x411.jpg 600w, https://www.peeta.tw/wp-content/uploads/2020/04/peeta-with-TJ.jpg 1185w" width="640"></p>
+								<p>&nbsp;</p>
+								<p><span style="font-size: 18pt;"><strong>第四階段：健神</strong></span></p>
+								<p>這個階段已經是很少凡人可以達到的階段了，他們通常已經對自己的身體了解到非常的透徹了，知道最適合自己的訓練方式</p>
+								<p>所以不同的高手你會看到不一樣的訓練方式，沒有一種是最好的</p>
+								<p>&nbsp;</p>
+								<p>&nbsp;</p>
+								<h4><strong><span style="font-size: 18pt;">結語</span></strong></h4>
+								<p>健身其實就像是在玩遊戲一樣，<span style="color: #b04343;"><strong>越級打怪可能會直接造成身心靈傷害</strong></span></p>
+								<p>健身新手或是初心者就是要把主要技能學好，讓身體適應；進階者就把訓練強度慢慢增加，把肌肉量衝高高</p>
+								<p>一開始就硬把訓練量衝的跟高手一樣高，等於就像你才30等然後在那邊打70等雪吉拉，很容易就會爆掉</p>
+								<p>一開始就是照著主線任務走你會升等很快，到最後練越久等級提升雖然會越來越慢，但你也會發展出自己專屬的技能，然後逐漸的強大</p>
+								<p>&nbsp;</p>
+								<p>最後就希望這篇關於健身新手的文章對大家有幫助</p>
+								<p>我們就煆雌仔見</p>
+								<p>寫些打家，大家百掰</p>

@@ -337,6 +337,54 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a9.setViews(0);
                 articleRespository.save(a9);
 
+                Path text10 = Paths.get("src/main/resources/static/img/article/article10.txt");
+                String content10 = Files.readString(text10);
+                byte[] article10 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article10.png"));
+                Article a10 = new Article();
+                a10.setTitle("健身新手該怎麼開始訓練？");
+                a10.setText(content10);
+                a10.setPicture(article10);
+                a10.setType("運動教學");
+                a10.setViews(0);
+                articleRespository.save(a10);
+
+                Path text11 = Paths.get("src/main/resources/static/img/article/article11.txt");
+                String content11 = Files.readString(text11);
+                byte[] article11 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article11.png"));
+                Article a11 = new Article();
+                a11.setTitle("十二星座減肥運勢~水象星座");
+                a11.setText(content11);
+                a11.setPicture(article11);
+                a11.setType("減重知識");
+                a11.setViews(0);
+                articleRespository.save(a11);
+
+                Path text12 = Paths.get("src/main/resources/static/img/article/article12.txt");
+                String content12 = Files.readString(text12);
+                byte[] article12 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article12.png"));
+                Article a12 = new Article();
+                a12.setTitle("腹肌常見的迷思與必備訓練");
+                a12.setText(content12);
+                a12.setPicture(article12);
+                a12.setType("減重知識");
+                a12.setViews(0);
+                articleRespository.save(a12);
+
+                Path text13 = Paths.get("src/main/resources/static/img/article/article13.txt");
+                String content13 = Files.readString(text13);
+                byte[] article13 = Files
+                                .readAllBytes(Paths.get("src/main/resources/static/img/article/article13.png"));
+                Article a13 = new Article();
+                a13.setTitle("腹肌常見的迷思與必備訓練");
+                a13.setText(content13);
+                a13.setPicture(article13);
+                a13.setType("減重知識");
+                a13.setViews(0);
+                articleRespository.save(a13);
+
                 // 產品
                 Product product = new Product();
                 product.setTitle("雙速咖啡因雙層錠");

@@ -149,9 +149,7 @@
           "http://localhost:8082/public/api/video/fuzzySearch",
           { likeTest: `${fuzzySearch.value}` },
           (result) => {
-            fuzzySearchend.innerHTML = "";
-            var str;
-
+            var str = "";
             str += `<div class="row row-cols-1 row-cols-md-2 g-4">`;
             result.forEach((el) => {
               str += `<tr>

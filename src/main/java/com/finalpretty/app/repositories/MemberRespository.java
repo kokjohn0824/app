@@ -29,6 +29,20 @@ public interface MemberRespository extends JpaRepository<Member, Integer> {
             @Param("becomeVIP") Integer becomeVIP,
             @Param("photo") byte[] photo);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update member set nickname=:nickname, gender=:gender, age=:age, height=:height, weight=:weight, bodyFat=:bodyFat, visceralFat=:visceralFat, muscleMass=:muscleMass, becomeVIP=:becomeVIP where member_id=:member_id", nativeQuery = true)
+    void updateById(@Param("member_id") Integer member_id,
+            @Param("nickname") String nickname,
+            @Param("gender") Integer gender,
+            @Param("age") Integer age,
+            @Param("height") double height,
+            @Param("weight") double weight,
+            @Param("bodyFat") double bodyFat,
+            @Param("visceralFat") double visceralFat,
+            @Param("muscleMass") double muscleMass,
+            @Param("becomeVIP") Integer becomeVIP);
+
     // 前台找ID
     @Transactional
     @Modifying

@@ -212,11 +212,12 @@
         background: url("[[@{/img/icon/bin-hover.svg}]]") no-repeat;
       }
     </style>
-  </head>
-  <body>
-    <!-- 商品選取照片預覽 -->
     <script defer th:src="@{/js/hello.js}"></script>
     <script defer th:src="@{/js/panel.js}"></script>
+  </head>
+  <body>
+    <div th:replace="component/chatbubble"></div>
+    <!-- 商品選取照片預覽 -->
 
     <!-- 商品選取照片預覽 -->
     <div class="d-flex">

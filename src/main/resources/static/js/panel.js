@@ -36,6 +36,7 @@ const articleshow = () => {
   setTimeout(() => {
     getdata(showAllurl, (result) => {
       //make a copy of data
+      tableData = result;
       [...initialTableData] = [...result];
       jsonToHTMLbyQforarticle("#table", result);
       document.querySelector("#table").style.opacity = 1;
@@ -44,151 +45,153 @@ const articleshow = () => {
       let editorcontent;
 
       //修改文章搜尋
-      $("button[name='editarticle']").click((e) => {
-        $(".modal-content").html(`<div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">文章修改</h5>
-              <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              ></button>
-            </div>
-            <form id="myForm">
-              <div class="modal-body">
-              <div class="mb-3">
-              <label for="recipient-title" class="col-form-label"
-              >文章標題:</label
-              >
-              <input
-              name="title"
-              type="text"
-                    class="form-control"
-                    id="article-title"
-                    value=""
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                文章種類:<select id="type">
-                <option>減重知識</option>
-                <option>運動教學</option>
-                    <option>飲食營養</option>
-                    <option>心得分享</option>
-                  </select>
-                  </div>
-                  <div id="textareacontainer" class="mb-3"></div>
-                  <div class="mb-3">
-                  <label for="inputFileToLoad" class="col-form-label"
-                  >文章圖片:</label
-                  >
-                  <input
-                  id="inputFileToLoad"
-                  type="file"
-                  name="file"
-                  onchange="loadImageFileAsURL()"
-                  class="file-upload-default"
-                  />
-                  </div>
-                  <div class="mb-3">
-                  <img
-                  id="preview_img"
-                  src="#"
-                  style="
-                  height: 300px;
-                  width: 300px;
-                  border-radius: 60px 60px 60px 60px;
-                  margin-left: 30px;
-                  "
-                  />
-                  <input id="article_id" name="article_id" value="" hidden />
-                  </div>
-                  </div>
-                  <div class="modal-footer">
-                  <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                  >
-                  Close
-                  </button>
-                  <button id="editar" type="submit" class="btn btn-primary">
-                  Send
-                  </button>
-                  </div>
-                  </form>`);
-        const textareacontainer = document.getElementById("textareacontainer");
-        textareacontainer.innerHTML = "";
-        textareacontainer.innerHTML = `<label for="message-editor" class="col-form-label"
-            >文章內文:</label
-          ><textarea id="editor"></textarea>`;
-        getdata(
-          "http://localhost:8082/article/edit?article_id=" +
-            $(e.target).attr("id"),
-          (result) => {
-            $("#article-title").attr("value", result.標題);
-
-            ClassicEditor.create(document.querySelector("#editor"), {
-              extraPlugins: [MyCustomUploadAdapterPlugin],
-            })
-              .then((editor) => {
-                editorcontent = editor;
-                editor.setData(result.內文);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-            $("#preview_img").attr(
-              "src",
-              `/public/showArticleImage/${result.ID}`
-            );
-            $("#article_id").attr("value", result.ID);
-          }
-        );
-
-        //修改文章
-        $("#editar").click((e) => {
-          e.preventDefault();
-          imag();
-          var datas = new FormData();
-          datas.append("article_id", $("#article_id").val());
-          datas.append("title", $("#article-title").val());
-          datas.append("text", editorcontent.getData());
-          datas.append("type", $("#type option:selected").val());
-          datas.append("file", $("#inputFileToLoad")[0].files[0]);
-          $(".modal-content").html("");
-          postdatas(
-            "http://localhost:8082/admin/api/article/edit",
-            datas,
-            (result) => {
-              if (result == true) {
-                articleshow();
-                alert("更新成功");
-              }
-            }
-          );
-        });
-      });
-
+      searcharticleeventhandler();
       //刪除文章
-      $(".btn-icon-delete").click((e) => {
-        if (confirm("確定刪除嗎?") == true) {
-          getdata(
-            "http://localhost:8082/admin/api/article/delete?article_id=" +
-              $(e.target).attr("id"),
-            (result) => {
-              if (result == true) {
-                alert("已刪除");
-                articleshow();
-              } else {
-                alert("文章有人收藏不能刪");
-              }
-            }
-          );
-        }
-      });
+      deletearticleeventhandler();
     });
   }, 300);
+};
+
+const searcharticleeventhandler = () => {
+  $("button[name='editarticle']").click((e) => {
+    $(".modal-content").html(`<div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">文章修改</h5>
+          <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          ></button>
+        </div>
+        <form id="myForm">
+          <div class="modal-body">
+          <div class="mb-3">
+          <label for="recipient-title" class="col-form-label"
+          >文章標題:</label
+          >
+          <input
+          name="title"
+          type="text"
+                class="form-control"
+                id="article-title"
+                value=""
+                required
+              />
+            </div>
+            <div class="mb-3">
+            文章種類:<select id="type">
+            <option>減重知識</option>
+            <option>運動教學</option>
+                <option>飲食營養</option>
+                <option>心得分享</option>
+              </select>
+              </div>
+              <div id="textareacontainer" class="mb-3"></div>
+              <div class="mb-3">
+              <label for="inputFileToLoad" class="col-form-label"
+              >文章圖片:</label
+              >
+              <input
+              id="inputFileToLoad"
+              type="file"
+              name="file"
+              onchange="loadImageFileAsURL()"
+              class="file-upload-default"
+              />
+              </div>
+              <div class="mb-3">
+              <img
+              id="preview_img"
+              src="#"
+              style="
+              height: 300px;
+              width: 300px;
+              border-radius: 60px 60px 60px 60px;
+              margin-left: 30px;
+              "
+              />
+              <input id="article_id" name="article_id" value="" hidden />
+              </div>
+              </div>
+              <div class="modal-footer">
+              <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              >
+              Close
+              </button>
+              <button id="editar" type="submit" class="btn btn-primary">
+              Send
+              </button>
+              </div>
+              </form>`);
+    const textareacontainer = document.getElementById("textareacontainer");
+    textareacontainer.innerHTML = "";
+    textareacontainer.innerHTML = `<label for="message-editor" class="col-form-label"
+        >文章內文:</label
+      ><textarea id="editor"></textarea>`;
+    getdata(
+      "http://localhost:8082/article/edit?article_id=" + $(e.target).attr("id"),
+      (result) => {
+        $("#article-title").attr("value", result.標題);
+
+        ClassicEditor.create(document.querySelector("#editor"), {
+          extraPlugins: [MyCustomUploadAdapterPlugin],
+        })
+          .then((editor) => {
+            editorcontent = editor;
+            editor.setData(result.內文);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+        $("#preview_img").attr("src", `/public/showArticleImage/${result.ID}`);
+        $("#article_id").attr("value", result.ID);
+      }
+    );
+
+    //修改文章
+    $("#editar").click((e) => {
+      e.preventDefault();
+      imag();
+      var datas = new FormData();
+      datas.append("article_id", $("#article_id").val());
+      datas.append("title", $("#article-title").val());
+      datas.append("text", editorcontent.getData());
+      datas.append("type", $("#type option:selected").val());
+      datas.append("file", $("#inputFileToLoad")[0].files[0]);
+      $(".modal-content").html("");
+      postdatas(
+        "http://localhost:8082/admin/api/article/edit",
+        datas,
+        (result) => {
+          if (result == true) {
+            articleshow();
+            alert("更新成功");
+          }
+        }
+      );
+    });
+  });
+};
+const deletearticleeventhandler = () => {
+  $(".btn-icon-delete").click((e) => {
+    if (confirm("確定刪除嗎?") == true) {
+      getdata(
+        "http://localhost:8082/admin/api/article/delete?article_id=" +
+          $(e.target).attr("id"),
+        (result) => {
+          if (result == true) {
+            alert("已刪除");
+            articleshow();
+          } else {
+            alert("文章有人收藏不能刪");
+          }
+        }
+      );
+    }
+  });
 };
 
 ///////文章管理//////////////////
@@ -350,6 +353,7 @@ const addarticle = (e) => {
 // 模糊搜尋觸發
 
 searchinput.addEventListener("change", () => {
+  console.log("hi");
   switch (searchinput.dataset.searchtype) {
     case "articlesearch":
       articlesearch();
@@ -380,6 +384,8 @@ const articlesearch = () => {
     document.getElementById("searchinput").value
   );
   jsonToHTMLbyQforarticle("#table", result ? result : []);
+  searcharticleeventhandler();
+  deletearticleeventhandler();
 };
 
 const productsearch = () => {
@@ -393,6 +399,9 @@ const productsearch = () => {
     document.getElementById("searchinput").value
   );
   jsonToHTMLbyProduct("#table", result ? result : []);
+  productlaunchhandler();
+  productedithandler();
+  productdeletehandler();
 };
 
 const membersearch = () => {
@@ -524,240 +533,250 @@ const productshow = () => {
       document.querySelector("#table").style.opacity = 1;
       imag();
       //商品上下架
-      $("button[name='onsale']").click(
-        (updateOnsale = (e) => {
-          var myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
-          var id = $(e.target).attr("id");
-          var onsale = $(`span[name="${id}"]`).attr("id");
-          var requestOptions = {
-            method: "POST",
-            headers: myHeaders,
-            redirect: "follow",
-          };
+      productlaunchhandler();
+      productedithandler();
+      productdeletehandler();
+    });
+  }, 300);
+};
 
-          fetch(
-            `http://localhost:8082/admin/api/changeOnsale/${id}/${onsale}`,
-            requestOptions
-          )
-            .then((response) => response.json())
-            .then((result) => {
-              if (result.onsale == 1) {
-                $(`span[name="${$(e.target).attr("id")}"]`)
-                  .attr("id", result.onsale)
-                  .attr("style", "color:green")
-                  .text("販售中");
-              } else {
-                $(`span[name="${$(e.target).attr("id")}"]`)
-                  .attr("id", result.onsale)
-                  .attr("style", "color:red")
-                  .text("下架中");
-              }
-            })
-            .catch((error) => console.error("error", error));
+const productlaunchhandler = () => {
+  $("button[name='onsale']").click(
+    (updateOnsale = (e) => {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      var id = $(e.target).attr("id");
+      var onsale = $(`span[name="${id}"]`).attr("id");
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+
+      fetch(
+        `http://localhost:8082/admin/api/changeOnsale/${id}/${onsale}`,
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.onsale == 1) {
+            $(`span[name="${$(e.target).attr("id")}"]`)
+              .attr("id", result.onsale)
+              .attr("style", "color:green")
+              .text("販售中");
+          } else {
+            $(`span[name="${$(e.target).attr("id")}"]`)
+              .attr("id", result.onsale)
+              .attr("style", "color:red")
+              .text("下架中");
+          }
         })
-      );
+        .catch((error) => console.error("error", error));
+    })
+  );
+};
 
-      $("button[name='checkboxone']").click((e) => {
-        $(".modal-content").html(`<div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">商品修改</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+const productedithandler = () => {
+  $("button[name='checkboxone']").click((e) => {
+    $(".modal-content").html(`<div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">商品修改</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form id="myForm">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="recipient-title" class="col-form-label"
+                >商品名稱:</label
+              >
+              <input
+                name="title"
+                type="text"
+                class="form-control"
+                id="recipient-title"
+                value=""
+                required
+              />
             </div>
-            <form id="myForm">
-              <div class="modal-body">
-                <div class="mb-3">
-                  <label for="recipient-title" class="col-form-label"
-                    >商品名稱:</label
-                  >
-                  <input
-                    name="title"
-                    type="text"
-                    class="form-control"
-                    id="recipient-title"
-                    value=""
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="message-price" class="col-form-label"
-                    >商品價格:</label
-                  >
-                  <input
-                    name="price"
-                    type="number"
-                    min="0"
-                    class="form-control"
-                    id="recipient-price"
-                    value=""
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="message-stock" class="col-form-label"
-                    >商品庫存:</label
-                  >
-                  <input
-                    name="stock"
-                    type="number"
-                    class="form-control"
-                    id="recipient-stock"
-                    value=""
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label"
-                    >商品簡介:</label
-                  >
-                  <textarea
-                    name="text"
-                    class="form-control"
-                    id="recipient-text"
-                    required
-                  ></textarea>
-                </div>
-                <div class="mb-3">
-                  商品種類:<select id="type">
-                    <option>運動食品</option>
-                    <option>運動用品</option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="inputFileToLoad" class="col-form-label"
-                    >商品圖片:</label
-                  >
-                  <input
-                    id="inputFileToLoad"
-                    type="file"
-                    name="file"
-                    onchange="loadImageFileAsURL()"
-                    class="file-upload-default"
-                  />
-                </div>
-                <div class="mb-3">
-                  <img
-                    id="preview_img"
-                    th:src="@{#}"
-                    style="
-                      height: 300px;
-                      width: 300px;
-                      border-radius: 60px 60px 60px 60px;
-                      margin-left: 30px;
-                    "
-                  />
-                  <input id="onsale" name="onsale" value="" hidden />
-                  <input id="product_id" name="product_id" value="" hidden />
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button id="send" type="submit" class="btn btn-primary">
-                  Send
-                </button>
-              </div>
-            </form>`);
+            <div class="mb-3">
+              <label for="message-price" class="col-form-label"
+                >商品價格:</label
+              >
+              <input
+                name="price"
+                type="number"
+                min="0"
+                class="form-control"
+                id="recipient-price"
+                value=""
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="message-stock" class="col-form-label"
+                >商品庫存:</label
+              >
+              <input
+                name="stock"
+                type="number"
+                class="form-control"
+                id="recipient-stock"
+                value=""
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label"
+                >商品簡介:</label
+              >
+              <textarea
+                name="text"
+                class="form-control"
+                id="recipient-text"
+                required
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              商品種類:<select id="type">
+                <option>運動食品</option>
+                <option>運動用品</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="inputFileToLoad" class="col-form-label"
+                >商品圖片:</label
+              >
+              <input
+                id="inputFileToLoad"
+                type="file"
+                name="file"
+                onchange="loadImageFileAsURL()"
+                class="file-upload-default"
+              />
+            </div>
+            <div class="mb-3">
+              <img
+                id="preview_img"
+                th:src="@{#}"
+                style="
+                  height: 300px;
+                  width: 300px;
+                  border-radius: 60px 60px 60px 60px;
+                  margin-left: 30px;
+                "
+              />
+              <input id="onsale" name="onsale" value="" hidden />
+              <input id="product_id" name="product_id" value="" hidden />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="send" type="submit" class="btn btn-primary">
+              Send
+            </button>
+          </div>
+        </form>`);
 
-        var product_id = $(e.target).attr("id");
+    var product_id = $(e.target).attr("id");
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    fetch(
+      "http://localhost:8082/admin/updateProduct?product_id=" + product_id,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        $("#recipient-title").attr("value", result.title);
+        $("#recipient-price").attr("value", result.price);
+        $("#recipient-stock").attr("value", result.stock);
+        $("#recipient-text").text(result.text);
+        $("#onsale").attr("value", result.onsale);
+        $("#product_id").attr("value", result.product_id);
+        $("#preview_img").attr(
+          "src",
+          "/admin/downloadImage/" + result.product_id
+        );
+      })
+      .catch((error) => console.error("error", error));
+
+    $("#send").click((e) => {
+      e.preventDefault();
+      var datas = new FormData();
+      datas.append("product_id", $("#product_id").val());
+      datas.append("title", $("#recipient-title").val());
+      datas.append("price", $("#recipient-price").val());
+      datas.append("stock", $("#recipient-stock").val());
+      datas.append("text", $("#recipient-text").val());
+      datas.append("type", $("#type option:selected").text());
+      datas.append("onsale", $("input[name='onsale']").val());
+      datas.append("file", $("#inputFileToLoad")[0].files[0]);
+
+      var requestOptions = {
+        method: "POST",
+        body: datas,
+        redirect: "follow",
+      };
+      $(".modal-content").html("");
+
+      fetch("http://localhost:8082/admin/api/updateProduct", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result == true) {
+            productshow();
+            alert("更新成功");
+          } else {
+            productshow();
+            alert("更新失敗");
+          }
+        })
+        .catch((error) => console.error("error", error));
+    });
+  });
+};
+
+const productdeletehandler = () => {
+  $("button[name='deletebox']").click(
+    (deleteproduct = (e) => {
+      if (confirm("確定刪除嗎?") == true) {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
         var requestOptions = {
           method: "GET",
+          headers: myHeaders,
           redirect: "follow",
         };
+
         fetch(
-          "http://localhost:8082/admin/updateProduct?product_id=" + product_id,
+          "http://localhost:8082/public/api/deleteProduct?product_id=" +
+            $(e.target).attr("id"),
           requestOptions
         )
           .then((response) => response.json())
           .then((result) => {
-            $("#recipient-title").attr("value", result.title);
-            $("#recipient-price").attr("value", result.price);
-            $("#recipient-stock").attr("value", result.stock);
-            $("#recipient-text").text(result.text);
-            $("#onsale").attr("value", result.onsale);
-            $("#product_id").attr("value", result.product_id);
-            $("#preview_img").attr(
-              "src",
-              "/admin/downloadImage/" + result.product_id
-            );
+            if (result) {
+              productshow();
+            } else {
+              alert("訂單中有此商品故不可刪除");
+              productshow();
+            }
           })
           .catch((error) => console.error("error", error));
-
-        $("#send").click((e) => {
-          e.preventDefault();
-          var datas = new FormData();
-          datas.append("product_id", $("#product_id").val());
-          datas.append("title", $("#recipient-title").val());
-          datas.append("price", $("#recipient-price").val());
-          datas.append("stock", $("#recipient-stock").val());
-          datas.append("text", $("#recipient-text").val());
-          datas.append("type", $("#type option:selected").text());
-          datas.append("onsale", $("input[name='onsale']").val());
-          datas.append("file", $("#inputFileToLoad")[0].files[0]);
-
-          var requestOptions = {
-            method: "POST",
-            body: datas,
-            redirect: "follow",
-          };
-          $(".modal-content").html("");
-
-          fetch("http://localhost:8082/admin/api/updateProduct", requestOptions)
-            .then((response) => response.json())
-            .then((result) => {
-              if (result == true) {
-                productshow();
-                alert("更新成功");
-              } else {
-                productshow();
-                alert("更新失敗");
-              }
-            })
-            .catch((error) => console.error("error", error));
-        });
-      });
-
-      $("button[name='deletebox']").click(
-        (deleteproduct = (e) => {
-          if (confirm("確定刪除嗎?") == true) {
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            var requestOptions = {
-              method: "GET",
-              headers: myHeaders,
-              redirect: "follow",
-            };
-
-            fetch(
-              "http://localhost:8082/public/api/deleteProduct?product_id=" +
-                $(e.target).attr("id"),
-              requestOptions
-            )
-              .then((response) => response.json())
-              .then((result) => {
-                if (result) {
-                  productshow();
-                } else {
-                  alert("訂單中有此商品故不可刪除");
-                  productshow();
-                }
-              })
-              .catch((error) => console.error("error", error));
-          }
-        })
-      );
-    });
-  }, 300);
+      }
+    })
+  );
 };
 
 const addproduct = () => {
@@ -1475,35 +1494,33 @@ const videoshow = () => {
             $("#video_id").val(result.ID);
           }
         );
-
-        $("#editvideo").click((e) => {
-          e.preventDefault();
-          var datas = new FormData();
-          datas.append("video_id", $("#video_id").val());
-          datas.append("title", $("#recipient-title").val());
-          datas.append("type", $("select[name='type'] option:selected").text());
-          datas.append(
-            "body_parts",
-            $("select[name='body_parts'] option:selected").text()
-          );
-          datas.append("file", $("#inputFileToLoad")[0].files[0]);
-          $(".modal-content").html("");
-          postdatas(
-            "http://localhost:8082/admin/api/video/edit",
-            datas,
-            (result) => {
-              if (result == true) {
-                alert("已更新");
-                videoshow();
-              }
-            }
-          );
-        });
+        videoedithandler();
       });
     });
   }, 300);
 };
 
+const videoedithandler = () => {
+  $("#editvideo").click((e) => {
+    e.preventDefault();
+    var datas = new FormData();
+    datas.append("video_id", $("#video_id").val());
+    datas.append("title", $("#recipient-title").val());
+    datas.append("type", $("select[name='type'] option:selected").text());
+    datas.append(
+      "body_parts",
+      $("select[name='body_parts'] option:selected").text()
+    );
+    datas.append("file", $("#inputFileToLoad")[0].files[0]);
+    $(".modal-content").html("");
+    postdatas("http://localhost:8082/admin/api/video/edit", datas, (result) => {
+      if (result == true) {
+        alert("已更新");
+        videoshow();
+      }
+    });
+  });
+};
 ///////影片管理//////////////////
 
 //訂單管理
@@ -1615,38 +1632,40 @@ const ordershow = () => {
           </button>
         </div>`);
 
-      $(".btn-primary").click((e) => {
-        getdata(
-          `http://localhost:8082/public/findByFKOrderId/${$(e.target).attr(
-            "id"
-          )}`,
-          (result) => {
-            var string;
-            console.log(result);
-            for (let i of result) {
-              string += "<tr><td>" + i.product_name + "</td>";
-              string += "<td>" + i.count + "</td>";
-              string += "<td>" + i.total + "</td></tr>";
-            }
-            $("#tb2").html(string);
-          }
-        );
-      });
-
-      $("button[name='payment']").click((e) => {
-        alert("正在發送email請稍候");
-        getdatas(
-          "http://localhost:8082/admin/api/orderEmailSend/" +
-            $(e.target).attr("id"),
-          (result) => {
-            if (result == "success") {
-              alert("email發送成功");
-            } else {
-              alert("發送失敗");
-            }
-          }
-        );
-      });
+      orderbtnhandler();
     });
   }, 300);
+};
+
+const orderbtnhandler = () => {
+  $(".btn-primary").click((e) => {
+    getdata(
+      `http://localhost:8082/public/findByFKOrderId/${$(e.target).attr("id")}`,
+      (result) => {
+        var string;
+        console.log(result);
+        for (let i of result) {
+          string += "<tr><td>" + i.product_name + "</td>";
+          string += "<td>" + i.count + "</td>";
+          string += "<td>" + i.total + "</td></tr>";
+        }
+        $("#tb2").html(string);
+      }
+    );
+  });
+
+  $("button[name='payment']").click((e) => {
+    alert("正在發送email請稍候");
+    getdatas(
+      "http://localhost:8082/admin/api/orderEmailSend/" +
+        $(e.target).attr("id"),
+      (result) => {
+        if (result == "success") {
+          alert("email發送成功");
+        } else {
+          alert("發送失敗");
+        }
+      }
+    );
+  });
 };

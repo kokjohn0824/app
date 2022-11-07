@@ -195,51 +195,99 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 // 插入影片
                 byte[] video1 = Files
                                 .readAllBytes(Paths.get(
-                                                "src/main/resources/static/public/video/939eaf7939f3495ebab182315ff76849.jpg"));
+                                                "src/main/resources/static/public/video/pectoral1.jpg"));
                 Video v1 = new Video();
                 v1.setTitle("四足俯臥撐");
-                v1.setType("腹部");
+                v1.setType("胸肌");
                 v1.setBody_parts("胸大肌");
                 v1.setPicture(video1);
                 v1.setViews(20);
-                v1.setUrl("3db97465e2684771a6bce945645c9d00.mp4");
+                v1.setUrl("pectoral1.mp4");
                 videoRespository.save(v1);
 
                 byte[] video2 = Files
                                 .readAllBytes(Paths.get(
-                                                "src/main/resources/static/public/video/d5f75ee44930473e9360136299d7317b.jpg"));
+                                                "src/main/resources/static/public/video/pectoral2.jpg"));
                 Video v2 = new Video();
                 v2.setTitle("跪姿俯臥撐");
                 v2.setType("胸肌");
                 v2.setBody_parts("胸大肌");
                 v2.setPicture(video2);
                 v2.setViews(11);
-                v2.setUrl("36c5e32861a140b5bc7a684ee9bf1513.mp4");
+                v2.setUrl("pectoral2.mp4");
                 videoRespository.save(v2);
 
                 byte[] video3 = Files
                                 .readAllBytes(Paths.get(
-                                                "src/main/resources/static/public/video/9506ca59e44e4001a0c6d0c0121259ec.jpg"));
+                                                "src/main/resources/static/public/video/pectoral3.jpg"));
                 Video v3 = new Video();
                 v3.setTitle("四足寬距撐");
                 v3.setType("胸肌");
                 v3.setBody_parts("胸大肌");
                 v3.setPicture(video3);
                 v3.setViews(7);
-                v3.setUrl("b66dfe7e7bab44689ecc5aad72720dd2.mp4");
+                v3.setUrl("pectoral3.mp4");
                 videoRespository.save(v3);
 
                 byte[] video4 = Files
                                 .readAllBytes(Paths.get(
-                                                "src/main/resources/static/public/video/b5987410a1ee4fd4b4e5429b9c47f61b.jpg"));
+                                                "src/main/resources/static/public/video/pectoral4.jpg"));
                 Video v4 = new Video();
                 v4.setTitle("跪姿寬距撐");
                 v4.setType("胸肌");
                 v4.setBody_parts("胸大肌");
                 v4.setPicture(video4);
                 v4.setViews(12);
-                v4.setUrl("6d6072350d15430982c564b28927dcbd.mp4");
+                v4.setUrl("pectoral4.mp4");
                 videoRespository.save(v4);
+
+                byte[] video5 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/public/video/backMuscles1.jpg"));
+                Video v5 = new Video();
+                v5.setTitle("俯臥背伸");
+                v5.setType("背肌");
+                v5.setBody_parts("下背部");
+                v5.setPicture(video5);
+                v5.setViews(20);
+                v5.setUrl("backMuscles1.mp4");
+                videoRespository.save(v5);
+
+                byte[] video6 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/public/video/backMuscles2.jpg"));
+                Video v6 = new Video();
+                v6.setTitle("中背聳肩");
+                v6.setType("背肌");
+                v6.setBody_parts("中背部");
+                v6.setPicture(video6);
+                v6.setViews(20);
+                v6.setUrl("backMuscles2.mp4");
+                videoRespository.save(v6);
+
+                byte[] video7 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/public/video/leg1.jpg"));
+                Video v7 = new Video();
+                v7.setTitle("前後移動深蹲");
+                v7.setType("腿肌");
+                v7.setBody_parts("股四頭肌");
+                v7.setPicture(video7);
+                v7.setViews(20);
+                v7.setUrl("leg1.mp4");
+                videoRespository.save(v7);
+
+                byte[] video8 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/public/video/leg2.jpg"));
+                Video v8 = new Video();
+                v8.setTitle("換腿深蹲");
+                v8.setType("腿肌");
+                v8.setBody_parts("股四頭肌");
+                v8.setPicture(video8);
+                v8.setViews(20);
+                v8.setUrl("leg2.mp4");
+                videoRespository.save(v8);
 
                 // 插入文章
                 Path text1 = Paths.get("src/main/resources/static/img/article/article1.txt");

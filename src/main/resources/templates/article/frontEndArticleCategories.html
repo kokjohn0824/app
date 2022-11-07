@@ -116,7 +116,7 @@
             <tr th:each="article : ${page}">
               <div class="card mb-3" style="max-width: 100%">
                 <div class="row g-0">
-                  <div class="col-md-4">
+                  <div class="col-md-4 bg-black">
                     <img
                       th:src="@{'/public/showArticleImage/'+${article.article_id}}"
                       class="img-fluid rounded-start"
@@ -128,6 +128,7 @@
                       <h5 class="card-title" style="color: white">
                         [[${article.title}]]
                       </h5>
+                      <button>[[${article.type}]]</button>
                       <p id="cleanText" class="card-text" style="color: white">
                         [[${article.text}]]
                       </p>
@@ -180,7 +181,7 @@
 
                 atc_data += `<div class="card mb-3" style="max-width: 100%">
                       <div class="row g-0">
-                        <div class="col-md-4">
+                        <div class="col-md-4 bg-black">
                           <img
                             src="/public/showArticleImage/${i.article_id}"
                             class="img-fluid rounded-start"
@@ -192,11 +193,12 @@
                             <h5 class="card-title" style="color: white">
                               ${i.title}
                             </h5>
+                            <button>${i.type}</button>
                             <p id="cleanText" class="card-text" style="color: white">
                               ${i.text}</p>
                             <p class="card-text">
-                              <P style="color: white"
-                            >觀看數：<span>${i.views}</span></P
+                              <span style="color: white"
+                            >觀看數：<span id="views">${i.views}</span></span
                           >
                               <a
                                 href="/public/article/show?article_id=${i.article_id}"
@@ -242,7 +244,7 @@
               el.text = el.text.replace(/<[^>]*>/g, "");
               fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
                       <div class="row g-0">
-                        <div class="col-md-4">
+                        <div class="col-md-4 bg-black">
                           <img
                             src="/public/showArticleImage/${el.article_id}"
                             class="img-fluid rounded-start"
@@ -254,11 +256,12 @@
                             <h5 class="card-title" style="color: white">
                               ${el.title}
                             </h5>
+                            <button>${el.type}</button>
                             <p id="cleanText" class="card-text" style="color: white">
                               ${el.text}</p>
                             <p class="card-text">
-                              <P style="color: white"
-                            >觀看數：<span>${el.views}</span></P
+                              <span style="color: white"
+                            >觀看數：<span id="views">${el.views}</span></span
                           >
                               <a
                                 href="/public/article/show?article_id=${el.article_id}"
@@ -300,7 +303,7 @@
               el.text = el.text.replace(/<[^>]*>/g, "");
               fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
                       <div class="row g-0">
-                        <div class="col-md-4">
+                        <div class="col-md-4 bg-black">
                           <img
                             src="/public/showArticleImage/${el.article_id}"
                             class="img-fluid rounded-start"
@@ -312,11 +315,12 @@
                             <h5 class="card-title" style="color: white">
                               ${el.title}
                             </h5>
+                            <button>${el.type}</button>
                             <p id="cleanText" class="card-text" style="color: white">
                               ${el.text}</p>
                             <p class="card-text">
-                              <P style="color: white"
-                            >觀看數：<span>${el.views}</span></P
+                              <span style="color: white"
+                            >觀看數：<span id="views">${el.views}</span></span
                           >
                               <a
                                 href="/public/article/show?article_id=${el.article_id}"
@@ -358,7 +362,7 @@
                 el.text = el.text.replace(/<[^>]*>/g, "");
                 fuzzySearchend.innerHTML += `<div class="card mb-3" style="max-width: 100%">
                       <div class="row g-0">
-                        <div class="col-md-4">
+                        <div class="col-md-4 bg-black">
                           <img
                             src="/public/showArticleImage/${el.article_id}"
                             class="img-fluid rounded-start"
@@ -370,11 +374,12 @@
                             <h5 class="card-title" style="color: white">
                               ${el.title}
                             </h5>
+                            <button>${el.type}</button>
                             <p id="cleanText" class="card-text" style="color: white">
                               ${el.text}</p>
                             <p class="card-text">
-                              <P style="color: white"
-                            >觀看數：<span>${el.views}</span></P
+                              <span style="color: white"
+                            >觀看數：<span id="views">${el.views}</span></span
                           >
                               <a
                                 href="/public/article/show?article_id=${el.article_id}"

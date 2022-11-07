@@ -284,7 +284,6 @@ const addarticle = (e) => {
             <div class="mb-3">
               <img
                 id="preview_img"
-                src=""
                 style="
                   height: 300px;
                   width: 300px;
@@ -883,7 +882,7 @@ const addproduct = () => {
             <div class="mb-3">
               <img
                 id="preview_img"
-                src="/img/lv1.png"
+                src="/img/f.png"
                 style="
                   height: 300px;
                   width: 300px;
@@ -1012,7 +1011,7 @@ const usershow = () => {
               class="form-control"
               id="recipient-nickname"
               value=""
-              required
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1024,6 +1023,7 @@ const usershow = () => {
               id="recipient-man"
               type="radio"
               value="1"
+              readonly="readonly"
             />
             <label for="recipient-female" class="col-form-label">女:</label
             ><input
@@ -1031,6 +1031,7 @@ const usershow = () => {
               id="recipient-female"
               type="radio"
               value="0"
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1041,6 +1042,7 @@ const usershow = () => {
               type="number"
               min="0"
               class="form-control"
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1053,6 +1055,7 @@ const usershow = () => {
               step="0.1"
               min="0"
               class="form-control"
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1065,6 +1068,7 @@ const usershow = () => {
               step="0.1"
               min="0"
               class="form-control"
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1077,6 +1081,7 @@ const usershow = () => {
               step="0.1"
               min="0"
               class="form-control"
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1089,6 +1094,7 @@ const usershow = () => {
               step="0.1"
               min="0"
               class="form-control"
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1101,6 +1107,7 @@ const usershow = () => {
               step="0.1"
               min="0"
               class="form-control"
+              readonly="readonly"
             />
           </div>
           <div class="mb-3">
@@ -1122,19 +1129,9 @@ const usershow = () => {
               value="0"
             />
           </div>
-
-          <div class="mb-3">
             <label for="inputFileToLoad" class="col-form-label"
               >會員圖片:</label
             >
-            <input
-              id="inputFileToLoad"
-              type="file"
-              name="file"
-              onchange="loadImageFileAsURL()"
-              class="file-upload-default"
-            />
-          </div>
           <div class="mb-3">
             <img
               id="preview_img"
@@ -1353,10 +1350,10 @@ const videoshow = () => {
             (result) => {
               if (result == true) {
                 alert("影片中有用戶按讚故不能刪除");
-                video();
+                videoshow();
               } else {
                 alert("已刪除");
-                video();
+                videoshow();
               }
             }
           );
@@ -1521,6 +1518,10 @@ const videoedithandler = () => {
     });
   });
 };
+
+const addvideo = () => {
+  
+}
 ///////影片管理//////////////////
 
 //訂單管理
@@ -1576,6 +1577,8 @@ const jsonToHTMLbyOrder = (querySelector, json) => {
   let table = `<table class="table table-hover">${title}${tbody}</table>`;
   document.querySelector(querySelector).innerHTML = table;
 };
+
+
 
 //按鈕觸發呈現table
 const ordershow = () => {

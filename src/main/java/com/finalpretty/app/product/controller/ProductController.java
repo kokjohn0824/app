@@ -85,7 +85,7 @@ public class ProductController {
 			}
 			if (file == null) {
 				// product.setPicture(pService.findDefault(1).getPhoto());
-				String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/lv1.png";
+				String saveFiledir = System.getProperty("user.dir") + "/src/main/resources/static/img/f.png";
 				File saveFilePath = new File(saveFiledir);
 
 				product.setPicture(Files.readAllBytes(saveFilePath.toPath()));

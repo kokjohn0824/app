@@ -211,51 +211,6 @@ public class MemberManageController {
 		return str;
 	}
 
-	// @PostMapping("/member/inputpage")
-	// @ResponseBody
-	// public String memberInputPage(
-	// // @RequestParam(name = "nickname", required = false) String nickname,
-	// // @RequestParam(name = "gender", required = false) Integer gender,
-	// // @RequestParam(name = "age", required = false) Integer age,
-	// // @RequestParam(name = "height", required = false) Double height,
-	// // @RequestParam(name = "weight", required = false) Double weight,
-	// // @RequestParam(name = "bodyFat", required = false) Double bodyFat,
-	// // @RequestParam(name = "visceralFat", required = false) Double visceralFat,
-	// // @RequestParam(name = "muscleMass", required = false) Double muscleMass,
-	// // @RequestParam(name = "becomeVIP", required = false) Integer becomeVIP
-	// @RequestBody Member member) {
-	// // Member member = new Member();
-	// Object o =
-	// SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	// Integer user_id = ((Users) o).getId();
-	// // try {
-	// // member.setNickname(nickname);
-	// // member.setGender(gender);
-	// // member.setAge(age);
-	// // member.setHeight(height);
-	// // member.setWeight(weight);
-	// // member.setBodyFat(bodyFat);
-	// // member.setVisceralFat(visceralFat);
-	// // member.setMuscleMass(muscleMass);
-	// // member.setBecomeVIP(becomeVIP);
-	// // } catch (Exception e) {
-	// // e.printStackTrace();
-	// // }
-	// // Member m1 = memberR.save(member);
-	// // Integer id = m1.getMember_id();
-	// // Member fkMember = memberR.findById(id).get();
-	// Users user = userR.findById(user_id).get();
-	// // ((Users) o).setFkMember(member);
-	// user.setFkMember(member);
-	// String url = "redirect:/member/inputshow/" +
-	// user.getFkMember().getMember_id();
-	// userR.save(user);
-
-	// return url;
-	// // return str;
-	// // return "/member/inputshow";
-	// }
-
 	// 註冊完，輸入完會員資料，抓取會員資料
 	@GetMapping("/member/inputshow")
 	public String memberinputshow(@RequestParam(name = "member_id") Integer id, Model m) {
@@ -362,9 +317,16 @@ public class MemberManageController {
 			member.setVisceralFat(visceralFat);
 			member.setMuscleMass(muscleMass);
 			member.setBecomeVIP(becomeVIP);
+			if (photo.getBytes().length < 1) {
+				memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
+						visceralFat, muscleMass, becomeVIP);
+
+				return "redirect:/member/page";
+			}
 			member.setPhoto(photo.getBytes());
 			memberR.updateById(member_id, nickname, gender, age, height, weight, bodyFat,
 					visceralFat, muscleMass, becomeVIP, photo.getBytes());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

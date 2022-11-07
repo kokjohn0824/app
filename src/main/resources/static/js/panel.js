@@ -1341,186 +1341,358 @@ const videoshow = () => {
       document.querySelector("#table").style.opacity = 1;
 
       imag();
-      $(".btn-icon-delete").click((e) => {
-        if (confirm("確定刪除嗎") == true) {
-          getdata(
-            `http://localhost:8082/admin/api/video/delete/${$(e.target).attr(
-              "id"
-            )}`,
-            (result) => {
-              if (result == true) {
-                alert("影片中有用戶按讚故不能刪除");
-                videoshow();
-              } else {
-                alert("已刪除");
-                videoshow();
-              }
-            }
-          );
-        }
-      });
-
-      $(".btn-icon-edit").click((e) => {
-        $(".modal-content").html(`<div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Video修改/h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <form id="myForm">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="recipient-title" class="col-form-label"
-                >標題:</label
-              >
-              <input
-                name="title"
-                type="text"
-                class="form-control"
-                id="recipient-title"
-                value=""
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label for="recipient-age" class="col-form-label">分類:</label
-              ><select name="type">
-                <option>胸肌</option>
-                <option>背肌</option>
-                <option>腿肌</option>
-                <option>肩膀</option>
-                <option>腹部</option>
-                <option>手臂</option>
-                <option>有氧</option>
-                <option>伸展</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="recipient-height" class="col-form-label"
-                >主要部位:</label
-              ><select name="body_parts">
-                <optgroup label="胸肌">
-                  <option>胸大肌</option>
-                </optgroup>
-                <optgroup label="背肌">
-                  <option>背闊肌</option>
-                  <option>中背部</option>
-                  <option>下背部</option>
-                </optgroup>
-                <optgroup label="腿肌">
-                  <option>股四頭肌</option>
-                  <option>股二頭肌</option>
-                  <option>臀部肌群</option>
-                  <option>小腿肌群</option>
-                </optgroup>
-                <optgroup label="肩膀">
-                  <option>斜方肌</option>
-                  <option>肩部</option>
-                </optgroup>
-                <optgroup label="腹部">
-                  <option>腹肌</option>
-                  <option>髂腰肌</option>
-                </optgroup>
-                <optgroup label="手臂">
-                  <option>肱二頭肌</option>
-                  <option>肱三頭肌</option>
-                  <option>前臂</option>
-                </optgroup>
-                <optgroup label="有氧">
-                  <option>不限部位</option>
-                </optgroup>
-                <optgroup label="伸展">
-                  <option>不限部位</option>
-                </optgroup>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="inputFileToLoad" class="col-form-label"
-                >影片封面:</label
-              >
-              <input
-                id="inputFileToLoad"
-                type="file"
-                name="file"
-                onchange="loadImageFileAsURL()"
-                class="file-upload-default"
-              />
-            </div>
-            <div class="mb-3">
-              <img
-                id="preview_img"
-                src="#"
-                style="
-                  height: 300px;
-                  width: 300px;
-                  border-radius: 60px 60px 60px 60px;
-                  margin-left: 30px;
-                "
-              />
-              <input id="video_id" name="video_id" value="" hidden />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button id="editvideo" type="submit" class="btn btn-primary">
-              Send
-            </button>
-          </div>
-        </form>`);
-        imag();
-        getdata(
-          `http://localhost:8082/admin/api/queryUpdateViedo/${$(e.target).attr(
-            "id"
-          )}`,
-          (result) => {
-            $("#recipient-title").val(result.標題);
-            $("#preview_img").attr(
-              "src",
-              `/public/showVideoImage/${result.ID}`
-            );
-            $("#video_id").val(result.ID);
-          }
-        );
-        videoedithandler();
-      });
+      videoedithandler();
+      
     });
   }, 300);
 };
 
 const videoedithandler = () => {
+
+
+  $(".btn-icon-delete").click((e) => {
+    if (confirm("確定刪除嗎") == true) {
+      getdata(
+        `http://localhost:8082/admin/api/video/delete/${$(e.target).attr(
+          "id"
+        )}`,
+        (result) => {
+          if (result == true) {
+            alert("影片中有用戶按讚故不能刪除");
+            videoshow();
+          } else {
+            alert("已刪除");
+            videoshow();
+          }
+        }
+      );
+    }
+  });
+
+  $(".btn-icon-edit").click((e) => {
+    $(".modal-content").html(`<div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Video修改</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <form id="myForm">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="recipient-title" class="col-form-label"
+            >標題:</label
+          >
+          <input
+            name="title"
+            type="text"
+            class="form-control"
+            id="recipient-title"
+            value=""
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="recipient-age" class="col-form-label">分類:</label
+          ><select name="type">
+            <option>胸肌</option>
+            <option>背肌</option>
+            <option>腿肌</option>
+            <option>肩膀</option>
+            <option>腹部</option>
+            <option>手臂</option>
+            <option>有氧</option>
+            <option>伸展</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="recipient-height" class="col-form-label"
+            >主要部位:</label
+          ><select name="body_parts">
+            <optgroup label="胸肌">
+              <option>胸大肌</option>
+            </optgroup>
+            <optgroup label="背肌">
+              <option>背闊肌</option>
+              <option>中背部</option>
+              <option>下背部</option>
+            </optgroup>
+            <optgroup label="腿肌">
+              <option>股四頭肌</option>
+              <option>股二頭肌</option>
+              <option>臀部肌群</option>
+              <option>小腿肌群</option>
+            </optgroup>
+            <optgroup label="肩膀">
+              <option>斜方肌</option>
+              <option>肩部</option>
+            </optgroup>
+            <optgroup label="腹部">
+              <option>腹肌</option>
+              <option>髂腰肌</option>
+            </optgroup>
+            <optgroup label="手臂">
+              <option>肱二頭肌</option>
+              <option>肱三頭肌</option>
+              <option>前臂</option>
+            </optgroup>
+            <optgroup label="有氧">
+              <option>不限部位</option>
+            </optgroup>
+            <optgroup label="伸展">
+              <option>不限部位</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="inputFileToLoad" class="col-form-label"
+            >影片封面:</label
+          >
+          <input
+            id="inputFileToLoad"
+            type="file"
+            name="file"
+            onchange="loadImageFileAsURL()"
+            class="file-upload-default"
+          />
+        </div>
+        <div class="mb-3">
+          <img
+            id="preview_img"
+            src="#"
+            style="
+              height: 300px;
+              width: 300px;
+              border-radius: 60px 60px 60px 60px;
+              margin-left: 30px;
+            "
+          />
+          <input id="video_id" name="video_id" value="" hidden />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button id="editvideo" type="submit" class="btn btn-primary">
+          Send
+        </button>
+      </div>
+    </form>`);
+    imag();
+    getdata(
+      `http://localhost:8082/admin/api/queryUpdateViedo/${$(e.target).attr(
+        "id"
+      )}`,
+      (result) => {
+        $("#recipient-title").val(result.標題);
+        $("#preview_img").attr(
+          "src",
+          `/public/showVideoImage/${result.ID}`
+        );
+        $("#video_id").val(result.ID);
+      }
+    );
+  });
+
   $("#editvideo").click((e) => {
     e.preventDefault();
     var datas = new FormData();
     datas.append("video_id", $("#video_id").val());
     datas.append("title", $("#recipient-title").val());
-    datas.append("type", $("select[name='type'] option:selected").text());
+    datas.append(
+      "type",
+      $("select[name='type'] option:selected").text()
+    );
     datas.append(
       "body_parts",
       $("select[name='body_parts'] option:selected").text()
     );
     datas.append("file", $("#inputFileToLoad")[0].files[0]);
-    $(".modal-content").html("");
-    postdatas("http://localhost:8082/admin/api/video/edit", datas, (result) => {
-      if (result == true) {
-        alert("已更新");
-        videoshow();
+    $(".modal-content").html("")
+    postdatas(
+      "http://localhost:8082/admin/api/video/edit",
+      datas,
+      (result) => {
+        if (result == true) {
+          alert("已更新");
+          videoshow();
+        }
       }
-    });
+    );
   });
+
 };
 
 const addvideo = () => {
-  
+  $(".modal-content").html(`<div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">新增文章</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <form id="myForm">
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="article-title" class="col-form-label"
+            >影片標題:</label
+          >
+          <input
+            name="title"
+            type="text"
+            class="form-control"
+            id="article-title"
+            value=""
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <div id="textareacontainer" class="mb-3"></div>
+        </div>
+        <div class="mb-3">
+          影片分類:<select id="type">
+          <option>胸肌</option>
+          <option>背肌</option>
+          <option>腿肌</option>
+          <option>肩膀</option>
+          <option>腹部</option>
+          <option>手臂</option>
+          <option>有氧</option>
+          <option>伸展</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          訓練肌群:<select id="body_parts">
+              <optgroup label="胸肌">
+                <option>胸大肌</option>
+              </optgroup>
+              <optgroup label="背肌">
+                <option>背闊肌</option>
+                <option>中背部</option>
+                <option>下背部</option>
+              </optgroup>
+              <optgroup label="腿肌">
+                <option>股四頭肌</option>
+                <option>股二頭肌</option>
+                <option>臀部肌群</option>
+                <option>小腿肌群</option>
+              </optgroup>
+              <optgroup label="肩膀">
+                <option>斜方肌</option>
+                <option>肩部</option>
+              </optgroup>
+              <optgroup label="腹部">
+                <option>腹肌</option>
+                <option>髂腰肌</option>
+              </optgroup>
+              <optgroup label="手臂">
+                <option>肱二頭肌</option>
+                <option>肱三頭肌</option>
+                <option>前臂</option>
+              </optgroup>
+              <optgroup label="有氧">
+                <option>不限部位</option>
+              </optgroup>
+              <optgroup label="伸展">
+                <option>不限部位</option>
+              </optgroup>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="inputFileToLoad" class="col-form-label"
+            >影片封面:</label
+          >
+          <input
+            id="inputFileToLoad"
+            type="file"
+            name="picture"
+            onchange="loadImageFileAsURL()"
+            placeholder="請選擇圖片"
+            class="file-upload-default"
+          />
+        </div>
+        <div class="mb-3">
+        <img
+        id="preview_img"
+        style="
+        height: 300px;
+        width: 300px;
+        border-radius: 60px 60px 60px 60px;
+        margin-left: 30px;
+        "
+        />
+        </div>
+        <div class="mb-3">
+          <label for="inputFileToLoad" class="col-form-label"
+            >選擇影片:</label
+          >
+          <input id="inputFileToLoad2" type="file" name="myFiles" class="file_multi_video upload_cover"
+          accept="video/*"/>
+        <video autoplay muted class="video_show displayNone" style="
+        width: 300px;
+        border-radius: 10px 10px 10px 10px;
+        margin-left: 50px;
+      ">
+          <source src="<?=$editBlog['video'];?>" id="video_here">
+        </video>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Close
+        </button>
+        <button id="add" type="submit" class="btn btn-primary">
+          Send
+        </button>
+      </div>
+    </form>`)
+    imag();
+
+    $(document).on("change", ".file_multi_video", function (evt) {
+      var $source = $('#video_here');
+      $('.video_show').show();
+      $source[0].src = URL.createObjectURL(this.files[0]);
+      $source.parent()[0].load();
+    });
+
+    $("#add").click((e) => {
+          e.preventDefault();
+          var datas= new FormData();
+          datas.append("myFiles", $("#inputFileToLoad2")[0].files[0]);
+          datas.append("picture", $("#inputFileToLoad")[0].files[0]);
+          datas.append("title", $("#article-title").val());
+          datas.append("type", $("#type option:selected").text());
+          datas.append("body_parts", $("#body_parts option:selected").text());
+          $(".modal-content").html(""); 
+
+          postdatas(
+            "http://localhost:8082/admin/api/addApiVideo",
+            datas,
+            (result) => {
+              if (result == true) {
+                videoshow();
+                alert("新增成功");
+              }else{
+                videoshow();
+                alert("新增失敗")
+              }
+            }
+          );
+    })
 }
 ///////影片管理//////////////////
 

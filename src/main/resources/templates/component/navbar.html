@@ -290,7 +290,7 @@
           articleSearchresult.innerHTML = "";
           result.forEach((el) => {
             articleSearchresult.innerHTML += `<li>
-                    <a class="" href="http://localhost:8082/public/storefrontend">
+                    <a class="" href="http://localhost:8082/public/article/show?article_id=${el.article_id}">
                       ${el.title}
                     </a>
                   </li>`;

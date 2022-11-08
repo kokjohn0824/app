@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finalpretty.app.Response.ArticleDTO;
+import com.finalpretty.app.Response.ArticleDTO2;
 import com.finalpretty.app.Response.ArticleResponse;
 import com.finalpretty.app.model.Article;
 import com.finalpretty.app.model.Member;
@@ -311,8 +312,19 @@ public class ArticleController {
 	// 模糊搜尋(標題、分類、內文、時間)
 	@ResponseBody
 	@PostMapping("/public/api/article/fuzzySearch")
-	public List<Article> fuzzySearchArticle(@RequestBody Map<String, String> likeTest) {
-		List<Article> list = articleR.fuzzySerch("%" + likeTest.get("likeTest") + "%");
+	public List<ArticleDTO2> fuzzySearchArticle(@RequestBody Map<String, String> likeTest) {
+		List<ArticleDTO2> list = new ArrayList<ArticleDTO2>();
+		ArticleDTO2 dto = null;
+		for (Article i : articleR.fuzzySerch("%" + likeTest.get("likeTest") + "%")) {
+			dto = new ArticleDTO2();
+			dto.setArticle_id(i.getArticle_id());
+			dto.setTitle(i.getTitle());
+			dto.setText(i.getText());
+			dto.setAdded(i.getAdded());
+			dto.setViews(i.getViews());
+			dto.setType(i.getType());
+			list.add(dto);
+		}
 		return list;
 	}
 

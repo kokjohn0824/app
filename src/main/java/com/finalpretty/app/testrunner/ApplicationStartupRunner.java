@@ -318,7 +318,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 v7.setType("腿肌");
                 v7.setBody_parts("股四頭肌");
                 v7.setPicture(video7);
-                v7.setViews(20);
+                v7.setViews(11);
                 v7.setUrl("leg1.mp4");
                 videoRespository.save(v7);
 
@@ -344,7 +344,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a1.setText(content1);
                 a1.setPicture(article1);
                 a1.setType("飲食營養");
-                a1.setViews(0);
+                a1.setViews(1);
                 articleRespository.save(a1);
 
                 Path text2 = Paths.get("src/main/resources/static/img/article/article2.txt");
@@ -356,7 +356,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a2.setText(content2);
                 a2.setPicture(article2);
                 a2.setType("飲食營養");
-                a2.setViews(0);
+                a2.setViews(2);
                 articleRespository.save(a2);
 
                 Path text3 = Paths.get("src/main/resources/static/img/article/article3.txt");
@@ -368,7 +368,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a3.setText(content3);
                 a3.setPicture(article3);
                 a3.setType("心得分享");
-                a3.setViews(0);
+                a3.setViews(3);
                 articleRespository.save(a3);
 
                 Path text4 = Paths.get("src/main/resources/static/img/article/article4.txt");
@@ -380,7 +380,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a4.setText(content4);
                 a4.setPicture(article4);
                 a4.setType("飲食營養");
-                a4.setViews(0);
+                a4.setViews(4);
                 articleRespository.save(a4);
 
                 Path text5 = Paths.get("src/main/resources/static/img/article/article5.txt");
@@ -392,7 +392,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a5.setText(content5);
                 a5.setPicture(article5);
                 a5.setType("飲食營養");
-                a5.setViews(0);
+                a5.setViews(5);
                 articleRespository.save(a5);
 
                 Path text6 = Paths.get("src/main/resources/static/img/article/article6.txt");
@@ -404,7 +404,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a6.setText(content6);
                 a6.setPicture(article6);
                 a6.setType("飲食營養");
-                a6.setViews(0);
+                a6.setViews(6);
                 articleRespository.save(a6);
 
                 Path text7 = Paths.get("src/main/resources/static/img/article/article7.txt");
@@ -416,7 +416,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a7.setText(content7);
                 a7.setPicture(article7);
                 a7.setType("飲食營養");
-                a7.setViews(0);
+                a7.setViews(7);
                 articleRespository.save(a7);
 
                 Path text8 = Paths.get("src/main/resources/static/img/article/article8.txt");
@@ -428,7 +428,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a8.setText(content8);
                 a8.setPicture(article8);
                 a8.setType("心得分享");
-                a8.setViews(0);
+                a8.setViews(8);
                 articleRespository.save(a8);
 
                 Path text9 = Paths.get("src/main/resources/static/img/article/article9.txt");
@@ -440,7 +440,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a9.setText(content9);
                 a9.setPicture(article9);
                 a9.setType("運動教學");
-                a9.setViews(0);
+                a9.setViews(9);
                 articleRespository.save(a9);
 
                 Path text10 = Paths.get("src/main/resources/static/img/article/article10.txt");
@@ -452,7 +452,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a10.setText(content10);
                 a10.setPicture(article10);
                 a10.setType("運動教學");
-                a10.setViews(0);
+                a10.setViews(10);
                 articleRespository.save(a10);
 
                 Path text11 = Paths.get("src/main/resources/static/img/article/article11.txt");
@@ -464,7 +464,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a11.setText(content11);
                 a11.setPicture(article11);
                 a11.setType("減重知識");
-                a11.setViews(0);
+                a11.setViews(11);
                 articleRespository.save(a11);
 
                 Path text12 = Paths.get("src/main/resources/static/img/article/article12.txt");
@@ -476,7 +476,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 a12.setText(content12);
                 a12.setPicture(article12);
                 a12.setType("減重知識");
-                a12.setViews(0);
+                a12.setViews(12);
                 articleRespository.save(a12);
 
                 Path text13 = Paths.get("src/main/resources/static/img/article/article13.txt");
@@ -484,11 +484,11 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 byte[] article13 = Files
                                 .readAllBytes(Paths.get("src/main/resources/static/img/article/article13.png"));
                 Article a13 = new Article();
-                a13.setTitle("腹肌常見的迷思與必備訓練");
+                a13.setTitle("吃宵夜到底會不會胖？基礎代謝率能告訴你喔！");
                 a13.setText(content13);
                 a13.setPicture(article13);
                 a13.setType("減重知識");
-                a13.setViews(0);
+                a13.setViews(13);
                 articleRespository.save(a13);
 
                 // 產品
@@ -768,14 +768,6 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 d1107.setDrinkingWater(1000);
                 d1107.setMembers(m1);
                 dailyRecordRespository.save(d1107);
-
-                DailyRecord d1108 = new DailyRecord();
-                d1108.setDate_time("2022/11/08");
-                d1108.setWeight(52);
-                d1108.setBodyFat(13);
-                d1108.setDrinkingWater(2000);
-                d1108.setMembers(m1);
-                dailyRecordRespository.save(d1108);
 
         }
 

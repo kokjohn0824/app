@@ -164,13 +164,40 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 food2.setPicture(foodP2);
                 foodRespository.save(food2);
 
+                byte[] foodP3 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/food/rice.jpg"));
+                Food food3 = new Food();
+                food3.setFoodname("雞蛋");
+                food3.setCalorie(144);
+                food3.setPicture(foodP3);
+                foodRespository.save(food3);
+
+                byte[] foodP4 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/food/rice.jpg"));
+                Food food4 = new Food();
+                food4.setFoodname("豬肉");
+                food4.setCalorie(143);
+                food4.setPicture(foodP4);
+                foodRespository.save(food4);
+
+                byte[] foodP5 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/food/rice.jpg"));
+                Food food5 = new Food();
+                food5.setFoodname("牛奶");
+                food5.setCalorie(54);
+                food5.setPicture(foodP5);
+                foodRespository.save(food5);
+
                 // 插入運動
                 byte[] sportsP1 = Files
                                 .readAllBytes(Paths.get(
                                                 "src/main/resources/static/img/sports/badminton.jpg"));
                 Sports sports1 = new Sports();
                 sports1.setSportsname("羽球");
-                sports1.setCalorie(153);
+                sports1.setCalorie(5);
                 sports1.setPicture(sportsP1);
                 sportsRespository.save(sports1);
 
@@ -179,7 +206,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                                                 "src/main/resources/static/img/sports/jog.jpg"));
                 Sports sports2 = new Sports();
                 sports2.setSportsname("慢跑");
-                sports2.setCalorie(246);
+                sports2.setCalorie(8);
                 sports2.setPicture(sportsP2);
                 sportsRespository.save(sports2);
 
@@ -188,9 +215,27 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                                                 "src/main/resources/static/img/sports/swim.jpg"));
                 Sports sports3 = new Sports();
                 sports3.setSportsname("游泳");
-                sports3.setCalorie(300);
+                sports3.setCalorie(10);
                 sports3.setPicture(sportsP3);
                 sportsRespository.save(sports3);
+
+                byte[] sportsP4 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/swim.jpg"));
+                Sports sports4 = new Sports();
+                sports4.setSportsname("籃球");
+                sports4.setCalorie(8);
+                sports4.setPicture(sportsP4);
+                sportsRespository.save(sports4);
+
+                byte[] sportsP5 = Files
+                                .readAllBytes(Paths.get(
+                                                "src/main/resources/static/img/sports/swim.jpg"));
+                Sports sports5 = new Sports();
+                sports5.setSportsname("腳踏車");
+                sports5.setCalorie(9);
+                sports5.setPicture(sportsP5);
+                sportsRespository.save(sports5);
 
                 // 插入影片
                 byte[] video1 = Files

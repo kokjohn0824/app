@@ -658,7 +658,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 product13.setTitle("【桂格】養氣人蔘滋補液60ml");
                 product13.setType("運動用品");
                 product13.setPrice(399);
-                product13.setStock(5);
+                product13.setStock(50);
                 product13.setText("有助於降低血清 GOT、GPT 值");
                 product13.setOnsale(1);
                 product13.setVolume(0);

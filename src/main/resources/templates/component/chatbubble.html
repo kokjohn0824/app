@@ -192,9 +192,13 @@
     function openForm() {
       myForm.style.display = "block";
       //新增預設歡迎訊息
+      //判斷是否為admin
+      if (location.pathname == "/admin/panel") {
+        return;
+      }
       if (chathasnotopened) {
         $("#information").append(
-          `<div class="chat"><div class="msg othermessage">${greetingmessage}</div></div>`
+          `<div class="chat my-1"><div class="msg othermessage">${greetingmessage}</div></div>`
         );
         chathasnotopened = false;
       }

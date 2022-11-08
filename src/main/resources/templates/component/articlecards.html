@@ -21,7 +21,9 @@
     <div class="d-flex flex-column justify-content-around">
       <h2 class="text-light">多樣化的文章</h2>
       <div class="d-flex justify-content-end me-2">
-        <span>查看熱門文章</span>
+        <a class="btn text-light" th:href="@{/public/article/categories}"
+          ><span>查看熱門文章</span></a
+        >
       </div>
     </div>
   </div>
@@ -32,7 +34,9 @@
     <div class="d-flex flex-column justify-content-around">
       <h2 class="text-light">精準的熱量計算</h2>
       <div class="d-flex justify-content-end me-2">
-        <span>點擊使用計算機</span>
+        <a class="btn text-light" th:href="@{/metabolic}"
+          ><span>點擊使用計算機</span></a
+        >
       </div>
     </div>
   </div>
@@ -43,7 +47,9 @@
     <div class="d-flex flex-column justify-content-around">
       <h2 class="text-light">精心挑選的商品</h2>
       <div class="d-flex justify-content-end me-2">
-        <span>點擊前往商城</span>
+        <a class="btn text-light" th:href="@{/public/storefrontend}"
+          ><span>點擊前往商城</span></a
+        >
       </div>
     </div>
   </div>
@@ -54,7 +60,9 @@
     <div class="d-flex flex-column justify-content-around">
       <h2 class="text-light">豐富的健身影片</h2>
       <div class="d-flex justify-content-end me-2">
-        <span>立即前往觀看 >></span>
+        <a class="btn text-light" th:href="@{/public/video/categories}"
+          ><span>立即前往觀看</span></a
+        >
       </div>
     </div>
   </div>

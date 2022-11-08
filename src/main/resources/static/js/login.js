@@ -177,7 +177,10 @@ submitBtn.addEventListener("click", (e) => {
   if (Object.values(flags).includes(false)) {
     return;
   }
-  repeatPwdHelpBlock.innerHTML += `<div class="spinner-border" role="status">
+  // repeatPwdHelpBlock.innerHTML += `<div class="spinner-border" role="status">
+  //   <span class="visually-hidden">Loading...</span>
+  // </div>`;
+  e.target.innerHTML = `<div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>`;
   let registerdata = JSON.stringify({
@@ -198,6 +201,7 @@ submitBtn.addEventListener("click", (e) => {
       if (result.error) {
         alert(result.error);
       } else {
+        e.target.innerHTML = "註冊";
         alert("已寄送確認信到您的信箱，請去信箱收信驗證");
       }
     })
@@ -249,6 +253,9 @@ if (get("tab") === "register") {
 //modal email send
 confirmEmailbtn.addEventListener("click", (e) => {
   console.info(`ResetPwdEmailinput: ${ResetPwdEmailinput.value}`);
+  e.target.innerHTML = `<div class="spinner-border" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>`;
   let requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -259,6 +266,7 @@ confirmEmailbtn.addEventListener("click", (e) => {
   fetch(`http://localhost:8082/public/api/user/resetpwd`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
+      e.target.innerHTML = "寄送確認信";
       alert(result.message);
     })
     .catch((error) => console.error("error", error));

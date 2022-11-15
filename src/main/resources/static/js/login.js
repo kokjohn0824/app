@@ -177,13 +177,10 @@ submitBtn.addEventListener("click", (e) => {
   if (Object.values(flags).includes(false)) {
     return;
   }
-  // repeatPwdHelpBlock.innerHTML += `<div class="spinner-border" role="status">
-  //   <span class="visually-hidden">Loading...</span>
-  // </div>`;
-  e.target.innerHTML = `<div class="spinner-border" role="status">
+  repeatPwdHelpBlock.innerHTML += `<div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>`;
-  let registerdata = JSON.stringify({
+  registerdata = JSON.stringify({
     account: accountInput.value,
     email: emailInput.value,
     password: passwordInput.value,
@@ -201,7 +198,6 @@ submitBtn.addEventListener("click", (e) => {
       if (result.error) {
         alert(result.error);
       } else {
-        e.target.innerHTML = "註冊";
         alert("已寄送確認信到您的信箱，請去信箱收信驗證");
       }
     })
